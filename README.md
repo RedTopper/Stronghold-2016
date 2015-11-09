@@ -25,3 +25,7 @@ public boolean doMagicalThing(int magic) {
   return magic > 0;
 }
 ```
+
+GITHUB TUTORIAL: 
+>> My first push to github!
+
