@@ -27,5 +27,5 @@ public boolean doMagicalThing(int magic) {
 ```
 
 GITHUB TUTORIAL: 
->> My first push to github!
+>> This line of code was changed by someone else!
 
