@@ -26,6 +26,6 @@ public boolean doMagicalThing(int magic) {
 }
 ```
 
-GITHUB TUTORIAL: 
->> This line of code was changed by someone else!
-
+##Contributors (Program Team 2016)
+- AJ Walters
+- Kurtis Bowen
