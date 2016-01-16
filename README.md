@@ -1,4 +1,4 @@
-# Stronghold-2015
+# Stronghold-2016
 Code for FRC Robotics team 3695.
 ## Code Style and Format
 - Methods should be in camelCase.
