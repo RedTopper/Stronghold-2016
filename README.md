@@ -23,6 +23,7 @@ Code for FRC Robotics team 3695.
 
 ### Linking sources
 This step facilitates development with the robot. While optional, it allows you to hover over classes and methods to see how they work. It's pretty easy to set up.
+
 1. Find source that isn't set up yet. for example, when you hover over the word "Talon" on the line "private Talon left", it'll say something along the lines of "no source found"
 2. Go to "Open declaration"
 3. It'll now show a big, confusing white page with some form of error. Simply go to "link source" and select wpilib-source.
