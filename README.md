@@ -8,6 +8,9 @@ Code for FRC Robotics team 3695.
 ### How to set up FRC's development kit
 * Coming soon!
 
+### Setting up your Classpath
+* Coming soon, also!
+
 # Code
 ### Code Style and Format
 - Methods should be in camelCase.
