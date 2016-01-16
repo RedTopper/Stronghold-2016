@@ -1,5 +1,8 @@
 # Stronghold-2016
 Code for FRC Robotics team 3695.
+# How to use GitHub Presentation
+[drive.google.com](https://docs.google.com/presentation/d/1c2I2dRhcj-hvn5ArNstm2tBm8RZz-9yyLwL01LYOvZs/edit?usp=sharing)
+
 ## Code Style and Format
 - Methods should be in camelCase.
 - Variables should be in camelCase.
