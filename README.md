@@ -57,6 +57,6 @@ public boolean doMagicalThing(int magic) {
 ```
 
 # Contributors (Program Team 2016)
-- AJ Walters
+- AJ Walter
 - Kurtis Bowen
 - Grant Walter
