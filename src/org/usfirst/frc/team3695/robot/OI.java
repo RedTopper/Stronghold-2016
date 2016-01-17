@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3695.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Joystick.AxisType;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
@@ -47,8 +48,8 @@ public class OI {
 		enableHighBeams.whenPressed(new ExampleCommand());
 	}
 	
-	public static Joystick getDriveStick() {
-		return driveStick;
+	public static double getDriveStick() {
+		return driveStick.getX();
 	}
 	
 	public static Joystick getOperatorStick() {

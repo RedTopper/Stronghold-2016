@@ -1,16 +1,19 @@
 
 package org.usfirst.frc.team3695.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
+import org.usfirst.frc.team3695.robot.OI;
+import org.usfirst.frc.team3695.robot.subsystems.DriveSubsystem;
 
+import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ExampleCommand extends Command {
+public class DriveCommand extends Command {
+	
+	DriveSubsystem drive = new DriveSubsystem();
 
-    public ExampleCommand() {
-        // Use requires() here to declare subsystem dependencies
-        //requires(Robot.exampleSubsystem);
+    public DriveCommand() {
+        requires(drive);
     }
 
     // Called just before this Command runs the first time
@@ -19,6 +22,7 @@ public class ExampleCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	drive.move(OI.getOperatorStick());
     }
 
     // Make this return true when this Command no longer needs to run execute()
