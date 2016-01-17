@@ -1,7 +1,9 @@
-package TestBotPart;
+package RecycleBotPart;
+
 import org.usfirst.frc.team3695.robot.Robot;
 
 public abstract class BotPart {
+
 	protected Robot bot;
 	
 	public BotPart(Robot bot){
@@ -16,4 +18,5 @@ public abstract class BotPart {
 	
 	public void updateTest(){
 	}
+	
 }
