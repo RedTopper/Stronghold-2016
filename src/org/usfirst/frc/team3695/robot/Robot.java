@@ -20,12 +20,10 @@ import TestBotPart.*;
 public class Robot extends IterativeRobot {
 
 	private DrivePart drive;
-	private SensorPart sensor;
 
 
     public void robotInit() {
     	drive = new TestBotPart.DrivePart(this);
-    	sensor = new TestBotPart.SensorPart(this);
     }
 	
 	public void disabledPeriodic() {
@@ -43,7 +41,6 @@ public class Robot extends IterativeRobot {
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
         drive.updateAuto();
-        sensor.updateAuto();
     }
 
     public void teleopInit() {
@@ -68,7 +65,6 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
         drive.updateTeleop();
-        sensor.updateTeleop();
     }
     
     /**
@@ -89,7 +85,4 @@ public class Robot extends IterativeRobot {
 //    
 //    public LiftPart getLift()
 //    {return lift;}
-    
-    public SensorPart getSensor()
-    {return sensor;}
 }

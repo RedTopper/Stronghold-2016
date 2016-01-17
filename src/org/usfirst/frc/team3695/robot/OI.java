@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 import org.usfirst.frc.team3695.robot.commands.ExampleCommand;
+
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -36,12 +37,22 @@ public class OI {
     // Start the command when the button is released  and let it run the command
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
+
+	private static Joystick driveStick = new Joystick(Constants.DRIVE_JOYSTICK);
+	private static Joystick operatorStick = new Joystick(Constants.OPERATOR_JOYSTICK);
+	
 	static {
-		Joystick driveStick = new Joystick(Constants.DRIVE_JOYSTICK);
-		Joystick operatorStick = new Joystick(Constants.OPERATOR_JOYSTICK);
-		
+		//Code to run that sets up buttons.
 		Button enableHighBeams = new JoystickButton(driveStick, Constants.ENABLE_HIGH_BEAMS);
 		enableHighBeams.whenPressed(new ExampleCommand());
+	}
+	
+	public static Joystick getDriveStick() {
+		return driveStick;
+	}
+	
+	public static Joystick getOperatorStick() {
+		return operatorStick;
 	}
 }
 
