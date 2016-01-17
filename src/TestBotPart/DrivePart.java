@@ -26,6 +26,9 @@ public class DrivePart extends BotPart {
 		frontRight = new Talon(3);
 		rearLeft = new Talon(2);
 		rearRight = new Talon(1);
+		
+		//example usage:
+		//frontleft = new Motor(Constants.FRONT_LEFT_MOTOR_PORT);
 	}
 
 	public void updateAuto() {
