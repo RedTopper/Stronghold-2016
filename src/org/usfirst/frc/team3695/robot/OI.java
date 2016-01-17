@@ -37,10 +37,10 @@ public class OI {
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
 	static {
-		Joystick leftStick = new Joystick(Constants.LEFT_JOYSTICK);
-		Joystick rightStick = new Joystick(Constants.RIGHT_JOYSTICK);
+		Joystick driveStick = new Joystick(Constants.DRIVE_JOYSTICK);
+		Joystick operatorStick = new Joystick(Constants.OPERATOR_JOYSTICK);
 		
-		Button enableHighBeams = new JoystickButton(leftStick, Constants.ENABLE_HIGH_BEAMS);
+		Button enableHighBeams = new JoystickButton(driveStick, Constants.ENABLE_HIGH_BEAMS);
 		enableHighBeams.whenPressed(new ExampleCommand());
 	}
 }
