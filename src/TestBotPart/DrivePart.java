@@ -1,4 +1,5 @@
 package TestBotPart;
+import org.usfirst.frc.team3695.robot.Constants;
 import org.usfirst.frc.team3695.robot.Robot;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -22,10 +23,10 @@ public class DrivePart extends BotPart {
 		super(rbot);
 		driverStick = this.bot.getSensor().getDriveStick();
 		
-		frontLeft = new Talon(0);
-		frontRight = new Talon(3);
-		rearLeft = new Talon(2);
-		rearRight = new Talon(1);
+		frontLeft = new Talon(Constants.FRONT_LEFT_MOTOR_PORT);
+		frontRight = new Talon(Constants.FRONT_RIGHT_MOTOR_PORT);
+		rearLeft = new Talon(Constants.REAR_LEFT_MOTOR_PORT);
+		rearRight = new Talon(Constants.REAR_RIGHT_MOTOR_PORT);
 		
 		//example usage:
 		//frontleft = new Motor(Constants.FRONT_LEFT_MOTOR_PORT);
