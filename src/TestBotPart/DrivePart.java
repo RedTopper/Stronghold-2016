@@ -1,4 +1,5 @@
 package TestBotPart;
+import org.usfirst.frc.team3695.robot.Constants;
 import org.usfirst.frc.team3695.robot.Robot;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -6,19 +7,26 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Talon;
 
 public class DrivePart extends BotPart {
-	//Test Code to see if github wants to work
-	// TODO Drive Control
-	private Talon left;
-	private Talon right;
+	
+	private Talon frontLeft;
+	private Talon frontRight;
+	private Talon rearLeft;
+	private Talon rearRight;
+	
 	private Joystick driverStick;
+	
 	private RobotDrive driveTrain;
 	
-	public DrivePart(Robot bot) {
-		super(bot);
+	private Robot bot;
+	
+	public DrivePart(Robot rbot) {
+		super(rbot);
 		driverStick = this.bot.getSensor().getDriveStick();
-		left = new Talon(0);
-		right = new Talon(1);
-		// TODO Auto-generated constructor stub
+		
+		frontLeft = new Talon(Constants.FRONT_LEFT_MOTOR_PORT);
+		frontRight = new Talon(Constants.FRONT_RIGHT_MOTOR_PORT);
+		rearLeft = new Talon(Constants.REAR_LEFT_MOTOR_PORT);
+		rearRight = new Talon(Constants.REAR_RIGHT_MOTOR_PORT);
 		
 		//example usage:
 		//frontleft = new Motor(Constants.FRONT_LEFT_MOTOR_PORT);
