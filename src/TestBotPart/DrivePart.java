@@ -21,15 +21,16 @@ public class DrivePart extends BotPart {
 	
 	public DrivePart(Robot rbot) {
 		super(rbot);
-		driverStick = this.bot.getSensor().getDriveStick();
+		bot = rbot;
+		
+		//driverStick = this.bot.getSensor().getDriveStick();
 		
 		frontLeft = new Talon(Constants.FRONT_LEFT_MOTOR_PORT);
 		frontRight = new Talon(Constants.FRONT_RIGHT_MOTOR_PORT);
 		rearLeft = new Talon(Constants.REAR_LEFT_MOTOR_PORT);
 		rearRight = new Talon(Constants.REAR_RIGHT_MOTOR_PORT);
 		
-		//example usage:
-		//frontleft = new Motor(Constants.FRONT_LEFT_MOTOR_PORT);
+		driveTrain = new RobotDrive(frontLeft,rearLeft,frontRight, rearRight);
 	}
 
 	public void updateAuto() {
@@ -38,10 +39,10 @@ public class DrivePart extends BotPart {
 	}
 	
 	public void teleopInit(){
-		driveTrain.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
-		driveTrain.setInvertedMotor(RobotDrive.MotorType.kFrontRight, false);
-		driveTrain.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
-		driveTrain.setInvertedMotor(RobotDrive.MotorType.kRearRight, false);
+		driveTrain.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, Constants.FRONT_LEFT_MOTOR_INVERT);
+		driveTrain.setInvertedMotor(RobotDrive.MotorType.kFrontRight, Constants.FRONT_RIGHT_MOTOR_INVERT);
+		driveTrain.setInvertedMotor(RobotDrive.MotorType.kRearLeft, Constants.REAR_LEFT_MOTOR_INVERT);
+		driveTrain.setInvertedMotor(RobotDrive.MotorType.kRearRight, Constants.REAR_RIGHT_MOTOR_INVERT);
 	}
 	
 	public void updateTeleop(){
