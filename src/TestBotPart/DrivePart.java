@@ -18,6 +18,9 @@ public class DrivePart extends BotPart {
 		left = new Talon(0);
 		right = new Talon(1);
 		// TODO Auto-generated constructor stub
+		
+		//example usage:
+		//frontleft = new Motor(Constants.FRONT_LEFT_MOTOR_PORT);
 	}
 
 	public void updateAuto() {
