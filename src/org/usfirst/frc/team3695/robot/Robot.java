@@ -1,6 +1,8 @@
 
 package org.usfirst.frc.team3695.robot;
 
+import robotPart.*;
+import robotPart.move.DrivePart;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -9,7 +11,6 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 //import org.usfirst.frc.team3695.robot.commands.ExampleCommand;
 //import org.usfirst.frc.team3695.robot.subsystems.ExampleSubsystem;
 
-import TestBotPart.*;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
@@ -23,7 +24,7 @@ public class Robot extends IterativeRobot {
 
 
     public void robotInit() {
-    	drive = new TestBotPart.DrivePart(this);
+    	drive = new robotPart.move.DrivePart(this);
     }
 	
 	public void disabledPeriodic() {

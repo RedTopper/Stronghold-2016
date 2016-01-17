@@ -1,4 +1,4 @@
-package TestBotPart;
+package robotPart;
 import org.usfirst.frc.team3695.robot.Robot;
 
 public abstract class BotPart {

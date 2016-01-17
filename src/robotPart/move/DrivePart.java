@@ -1,7 +1,9 @@
-package TestBotPart;
+package robotPart.move;
 import org.usfirst.frc.team3695.robot.Constants;
+import org.usfirst.frc.team3695.robot.OI;
 import org.usfirst.frc.team3695.robot.Robot;
 
+import robotPart.BotPart;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Talon;
@@ -23,7 +25,7 @@ public class DrivePart extends BotPart {
 		super(rbot);
 		bot = rbot;
 		
-		//driverStick = this.bot.getSensor().getDriveStick();
+		driverStick = OI.getDriveStick();
 		
 		frontLeft = new Talon(Constants.FRONT_LEFT_MOTOR_PORT);
 		frontRight = new Talon(Constants.FRONT_RIGHT_MOTOR_PORT);
@@ -34,7 +36,7 @@ public class DrivePart extends BotPart {
 	}
 
 	public void updateAuto() {
-		// TODO Auto-generated method stub
+		// TODO Autonomous Drive
 		
 	}
 	
@@ -46,7 +48,7 @@ public class DrivePart extends BotPart {
 	}
 	
 	public void updateTeleop(){
-		
+		driveTrain.arcadeDrive(driverStick);
 	}
 
 }
