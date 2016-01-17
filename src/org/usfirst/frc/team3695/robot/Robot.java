@@ -1,11 +1,12 @@
 
 package org.usfirst.frc.team3695.robot;
 
-import org.usfirst.frc.team3695.robot.commands.DriveCommand;
+import org.usfirst.frc.team3695.robot.subsystems.DriveSubsystem;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
@@ -14,18 +15,25 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  * directory.
  */
 public class Robot extends IterativeRobot {
-
+	//TODO: Uncomment for auto: Command autonomousCommand;
+    
+    public static DriveSubsystem drive;
+    public static OI oi;
+    
     public void robotInit() {
-    	
+        // Initialize all subsystems
+        drive = new DriveSubsystem();
+        oi = new OI();
+        
+        // instantiate the command used for the autonomous period
+        //TODO: Uncomment for auto: autonomousCommand = new Autonomous();
+
+        // Show what command your subsystem is running on the SmartDashboard
+        SmartDashboard.putData(drive);
     }
-	
-	public void disabledPeriodic() {
-		Scheduler.getInstance().run();
-	}
 
     public void autonomousInit() {
-        // schedule the autonomous command (example)
-        //if (autonomousCommand != null) autonomousCommand.start();
+    	//TODO: Uncomment for auto: autonomousCommand.start(); // schedule the autonomous command
     }
 
     /**
@@ -33,15 +41,7 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
-    }
-
-    public void teleopInit() {
-		// This makes sure that the autonomous stops running when
-        // teleop starts running. If you want the autonomous to 
-        // continue until interrupted by another command, remove
-        // this line or comment it out.
-        //if (autonomousCommand != null) autonomousCommand.cancel();
-    	new DriveCommand();
+        log();
     }
 
     /**
@@ -51,18 +51,27 @@ public class Robot extends IterativeRobot {
     public void disabledInit(){
 
     }
-
+    
+    public void disabledPeriodic() {
+    	
+    }
+    
+    public void teleopInit() {
+    	//TODO: Uncomment for auto: autonomousCommand.cancel();
+    }
+    
     /**
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        log();
     }
     
-    /**
-     * This function is called periodically during test mode
-     */
-    public void testPeriodic() {
-        LiveWindow.run();
+	/**
+	 * The log method puts interesting information to the SmartDashboard.
+	 */
+    private void log() {
+        drive.log();
     }
 }
