@@ -1,4 +1,4 @@
-# Stronghold 2016 EXP Code Base
+# Stronghold 2016 Code Base
 Code for FRC Robotics team 3695.
 
 # Tutorials
