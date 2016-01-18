@@ -26,18 +26,19 @@ public class SecondaryDrive extends Subsystem {
 	}
 	
     public void initDefaultCommand() {
-		setDefaultCommand(new SecondaryDriveCommand());
+    	//Secondary Drive is disabled by default
+		//setDefaultCommand(new SecondaryDriveCommand()); 
     }
     
 	/**
-	 * The log method puts interesting information to the SmartDashboard.
+	 * The log method isn't used, but may be
 	 */
 	public void log() {}
 	
 	/**
-	 * Arcade style driving for the DriveTrain.
-	 * @param left Speed in range [-1,1]
-	 * @param right Speed in range [-1,1]
+	 * 'Tank' driving for the DriveTrain.
+	 * @param x Speed in range [-1,1] not used
+	 * @param y Speed in range [-1,1]
 	 */
 	public void drive(double x, double y) {
 		middleLeft.set(y * Constants.MIDDLE_LEFT_MOTOR_INVERT);
@@ -45,7 +46,7 @@ public class SecondaryDrive extends Subsystem {
 	}
 	
 	/**
-	 * @param joy This should "just work".
+	 * @param joy This should work
 	 */
 	public void drive(Joystick joy) {
 		drive(joy.getX(),joy.getY());

@@ -26,7 +26,7 @@ public class Constants {
 	public static final boolean FRONT_RIGHT_MOTOR_INVERT = true;
 	public static final boolean REAR_LEFT_MOTOR_INVERT = true;
 	public static final boolean REAR_RIGHT_MOTOR_INVERT = true;
-	public static final double MIDDLE_LEFT_MOTOR_INVERT = -1.0;
+	public static final double MIDDLE_LEFT_MOTOR_INVERT = -1.0; //Range should be from -1 to 1
 	public static final double MIDDLE_RIGHT_MOTOR_INVERT = -1.0;
 	
 	//Sensor variables
