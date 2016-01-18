@@ -1,5 +1,6 @@
 package org.usfirst.frc.team3695.robot;
 
+import org.usfirst.frc.team3695.robot.commands.CommandDistance;
 import org.usfirst.frc.team3695.robot.commands.CommandSecondaryDrive;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -17,7 +18,9 @@ public class OI {
 	
 	public OI() {
 		//SmartDash
-		SmartDashboard.putNumber("Robot Feedback: ", 0);
+		SmartDashboard.putData("Move 1 Stephen (slow)", new CommandDistance(0.25,1));
+		SmartDashboard.putData("Move 1 Stephen (fast)", new CommandDistance(1,1));
+		SmartDashboard.putData("Move 1 Stephen (6 wheel)", new CommandDistance(1,1));
 		
 		//6 Wheel Drive Button ('Obstacle Button')
 		Button doObstacleMagically = new JoystickButton(driveStick, Constants.ENABLE_6WHEEL_DRIVE);
