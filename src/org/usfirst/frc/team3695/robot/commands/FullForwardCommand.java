@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class FullForwardCommand extends Command {
 
+	boolean complete = false;
+	
     public FullForwardCommand() {
         requires(Robot.secondaryDrive);
         requires(Robot.driveSubsystem);
@@ -24,7 +26,7 @@ public class FullForwardCommand extends Command {
     }
 
     protected boolean isFinished() {
-        return false;
+        return complete;
     }
 
     protected void end() {
@@ -33,6 +35,7 @@ public class FullForwardCommand extends Command {
     }
 
     protected void interrupted() {
+    	complete = true;
     	end();
     }
 }
