@@ -276,10 +276,10 @@ section#main_content {
 /* footer */
 
 footer {
-  background: transparent url(../images/footer-ramp.jpg) center -1px no-repeat;
+
   padding-top: 104px;
   margin: -94px auto 40px;
-  max-width: 85%;
+  max-width: 90%;
   text-align: center;
 }
 
@@ -566,4 +566,9 @@ dd p:first-child {
   margin: .8em 0;
   font-size: .85em;
   font-style: italic;
+}
+@media screen and (max-width:700px){
+  body{
+    width: 700px;
+  }
 }
