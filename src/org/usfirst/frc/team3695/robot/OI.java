@@ -1,10 +1,6 @@
 package org.usfirst.frc.team3695.robot;
 
-import org.usfirst.frc.team3695.robot.commands.ExampleCommand;
-
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.Button;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -20,14 +16,22 @@ public class OI {
 		SmartDashboard.putNumber("Robot Feedback: ", 0);
 		
 		//Buttons
-		Button enableHighBeams = new JoystickButton(driveStick, Constants.ENABLE_HIGH_BEAMS);
-		enableHighBeams.whenPressed(new ExampleCommand());
+		//Example button: Button enableHighBeams = new JoystickButton(driveStick, Constants.ENABLE_HIGH_BEAMS);
+		//Example button: enableHighBeams.whenPressed(new ExampleCommand());
 	}
 	
+	/**
+	 * Gets the Joystick for driving the robot.
+	 * @return Joystick driveStick
+	 */
 	public Joystick getDriveStick() {
 		return driveStick;
 	}
 	
+	/**
+	 * Gets the Joystick for whatever the operator needs to do (move ball up/down etc.)
+	 * @return Joystick operatorStick.
+	 */
 	public Joystick getOperatorStick() {
 		return operatorStick;
 	}

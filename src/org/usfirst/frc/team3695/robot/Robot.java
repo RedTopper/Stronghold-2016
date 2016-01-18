@@ -15,63 +15,68 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
-	//TODO: Uncomment for auto: Command autonomousCommand;
+	//TODO: Uncomment for auto: 
+	//Command autonomousCommand;
+	
+	//TODO: Uncomment this if teleop does not work: 
+	//Command driveCommand;
     
-    public static DriveSubsystem drive;
+    public static DriveSubsystem driveSubsystem;
     public static OI oi;
     
     public void robotInit() {
         // Initialize all subsystems
-        drive = new DriveSubsystem();
+    	driveSubsystem = new DriveSubsystem();
         oi = new OI();
         
-        // instantiate the command used for the autonomous period
-        //TODO: Uncomment for auto: autonomousCommand = new Autonomous();
+        // Instantiate the command used for the autonomous period
+        //TODO: Uncomment for auto:
+        //autonomousCommand = new Autonomous();
+        
+        //TODO: Uncomment this if teleop does not work:
+        //driveCommand = new DriveCommand();
 
         // Show what command your subsystem is running on the SmartDashboard
-        SmartDashboard.putData(drive);
+        SmartDashboard.putData(driveSubsystem);
     }
 
+    //AUTONOMOUS ZONE:
     public void autonomousInit() {
-    	//TODO: Uncomment for auto: autonomousCommand.start(); // schedule the autonomous command
+    	//TODO: Uncomment for auto:
+    	//autonomousCommand.start(); // schedule the autonomous command
     }
 
-    /**
-     * This function is called periodically during autonomous
-     */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
         log();
     }
 
-    /**
-     * This function is called when the disabled button is hit.
-     * You can use it to reset subsystems before shutting down.
-     */
+    //DISABLED ZONE (Make sure nothing is dangerous here!
+    //When the robot is disabled, it should be DISABLED!):
     public void disabledInit(){
 
     }
     
     public void disabledPeriodic() {
-    	
+    	log(); //May contain useful information about the status of the robot.
     }
     
+    //TELEOP ZONE:
     public void teleopInit() {
-    	//TODO: Uncomment for auto: autonomousCommand.cancel();
+    	//TODO: Uncomment for auto:
+    	//autonomousCommand.cancel();
+    	
+    	//TODO: Uncomment this if teleop does not work:
+    	//driveCommand.start();
     }
     
-    /**
-     * This function is called periodically during operator control
-     */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
         log();
     }
     
-	/**
-	 * The log method puts interesting information to the SmartDashboard.
-	 */
+    //INFORMATION ZONE:
     private void log() {
-        drive.log();
+    	driveSubsystem.log();
     }
 }
