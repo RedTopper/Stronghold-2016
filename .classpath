@@ -3,5 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="var" path="wpilib" sourcepath="/wpilib-source"/>
 	<classpathentry exported="true" kind="var" path="networktables" sourcepath="/networktables-source"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
