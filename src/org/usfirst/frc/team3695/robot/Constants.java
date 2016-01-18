@@ -5,8 +5,8 @@ public class Constants {
 		throw new InstantiationException();
 	}
 	
-	//private static int STEPHEN_BUTTON = 2;
-	//private static char BRIAN_BUTTON = 'h';
+	//private static final int STEPHEN_BUTTON = 2;
+	//private static final char BRIAN_BUTTON = 'h';
 	
 	//Joystick controls.
 	public static final int DRIVE_JOYSTICK = 0;

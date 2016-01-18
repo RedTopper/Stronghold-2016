@@ -12,7 +12,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- *
+ * This subsystem controls the driving motors and drivetrain variables. There are also
+ * some unique sensors (like the accelerometer and stuff) that are included.
  */
 public class DriveSubsystem extends Subsystem {
 	
@@ -84,8 +85,9 @@ public class DriveSubsystem extends Subsystem {
 	 * @param joy This should "just work".
 	 */
 	public void drive(Joystick joy) {
-		drive(joy);
+		drive(joy.getX(),joy.getY());
 		//If we are using an XBox or PS3 controller, get the axis independently and send them as doubles to drive.
+		//A PS3 controller is special. It requires weird stuff. Don't attempt to use a PS3 controller.
 	}
 	
 	/**
