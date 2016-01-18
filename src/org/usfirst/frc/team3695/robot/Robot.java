@@ -51,13 +51,14 @@ public class Robot extends IterativeRobot {
         log();
     }
 
-    //DISABLED ZONE:
+    //DISABLED ZONE (Make sure nothing is dangerous here!
+    //When the robot is disabled, it should be DISABLED!):
     public void disabledInit(){
 
     }
     
     public void disabledPeriodic() {
-    	
+    	log(); //May contain useful information about the status of the robot.
     }
     
     //TELEOP ZONE:
