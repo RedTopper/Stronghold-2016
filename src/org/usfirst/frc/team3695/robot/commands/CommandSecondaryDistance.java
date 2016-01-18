@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  * This Command is designed to breach obstacles
  */
-public class CommandDistanceWithPower extends Command {
+public class CommandSecondaryDistance extends Command {
 
 	double beginningDistance;
 	double distance;
@@ -22,7 +22,7 @@ public class CommandDistanceWithPower extends Command {
 	 * @param speed Range 0-1 (1 being FULL POWERRRR).
 	 * @param distance The distance in Stephens that the robot will go.
 	 */
-    public CommandDistanceWithPower(double speed, double distance) {
+    public CommandSecondaryDistance(double speed, double distance) {
         requires(Robot.secondaryDrive);
         requires(Robot.driveSubsystem);
         this.beginningDistance = Robot.driveSubsystem.getDistance();
