@@ -6,7 +6,7 @@ import org.usfirst.frc.team3695.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * This command controls the drive subsystem with joysticks.
+ * This command makes the robot drive forward at a certain speed for a certain distance.
  */
 public class DistanceCommand extends Command {
 
@@ -45,6 +45,6 @@ public class DistanceCommand extends Command {
     }
 
     protected void interrupted() {
-    	end();
+    	isFinished = true;
     }
 }
