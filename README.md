@@ -1,10 +1,11 @@
 # Stronghold 2016 Code Base
 Code for FRC Robotics team 3695.
 
+# Code
+
 ### Getting started
 [github.com](/tutorial/)
 
-# Code
 ### Code Style and Format
 - Methods should be in camelCase.
 - Variables should be in camelCase.
