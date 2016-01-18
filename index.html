@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=640">
+
+    <link rel="stylesheet" href="stylesheets/core.css" media="screen">
+    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+
+    <script type="text/javascript" src="javascripts/modernizr.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#main_content').headsmart()
+      })
+    </script>
+    <title>Stronghold-2016 by RedInquisitive</title>
+  </head>
+
+  <body>
+    <a id="forkme_banner" href="https://github.com/RedInquisitive/Stronghold-2016">View on GitHub</a>
+    <div class="shell">
+
+      <header>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <h1>Stronghold-2016</h1>
+            <h2>Code for FRC Robotics team 3695.</h2>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+      </header>
+
+      <section id="downloads">
+        <span class="inner">
+          <a href="https://github.com/RedInquisitive/Stronghold-2016/zipball/master" class="zip"><em>download</em> .ZIP</a><a href="https://github.com/RedInquisitive/Stronghold-2016/tarball/master" class="tgz"><em>download</em> .TGZ</a>
+        </span>
+      </section>
+
+
+      <span class="banner-fix"></span>
+
+
+      <section id="main_content">
+        <h1>
+<a id="stronghold-2016-exp-code-base" class="anchor" href="#stronghold-2016-exp-code-base" aria-hidden="true"><span class="octicon octicon-link"></span></a>Stronghold 2016 EXP Code Base</h1>
+
+<p>Code for FRC Robotics team 3695.</p>
+
+<h1>
+<a id="tutorials" class="anchor" href="#tutorials" aria-hidden="true"><span class="octicon octicon-link"></span></a>Tutorials</h1>
+
+<h3>
+<a id="how-to-use-github-presentation" class="anchor" href="#how-to-use-github-presentation" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to use GitHub Presentation</h3>
+
+<p><a href="https://docs.google.com/presentation/d/1c2I2dRhcj-hvn5ArNstm2tBm8RZz-9yyLwL01LYOvZs/edit?usp=sharing">drive.google.com</a></p>
+
+<h3>
+<a id="how-to-set-up-frcs-development-kit" class="anchor" href="#how-to-set-up-frcs-development-kit" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to set up FRC's development kit</h3>
+
+<p><a href="http://wpilib.screenstepslive.com/s/4485/m/13503/l/145002-installing-eclipse-c-java">wpilib.screenstepslive.com</a></p>
+
+<h3>
+<a id="how-to-import-the-project-into-eclipse" class="anchor" href="#how-to-import-the-project-into-eclipse" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to import the project into Eclipse</h3>
+
+<ul>
+<li>Coming soon!</li>
+</ul>
+
+<h3>
+<a id="setting-up-your-classpath" class="anchor" href="#setting-up-your-classpath" aria-hidden="true"><span class="octicon octicon-link"></span></a>Setting up your Classpath</h3>
+
+<ul>
+<li>When the Java project has been imported into Eclipse, follow these steps to obtain the correct classpath variables.</li>
+<li><p>It is required that the above tutorials have been followed before proceeding! </p></li>
+</ul>
+
+<ol>
+<li>Window &gt; Preferences &gt; Java &gt; Build path &gt; Classpath variables &gt; New</li>
+<li>For the "name" field, type in "wpilib" (without quotes, all lowercase) and press File...</li>
+<li>Then go to "C:\Users&lt;YOUR USERNAME&gt;\wpilib\java\current\lib" (Should be installed in "How to set up FRC's dev kit") and select wpilib.jar. Press OK</li>
+<li>Press New again. Type in "networktables" this time. Press File... and select networktables.jar. Press OK.</li>
+<li>Finally, press New again. Type in "wpilib-source". Press File... and select wpilib-source.jar. Press OK.</li>
+</ol>
+
+<h3>
+<a id="linking-sources" class="anchor" href="#linking-sources" aria-hidden="true"><span class="octicon octicon-link"></span></a>Linking sources</h3>
+
+<p>This step facilitates development with the robot. While optional, it allows you to hover over classes and methods to see how they work. It's pretty easy to set up.</p>
+
+<ol>
+<li>Find source that isn't set up yet. for example, when you hover over the word "Talon" on the line "private Talon left", it'll say something along the lines of "no source found"</li>
+<li>Go to "Open declaration"</li>
+<li>It'll now show a big, confusing white page with some form of error. Simply go to "link source" and select wpilib-source.</li>
+<li>It'll now show a bunch of code! Yay! DO NOT EDIT THIS CODE HOWEVER, simply close out and try hovering over the word "Talon" again. You will now see "Cross the Road Electronics (CTRE) Talon and Talon SR Speed Controller". You can hover over other FRC methods too!</li>
+</ol>
+
+<h1>
+<a id="code" class="anchor" href="#code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code</h1>
+
+<h3>
+<a id="code-style-and-format" class="anchor" href="#code-style-and-format" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code Style and Format</h3>
+
+<ul>
+<li>Methods should be in camelCase.</li>
+<li>Variables should be in camelCase.</li>
+<li>Classes should be in BumpyCase.</li>
+<li>Make sure that your IDE uses tabs, not spaces.</li>
+<li>Static variables should be in CAPS_LOCK.</li>
+<li>Please make sure to add Javadoc to your methods and static variables. </li>
+<li>Example:</li>
+</ul>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-c">/**</span>
+<span class="pl-c"> * I/O number for the arm of the robot.</span>
+<span class="pl-c"> */</span>
+<span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">final</span> <span class="pl-k">int</span> <span class="pl-c1">ROBOT_ARM</span> <span class="pl-k">=</span> <span class="pl-c1">10</span>;
+
+<span class="pl-c">/**</span>
+<span class="pl-c"> * This method kills the robot. Do not attempt to</span>
+<span class="pl-c"> * kill the robot.</span>
+<span class="pl-c"> */</span>
+<span class="pl-k">public</span> <span class="pl-k">boolean</span> doMagicalThing(<span class="pl-k">int</span> magic) {
+  <span class="pl-smi">Robot</span> r <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Robot</span>();
+  r<span class="pl-k">.</span>kill();
+  r<span class="pl-k">.</span>haltAndCatchFire(<span class="pl-c1">true</span>);
+  <span class="pl-k">return</span> magic <span class="pl-k">&gt;</span> <span class="pl-c1">0</span>;
+}</pre></div>
+
+<h1>
+<a id="contributors-program-team-2016" class="anchor" href="#contributors-program-team-2016" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributors (Program Team 2016)</h1>
+
+<ul>
+<li>AJ Walter</li>
+<li>Kurtis Bowen</li>
+<li>Grant Walter</li>
+</ul>
+      </section>
+
+      <footer>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <p>this project by <a href="https://github.com/RedInquisitive">RedInquisitive</a> can be found on <a href="https://github.com/RedInquisitive/Stronghold-2016">GitHub</a></p>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+        <p>Generated with <a href="https://pages.github.com">GitHub Pages</a> using Merlot</p>
+        <span class="octocat"></span>
+      </footer>
+
+    </div>
+
+    
+  </body>
+</html>
