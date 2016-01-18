@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  * This command makes the robot drive forward at a certain speed for a certain distance.
  */
-public class DistanceCommand extends Command {
+public class CommandDistance extends Command {
 
 	double beginningDistance;
 	double distance;
@@ -16,7 +16,7 @@ public class DistanceCommand extends Command {
 	
 	boolean isFinished = false;
 	
-    public DistanceCommand(double speed, double distance) {
+    public CommandDistance(double speed, double distance) {
         requires(Robot.driveSubsystem);
         this.beginningDistance = Robot.driveSubsystem.getDistance();
         this.distance = distance;

@@ -13,14 +13,14 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * There are also no sensors (like the accelerometer and stuff) that are included.
  * (Main Drive Train does those)
  */
-public class SecondaryDrive extends Subsystem {
+public class SubsystemSecondaryDrive extends Subsystem {
 	
 	private Talon middleLeft;
 	private Talon middleRight;
 
 	private RobotDrive driveTrain2;
 	
-	public SecondaryDrive() {
+	public SubsystemSecondaryDrive() {
 		super();
 		middleLeft = new Talon(Constants.MIDDLE_LEFT_MOTOR_PORT);
 		middleRight = new Talon(Constants.MIDDLE_RIGHT_MOTOR_PORT);

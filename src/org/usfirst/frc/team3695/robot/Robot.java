@@ -1,8 +1,8 @@
 
 package org.usfirst.frc.team3695.robot;
 
-import org.usfirst.frc.team3695.robot.subsystems.DriveSubsystem;
-import org.usfirst.frc.team3695.robot.subsystems.SecondaryDrive;
+import org.usfirst.frc.team3695.robot.subsystems.SubsystemDrive;
+import org.usfirst.frc.team3695.robot.subsystems.SubsystemSecondaryDrive;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -22,14 +22,14 @@ public class Robot extends IterativeRobot {
 	//TODO: Uncomment this if teleop does not work: 
 	//Command driveCommand;
     
-    public static DriveSubsystem driveSubsystem;
-    public static SecondaryDrive secondaryDrive;
+    public static SubsystemDrive driveSubsystem;
+    public static SubsystemSecondaryDrive secondaryDrive;
     public static OI oi;
     
     public void robotInit() {
         // Initialize all subsystems
-    	driveSubsystem = new DriveSubsystem();
-    	secondaryDrive = new SecondaryDrive();
+    	driveSubsystem = new SubsystemDrive();
+    	secondaryDrive = new SubsystemSecondaryDrive();
         oi = new OI();
         
         // Instantiate the command used for the autonomous period

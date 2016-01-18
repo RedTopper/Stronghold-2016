@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  * This command controls the drive subsystem with joysticks.
  */
-public class DriveCommand extends Command {
+public class CommandDrive extends Command {
 
-    public DriveCommand() {
+    public CommandDrive() {
         requires(Robot.driveSubsystem);
     }
 

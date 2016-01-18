@@ -6,21 +6,23 @@ import org.usfirst.frc.team3695.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * This command controls the second drive subsystem with/or without joysticks.
+ * This Command is designed to breach obstacles
  */
-public class SecondaryDriveCommand extends Command {
-	
+public class CommandFullForward extends Command {
+
 	boolean complete = false;
 	
-    public SecondaryDriveCommand() {
+    public CommandFullForward() {
         requires(Robot.secondaryDrive);
+        requires(Robot.driveSubsystem);
     }
 
     protected void initialize() {
     }
 
     protected void execute() {
-    	Robot.secondaryDrive.drive(Robot.oi.getDriveStick());
+    	Robot.secondaryDrive.drive(0,1);
+    	Robot.driveSubsystem.drive(0,1);
     }
 
     protected boolean isFinished() {
@@ -28,7 +30,8 @@ public class SecondaryDriveCommand extends Command {
     }
 
     protected void end() {
-    	Robot.secondaryDrive.drive(0, 0);
+    	Robot.secondaryDrive.drive(0,0);
+    	Robot.driveSubsystem.drive(0,0);
     }
 
     protected void interrupted() {

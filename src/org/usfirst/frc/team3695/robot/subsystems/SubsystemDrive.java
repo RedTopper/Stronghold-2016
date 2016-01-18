@@ -2,7 +2,7 @@
 package org.usfirst.frc.team3695.robot.subsystems;
 
 import org.usfirst.frc.team3695.robot.Constants;
-import org.usfirst.frc.team3695.robot.commands.DriveCommand;
+import org.usfirst.frc.team3695.robot.commands.CommandDrive;
 
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.Joystick;
@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * This subsystem controls the driving motors and drivetrain variables. There are also
  * some unique sensors (like the accelerometer and stuff) that are included.
  */
-public class DriveSubsystem extends Subsystem {
+public class SubsystemDrive extends Subsystem {
 	
 	private Talon frontLeft;
 	private Talon frontRight;
@@ -29,7 +29,7 @@ public class DriveSubsystem extends Subsystem {
 	
 	private BuiltInAccelerometer builtInAccelerometer;
 	
-	public DriveSubsystem() {
+	public SubsystemDrive() {
 		super();
 		frontLeft = new Talon(Constants.FRONT_LEFT_MOTOR_PORT);
 		frontRight = new Talon(Constants.FRONT_RIGHT_MOTOR_PORT);
@@ -52,7 +52,7 @@ public class DriveSubsystem extends Subsystem {
 	}
 	
     public void initDefaultCommand() {
-		setDefaultCommand(new DriveCommand());
+		setDefaultCommand(new CommandDrive());
     }
     
 	/**
