@@ -114,7 +114,7 @@ header, footer, section {
 
 div.shell {
   display: block;
-  width: 670px;
+  width: 85%;
   margin: 0 auto;
 }
 
@@ -140,7 +140,7 @@ header {
   position: relative;
   z-index: 2;
   margin: 0 auto;
-  max-width: 600px;
+  max-width: 90%;
   top: 38px;
 }
 
@@ -204,7 +204,7 @@ div#no-downloads {
   padding-bottom: 150px;
   margin: -80px auto -150px;
   z-index: 1;
-  background: transparent url(../images/bg-ramp.jpg) center 171px no-repeat;
+
 }
 
 div#no-downloads span.inner {
