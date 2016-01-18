@@ -1,0 +1,38 @@
+
+package org.usfirst.frc.team3695.robot.commands;
+
+import org.usfirst.frc.team3695.robot.Robot;
+
+import edu.wpi.first.wpilibj.command.Command;
+
+/**
+ * This command controls the drive subsystem with joysticks.
+ */
+public class FullForwardCommand extends Command {
+
+    public FullForwardCommand() {
+        requires(Robot.secondaryDrive);
+        requires(Robot.driveSubsystem);
+    }
+
+    protected void initialize() {
+    }
+
+    protected void execute() {
+    	Robot.secondaryDrive.drive(0,1);
+    	Robot.driveSubsystem.drive(0,1);
+    }
+
+    protected boolean isFinished() {
+        return false;
+    }
+
+    protected void end() {
+    	Robot.secondaryDrive.drive(0,0);
+    	Robot.driveSubsystem.drive(0,0);
+    }
+
+    protected void interrupted() {
+    	end();
+    }
+}
