@@ -20,6 +20,8 @@ public class DriveSubsystem extends Subsystem {
 	private Talon frontRight;
 	private Talon rearLeft;
 	private Talon rearRight;
+	private Talon middleLeft;
+	private Talon middleRight;
 	
 	//TODO: Uncomment for encoders: private Encoder leftEncoder, rightEncoder;
 	
@@ -33,6 +35,8 @@ public class DriveSubsystem extends Subsystem {
 		frontRight = new Talon(Constants.FRONT_RIGHT_MOTOR_PORT);
 		rearLeft = new Talon(Constants.REAR_LEFT_MOTOR_PORT);
 		rearRight = new Talon(Constants.REAR_RIGHT_MOTOR_PORT);
+		middleLeft = new Talon(Constants.MIDDLE_LEFT_MOTOR_PORT);
+		middleRight = new Talon(Constants.MIDDLE_RIGHT_MOTOR_PORT);
 		driveTrain = new RobotDrive(frontLeft,rearLeft,frontRight, rearRight);
 		
 		driveTrain.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, Constants.FRONT_LEFT_MOTOR_INVERT);
