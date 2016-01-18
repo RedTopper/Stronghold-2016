@@ -2,10 +2,10 @@
 Code for FRC Robotics team 3695.
 
 ### Getting started
-[github.com](/tutorial/)
+[Tutorials](/tutorial/)
 
 ### Program Team 3695 Website
-[redinquisitive.github.com](http://redinquisitive.github.io/Stronghold-2016/)
+[Stronghold-2016](http://redinquisitive.github.io/Stronghold-2016/)
 
 ### Contributors (Program Team 2016)
 - AJ Walter
