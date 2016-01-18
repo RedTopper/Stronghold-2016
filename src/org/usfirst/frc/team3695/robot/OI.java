@@ -1,6 +1,10 @@
 package org.usfirst.frc.team3695.robot;
 
+import org.usfirst.frc.team3695.robot.commands.SecondaryDriveCommand;
+
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -14,6 +18,10 @@ public class OI {
 	public OI() {
 		//SmartDash
 		SmartDashboard.putNumber("Robot Feedback: ", 0);
+		
+		//6 Wheel Drive Button ('Obstacle Button')
+		Button doObstacleMagically = new JoystickButton(driveStick, Constants.ENABLE_6WHEEL_DRIVE);
+		doObstacleMagically.whileActive(new SecondaryDriveCommand());
 		
 		//Buttons
 		//Example button: Button enableHighBeams = new JoystickButton(driveStick, Constants.ENABLE_HIGH_BEAMS);

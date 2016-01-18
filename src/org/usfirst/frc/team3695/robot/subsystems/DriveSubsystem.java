@@ -21,6 +21,7 @@ public class DriveSubsystem extends Subsystem {
 	private Talon frontRight;
 	private Talon rearLeft;
 	private Talon rearRight;
+
 	
 	//TODO: Uncomment for encoders: private Encoder leftEncoder, rightEncoder;
 	
@@ -70,11 +71,11 @@ public class DriveSubsystem extends Subsystem {
 	
 	/**
 	 * Arcade style driving for the DriveTrain.
-	 * @param left Speed in range [-1,1]
-	 * @param right Speed in range [-1,1]
+	 * @param x Speed in range [-1,1]
+	 * @param y Speed in range [-1,1]
 	 */
-	public void drive(double left, double right) {
-		driveTrain.arcadeDrive(left, right);
+	public void drive(double x, double y) {
+		driveTrain.arcadeDrive(x, y);
 	}
 	
 	/**
