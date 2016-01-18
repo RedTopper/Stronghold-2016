@@ -36,6 +36,5 @@ public class FullForwardCommand extends Command {
 
     protected void interrupted() {
     	complete = true;
-    	end();
     }
 }
