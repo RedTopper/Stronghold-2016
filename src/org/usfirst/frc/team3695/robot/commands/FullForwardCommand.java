@@ -6,7 +6,7 @@ import org.usfirst.frc.team3695.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * This command controls the drive subsystem with joysticks.
+ * This Command is designed to breach obstacles
  */
 public class FullForwardCommand extends Command {
 

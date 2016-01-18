@@ -6,7 +6,7 @@ import org.usfirst.frc.team3695.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * This command controls the drive subsystem with joysticks.
+ * This command controls the second drive subsystem with/or without joysticks.
  */
 public class SecondaryDriveCommand extends Command {
 
