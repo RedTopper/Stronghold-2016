@@ -34,6 +34,10 @@ public class CommandSecondaryDistance extends Command {
     }
 
     protected void execute() {
+    	if(Robot.driveSubsystem.getDistance() < 0) {
+    		complete = true;
+    		return; //Protect the robot!
+    	}
     	Robot.secondaryDrive.drive(0,speed);
     	Robot.driveSubsystem.drive(0,speed);
     	if(Robot.driveSubsystem.getDistance() < beginningDistance) {

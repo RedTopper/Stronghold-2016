@@ -32,6 +32,10 @@ public class CommandDistance extends Command {
     }
 
     protected void execute() {
+    	if(Robot.driveSubsystem.getDistance() < 0) {
+    		complete = true;
+    		return; //Protect the robot!
+    	}
     	Robot.driveSubsystem.drive(0,speed);
     	if(Robot.driveSubsystem.getDistance() < beginningDistance) {
     		complete = true;
