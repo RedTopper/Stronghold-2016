@@ -29,10 +29,10 @@ public class DistanceCommand extends Command {
     protected void execute() {
     	Robot.driveSubsystem.drive(0,speed);
     	if(Robot.driveSubsystem.getDistance() < beginningDistance) {
-    		end();
+    		isFinished = true;
     	}
     	if(Robot.driveSubsystem.getDistance() + beginningDistance > distance) {
-    		end();
+    		isFinished = true;
     	}
     }
 
@@ -42,7 +42,6 @@ public class DistanceCommand extends Command {
 
     protected void end() {
     	Robot.driveSubsystem.drive(0, 0);
-    	isFinished = true;
     }
 
     protected void interrupted() {
