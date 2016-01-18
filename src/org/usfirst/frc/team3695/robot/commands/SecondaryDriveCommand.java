@@ -9,7 +9,9 @@ import edu.wpi.first.wpilibj.command.Command;
  * This command controls the second drive subsystem with/or without joysticks.
  */
 public class SecondaryDriveCommand extends Command {
-
+	
+	boolean complete = false;
+	
     public SecondaryDriveCommand() {
         requires(Robot.secondaryDrive);
     }
@@ -22,7 +24,7 @@ public class SecondaryDriveCommand extends Command {
     }
 
     protected boolean isFinished() {
-        return false;
+        return complete;
     }
 
     protected void end() {
@@ -30,6 +32,6 @@ public class SecondaryDriveCommand extends Command {
     }
 
     protected void interrupted() {
-    	end();
+    	complete = true;
     }
 }
