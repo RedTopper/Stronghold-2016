@@ -1,14 +1,7 @@
 # Stronghold 2016 Code Base
 Code for FRC Robotics team 3695.
 
-# Tutorials
-### How to use GitHub Presentation
-[drive.google.com](https://docs.google.com/presentation/d/1c2I2dRhcj-hvn5ArNstm2tBm8RZz-9yyLwL01LYOvZs/edit?usp=sharing)
-
-### How to set up FRC's development kit
-[wpilib.screenstepslive.com](http://wpilib.screenstepslive.com/s/4485/m/13503/l/145002-installing-eclipse-c-java)
-
-### More tutorials
+### Getting started
 [github.com](/tutorial/)
 
 # Code
