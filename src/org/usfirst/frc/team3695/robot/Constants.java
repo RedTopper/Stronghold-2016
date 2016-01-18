@@ -5,8 +5,8 @@ public class Constants {
 		throw new InstantiationException();
 	}
 	
-	//private static int STEPHEN_BUTTON = 2;
-	//private static char BRIAN_BUTTON = 'h';
+	//private static final int STEPHEN_BUTTON = 2;
+	//private static final char BRIAN_BUTTON = 'h';
 	
 	//Joystick controls.
 	public static final int DRIVE_JOYSTICK = 0;
@@ -24,4 +24,7 @@ public class Constants {
 	public static final boolean FRONT_RIGHT_MOTOR_INVERT = true;
 	public static final boolean REAR_LEFT_MOTOR_INVERT = true;
 	public static final boolean REAR_RIGHT_MOTOR_INVERT = true;
+	
+	//Utility
+	public static final double DISTANCE_PER_PULSE = 0.042;
 }
