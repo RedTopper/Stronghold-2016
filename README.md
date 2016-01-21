@@ -11,3 +11,4 @@ Code for FRC Robotics team 3695.
 - AJ Walter
 - Kurtis Bowen
 - Grant Walter
+- Jason Wilcox
