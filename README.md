@@ -1,5 +1,3 @@
-Hello
-
 # Stronghold 2016 Code Base
 Code for FRC Robotics team 3695.
 
