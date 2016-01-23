@@ -15,19 +15,19 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class SubsystemSecondaryDrive extends Subsystem {
 	
-	private Talon middleLeft;
-	private Talon middleRight;
+	//private Talon middleLeft;
+	//private Talon middleRight;
 
-	private RobotDrive driveTrain2;
+	//private RobotDrive driveTrain2;
 	
 	public SubsystemSecondaryDrive() {
 		super();
-		middleLeft = new Talon(Constants.MIDDLE_LEFT_MOTOR_PORT);
-		middleRight = new Talon(Constants.MIDDLE_RIGHT_MOTOR_PORT);
-		driveTrain2 = new RobotDrive(middleLeft, middleRight);
+		//middleLeft = new Talon(Constants.MIDDLE_LEFT_MOTOR_PORT);
+		//middleRight = new Talon(Constants.MIDDLE_RIGHT_MOTOR_PORT);
+		//driveTrain2 = new RobotDrive(middleLeft, middleRight);
 		
-		driveTrain2.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, Constants.MIDDLE_LEFT_MOTOR_INVERT);
-		driveTrain2.setInvertedMotor(RobotDrive.MotorType.kFrontRight, Constants.MIDDLE_RIGHT_MOTOR_INVERT);
+		//driveTrain2.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, Constants.MIDDLE_LEFT_MOTOR_INVERT);
+		//driveTrain2.setInvertedMotor(RobotDrive.MotorType.kFrontRight, Constants.MIDDLE_RIGHT_MOTOR_INVERT);
 	}
 	
     public void initDefaultCommand() {
@@ -46,28 +46,28 @@ public class SubsystemSecondaryDrive extends Subsystem {
 	 * @param y Speed in range [-1,1]
 	 */
 	public void drive(double x, double y) {
-		driveTrain2.arcadeDrive(x, y);
+		//driveTrain2.arcadeDrive(x, y);
 	}
 	
 	/**
 	 * @param joy This should work
 	 */
 	public void drive(Joystick joy) {
-		drive(joy.getX(),joy.getY());
+		//drive(joy.getX(),joy.getY());
 	}
 	
 	/**
 	 * Full Forward, might be useful
 	 */
 	public void justGo(){
-		driveTrain2.arcadeDrive(0, 1);
+		//driveTrain2.arcadeDrive(0, 1);
 	}
 	
 	/**
 	 * Immediate stop Motors, Might be used for safety...
 	 */
 	public void justStop(){
-		driveTrain2.arcadeDrive(0, 0);
+		//driveTrain2.arcadeDrive(0, 0);
 	}
 }
 
