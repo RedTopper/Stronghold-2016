@@ -13,3 +13,4 @@ Code for FRC Robotics team 3695.
 - Grant Walter
 - Jason Wilcox
 - Colton Kreischer
+- Grant Eads
