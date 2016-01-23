@@ -11,10 +11,6 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-
-//CODE EDIT PLEASE IGNORE!
-
-
 /**
  * This subsystem controls the driving motors and drivetrain variables. There are also
  * some unique sensors (like the accelerometer and stuff) that are included.
