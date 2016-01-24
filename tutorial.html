@@ -61,20 +61,17 @@ to make changes to the code. Finally, create a pull request and we'll accept it 
 <h3><a id="code-style-and-format" class="anchor" href="#code-style-and-format" aria-hidden="true"><span class="octicon octicon-link"></span></a>Now that I have the code, what do I do?</h3>
 <p>Write Code of Course! If you need help setting up your IDE, check <a href="http://wpilib.screenstepslive.com/s/4485/m/13503/l/145002-installing-eclipse-c-java">this</a> out.</p>
 
-<h3><a id="teams" class="anchor" href="#teams" aria-hidden="true"><span class="octicon octicon-link"></span></a>What's a ClassPath, and how do I fix it?</h3>
+<h3><a id="teams" class="anchor" href="#teams" aria-hidden="true"><span class="octicon octicon-link"></span></a>Why is the robot source red and how do I make it happy?</h3>
 <p>We hope you don't have to find out... </p>
-<p>1. Window > Preferences > Java > Build path > Classpath variables > New</p>
-<p>2. For the "name" field, type in "wpilib" (without quotes, all lowercase) and press File...</p>
-<p>3. Then go to "C:\Users<YOUR USERNAME>\wpilib\java\current\lib" (Should be installed in "How to set up FRC's dev kit") and select wpilib.jar. Press OK</p>
-<p>4. Press New again. Type in "networktables" this time. Press File... and select networktables.jar. Press OK.</p>
-<p>5. Finally, press New again. Type in "wpilib-source". Press File... and select wpilib-source.jar. Press OK.</P>
-
-<h3><a id="teams" class="anchor" href="#teams" aria-hidden="true"><span class="octicon octicon-link"></span></a>Linking Sources</h3>
-<p> This is a completely optional (and completely recomended) step. Linking Sources allows you to see more information about classes/methods from FIRST simply by hovering over their respective calls (a lot simpler than that sounds).</p>
-<p>1. Find source that isn't set up yet. for example, when you hover over the word "Talon" on the line "private Talon left", it'll say something along the lines of "no source found"</p>
-<p>2. Go to "Open declaration"</p>
-<p>3. It'll now show a big, confusing white page with some form of error. Simply go to "link source" and select wpilib-source.</p>
-<p>4. It'll now show a bunch of code! Yay! DO NOT EDIT THIS CODE HOWEVER, simply close out and try hovering over the word "Talon" again. You will now see "Cross the Road Electronics (CTRE) Talon and Talon SR Speed Controller". You can hover over other FRC methods too!</p>
+<ol>
+<li>Right click on "Test-2016" and go to properties > Java Build Path > Libraries</li>
+<li>Click "Add External Jars"</li>
+<li>Go to "C:\Users<YOUR USERNAME>\wpilib\java\current\lib" (Should be installed in "How to set up FRC's dev kit") and select both "WPILib.jar" and "NetworkTables.jar". Press OK then close the windows.</li>
+<li>Now, under "Test-2016" you should see "External Libraries". Expand that list and right click on "WPILib.jar".</li>
+<li>Under Java Source Attachment, select "External location" and press "External file". Now, select "WPILib-sources.jar".</li>
+<li>Repeat the previous two steps for "NetworkTables.jar" instead of "WPILib.jar".</li>
+<li>Eclipse should now be happy.</li>
+</ol>
 
       </section>
 
