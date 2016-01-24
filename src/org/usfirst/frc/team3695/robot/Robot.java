@@ -2,7 +2,6 @@
 package org.usfirst.frc.team3695.robot;
 
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemDrive;
-import org.usfirst.frc.team3695.robot.subsystems.SubsystemSecondaryDrive;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -23,13 +22,11 @@ public class Robot extends IterativeRobot {
 	//Command driveCommand;
     
     public static SubsystemDrive driveSubsystem;
-    public static SubsystemSecondaryDrive secondaryDrive;
     public static OI oi;
     
     public void robotInit() {
         // Initialize all subsystems
     	driveSubsystem = new SubsystemDrive();
-    	secondaryDrive = new SubsystemSecondaryDrive();
         oi = new OI();
         
         // Instantiate the command used for the autonomous period
