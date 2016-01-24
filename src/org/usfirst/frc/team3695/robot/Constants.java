@@ -8,6 +8,11 @@ public class Constants {
 	//private static final int STEPHEN_BUTTON = 2;
 	//private static final char BRIAN_BUTTON = 'h';
 	
+	/**
+	 * This variable determines if the code should behave as the robot that will be used
+	 * for competition. This variable is true if the robot is the competition robot, and
+	 * false if the robot is the simple, more stripped down practice robot.
+	 */
 	public static final boolean IS_OFFICIAL_ROBOT = true;
 	
 	//Joystick controls.
