@@ -8,6 +8,8 @@ public class Constants {
 	//private static final int STEPHEN_BUTTON = 2;
 	//private static final char BRIAN_BUTTON = 'h';
 	
+	public static final boolean IS_OFFICIAL_ROBOT = true;
+	
 	//Joystick controls.
 	public static final int DRIVE_JOYSTICK = 0;
 	public static final int OPERATOR_JOYSTICK = 1;

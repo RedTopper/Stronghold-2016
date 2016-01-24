@@ -1,5 +1,6 @@
 package org.usfirst.frc.team3695.robot;
 
+import org.usfirst.frc.team3695.robot.Constants;
 import org.usfirst.frc.team3695.robot.commands.CommandDistance;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -17,8 +18,6 @@ public class OI {
 		//SmartDash
 		SmartDashboard.putData("Move 1 Stephen (slow)", new CommandDistance(0.25,1));
 		SmartDashboard.putData("Move 1 Stephen (fast)", new CommandDistance(1,1));
-		//Pisses Eclipse off, AJ did something wrong
-		//SmartDashboard.putData("Move 1 Stephen (6 wheel)", new CommandSecondaryDistance(1,1));
 		
 		//[Deprecated] (Left as Example)
 		//6 Wheel Drive Button ('Obstacle Button') 

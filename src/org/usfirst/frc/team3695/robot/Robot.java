@@ -17,9 +17,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 	//TODO: Uncomment for auto: 
 	//Command autonomousCommand;
-	
-	//TODO: Uncomment this if teleop does not work: 
-	//Command driveCommand;
     
     public static SubsystemDrive driveSubsystem;
     public static OI oi;
@@ -32,9 +29,6 @@ public class Robot extends IterativeRobot {
         // Instantiate the command used for the autonomous period
         //TODO: Uncomment for auto:
         //autonomousCommand = new Autonomous();
-        
-        //TODO: Uncomment this if teleop does not work:
-        //driveCommand = new DriveCommand();
 
         // Show what command your subsystem is running on the SmartDashboard
         SmartDashboard.putData(driveSubsystem);
@@ -65,9 +59,6 @@ public class Robot extends IterativeRobot {
     public void teleopInit() {
     	//TODO: Uncomment for auto:
     	//autonomousCommand.cancel();
-    	
-    	//TODO: Uncomment this if teleop does not work:
-    	//driveCommand.start();
     }
     
     public void teleopPeriodic() {
