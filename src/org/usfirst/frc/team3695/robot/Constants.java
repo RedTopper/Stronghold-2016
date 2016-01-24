@@ -23,8 +23,6 @@ public class Constants {
 	public static final boolean FRONT_RIGHT_MOTOR_INVERT = false;
 	public static final boolean REAR_LEFT_MOTOR_INVERT = true;
 	public static final boolean REAR_RIGHT_MOTOR_INVERT = false;
-	public static final boolean MIDDLE_LEFT_MOTOR_INVERT = true;
-	public static final boolean MIDDLE_RIGHT_MOTOR_INVERT = true;
 	
 	//Sensor variables
 	public static final double DISTANCE_PER_PULSE = 0.042;
