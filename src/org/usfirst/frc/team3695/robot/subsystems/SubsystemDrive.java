@@ -31,16 +31,23 @@ public class SubsystemDrive extends Subsystem {
 	
 	public SubsystemDrive() {
 		super();
+		
 		frontLeft = new Talon(Constants.FRONT_LEFT_MOTOR_PORT);
 		frontRight = new Talon(Constants.FRONT_RIGHT_MOTOR_PORT);
-		rearLeft = new Talon(Constants.REAR_LEFT_MOTOR_PORT);
-		rearRight = new Talon(Constants.REAR_RIGHT_MOTOR_PORT);
-		driveTrain = new RobotDrive(frontLeft,rearLeft,frontRight, rearRight);
+		if(Constants.IS_OFFICIAL_ROBOT) {
+			rearLeft = new Talon(Constants.REAR_LEFT_MOTOR_PORT);
+			rearRight = new Talon(Constants.REAR_RIGHT_MOTOR_PORT);
+			driveTrain = new RobotDrive(frontLeft,rearLeft,frontRight,rearRight);
+		} else {
+			driveTrain = new RobotDrive(frontLeft,frontRight);
+		}
 		
 		driveTrain.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, Constants.FRONT_LEFT_MOTOR_INVERT);
 		driveTrain.setInvertedMotor(RobotDrive.MotorType.kFrontRight, Constants.FRONT_RIGHT_MOTOR_INVERT);
-		driveTrain.setInvertedMotor(RobotDrive.MotorType.kRearLeft, Constants.REAR_LEFT_MOTOR_INVERT);
-		driveTrain.setInvertedMotor(RobotDrive.MotorType.kRearRight, Constants.REAR_RIGHT_MOTOR_INVERT);
+		if(Constants.IS_OFFICIAL_ROBOT) {
+			driveTrain.setInvertedMotor(RobotDrive.MotorType.kRearLeft, Constants.REAR_LEFT_MOTOR_INVERT);
+			driveTrain.setInvertedMotor(RobotDrive.MotorType.kRearRight, Constants.REAR_RIGHT_MOTOR_INVERT);
+		}
 		
 		//TODO: Uncomment for encoders: leftEncoder = new Encoder(Constants.FRONT_LEFT_MOTOR_PORT, Constants.REAR_LEFT_MOTOR_PORT);
 		//TODO: Uncomment for encoders: rightEncoder = new Encoder(Constants.FRONT_RIGHT_MOTOR_PORT, Constants.REAR_RIGHT_MOTOR_PORT);
