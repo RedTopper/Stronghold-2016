@@ -2,7 +2,7 @@
 3 Pin Ping Sensor
 +5 to 5V
 GND to GND
-AN to ANALOG0
+AN to A0
 
 Exports distance from analog ping sensor to serial monitor
 Will be turned into Java
