@@ -1,7 +1,6 @@
 package org.usfirst.frc.team3695.robot;
 
-import org.usfirst.frc.team3695.robot.Constants;
-import org.usfirst.frc.team3695.robot.commands.CommandDistance;
+import org.usfirst.frc.team3695.robot.commands.CommandRotateRightWithCam;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -16,8 +15,8 @@ public class OI {
 	
 	public OI() {
 		//SmartDash
-		SmartDashboard.putData("Move 1 Stephen (slow)", new CommandDistance(0.25,1));
-		SmartDashboard.putData("Move 1 Stephen (fast)", new CommandDistance(1,1));
+		SmartDashboard.putData("Use camera to rotate RIGHT", new CommandRotateRightWithCam());
+		//SmartDashboard.putData("Use camera to rotate RIGHT", new CommandDistance(1,1));
 		
 		//[Deprecated] (Left as Example)
 		//6 Wheel Drive Button ('Obstacle Button') 

@@ -1,11 +1,15 @@
 
 package org.usfirst.frc.team3695.robot;
 
+import org.usfirst.frc.team3695.robot.commands.CommandAutonomous;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemDrive;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -15,8 +19,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
-	//TODO: Uncomment for auto: 
-	//Command autonomousCommand;
+	Command autonomousCommand;
+	ITable table;
     
     public static SubsystemDrive driveSubsystem;
     public static OI oi;
@@ -27,17 +31,18 @@ public class Robot extends IterativeRobot {
         oi = new OI();
         
         // Instantiate the command used for the autonomous period
-        //TODO: Uncomment for auto:
-        //autonomousCommand = new Autonomous();
+        autonomousCommand = new CommandAutonomous();
 
         // Show what command your subsystem is running on the SmartDashboard
-        SmartDashboard.putData(driveSubsystem);
+        //SmartDashboard.putData(driveSubsystem);
+        
+        //Network Tables (Scary!)
+        table = NetworkTable.getTable("GRIP").getSubTable("raw");
     }
 
     //AUTONOMOUS ZONE:
     public void autonomousInit() {
-    	//TODO: Uncomment for auto:
-    	//autonomousCommand.start(); // schedule the autonomous command
+    	autonomousCommand.start(); // schedule the autonomous command
     }
 
     public void autonomousPeriodic() {
@@ -57,8 +62,7 @@ public class Robot extends IterativeRobot {
     
     //TELEOP ZONE:
     public void teleopInit() {
-    	//TODO: Uncomment for auto:
-    	//autonomousCommand.cancel();
+    	autonomousCommand.cancel();
     }
     
     public void teleopPeriodic() {
@@ -68,6 +72,9 @@ public class Robot extends IterativeRobot {
     
     //INFORMATION ZONE:
     private void log() {
+    	//add log functions here.
+    	double[] centerY = table.getNumberArray("centerY", new double[] {-1.0});
+        SmartDashboard.putNumber("Goal Y position:", (centerY.length > 0 ? centerY[0] : -1.0));
     	driveSubsystem.log();
     }
 }
