@@ -16,7 +16,7 @@ public class OI {
 	public OI() {
 		//SmartDash
 		SmartDashboard.putData("Use camera to rotate RIGHT", new CommandRotateRightWithCam());
-		//SmartDashboard.putData("Use camera to rotate RIGHT", new CommandDistance(1,1));
+		//SmartDashboard.putData("Use camera to rotate LEFT", new CommandRotateLeftWithCam());
 		
 		//[Deprecated] (Left as Example)
 		//6 Wheel Drive Button ('Obstacle Button') 

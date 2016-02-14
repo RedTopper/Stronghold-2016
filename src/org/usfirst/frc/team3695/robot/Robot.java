@@ -34,7 +34,8 @@ public class Robot extends IterativeRobot {
         autonomousCommand = new CommandAutonomous();
 
         // Show what command your subsystem is running on the SmartDashboard
-        //SmartDashboard.putData(driveSubsystem);
+        SmartDashboard.putData(Scheduler.getInstance()); //Shows everything the robot is running.
+        SmartDashboard.putData(driveSubsystem); //Shows what command the driveSubsystem is running.
         
         //Network Tables (Scary!)
         table = NetworkTable.getTable("GRIP").getSubTable("raw");
@@ -72,9 +73,10 @@ public class Robot extends IterativeRobot {
     
     //INFORMATION ZONE:
     private void log() {
-    	//add log functions here.
     	double[] centerY = table.getNumberArray("centerY", new double[] {-1.0});
         SmartDashboard.putNumber("Goal Y position:", (centerY.length > 0 ? centerY[0] : -1.0));
+        
+    	//add log functions here.
     	driveSubsystem.log();
     }
 }

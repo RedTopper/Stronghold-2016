@@ -1,23 +1,31 @@
 package org.usfirst.frc.team3695.robot.commands;
 
+import org.usfirst.frc.team3695.robot.Robot;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 public class CommandRotateRightWithCam extends Command {
 
-	protected void end() {
-	}
+    public CommandRotateRightWithCam() {
+        requires(Robot.driveSubsystem);
+    }
 
-	protected void execute() {
-	}
+    protected void initialize() {
+    }
 
-	protected void initialize() {
-	}
+    protected void execute() {
+    }
 
-	protected void interrupted() {
-	}
+    protected boolean isFinished() {
+        return false;
+    }
 
-	protected boolean isFinished() {
-		return false;
-	}
+    protected void end() {
+    	Robot.driveSubsystem.drive(0, 0);
+    }
+
+    protected void interrupted() {
+    	end();
+    }
 
 }
