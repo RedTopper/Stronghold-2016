@@ -1,9 +1,9 @@
 
 package org.usfirst.frc.team3695.robot;
 
-import org.usfirst.frc.team3695.robot.commands.AutonomousForward;
-import org.usfirst.frc.team3695.robot.commands.AutonomousLeft;
-import org.usfirst.frc.team3695.robot.commands.AutonomousRight;
+import org.usfirst.frc.team3695.robot.commands.AutonomousForwardOnly;
+import org.usfirst.frc.team3695.robot.commands.AutonomousRotateAndScore;
+import org.usfirst.frc.team3695.robot.commands.CommandRotateWithCam;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemDrive;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemNetworkTables;
 
@@ -23,11 +23,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 	private static SendableChooser autoChooser;
 	private static SendableChooser rumbleChooser;
-	Command autonomousCommand;
+	private Command autonomousCommand;
     
     public static SubsystemDrive driveSubsystem;
     public static SubsystemNetworkTables networkTables;
     public static OI oi;
+    
+    public static String STOP_AUTO = null;
     
     public void robotInit() {
         // Initialize all subsystems
@@ -37,10 +39,10 @@ public class Robot extends IterativeRobot {
         
         //Set up autoChooser for robot
         autoChooser = new SendableChooser();
-        autoChooser.addDefault("Forward ONLY", new AutonomousForward());
-        autoChooser.addObject("Robot is LEFT of goal", new AutonomousLeft());
-        autoChooser.addObject("Robot is RIGHT of goal", new AutonomousRight());
-        autoChooser.addObject("Robot is CENTER of goal", new AutonomousLeft());
+        autoChooser.addDefault("Forward ONLY", new AutonomousForwardOnly());
+        autoChooser.addObject("Robot is LEFT of goal", new AutonomousRotateAndScore(CommandRotateWithCam.ROTATE_RIGHT));
+        autoChooser.addObject("Robot is RIGHT of goal", new AutonomousRotateAndScore(CommandRotateWithCam.ROTATE_LEFT));
+        autoChooser.addObject("Robot is CENTER of goal", new AutonomousRotateAndScore(CommandRotateWithCam.ALIGN_CENTER));
        
         //Set up rumbleChooser for robot
         rumbleChooser = new SendableChooser();
@@ -58,6 +60,7 @@ public class Robot extends IterativeRobot {
 
     //AUTONOMOUS ZONE:
     public void autonomousInit() {
+    	STOP_AUTO = null;
         autonomousCommand = (Command) autoChooser.getSelected(); // Instantiate the command used for the autonomous period
     	autonomousCommand.start(); // schedule the autonomous command
     }
@@ -96,6 +99,9 @@ public class Robot extends IterativeRobot {
     	networkTables.updateInfo();
     	networkTables.log();
     	driveSubsystem.log();
+    	
+    	//Puts a reason for stopping auto on the dash.
+    	SmartDashboard.putString("Auto Status: ", (STOP_AUTO == null ? "Everything is normal." : STOP_AUTO));
     }
     
     public static boolean isRumbleEnabled() {

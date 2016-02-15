@@ -1,7 +1,5 @@
 package org.usfirst.frc.team3695.robot;
 
-import edu.wpi.first.wpilibj.Preferences;
-
 public class Constants {
 	private Constants() throws InstantiationException{
 		throw new InstantiationException();
@@ -65,12 +63,21 @@ public class Constants {
 	public static final int CAMERA_WIDTH = 1280,
 							CAMERA_HEIGHT = 720;
 	
-	private static Preferences prefs;
-	
 	/**
 	 * Used for camera calibration. These numbers represent the offset from the center of the
-	 * camera in pixels.
+	 * camera in pixels. The variables here are the names to use when obtaining them through
+	 * the preferences.
 	 */
-	public static final int CAMERA_CALIBRATION_LR = prefs.getInt("Camera Calibration Left-/Right+", 0),
-							CAMERA_CALIBRATION_UD = prefs.getInt("Camera Calibration Down-/Up+", 0);
+	public static final String CAMERA_CALIBRATION_LR_NAME = "Camera Calibration Left-/Right+",
+							   CAMERA_CALIBRATION_UD_NAME = "Camera Calibration Down-/Up+";
+
+	/**
+	 * Amount of time that the robot will rotate before timing out in seconds.
+	 */
+	public static final long MAX_ROTATE_TIME = 3;
+
+	/**
+	 * The amount of times code can run while the goal is out of the camera.
+	 */
+	public static final int MAX_ERRORS = 20;
 }
