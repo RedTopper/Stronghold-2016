@@ -52,7 +52,7 @@ public class Constants {
 	/**
 	 * The controller will rumble for at least this long before stopping. 
 	 */
-	public static final int RUMBLE_TIME_MS = 500;
+	public static final long RUMBLE_TIME_MS = 500;
 	/**
 	 * This value defines the amount of needed g forces to activate rumble. If
 	 * the current amount of g force is higher than 1 g + RUMBLE_BOUND_G_FORCE -OR-
