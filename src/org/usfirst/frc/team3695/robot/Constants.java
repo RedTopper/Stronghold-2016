@@ -80,4 +80,10 @@ public class Constants {
 	 * The amount of times code can run while the goal is out of the camera.
 	 */
 	public static final int MAX_ERRORS = 20;
+
+	/**
+	 * Solenoid ports.
+	 */
+	public static final int THROW_SOLENOID_PORT = 0,
+							LIFT_SOLENOID_PORT = 0;
 }
