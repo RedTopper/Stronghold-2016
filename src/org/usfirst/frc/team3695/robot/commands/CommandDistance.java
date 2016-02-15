@@ -38,7 +38,7 @@ public class CommandDistance extends Command {
     	}
     	Robot.driveSubsystem.drive(0,speed);
     	if(Robot.driveSubsystem.getDistance() < beginningDistance) {
-    		complete = true;
+    		complete = true; //Distance can't be negative!
     	}
     	if(Robot.driveSubsystem.getDistance() + beginningDistance > distance) {
     		complete = true;
@@ -54,6 +54,6 @@ public class CommandDistance extends Command {
     }
 
     protected void interrupted() {
-    	complete = true;
+    	end();
     }
 }

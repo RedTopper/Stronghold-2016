@@ -22,7 +22,7 @@ public class CommandDrive extends Command {
     }
 
     protected boolean isFinished() {
-        return false;
+        return false; //Driving with the Joysticks is NEVER finished.
     }
 
     protected void end() {
