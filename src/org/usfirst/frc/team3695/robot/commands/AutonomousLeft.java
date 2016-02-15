@@ -6,8 +6,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  * The main autonomous commands.
  */
-public class CommandAutonomous extends CommandGroup {
-    public CommandAutonomous() {
+public class AutonomousLeft extends CommandGroup {
+    public AutonomousLeft() {
     	//The following is example code used for different commands to be executed in order.
     	//Autonomous.start() should be called in the Robot class when it is initialized.
     	

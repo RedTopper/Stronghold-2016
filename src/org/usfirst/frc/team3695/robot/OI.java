@@ -1,6 +1,8 @@
 package org.usfirst.frc.team3695.robot;
 
+import org.usfirst.frc.team3695.robot.commands.CommandRotateLeftWithCam;
 import org.usfirst.frc.team3695.robot.commands.CommandRotateRightWithCam;
+import org.usfirst.frc.team3695.robot.Constants;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -16,7 +18,7 @@ public class OI {
 	public OI() {
 		//SmartDash
 		SmartDashboard.putData("Use camera to rotate RIGHT", new CommandRotateRightWithCam());
-		//SmartDashboard.putData("Use camera to rotate LEFT", new CommandRotateLeftWithCam());
+		SmartDashboard.putData("Use camera to rotate LEFT", new CommandRotateLeftWithCam());
 		
 		//[Deprecated] (Left as Example)
 		//6 Wheel Drive Button ('Obstacle Button') 

@@ -4,11 +4,11 @@ import org.usfirst.frc.team3695.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class CommandRotateRightWithCam extends Command {
-
-    public CommandRotateRightWithCam() {
-        requires(Robot.driveSubsystem);
-    	requires(Robot.networkTables);
+public class CommandRotateLeftWithCam extends Command {
+	
+    public CommandRotateLeftWithCam() {
+    	requires(Robot.driveSubsystem);
+        requires(Robot.networkTables);
     }
 
     protected void initialize() {
