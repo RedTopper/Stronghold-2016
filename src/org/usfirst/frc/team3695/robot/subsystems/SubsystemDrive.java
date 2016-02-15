@@ -23,8 +23,6 @@ public class SubsystemDrive extends Subsystem {
 	private Talon frontRight;
 	private Talon rearLeft;
 	private Talon rearRight;
-	
-	private boolean rumbleEnabled = false;
 
 	
 	//TODO: Uncomment for encoders: private Encoder leftEncoder, rightEncoder;
@@ -32,6 +30,8 @@ public class SubsystemDrive extends Subsystem {
 	private RobotDrive driveTrain;
 	
 	private BuiltInAccelerometer builtInAccelerometer;
+	
+	private long timeStartRumble = 0;
 	
 	public SubsystemDrive() {
 		super();
@@ -92,9 +92,7 @@ public class SubsystemDrive extends Subsystem {
 				break;
 		}
 		if(downGForce > 1.0f + Constants.RUMBLE_BOUND_G_FORCE || downGForce < 1.0f - Constants.RUMBLE_BOUND_G_FORCE) {
-			rumbleEnabled = true;
-		} else {
-			rumbleEnabled = false;
+			timeStartRumble = System.currentTimeMillis();
 		}
 	}
 
@@ -113,8 +111,8 @@ public class SubsystemDrive extends Subsystem {
 	public void drive(Joystick joy) {
 		drive(joy.getX(),joy.getY());
 		if(Robot.isRumbleEnabled()) {
-			joy.setRumble(RumbleType.kLeftRumble, (rumbleEnabled ? 1.0f : 0.0f));
-			joy.setRumble(RumbleType.kRightRumble, (rumbleEnabled ? 1.0f : 0.0f));
+			joy.setRumble(RumbleType.kLeftRumble, (System.currentTimeMillis() < timeStartRumble + Constants.RUMBLE_TIME_MS ? 1.0f : 0.0f));
+			joy.setRumble(RumbleType.kRightRumble, (System.currentTimeMillis() < timeStartRumble + Constants.RUMBLE_TIME_MS ? 1.0f : 0.0f));
 		}
 	}
 	

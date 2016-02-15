@@ -48,7 +48,11 @@ public class Constants {
 	 * read -1.0 g's when in it's standard position.
 	 */
 	public static final boolean DOWN_IS_NEGATIVE = false;
-	
+
+	/**
+	 * The controller will rumble for at least this long before stopping. 
+	 */
+	public static final int RUMBLE_TIME_MS = 500;
 	/**
 	 * This value defines the amount of needed g forces to activate rumble. If
 	 * the current amount of g force is higher than 1 g + RUMBLE_BOUND_G_FORCE -OR-
