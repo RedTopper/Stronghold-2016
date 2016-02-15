@@ -40,6 +40,7 @@ public class Robot extends IterativeRobot {
         autoChooser.addDefault("Forward ONLY", new AutonomousForward());
         autoChooser.addObject("Robot is LEFT of goal", new AutonomousLeft());
         autoChooser.addObject("Robot is RIGHT of goal", new AutonomousRight());
+        autoChooser.addObject("Robot is CENTER of goal", new AutonomousLeft());
        
         //Set up rumbleChooser for robot
         rumbleChooser = new SendableChooser();
