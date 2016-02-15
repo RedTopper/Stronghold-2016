@@ -5,32 +5,89 @@ public class Constants {
 		throw new InstantiationException();
 	}
 	
-	//private static final int STEPHEN_BUTTON = 2;
+	//private static final int STEPHEN_BUTTON = 2; 
 	//private static final char BRIAN_BUTTON = 'h';
 	
 	/**
-	 * This variable determines if the code should behave as the robot that will be used
-	 * for competition. This variable is true if the robot is the competition robot, and
-	 * false if the robot is the simple, more stripped down practice robot.
+	 * Joystick control port
 	 */
-	public static final boolean IS_OFFICIAL_ROBOT = true;
+	public static final int DRIVE_JOYSTICK = 0,
+							OPERATOR_JOYSTICK = 1;
 	
-	//Joystick controls.
-	public static final int DRIVE_JOYSTICK = 0;
-	public static final int OPERATOR_JOYSTICK = 1;
+	/**
+	 * Port for driving motors.
+	 */
+	public static final int FRONT_LEFT_MOTOR_PORT = 0,
+							FRONT_RIGHT_MOTOR_PORT = 1,
+							REAR_LEFT_MOTOR_PORT = 2,
+							REAR_RIGHT_MOTOR_PORT = 3;
 	
-	//Ports for driving motors.
-	public static final int FRONT_LEFT_MOTOR_PORT = 0;
-	public static final int FRONT_RIGHT_MOTOR_PORT = 1;
-	public static final int REAR_LEFT_MOTOR_PORT = 2;
-	public static final int REAR_RIGHT_MOTOR_PORT = 3;
+	/**
+	 * True if the motor is inverted. False otherwise.
+	 */
+	public static final boolean FRONT_LEFT_MOTOR_INVERT = false,
+								FRONT_RIGHT_MOTOR_INVERT = true,
+								REAR_LEFT_MOTOR_INVERT = false,
+								REAR_RIGHT_MOTOR_INVERT = false;
 	
-	//Motors that should be inverted.
-	public static final boolean FRONT_LEFT_MOTOR_INVERT = false;
-	public static final boolean FRONT_RIGHT_MOTOR_INVERT = true;
-	public static final boolean REAR_LEFT_MOTOR_INVERT = false;
-	public static final boolean REAR_RIGHT_MOTOR_INVERT = false;
-	
-	//Sensor variables
+	/**
+	 * Amount the robot has traveled per encoder pulse.
+	 */
 	public static final double DISTANCE_PER_PULSE = 0.042;
+	
+	/**
+	 * String that tells the robot which axis is down. By default, 
+	 * this value is "Z".
+	 */
+	public static final String DOWN_AXIS = "X";
+	
+	/**
+	 * Boolean that tells the robot if down should be negative instead
+	 * of positive. By default this is false. (False means the acceleromiter's
+	 * number will read 1.0 g's when in it's standard position. True means it'll
+	 * read -1.0 g's when in it's standard position.
+	 */
+	public static final boolean DOWN_IS_NEGATIVE = false;
+
+	/**
+	 * The controller will rumble for at least this long before stopping. 
+	 */
+	public static final long RUMBLE_TIME_MS = 500;
+	/**
+	 * This value defines the amount of needed g forces to activate rumble. If
+	 * the current amount of g force is higher than 1 g + RUMBLE_BOUND_G_FORCE -OR-
+	 * the current amount of g force is less than 1 g - RUMBLE_BOUND_G_FORCE then
+	 * rumble will be activated on the driver's controller.
+	 */
+	public static final float RUMBLE_BOUND_G_FORCE = 0.25f;
+	
+	/**
+	 * Camera width and height in pixels.
+	 */
+	public static final int CAMERA_WIDTH = 1280,
+							CAMERA_HEIGHT = 720;
+	
+	/**
+	 * Used for camera calibration. These numbers represent the offset from the center of the
+	 * camera in pixels. The variables here are the names to use when obtaining them through
+	 * the preferences.
+	 */
+	public static final String CAMERA_CALIBRATION_LR_NAME = "Camera Calibration Left-/Right+",
+							   CAMERA_CALIBRATION_UD_NAME = "Camera Calibration Down-/Up+";
+
+	/**
+	 * Amount of time that the robot will rotate before timing out in seconds.
+	 */
+	public static final long MAX_ROTATE_TIME = 3;
+
+	/**
+	 * The amount of times code can run while the goal is out of the camera.
+	 */
+	public static final int MAX_ERRORS = 20;
+
+	/**
+	 * Solenoid ports.
+	 */
+	public static final int THROW_SOLENOID_PORT = 0,
+							LIFT_SOLENOID_PORT = 0;
 }
