@@ -15,10 +15,10 @@ public class Constants {
 							OPERATOR_JOYSTICK = 1;
 	
 	/**
-	 * Button numbers
+	 * Button numbers for various operations.
 	 */
-	public static final int GET_BALL_BUTTON = 3,
-							REMOVE_BALL_BUTTON = 4;
+	public static final int SUCK_IN_BALL_BUTTON = 3,
+							THROW_OUT_BALL_BUTTON = 4;
 	
 	/**
 	 * Port for driving motors.

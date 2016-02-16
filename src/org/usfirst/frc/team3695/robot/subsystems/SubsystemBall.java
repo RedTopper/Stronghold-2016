@@ -12,11 +12,11 @@ public class SubsystemBall extends Subsystem {
 	protected void initDefaultCommand() {
 	}
 
-	public void goForward() {
+	public void suckInBall() {
 		motor.set((Constants.BALL_MOTOR_INVERT ? -1.0 : 1.0));
 	}
 	
-	public void goBackwards() {
+	public void throwOutBall() {
 		motor.set((Constants.BALL_MOTOR_INVERT ? 1.0 : -1.0));
 	}
 	

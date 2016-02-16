@@ -5,8 +5,8 @@ import org.usfirst.frc.team3695.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class CommandGetBall extends Command {
-	public static final int GET_BALL = 0,
-							REMOVE_BALL = 1;
+	public static final int SUCK_IN_BALL = 0,
+							THROW_OUT_BALL = 1;
 	
 	private int ballDirection;
 	
@@ -23,11 +23,11 @@ public class CommandGetBall extends Command {
 	@Override
 	protected void initialize() {
 		switch(ballDirection) {
-		case GET_BALL:
-			Robot.ballSubsystem.goForward();
+		case SUCK_IN_BALL:
+			Robot.ballSubsystem.suckInBall();
 			break;
 		default:
-			Robot.ballSubsystem.goBackwards();
+			Robot.ballSubsystem.throwOutBall();
 			break;
 		}
 	}
