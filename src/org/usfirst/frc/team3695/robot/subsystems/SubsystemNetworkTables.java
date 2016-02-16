@@ -13,7 +13,6 @@ public class SubsystemNetworkTables extends Subsystem {
 	double rawGoalY;
 	
 	public SubsystemNetworkTables() {
-        //Network Tables (Scary!)
         table = NetworkTable.getTable("GRIP").getSubTable("raw");
 	}
 	

@@ -5,11 +5,7 @@ import edu.wpi.first.wpilibj.Joystick;
 public class Controller {
 	private static final Joystick driver = new Joystick(Constants.DRIVE_JOYSTICK);
 	private static final Joystick operator = new Joystick(Constants.OPERATOR_JOYSTICK);
-	
-	
-	
-	
-	
+
 	//Driver controls.
 	/**
 	 * DRIVER CONTROL<br>
@@ -58,14 +54,14 @@ public class Controller {
 	 * B Button (2)<br>
 	 * <br>
 	 * If the controller is anything else:<br>
-	 * Button 3<br>
+	 * Button 1<br>
 	 * @return Button number.
 	 */
 	public static int DRIVE_BOOST() {
 		if(driver.getIsXbox()) {
 			return 2;
 		} else {
-			return 3;
+			return 1;
 		}
 	}
 	
@@ -75,14 +71,14 @@ public class Controller {
 	 * L Button (5)<br>
 	 * <br>
 	 * If the controller is anything else:<br>
-	 * Button 2<br>
+	 * Button 4<br>
 	 * @return
 	 */
 	public static int DRIVE_TARGET_LEFT_WITH_CAM() {
 		if(driver.getIsXbox()) {
 			return 5;
 		} else {
-			return 2;
+			return 4;
 		}
 	}
 	
@@ -92,17 +88,16 @@ public class Controller {
 	 * R Button (6)<br>
 	 * <br>
 	 * If the controller is anything else:<br>
-	 * Button 4<br>
+	 * Button 5<br>
 	 * @return
 	 */
 	public static int DRIVE_TARGET_RIGHT_WITH_CAM() {
 		if(driver.getIsXbox()) {
 			return 6;
 		} else {
-			return 4;
+			return 5;
 		}
 	}
-	
 	
 	
 	
@@ -115,14 +110,14 @@ public class Controller {
 	 * R Button (6)<br>
 	 * <br>
 	 * If the controller is anything else:<br>
-	 * Button 4<br>
+	 * Button 5<br>
 	 * @return Button number.
 	 */
 	public static int OP_SUCK_IN_BALL() {
 		if(operator.getIsXbox()) {
 			return 6;
 		} else {
-			return 4;
+			return 5;
 		}
 	}
 	
@@ -132,14 +127,14 @@ public class Controller {
 	 * L Button (5)<br>
 	 * <br>
 	 * If the controller is anything else:<br>
-	 * Button 2<br>
+	 * Button 4<br>
 	 * @return Button number.
 	 */
 	public static int OP_THROW_OUT_BALL() {
 		if(operator.getIsXbox()) {
 			return 5;
 		} else {
-			return 2;
+			return 4;
 		}
 	}
 	
@@ -175,6 +170,9 @@ public class Controller {
 	public static Joystick OP_JOY() {
 		return operator;
 	}
+	
+	
+	
 	
 	
 	//Copy-able method.

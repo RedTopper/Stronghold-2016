@@ -19,7 +19,6 @@ public class CommandGetBall extends Command {
 		this.ballDirection = ballDirection;
 	}
 	
-	
 	@Override
 	protected void initialize() {
 		switch(ballDirection) {

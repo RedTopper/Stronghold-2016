@@ -10,32 +10,24 @@ public class CommandPhotoelectric extends Command {
 	double volts;
 	@Override
 	protected void end() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	protected void execute() {
-		// TODO Auto-generated method stub
 		volts = analogSensor0.getVoltage();
 		SmartDashboard.putNumber("Test output = " , volts);
 	}
 
 	@Override
 	protected void initialize() {
-		// TODO Auto-generated method stub
-		
 	}
-
+	
 	@Override
 	protected void interrupted() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	protected boolean isFinished() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 }

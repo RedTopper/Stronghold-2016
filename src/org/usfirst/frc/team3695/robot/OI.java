@@ -21,15 +21,12 @@ public class OI {
 		SmartDashboard.putData("Use camera to align CENTER", new CommandRotateWithCam(CommandRotateWithCam.ALIGN_CENTER));
 		SmartDashboard.putData("Test Analog", new CommandPhotoelectric());
 		
+		//Buttons
 		Button getBall = new JoystickButton(Controller.OP_JOY(), Controller.OP_SUCK_IN_BALL());
 		getBall.whileHeld(new CommandGetBall(CommandGetBall.SUCK_IN_BALL));
 		
 		Button removeBall = new JoystickButton(Controller.OP_JOY(), Controller.OP_THROW_OUT_BALL());
 		removeBall.whileHeld(new CommandGetBall(CommandGetBall.THROW_OUT_BALL));
-		//[Deprecated] (Left as Example)
-		//6 Wheel Drive Button ('Obstacle Button') 
-		//Button doObstacleMagically = new JoystickButton(driveStick, Constants.ENABLE_6WHEEL_DRIVE);
-		//doObstacleMagically.whileActive(new CommandSecondaryDrive());
 	}
 }
 
