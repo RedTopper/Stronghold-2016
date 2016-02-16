@@ -101,5 +101,4 @@ public class CommandRotateWithCam extends Command {
     protected void interrupted() {
     	end();
     }
-
 }

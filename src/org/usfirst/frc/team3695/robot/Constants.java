@@ -20,7 +20,8 @@ public class Constants {
 	public static final int FRONT_LEFT_MOTOR_PORT = 3,
 							FRONT_RIGHT_MOTOR_PORT = 2,
 							REAR_LEFT_MOTOR_PORT = 1,
-							REAR_RIGHT_MOTOR_PORT = 0;
+							REAR_RIGHT_MOTOR_PORT = 0,
+							BALL_MOTOR_PORT = 4;
 	
 	/**
 	 * Port used for Photoelelctric sensor
@@ -33,7 +34,8 @@ public class Constants {
 	public static final boolean FRONT_LEFT_MOTOR_INVERT = true,
 								FRONT_RIGHT_MOTOR_INVERT = true,
 								REAR_LEFT_MOTOR_INVERT = false,
-								REAR_RIGHT_MOTOR_INVERT = true;
+								REAR_RIGHT_MOTOR_INVERT = true,
+								BALL_MOTOR_INVERT = false;
 	
 	/**
 	 * Amount the robot has traveled per encoder pulse.
@@ -44,7 +46,7 @@ public class Constants {
 	 * String that tells the robot which axis is down. By default, 
 	 * this value is "Z".
 	 */
-	public static final String DOWN_AXIS = "Z";
+	public static final String DOWN_AXIS = "Y";
 	
 	/**
 	 * Boolean that tells the robot if down should be negative instead

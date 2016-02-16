@@ -1,9 +1,10 @@
 
 package org.usfirst.frc.team3695.robot;
 
-import org.usfirst.frc.team3695.robot.commands.AutonomousForwardOnly;
-import org.usfirst.frc.team3695.robot.commands.AutonomousRotateAndScore;
 import org.usfirst.frc.team3695.robot.commands.CommandRotateWithCam;
+import org.usfirst.frc.team3695.robot.commands.auto.AutonomousForwardOnly;
+import org.usfirst.frc.team3695.robot.commands.auto.AutonomousRotateAndScore;
+import org.usfirst.frc.team3695.robot.subsystems.SubsystemBall;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemDrive;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemNetworkTables;
 
@@ -27,6 +28,7 @@ public class Robot extends IterativeRobot {
     
     public static SubsystemDrive driveSubsystem;
     public static SubsystemNetworkTables networkTables;
+    public static SubsystemBall ballSubsystem;
     public static OI oi;
     
     public static String STOP_AUTO = null;
@@ -34,6 +36,7 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
         // Initialize all subsystems
     	driveSubsystem = new SubsystemDrive();
+    	ballSubsystem = new SubsystemBall();
     	networkTables = new SubsystemNetworkTables();
         oi = new OI();
         
