@@ -17,17 +17,17 @@ public class Controller {
 	 * xAxis: forward/backward.<br>
 	 * @return A double from -1.0 to 1.0
 	 */
-	public static double DRIVE_X_AXIS() {
+	public static double DRIVE_Y_AXIS() {
 		if(driver.getIsXbox()) {
 			double left = driver.getRawAxis(2);
 			double right = driver.getRawAxis(3);
 			if(right > 0.05) { //Returning right will ALWAYS take priority.
-				return right;
+				return right * -1.0;
 			} else {
-				return left * -1.0;
+				return left;
 			}
 		} else {
-			return driver.getX();
+			return driver.getY();
 		}
 	}
 	
@@ -40,11 +40,11 @@ public class Controller {
 	 * yAxis: left/right.<br>
 	 * @return A double from -1.0 to 1.0
 	 */
-	public static double DRIVE_Y_AXIS() {
+	public static double DRIVE_X_AXIS() {
 		if(driver.getIsXbox()) {
-			return driver.getY();
+			return driver.getX();
 		} else {
-			return driver.getY();
+			return driver.getX();
 		}
 	}
 	
