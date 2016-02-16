@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class CommandRotateWithCam extends Command {
 	
-	Preferences prefs;
+	Preferences prefs = Preferences.getInstance();
 	private int CAMERA_CALIBRATION_LR = prefs.getInt(Constants.CAMERA_CALIBRATION_LR_NAME, 0);
 	
 	/**

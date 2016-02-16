@@ -82,7 +82,9 @@ public class Robot extends IterativeRobot {
     
     //TELEOP ZONE:
     public void teleopInit() {
-    	autonomousCommand.cancel();
+    	if(autonomousCommand != null) {
+    		autonomousCommand.cancel();
+    	}
     }
     
     public void teleopPeriodic() {
