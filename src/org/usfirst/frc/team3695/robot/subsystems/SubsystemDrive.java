@@ -153,7 +153,7 @@ public class SubsystemDrive extends Subsystem {
 		for(double d : list) {
 			sum += d;
 		}
-		return sum / list.length;
+		return sum / (double)list.length;
 	}
 }
 
