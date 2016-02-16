@@ -2,6 +2,7 @@
 package org.usfirst.frc.team3695.robot.subsystems;
 
 import org.usfirst.frc.team3695.robot.Constants;
+import org.usfirst.frc.team3695.robot.Controller;
 import org.usfirst.frc.team3695.robot.Robot;
 import org.usfirst.frc.team3695.robot.commands.CommandDrive;
 
@@ -107,9 +108,10 @@ public class SubsystemDrive extends Subsystem {
 	
 	/**
 	 * @param joy This should move the robot and rumble the controller.
+	 * Passing the joy to this method is simply for rumble.
 	 */
 	public void drive(Joystick joy) {
-		drive(joy.getX(),joy.getY());
+		drive(Controller.DRIVE_X_AXIS(),Controller.DRIVE_Y_AXIS());
 		if(Robot.isRumbleEnabled()) {
 			joy.setRumble(RumbleType.kLeftRumble, (System.currentTimeMillis() < timeStartRumble + Constants.RUMBLE_TIME_MS ? 1.0f : 0.0f));
 			joy.setRumble(RumbleType.kRightRumble, (System.currentTimeMillis() < timeStartRumble + Constants.RUMBLE_TIME_MS ? 1.0f : 0.0f));
