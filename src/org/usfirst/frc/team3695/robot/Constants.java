@@ -23,6 +23,11 @@ public class Constants {
 							REAR_RIGHT_MOTOR_PORT = 3;
 	
 	/**
+	 * Port used for Photoelelctric sensor
+	 */
+	public static final int PHOTO_PORT = 0;
+	
+	/**
 	 * True if the motor is inverted. False otherwise.
 	 */
 	public static final boolean FRONT_LEFT_MOTOR_INVERT = false,
