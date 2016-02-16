@@ -72,9 +72,9 @@ public class SubsystemDrive extends Subsystem {
 		double y = builtInAccelerometer.getY();
 		double z = builtInAccelerometer.getZ();
 		
-		SmartDashboard.putNumber("Acceleration X (m/s):", x * 9.8);
-		SmartDashboard.putNumber("Acceleration Y (m/s):", y * 9.8);
-		SmartDashboard.putNumber("Acceleration Z (m/s):", z * 9.8);
+		SmartDashboard.putNumber("Acceleration X m.s:", x * 9.8);
+		SmartDashboard.putNumber("Acceleration Y m.s:", y * 9.8);
+		SmartDashboard.putNumber("Acceleration Z m.s:", z * 9.8);
 		rumble(x, y, z);
 	}
 	

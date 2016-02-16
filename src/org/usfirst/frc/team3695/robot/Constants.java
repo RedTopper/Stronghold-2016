@@ -17,18 +17,18 @@ public class Constants {
 	/**
 	 * Port for driving motors.
 	 */
-	public static final int FRONT_LEFT_MOTOR_PORT = 0,
-							FRONT_RIGHT_MOTOR_PORT = 1,
-							REAR_LEFT_MOTOR_PORT = 2,
-							REAR_RIGHT_MOTOR_PORT = 3;
+	public static final int FRONT_LEFT_MOTOR_PORT = 3,
+							FRONT_RIGHT_MOTOR_PORT = 2,
+							REAR_LEFT_MOTOR_PORT = 1,
+							REAR_RIGHT_MOTOR_PORT = 0;
 	
 	/**
 	 * True if the motor is inverted. False otherwise.
 	 */
-	public static final boolean FRONT_LEFT_MOTOR_INVERT = false,
+	public static final boolean FRONT_LEFT_MOTOR_INVERT = true,
 								FRONT_RIGHT_MOTOR_INVERT = true,
 								REAR_LEFT_MOTOR_INVERT = false,
-								REAR_RIGHT_MOTOR_INVERT = false;
+								REAR_RIGHT_MOTOR_INVERT = true;
 	
 	/**
 	 * Amount the robot has traveled per encoder pulse.
@@ -39,7 +39,7 @@ public class Constants {
 	 * String that tells the robot which axis is down. By default, 
 	 * this value is "Z".
 	 */
-	public static final String DOWN_AXIS = "X";
+	public static final String DOWN_AXIS = "Z";
 	
 	/**
 	 * Boolean that tells the robot if down should be negative instead
@@ -52,7 +52,7 @@ public class Constants {
 	/**
 	 * The controller will rumble for at least this long before stopping. 
 	 */
-	public static final long RUMBLE_TIME_MS = 500;
+	public static final long RUMBLE_TIME_MS = 200;
 	/**
 	 * This value defines the amount of needed g forces to activate rumble. If
 	 * the current amount of g force is higher than 1 g + RUMBLE_BOUND_G_FORCE -OR-
