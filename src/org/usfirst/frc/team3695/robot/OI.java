@@ -1,5 +1,6 @@
 package org.usfirst.frc.team3695.robot;
 
+import org.usfirst.frc.team3695.robot.commands.CommandPhotoelectric;
 import org.usfirst.frc.team3695.robot.commands.CommandRotateWithCam;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -18,7 +19,7 @@ public class OI {
 		SmartDashboard.putData("Use camera to rotate RIGHT", new CommandRotateWithCam(CommandRotateWithCam.ROTATE_RIGHT));
 		SmartDashboard.putData("Use camera to rotate LEFT", new CommandRotateWithCam(CommandRotateWithCam.ROTATE_LEFT));
 		SmartDashboard.putData("Use camera to align CENTER", new CommandRotateWithCam(CommandRotateWithCam.ALIGN_CENTER));
-		
+		SmartDashboard.putData("Test Analog", new CommandPhotoelectric());
 		//[Deprecated] (Left as Example)
 		//6 Wheel Drive Button ('Obstacle Button') 
 		//Button doObstacleMagically = new JoystickButton(driveStick, Constants.ENABLE_6WHEEL_DRIVE);
