@@ -1,9 +1,9 @@
 
 package org.usfirst.frc.team3695.robot;
 
-import org.usfirst.frc.team3695.robot.commands.AutonomousForwardOnly;
-import org.usfirst.frc.team3695.robot.commands.AutonomousRotateAndScore;
 import org.usfirst.frc.team3695.robot.commands.CommandRotateWithCam;
+import org.usfirst.frc.team3695.robot.commands.auto.AutonomousForwardOnly;
+import org.usfirst.frc.team3695.robot.commands.auto.AutonomousRotateAndScore;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemBall;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemDrive;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemNetworkTables;

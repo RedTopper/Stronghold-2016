@@ -1,13 +1,13 @@
 
-package org.usfirst.frc.team3695.robot.commands;
+package org.usfirst.frc.team3695.robot.commands.auto;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  * The main autonomous commands.
  */
-public class AutonomousForwardOnly extends CommandGroup {
-    public AutonomousForwardOnly() {
+public class AutonomousRotateAndScore extends CommandGroup {
+    public AutonomousRotateAndScore(String direction) {
     	//The following is example code used for different commands to be executed in order.
     	//Autonomous.start() should be called in the Robot class when it is initialized.
     	
