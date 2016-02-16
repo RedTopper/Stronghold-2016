@@ -1,9 +1,12 @@
 package org.usfirst.frc.team3695.robot;
 
+import org.usfirst.frc.team3695.robot.commands.CommandGetBall;
 import org.usfirst.frc.team3695.robot.commands.CommandPhotoelectric;
 import org.usfirst.frc.team3695.robot.commands.CommandRotateWithCam;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -20,6 +23,12 @@ public class OI {
 		SmartDashboard.putData("Use camera to rotate LEFT", new CommandRotateWithCam(CommandRotateWithCam.ROTATE_LEFT));
 		SmartDashboard.putData("Use camera to align CENTER", new CommandRotateWithCam(CommandRotateWithCam.ALIGN_CENTER));
 		SmartDashboard.putData("Test Analog", new CommandPhotoelectric());
+		
+		Button getBall = new JoystickButton(driveStick, Constants.GET_BALL_BUTTON);
+		getBall.whileHeld(new CommandGetBall(CommandGetBall.GET_BALL));
+		
+		Button removeBall = new JoystickButton(driveStick, Constants.REMOVE_BALL_BUTTON);
+		removeBall.whileHeld(new CommandGetBall(CommandGetBall.REMOVE_BALL));
 		//[Deprecated] (Left as Example)
 		//6 Wheel Drive Button ('Obstacle Button') 
 		//Button doObstacleMagically = new JoystickButton(driveStick, Constants.ENABLE_6WHEEL_DRIVE);

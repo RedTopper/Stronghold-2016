@@ -1,12 +1,9 @@
 package org.usfirst.frc.team3695.robot.commands;
-import java.lang.Object;
-
 import org.usfirst.frc.team3695.robot.Constants;
 
-import edu.wpi.first.wpilibj.SensorBase;
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.AnalogInput;
 
 public class CommandPhotoelectric extends Command {
 	AnalogInput analogSensor0 = new AnalogInput(Constants.PHOTO_PORT);
