@@ -6,16 +6,40 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class CommandPhotoelectric extends Command {
-	AnalogInput analogSensor0 = new AnalogInput(Constants.PHOTO_PORT);
-	double volts;
+	AnalogInput photoPickup = new AnalogInput(Constants.PHOTO_PICKUP_PORT);
+	AnalogInput photoLoaded = new AnalogInput(Constants.PHOTO_LOADED_PORT);
+	double pickup;
+	double loaded;
+	boolean fire;
+	boolean detect;
+	int limit = 2;
 	@Override
 	protected void end() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	protected void execute() {
-		volts = analogSensor0.getVoltage();
-		SmartDashboard.putNumber("Test output = " , volts);
+		// TODO Auto-generated method stub
+		pickup = photoPickup.getVoltage();
+		loaded = photoLoaded.getVoltage();
+		SmartDashboard.putNumber("Test output = " , pickup);
+		if (pickup > limit){
+			detect = true;
+		}
+		else{
+			detect = false;
+		}
+		SmartDashboard.putBoolean("Pickup = ",detect);
+		if (loaded > limit){
+			fire = true;
+		}
+		else{
+			fire = false;
+		}
+		SmartDashboard.putBoolean("Pickup = ",detect);
+		SmartDashboard.putBoolean("Loaded = ",fire);
 	}
 
 	@Override
