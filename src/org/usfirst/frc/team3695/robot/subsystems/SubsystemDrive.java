@@ -2,6 +2,7 @@
 package org.usfirst.frc.team3695.robot.subsystems;
 
 import org.usfirst.frc.team3695.robot.Constants;
+import org.usfirst.frc.team3695.robot.Controller;
 import org.usfirst.frc.team3695.robot.Robot;
 import org.usfirst.frc.team3695.robot.commands.CommandDrive;
 
@@ -23,6 +24,10 @@ public class SubsystemDrive extends Subsystem {
 	private Talon frontRight;
 	private Talon rearLeft;
 	private Talon rearRight;
+	
+	private double[] x_g_buffer = new double[10];
+	private double[] y_g_buffer = new double[x_g_buffer.length];
+	private double[] z_g_buffer = new double[x_g_buffer.length];
 
 	
 	//TODO: Uncomment for encoders: private Encoder leftEncoder, rightEncoder;
@@ -67,14 +72,23 @@ public class SubsystemDrive extends Subsystem {
 		//TODO: Uncomment for encoders: SmartDashboard.putNumber("Right Distance", rightEncoder.getDistance());
 		//TODO: Uncomment for encoders: SmartDashboard.putNumber("Left Speed", leftEncoder.getRate());
 		//TODO: Uncomment for encoders: SmartDashboard.putNumber("Right Speed", rightEncoder.getRate());
+		for(int i = 0; i < x_g_buffer.length - 1; i++) {
+			x_g_buffer[i] = x_g_buffer[i + 1];
+			y_g_buffer[i] = y_g_buffer[i + 1];
+			z_g_buffer[i] = z_g_buffer[i + 1];
+		}
 		
-		double x = builtInAccelerometer.getX();
-		double y = builtInAccelerometer.getY();
-		double z = builtInAccelerometer.getZ();
+		x_g_buffer[x_g_buffer.length - 1] = builtInAccelerometer.getX();
+		y_g_buffer[y_g_buffer.length - 1] = builtInAccelerometer.getY();
+		z_g_buffer[z_g_buffer.length - 1] = builtInAccelerometer.getZ();
 		
-		SmartDashboard.putNumber("Acceleration X (m/s):", x * 9.8);
-		SmartDashboard.putNumber("Acceleration Y (m/s):", y * 9.8);
-		SmartDashboard.putNumber("Acceleration Z (m/s):", z * 9.8);
+		double x = average(x_g_buffer);
+		double y = average(y_g_buffer);
+		double z = average(z_g_buffer);
+		
+		SmartDashboard.putNumber("Speed X m.s:", Math.abs(x * 9.8));
+		SmartDashboard.putNumber("Speed Y m.s:", Math.abs(y * 9.8));
+		SmartDashboard.putNumber("Speed Z m.s:", Math.abs(z * 9.8));
 		rumble(x, y, z);
 	}
 	
@@ -107,9 +121,10 @@ public class SubsystemDrive extends Subsystem {
 	
 	/**
 	 * @param joy This should move the robot and rumble the controller.
+	 * Passing the joy to this method is simply for rumble.
 	 */
 	public void drive(Joystick joy) {
-		drive(joy.getX(),joy.getY());
+		drive(Controller.DRIVE_X_AXIS(),Controller.DRIVE_Y_AXIS());
 		if(Robot.isRumbleEnabled()) {
 			joy.setRumble(RumbleType.kLeftRumble, (System.currentTimeMillis() < timeStartRumble + Constants.RUMBLE_TIME_MS ? 1.0f : 0.0f));
 			joy.setRumble(RumbleType.kRightRumble, (System.currentTimeMillis() < timeStartRumble + Constants.RUMBLE_TIME_MS ? 1.0f : 0.0f));
@@ -131,6 +146,14 @@ public class SubsystemDrive extends Subsystem {
 	public double getDistance() {
 		//TODO: Uncomment for encoders: return (leftEncoder.getDistance() + rightEncoder.getDistance())/2;
 		return -1.0;
+	}
+	
+	private double average(double[] list) {
+		double sum = 0.0;
+		for(double d : list) {
+			sum += d;
+		}
+		return sum / (double)list.length;
 	}
 }
 

@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team3695.robot.commands;
 
+import org.usfirst.frc.team3695.robot.Controller;
 import org.usfirst.frc.team3695.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -18,7 +19,7 @@ public class CommandDrive extends Command {
     }
 
     protected void execute() {
-    	Robot.driveSubsystem.drive(Robot.oi.getDriveStick());
+    	Robot.driveSubsystem.drive(Controller.DRIVE_JOY());
     }
 
     protected boolean isFinished() {

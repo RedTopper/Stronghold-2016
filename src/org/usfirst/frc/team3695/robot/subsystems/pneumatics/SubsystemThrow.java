@@ -1,4 +1,4 @@
-package org.usfirst.frc.team3695.robot.subsystems;
+package org.usfirst.frc.team3695.robot.subsystems.pneumatics;
 
 import org.usfirst.frc.team3695.robot.Constants;
 
