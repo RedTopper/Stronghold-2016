@@ -32,6 +32,9 @@ public class CommandRotateWithCam extends Command {
     }
 
     protected void initialize() {
+    	error = 0;
+    	stage = 0;
+    	complete = false;
     }
 
     protected void execute(){
@@ -42,14 +45,14 @@ public class CommandRotateWithCam extends Command {
     	switch(direction) {
     	case ROTATE_RIGHT:
     		if(stage == 0 && Robot.networkTables.getRawGoalX() < (Constants.CAMERA_WIDTH/2) - CAMERA_CALIBRATION_LR){
-    			Robot.driveSubsystem.drive(0, 1);
+    			Robot.driveSubsystem.drive(1, 0);
     		} else {
     			stage++;
-    			Robot.driveSubsystem.drive(0, -0.15);
+    			Robot.driveSubsystem.drive(-0.15, 0);
     		}
     		if (Robot.networkTables.getRawGoalX() != -1.0) { //We can see the goal.
 	    		if (stage == 1 && Robot.networkTables.getRawGoalX() > (Constants.CAMERA_WIDTH/2) + CAMERA_CALIBRATION_LR) {
-	    			Robot.driveSubsystem.drive(0, -0.15);
+	    			Robot.driveSubsystem.drive(-0.15, 0);
 	    		} else {
 	    			stage++;
 	    		}
@@ -63,14 +66,14 @@ public class CommandRotateWithCam extends Command {
     	case ROTATE_LEFT:
     		double rawX = (Robot.networkTables.getRawGoalX() == -1.0 ? Constants.CAMERA_WIDTH : Robot.networkTables.getRawGoalX()); //If of screen then max.
     		if(stage == 0 && rawX > (Constants.CAMERA_WIDTH/2) + CAMERA_CALIBRATION_LR){ //For this we don't care about if the goal is of screen.
-    			Robot.driveSubsystem.drive(0, -1);
+    			Robot.driveSubsystem.drive(-1, 0);
     		} else {
     			stage++;
-    			Robot.driveSubsystem.drive(0, 0.15);
+    			Robot.driveSubsystem.drive(0.15, 0);
     		}
 	    	if (Robot.networkTables.getRawGoalX() != -1.0) { //We can see the goal.
 	    		if (stage == 1 && Robot.networkTables.getRawGoalX() < (Constants.CAMERA_WIDTH/2) - CAMERA_CALIBRATION_LR) {
-	    			Robot.driveSubsystem.drive(0, 0.15);
+	    			Robot.driveSubsystem.drive(0.15, 0);
 	    		} else {
 	    			stage++;
 	    		}
