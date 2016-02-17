@@ -8,37 +8,12 @@ import edu.wpi.first.wpilibj.command.Command;
 public class CommandUltrasonicReposition extends Command {
 	
 	AnalogInput ultrasonicInput = new AnalogInput(0);
-	double ultrasonicInches = ultrasonicInput.getValue() / 5.32;
-	
-	double minRange = 60;
-	double idealPosition = 66;
-	double maxRange = 72;
+	boolean completed;
 	
 	
 	
     public CommandUltrasonicReposition() {
-        requires(Robot.driveSubsystem);
         
-        if(minRange > ultrasonicInches) {
-        	
-        	//drive backward |idealPosition - ultrasonicInches| inches
-        	
-        }
-        else if(maxRange < ultrasonicInches){
-        	
-        	//drive forward |idealPosition - ultrasonicInches| inches
-        	
-        }
-        else if(minRange < ultrasonicInches || ultrasonicInches < maxRange) {
-        	
-        	//drive forwards/backwards |idealPosition - ultrasonicInches| inches
-        	
-        }
-        else {
-        	
-        	//drive forward until ultrasonicInches is within range
-        	
-        }
     }
 	
 	@Override
@@ -48,11 +23,44 @@ public class CommandUltrasonicReposition extends Command {
 
 	@Override
 	protected void execute() {
+		
+		requires(Robot.driveSubsystem);
+		
+		double ultrasonicInches = ultrasonicInput.getValue() / 5.32;
+		
+		double minRange = 60;
+		double idealPosition = 66;
+		double maxRange = 72;
+		
+		
+		if(minRange > ultrasonicInches) {
+        	
+			Robot.driveSubsystem.drive(1.0, 0.0);
+			completed = false;
+        	
+        }
+        else if(maxRange < ultrasonicInches){
+        	
+        	Robot.driveSubsystem.drive(-1.0, 0.0);
+        	completed = false;
+        	
+        }
+        else if(minRange < ultrasonicInches || ultrasonicInches < maxRange) {
+        	
+        	completed = true;
+        	
+        }
+        else {
+        	
+        	Robot.driveSubsystem.drive(-1.0, 0.0);
+        	completed = false;
+        	
+        }
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return false;
+		return completed;
 	}
 
 	@Override
