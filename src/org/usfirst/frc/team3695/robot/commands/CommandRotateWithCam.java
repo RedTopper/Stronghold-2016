@@ -63,8 +63,10 @@ public class CommandRotateWithCam extends Command {
     	}
     	
     	double goalX = Robot.networkTables.getRawGoalX();
+    	if(goalX == -1.0 && stage >= 4) {
+    		error++;
+    	}
     	if(goalX == -1.0) { 
-			error++;
 			switch(rotDir) {
 			case ROT_LEFT:
 				goalX = Constants.CAMERA_WIDTH + 1;
