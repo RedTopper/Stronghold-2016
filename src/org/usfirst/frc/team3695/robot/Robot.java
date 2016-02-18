@@ -7,6 +7,7 @@ import org.usfirst.frc.team3695.robot.commands.auto.AutonomousRotateAndScore;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemBall;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemDrive;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemNetworkTables;
+import org.usfirst.frc.team3695.robot.subsystems.pneumatics.SubsystemArm;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -29,6 +30,7 @@ public class Robot extends IterativeRobot {
     public static SubsystemDrive driveSubsystem;
     public static SubsystemNetworkTables networkTables;
     public static SubsystemBall ballSubsystem;
+    public static SubsystemArm throwSubsystem;
     public static OI oi;
     
     public static String STOP_AUTO = null;
@@ -38,6 +40,7 @@ public class Robot extends IterativeRobot {
     	driveSubsystem = new SubsystemDrive();
     	ballSubsystem = new SubsystemBall();
     	networkTables = new SubsystemNetworkTables();
+    	throwSubsystem = new SubsystemArm();
         oi = new OI();
         
         //Set up autoChooser for robot

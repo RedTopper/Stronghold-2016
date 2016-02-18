@@ -97,5 +97,6 @@ public class Constants {
 	 * Solenoid ports.
 	 */
 	public static final int THROW_SOLENOID_PORT = 0,
-							LIFT_SOLENOID_PORT = 0;
+							THROW_SOLENOID_PORT2 = 1,
+							LIFT_SOLENOID_PORT = 2;
 }

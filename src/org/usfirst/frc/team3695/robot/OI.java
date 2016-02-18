@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3695.robot;
 
 import org.usfirst.frc.team3695.robot.commands.CommandGetBall;
+import org.usfirst.frc.team3695.robot.commands.CommandMoveArm;
 import org.usfirst.frc.team3695.robot.commands.CommandPhotoelectric;
 import org.usfirst.frc.team3695.robot.commands.CommandRotateWithCam;
 import org.usfirst.frc.team3695.robot.commands.CommandStartGRIP;
@@ -28,6 +29,12 @@ public class OI {
 		
 		Button removeBall = new JoystickButton(Controller.OP_JOY(), Controller.OP_THROW_OUT_BALL());
 		removeBall.whileHeld(new CommandGetBall(CommandGetBall.THROW_OUT_BALL));
+		
+		Button fireUp = new JoystickButton(Controller.OP_JOY(), Controller.OP_FIRE_UP());
+		fireUp.whenPressed(new CommandMoveArm(CommandMoveArm.MOVE_UP));
+		
+		Button fireDown = new JoystickButton(Controller.OP_JOY(), Controller.OP_FIRE_DOWN());
+		fireDown.whenPressed(new CommandMoveArm(CommandMoveArm.MOVE_DOWN));
 	}
 }
 

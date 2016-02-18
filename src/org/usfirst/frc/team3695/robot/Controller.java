@@ -148,10 +148,44 @@ public class Controller {
 	 * @return
 	 */
 	public static int OP_FIRE_BALL() {
-		if(driver.getIsXbox()) {
+		if(operator.getIsXbox()) {
 			return 1;
 		} else {
 			return 1;
+		}
+	}
+	
+	/**
+	 * OPERATOR CONTROL<br>
+	 * If the controller is an xBox controller:<br>
+	 * Y (4)<br>
+	 * <br>
+	 * If the controller is anything else:<br>
+	 * Button 0<br>
+	 * @return
+	 */
+	public static int OP_FIRE_UP() {
+		if(operator.getIsXbox()) {
+			return 4;
+		} else {
+			return 0;
+		}
+	}
+	
+	/**
+	 * OPERATOR CONTROL<br>
+	 * If the controller is an xBox controller:<br>
+	 * B (2)<br>
+	 * <br>
+	 * If the controller is anything else:<br>
+	 * Button 0<br>
+	 * @return
+	 */
+	public static int OP_FIRE_DOWN() {
+		if(operator.getIsXbox()) {
+			return 2;
+		} else {
+			return 0;
 		}
 	}
 	
