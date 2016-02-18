@@ -27,12 +27,10 @@ public class CommandMoveArm extends Command {
 	protected void initialize() {
 		switch (dir) {
 		case MOVE_UP:
-			Robot.throwSubsystem.fireDown(false);
-			Robot.throwSubsystem.fireUp(true);
+			Robot.throwSubsystem.moveArmUp();
 			break;
 		case MOVE_DOWN:
-			Robot.throwSubsystem.fireDown(true);
-			Robot.throwSubsystem.fireUp(false);
+			Robot.throwSubsystem.moveArmDown();
 			break;
 		}
 	}

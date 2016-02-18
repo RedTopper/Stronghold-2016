@@ -6,23 +6,26 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class SubsystemArm extends Subsystem {
-	private Solenoid liftUp;
-	private Solenoid liftDown;
+	private Solenoid solenoid;
+	private Solenoid solenoid2;
 	
 	public SubsystemArm() {
 		super();
-		liftUp = new Solenoid(Constants.ARM_SOLENOID_PORT2);
-		liftDown = new Solenoid(Constants.ARM_SOLENOID_PORT);
+		solenoid = new Solenoid(Constants.ARM_SOLENOID_PORT);
+		solenoid2 = new Solenoid(Constants.ARM_SOLENOID_PORT2);
 	}
 	
 	@Override
 	protected void initDefaultCommand() {
 	}
 	
-	public void fireUp(boolean state) {
-		liftUp.set(state);
+	public void moveArmUp() {
+		solenoid.set(false);
+		solenoid2.set(true);
 	}
-	public void fireDown(boolean state){
-		liftDown.set(state);
+	
+	public void moveArmDown() {
+		solenoid.set(true);
+		solenoid2.set(false);
 	}
 }
