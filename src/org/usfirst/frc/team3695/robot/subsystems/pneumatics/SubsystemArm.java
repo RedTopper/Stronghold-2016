@@ -5,6 +5,10 @@ import org.usfirst.frc.team3695.robot.Constants;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
+/**
+ * This subsystem uses pneumatics to move up and down the arm
+ * of the robot.
+ */
 public class SubsystemArm extends Subsystem {
 	private Solenoid solenoid;
 	private Solenoid solenoid2;

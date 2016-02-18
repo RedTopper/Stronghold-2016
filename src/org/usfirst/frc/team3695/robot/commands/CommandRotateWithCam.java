@@ -38,9 +38,9 @@ public class CommandRotateWithCam extends Command {
 	
 	/**
 	 * This will tell the robot witch way to move to face the goal the quickest.
-	 * Use CommandRotateWithCam.ROTATE_LEFT_OVERALL or CommandRotateRightWithCam.ROTATE_RIGHT_OVERALL
-	 * as the direction.
-	 * @param int direction as stated above.
+	 * @param direction use CommandRotateWithCam.ROTATE_LEFT_OVERALL or 
+	 * CommandRotateRightWithCam.ROTATE_RIGHT_OVERALL to tell the robot to 
+	 * move in a direction.
 	 */
     public CommandRotateWithCam(int direction) {
     	requires(Robot.driveSubsystem);

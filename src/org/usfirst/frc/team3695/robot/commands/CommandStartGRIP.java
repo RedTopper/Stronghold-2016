@@ -30,5 +30,4 @@ public class CommandStartGRIP extends Command {
 
 	protected void interrupted() {
 	}
-
 }

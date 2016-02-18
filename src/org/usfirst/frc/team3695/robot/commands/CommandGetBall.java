@@ -15,8 +15,9 @@ public class CommandGetBall extends Command {
 	private int ballDirection;
 	
 	/**
-	 * Gets the ball.
-	 * @param ballDirection either FORWARDS or BACKWARDS
+	 * Gets or removes the ball from the possession of the arm.
+	 * @param ballDirection use CommandGetBall.SUCK_IN_BALL or CommandGetBall.THROW_OUT_BALL
+	 * to either grab or remove the ball from the arm.
 	 */
 	public CommandGetBall(int ballDirection) {
 		requires(Robot.ballSubsystem);
@@ -28,7 +29,7 @@ public class CommandGetBall extends Command {
 		case SUCK_IN_BALL:
 			Robot.ballSubsystem.suckInBall();
 			break;
-		default:
+		case THROW_OUT_BALL:
 			Robot.ballSubsystem.throwOutBall();
 			break;
 		}
@@ -38,7 +39,7 @@ public class CommandGetBall extends Command {
 	}
 
 	protected boolean isFinished() {
-		return false;
+		return false; //Not finished until the button is depressed.
 	}
 
 	protected void end() {
