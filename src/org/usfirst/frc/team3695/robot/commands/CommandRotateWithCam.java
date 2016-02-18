@@ -26,6 +26,7 @@ public class CommandRotateWithCam extends Command {
 	private int stage = 0;
 	private int error = 0;
 	private int rotDir = 0;
+	private long startPauseTime = 0;
 	
     public CommandRotateWithCam(String string) {
     	requires(Robot.driveSubsystem);
@@ -74,14 +75,13 @@ public class CommandRotateWithCam extends Command {
     			stage++;
     			break;
     		}
-    		
     		if(stage == 2) {
-    			
+    			startPauseTime = System.currentTimeMillis();
+    			stage++;
     		}
-    		if(stage == 3) {
-    			
+    		if(stage == 3 && startPauseTime < System.currentTimeMillis() - 1000) { //Magic number. Wait one second.
+    			stage++;
     		}
-    		
     		if (stage == 4 && goalX > (Constants.CAMERA_WIDTH/2) + CAMERA_CALIBRATION_LR) {
     			Robot.driveSubsystem.drive(-0.3, 0);
     		} else {
@@ -105,7 +105,13 @@ public class CommandRotateWithCam extends Command {
     			stage++;
     			break;
     		}
-    		
+    		if(stage == 2) {
+    			startPauseTime = System.currentTimeMillis();
+    			stage++;
+    		}
+    		if(stage == 3 && startPauseTime < System.currentTimeMillis() - 1000) { //Magic number. Wait one second.
+    			stage++;
+    		}
     		if (stage == 4 && goalX < (Constants.CAMERA_WIDTH/2) - CAMERA_CALIBRATION_LR) {
     			Robot.driveSubsystem.drive(0.3, 0);
     		} else {
