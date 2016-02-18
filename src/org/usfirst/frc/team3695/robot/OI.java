@@ -5,6 +5,7 @@ import org.usfirst.frc.team3695.robot.commands.CommandMoveArm;
 import org.usfirst.frc.team3695.robot.commands.CommandPhotoelectric;
 import org.usfirst.frc.team3695.robot.commands.CommandRotateWithCam;
 import org.usfirst.frc.team3695.robot.commands.CommandStartGRIP;
+import org.usfirst.frc.team3695.robot.commands.CommandUltrasonicReposition;
 
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -26,7 +27,8 @@ public class OI {
 		//SmartDash
 		SmartDashboard.putData("Use camera to rotate RIGHT", new CommandRotateWithCam(CommandRotateWithCam.ROTATE_RIGHT_OVERALL));
 		SmartDashboard.putData("Use camera to rotate LEFT", new CommandRotateWithCam(CommandRotateWithCam.ROTATE_LEFT_OVERALL));
-		SmartDashboard.putData("Test Analog", new CommandPhotoelectric());
+		//SmartDashboard.putData("Test Photo", new CommandPhotoelectric());//CommandUltrasonicReposition
+		SmartDashboard.putData("Test Ultra", new CommandUltrasonicReposition());//CommandUltrasonicReposition
 		SmartDashboard.putData("Start GRIP", new CommandStartGRIP());
 		
 		//Buttons
