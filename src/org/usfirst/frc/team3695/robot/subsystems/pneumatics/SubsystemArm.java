@@ -11,8 +11,8 @@ public class SubsystemArm extends Subsystem {
 	
 	public SubsystemArm() {
 		super();
-		liftUp = new Solenoid(Constants.THROW_SOLENOID_PORT);
-		liftDown = new Solenoid(Constants.THROW_SOLENOID_PORT2);
+		liftUp = new Solenoid(Constants.THROW_SOLENOID_PORT2);
+		liftDown = new Solenoid(Constants.THROW_SOLENOID_PORT);
 	}
 	
 	@Override

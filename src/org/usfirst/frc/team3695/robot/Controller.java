@@ -18,7 +18,7 @@ public class Controller {
 	 * @return A double from -1.0 to 1.0
 	 */
 	public static double DRIVE_Y_AXIS() {
-		if(driver.getIsXbox()) {
+		if(Constants.DRIVE_JOYSTICK_IS_XBOX) {
 			double left = driver.getRawAxis(2);
 			double right = driver.getRawAxis(3);
 			if(right > 0.05) { //Returning right will ALWAYS take priority.
@@ -41,7 +41,7 @@ public class Controller {
 	 * @return A double from -1.0 to 1.0
 	 */
 	public static double DRIVE_X_AXIS() {
-		if(driver.getIsXbox()) {
+		if(Constants.DRIVE_JOYSTICK_IS_XBOX) {
 			return driver.getX();
 		} else {
 			return driver.getX();
@@ -58,7 +58,7 @@ public class Controller {
 	 * @return Button number.
 	 */
 	public static int DRIVE_BOOST() {
-		if(driver.getIsXbox()) {
+		if(Constants.DRIVE_JOYSTICK_IS_XBOX) {
 			return 2;
 		} else {
 			return 1;
@@ -75,7 +75,7 @@ public class Controller {
 	 * @return
 	 */
 	public static int DRIVE_TARGET_LEFT_WITH_CAM() {
-		if(driver.getIsXbox()) {
+		if(Constants.DRIVE_JOYSTICK_IS_XBOX) {
 			return 5;
 		} else {
 			return 4;
@@ -92,7 +92,7 @@ public class Controller {
 	 * @return
 	 */
 	public static int DRIVE_TARGET_RIGHT_WITH_CAM() {
-		if(driver.getIsXbox()) {
+		if(Constants.DRIVE_JOYSTICK_IS_XBOX) {
 			return 6;
 		} else {
 			return 5;
@@ -114,7 +114,7 @@ public class Controller {
 	 * @return Button number.
 	 */
 	public static int OP_SUCK_IN_BALL() {
-		if(operator.getIsXbox()) {
+		if(Constants.OPERATOR_JOYSTICK_IS_XBOX) {
 			return 6;
 		} else {
 			return 5;
@@ -131,7 +131,7 @@ public class Controller {
 	 * @return Button number.
 	 */
 	public static int OP_THROW_OUT_BALL() {
-		if(operator.getIsXbox()) {
+		if(Constants.OPERATOR_JOYSTICK_IS_XBOX) {
 			return 5;
 		} else {
 			return 4;
@@ -148,7 +148,7 @@ public class Controller {
 	 * @return
 	 */
 	public static int OP_FIRE_BALL() {
-		if(operator.getIsXbox()) {
+		if(Constants.OPERATOR_JOYSTICK_IS_XBOX) {
 			return 1;
 		} else {
 			return 1;
@@ -165,7 +165,7 @@ public class Controller {
 	 * @return
 	 */
 	public static int OP_FIRE_UP() {
-		if(operator.getIsXbox()) {
+		if(Constants.OPERATOR_JOYSTICK_IS_XBOX) {
 			return 4;
 		} else {
 			return 0;
@@ -182,7 +182,7 @@ public class Controller {
 	 * @return
 	 */
 	public static int OP_FIRE_DOWN() {
-		if(operator.getIsXbox()) {
+		if(Constants.OPERATOR_JOYSTICK_IS_XBOX) {
 			return 2;
 		} else {
 			return 0;
@@ -220,7 +220,7 @@ public class Controller {
 	 * @return
 	 */
 	public static int method_name() {
-		if(driver.getIsXbox()) {
+		if(Constants.DRIVE_JOYSTICK_IS_XBOX) {
 			return 0;
 		} else {
 			return 0;

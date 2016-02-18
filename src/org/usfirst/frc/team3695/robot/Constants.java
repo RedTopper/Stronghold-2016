@@ -14,6 +14,9 @@ public class Constants {
 	public static final int DRIVE_JOYSTICK = 0,
 							OPERATOR_JOYSTICK = 1;
 	
+	public static final boolean DRIVE_JOYSTICK_IS_XBOX = true,
+								OPERATOR_JOYSTICK_IS_XBOX = true;
+	
 	/**
 	 * Port for driving motors.
 	 */
