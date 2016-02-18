@@ -43,14 +43,13 @@ public class Robot extends IterativeRobot {
         //Set up autoChooser for robot
         autoChooser = new SendableChooser();
         autoChooser.addDefault("Forward ONLY", new AutonomousForwardOnly());
-        autoChooser.addObject("Robot is LEFT of goal", new AutonomousRotateAndScore(CommandRotateWithCam.ROTATE_RIGHT));
-        autoChooser.addObject("Robot is RIGHT of goal", new AutonomousRotateAndScore(CommandRotateWithCam.ROTATE_LEFT));
-        autoChooser.addObject("Robot is CENTER of goal", new AutonomousRotateAndScore(CommandRotateWithCam.ALIGN_CENTER));
-       
+        autoChooser.addObject("Robot is LEFT of goal", new AutonomousRotateAndScore(CommandRotateWithCam.ROTATE_RIGHT_OVERALL));
+        autoChooser.addObject("Robot is RIGHT of goal", new AutonomousRotateAndScore(CommandRotateWithCam.ROTATE_LEFT_OVERALL));
+        
         //Set up rumbleChooser for robot
         rumbleChooser = new SendableChooser();
-        rumbleChooser.addDefault("Rumble ON", Boolean.valueOf(true));
-        rumbleChooser.addObject("Rumble OFF", Boolean.valueOf(false));
+        rumbleChooser.addDefault("Rumble ON", true);
+        rumbleChooser.addObject("Rumble OFF", false);
         
         //Put choosers on robot smart dash.
         SmartDashboard.putData("Auto Mode", autoChooser);
@@ -110,6 +109,6 @@ public class Robot extends IterativeRobot {
     }
     
     public static boolean isRumbleEnabled() {
-    	return ((Boolean) rumbleChooser.getSelected());
+    	return ((boolean) rumbleChooser.getSelected());
     }
 }

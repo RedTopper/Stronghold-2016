@@ -3,6 +3,7 @@ package org.usfirst.frc.team3695.robot;
 import org.usfirst.frc.team3695.robot.commands.CommandGetBall;
 import org.usfirst.frc.team3695.robot.commands.CommandPhotoelectric;
 import org.usfirst.frc.team3695.robot.commands.CommandRotateWithCam;
+import org.usfirst.frc.team3695.robot.commands.CommandStartGRIP;
 
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -16,10 +17,10 @@ public class OI {
 	
 	public OI() {
 		//SmartDash
-		SmartDashboard.putData("Use camera to rotate RIGHT", new CommandRotateWithCam(CommandRotateWithCam.ROTATE_RIGHT));
-		SmartDashboard.putData("Use camera to rotate LEFT", new CommandRotateWithCam(CommandRotateWithCam.ROTATE_LEFT));
-		SmartDashboard.putData("Use camera to align CENTER", new CommandRotateWithCam(CommandRotateWithCam.ALIGN_CENTER));
+		SmartDashboard.putData("Use camera to rotate RIGHT", new CommandRotateWithCam(CommandRotateWithCam.ROTATE_RIGHT_OVERALL));
+		SmartDashboard.putData("Use camera to rotate LEFT", new CommandRotateWithCam(CommandRotateWithCam.ROTATE_LEFT_OVERALL));
 		SmartDashboard.putData("Test Analog", new CommandPhotoelectric());
+		SmartDashboard.putData("Start GRIP", new CommandStartGRIP());
 		
 		//Buttons
 		Button getBall = new JoystickButton(Controller.OP_JOY(), Controller.OP_SUCK_IN_BALL());

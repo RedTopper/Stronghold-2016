@@ -12,7 +12,7 @@ public class AutonomousRotateAndScore extends CommandGroup
 {
     public AutonomousRotateAndScore(String direction)
     {
-    	addSequential(new CommandRotateWithCam(CommandRotateWithCam.ALIGN_CENTER));
+    	addSequential(new CommandRotateWithCam(CommandRotateWithCam.ROTATE_LEFT_OVERALL));
     	//addSequential(new CommandLaunchBall()); // TODO: DO SOMETHING WICKED :O
     }
 }
