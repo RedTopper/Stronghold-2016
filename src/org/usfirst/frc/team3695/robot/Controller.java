@@ -72,7 +72,7 @@ public class Controller {
 	 * <br>
 	 * If the controller is anything else:<br>
 	 * Button 4<br>
-	 * @return
+	 * @return Button number.
 	 */
 	public static int DRIVE_TARGET_LEFT_WITH_CAM() {
 		if(Constants.DRIVE_JOYSTICK_IS_XBOX) {
@@ -89,7 +89,7 @@ public class Controller {
 	 * <br>
 	 * If the controller is anything else:<br>
 	 * Button 5<br>
-	 * @return
+	 * @return Button number.
 	 */
 	public static int DRIVE_TARGET_RIGHT_WITH_CAM() {
 		if(Constants.DRIVE_JOYSTICK_IS_XBOX) {
@@ -98,6 +98,7 @@ public class Controller {
 			return 5;
 		}
 	}
+	
 	
 	
 	
@@ -145,7 +146,7 @@ public class Controller {
 	 * <br>
 	 * If the controller is anything else:<br>
 	 * Button 1<br>
-	 * @return
+	 * @return Button number.
 	 */
 	public static int OP_FIRE_BALL() {
 		if(Constants.OPERATOR_JOYSTICK_IS_XBOX) {
@@ -158,37 +159,63 @@ public class Controller {
 	/**
 	 * OPERATOR CONTROL<br>
 	 * If the controller is an xBox controller:<br>
-	 * Y (4)<br>
+	 * Y Button (4)<br>
 	 * <br>
 	 * If the controller is anything else:<br>
 	 * Button 0<br>
-	 * @return
+	 * @return Button number.
 	 */
-	public static int OP_FIRE_UP() {
+	public static int OP_ARM_UP() {
 		if(Constants.OPERATOR_JOYSTICK_IS_XBOX) {
 			return 4;
 		} else {
-			return 0;
+			return 3;
 		}
 	}
 	
 	/**
 	 * OPERATOR CONTROL<br>
 	 * If the controller is an xBox controller:<br>
-	 * B (2)<br>
+	 * B Button (2)<br>
 	 * <br>
 	 * If the controller is anything else:<br>
 	 * Button 0<br>
-	 * @return
+	 * @return Button number.
 	 */
-	public static int OP_FIRE_DOWN() {
+	public static int OP_ARM_DOWN() {
 		if(Constants.OPERATOR_JOYSTICK_IS_XBOX) {
 			return 2;
 		} else {
-			return 0;
+			return 2;
 		}
 	}
 	
+	
+	
+	
+	
+	
+	//POV HAT
+	/**
+	 * OPERATOR CONTROL<br>
+	 * The degree amount the POV must be to move the arm UP. See
+	 * OP_ARM_UP().
+	 */
+	public static final int OP_ARM_UP_POV_DEG = 0;
+	
+	/**
+	 * OPERATOR CONTROL<br>
+	 * The degree amount the POV must be to move the arm DOWN. See
+	 * OP_ARM_DOWN().
+	 */
+	public static final int OP_ARM_DOWN_POV_DEG = 180;
+	
+	
+	
+	
+	
+	
+	//Raw joystick values.
 	/**
 	 * Use this to obtain the joystick for the driver.
 	 * @return The driver joystick

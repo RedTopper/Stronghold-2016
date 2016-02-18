@@ -6,32 +6,46 @@ import org.usfirst.frc.team3695.robot.Robot;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Command;
 
+/**
+ * This command will move the robot to face a goal (hopefully) with
+ * a camera.
+ */
 public class CommandRotateWithCam extends Command {
+	/**
+	 * Used for telling the robot to move a certain direction to aim
+	 * at the goal. Use these in the constructor of the class. These
+	 * also represent the overall direction the robot will move.
+	 */
+	public static final int ROTATE_LEFT_OVERALL = 0,
+							ROTATE_RIGHT_OVERALL = 1;
 	
+	/**
+	 * Used to tell the robot the current direction it should be moving. The
+	 * values here are usually temporary.
+	 */
 	private static final int ROT_LEFT = 0,
 			 				 ROT_RIGHT = 1;
 	
 	Preferences prefs = Preferences.getInstance();
 	private int CAMERA_CALIBRATION_LR = prefs.getInt(Constants.CAMERA_CALIBRATION_LR_NAME, 0);
 	
-	/**
-	 * Used for telling the robot to move a certain direction to aim
-	 * at the goal. Use these in the constructor of the class.
-	 */
-	public static final String ROTATE_RIGHT_OVERALL = "RIGHT",
-							   ROTATE_LEFT_OVERALL = "LEFT";
-	
-	private String direction;
+	private int direction;
 	private boolean complete;
 	private int stage = 0;
 	private int error = 0;
 	private int rotDir = 0;
 	private long startPauseTime = 0;
 	
-    public CommandRotateWithCam(String string) {
+	/**
+	 * This will tell the robot witch way to move to face the goal the quickest.
+	 * Use CommandRotateWithCam.ROTATE_LEFT_OVERALL or CommandRotateRightWithCam.ROTATE_RIGHT_OVERALL
+	 * as the direction.
+	 * @param int direction as stated above.
+	 */
+    public CommandRotateWithCam(int direction) {
     	requires(Robot.driveSubsystem);
         requires(Robot.networkTables);
-        direction = string;
+        this.direction = direction;
         setTimeout(Constants.MAX_ROTATE_TIME);
     }
 

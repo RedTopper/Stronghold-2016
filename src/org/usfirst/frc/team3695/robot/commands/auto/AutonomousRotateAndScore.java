@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class AutonomousRotateAndScore extends CommandGroup 
 {
-    public AutonomousRotateAndScore(String direction)
+    public AutonomousRotateAndScore(int direction)
     {
     	addSequential(new CommandRotateWithCam(CommandRotateWithCam.ROTATE_LEFT_OVERALL));
     	//addSequential(new CommandLaunchBall()); // TODO: DO SOMETHING WICKED :O

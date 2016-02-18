@@ -14,6 +14,9 @@ public class Constants {
 	public static final int DRIVE_JOYSTICK = 0,
 							OPERATOR_JOYSTICK = 1;
 	
+	/**
+	 * True if the joystick is an xBox controller.
+	 */
 	public static final boolean DRIVE_JOYSTICK_IS_XBOX = true,
 								OPERATOR_JOYSTICK_IS_XBOX = true;
 	
@@ -99,7 +102,6 @@ public class Constants {
 	/**
 	 * Solenoid ports.
 	 */
-	public static final int THROW_SOLENOID_PORT = 0,
-							THROW_SOLENOID_PORT2 = 1,
-							LIFT_SOLENOID_PORT = 2;
+	public static final int ARM_SOLENOID_PORT = 0,
+							ARM_SOLENOID_PORT2 = 1;
 }

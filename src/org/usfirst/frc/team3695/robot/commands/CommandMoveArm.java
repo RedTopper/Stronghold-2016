@@ -4,18 +4,26 @@ import org.usfirst.frc.team3695.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
+/**
+ * This command moves the arm up and down using pistons
+ * and fancy pneumatics.
+ */
 public class CommandMoveArm extends Command {
 	public static final int MOVE_UP = 0,
 							MOVE_DOWN = 1;
 	
 	private int dir = 0;
 	
+	/**
+	 * The direction the arm will move.
+	 * @param direction use CommandMoveArm.MOVE_UP or CommandMoveArm.MOVE_DOWN
+	 * to move the arm in a direction.
+	 */
 	public CommandMoveArm(int direction) {
 		requires(Robot.throwSubsystem);
 		this.dir = direction;
 	}
 
-	@Override
 	protected void initialize() {
 		switch (dir) {
 		case MOVE_UP:
@@ -29,21 +37,16 @@ public class CommandMoveArm extends Command {
 		}
 	}
 
-	@Override
 	protected void execute() {
 	}
 
-	@Override
 	protected boolean isFinished() {
-		return true;
+		return true; //Always finished. Always.
 	}
 
-	@Override
 	protected void end() {
 	}
 
-	@Override
 	protected void interrupted() {
 	}
-
 }

@@ -4,9 +4,12 @@ import java.io.IOException;
 
 import edu.wpi.first.wpilibj.command.Command;
 
+/**
+ * Starts the GRIP platform on the robot.
+ * Grip path might change?
+ */
 public class CommandStartGRIP extends Command {
 
-	@Override
 	protected void initialize() {
         try {
             new ProcessBuilder("/home/lvuser/grip").inheritIO().start();
@@ -15,20 +18,16 @@ public class CommandStartGRIP extends Command {
         }
 	}
 
-	@Override
 	protected void execute() {
 	}
 
-	@Override
 	protected boolean isFinished() {
 		return false;
 	}
 
-	@Override
 	protected void end() {
 	}
 
-	@Override
 	protected void interrupted() {
 	}
 

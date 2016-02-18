@@ -66,12 +66,13 @@ public class Robot extends IterativeRobot {
     //AUTONOMOUS ZONE:
     public void autonomousInit() {
     	STOP_AUTO = null;
-        autonomousCommand = (Command) autoChooser.getSelected(); // Instantiate the command used for the autonomous period
-    	autonomousCommand.start(); // schedule the autonomous command
+        autonomousCommand = (Command) autoChooser.getSelected(); //Get chosen auto.
+    	autonomousCommand.start();
     }
 
     public void autonomousPeriodic() {
         log();
+        oi.updatePov();
         Scheduler.getInstance().run();
     }
 
@@ -83,6 +84,7 @@ public class Robot extends IterativeRobot {
     
     public void disabledPeriodic() {
     	log();
+    	oi.updatePov();
     }
     
     //TELEOP ZONE:
@@ -94,6 +96,7 @@ public class Robot extends IterativeRobot {
     
     public void teleopPeriodic() {
         log();
+    	oi.updatePov();
         Scheduler.getInstance().run();
     }
     

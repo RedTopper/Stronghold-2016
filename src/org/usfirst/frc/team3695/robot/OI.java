@@ -16,6 +16,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class OI {
 	
+	private CommandMoveArm moveArmUp = new CommandMoveArm(CommandMoveArm.MOVE_UP);
+	private CommandMoveArm moveArmDown = new CommandMoveArm(CommandMoveArm.MOVE_DOWN);
+	
+	private boolean povUpStateNotPressed = true,
+					povDownStateNotPressed = true;
+	
 	public OI() {
 		//SmartDash
 		SmartDashboard.putData("Use camera to rotate RIGHT", new CommandRotateWithCam(CommandRotateWithCam.ROTATE_RIGHT_OVERALL));
@@ -30,11 +36,30 @@ public class OI {
 		Button removeBall = new JoystickButton(Controller.OP_JOY(), Controller.OP_THROW_OUT_BALL());
 		removeBall.whileHeld(new CommandGetBall(CommandGetBall.THROW_OUT_BALL));
 		
-		Button fireUp = new JoystickButton(Controller.OP_JOY(), Controller.OP_FIRE_UP());
-		fireUp.whenPressed(new CommandMoveArm(CommandMoveArm.MOVE_UP));
+		//Buttons, but also POV hat. See updatePov()
+		Button armUp = new JoystickButton(Controller.OP_JOY(), Controller.OP_ARM_DOWN());
+		armUp.whenPressed(moveArmUp);
 		
-		Button fireDown = new JoystickButton(Controller.OP_JOY(), Controller.OP_FIRE_DOWN());
-		fireDown.whenPressed(new CommandMoveArm(CommandMoveArm.MOVE_DOWN));
+		Button armDown = new JoystickButton(Controller.OP_JOY(), Controller.OP_ARM_DOWN());
+		armDown.whenPressed(moveArmDown);
+	}
+	
+	/**
+	 * Updates the POV hat on a controller.
+	 */
+	public void updatePov() {
+		if(povDownStateNotPressed && Controller.OP_JOY().getPOV(0) == Controller.OP_ARM_UP_POV_DEG) {
+			moveArmUp.start();
+			povDownStateNotPressed = false;
+		}
+		if(povUpStateNotPressed && Controller.OP_JOY().getPOV(0) == Controller.OP_ARM_DOWN_POV_DEG) {
+			moveArmDown.start();
+			povUpStateNotPressed = false;
+		}
+		if(Controller.OP_JOY().getPOV(0) == -1) {
+			povDownStateNotPressed = true;
+			povUpStateNotPressed = true;
+		}
 	}
 }
 
