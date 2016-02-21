@@ -55,27 +55,24 @@ public class SubsystemDrive extends Subsystem {
     }
     
 	/**
-	 * The log method puts interesting information to the SmartDashboard.
+	 * Arcade style driving for the DriveTrain.
+	 * @param x Speed in range [-1,1]
+	 * @param y Speed in range [-1,1]
 	 */
-	public void log() {
-		for(int i = 0; i < x_g_buffer.length - 1; i++) {
-			x_g_buffer[i] = x_g_buffer[i + 1];
-			y_g_buffer[i] = y_g_buffer[i + 1];
-			z_g_buffer[i] = z_g_buffer[i + 1];
+	public void drive(double x, double y) {
+		driveTrain.arcadeDrive(x, y);
+	}
+	
+	/**
+	 * @param joy This should move the robot and rumble the controller.
+	 * Passing the joy to this method is simply for rumble.
+	 */
+	public void drive(Joystick joy) {
+		drive(Controller.DRIVE_X_AXIS(),Controller.DRIVE_Y_AXIS());
+		if(Robot.isRumbleEnabled()) {
+			joy.setRumble(RumbleType.kLeftRumble, (System.currentTimeMillis() < timeStartRumble + Constants.RUMBLE_TIME_MS ? 1.0f : 0.0f));
+			joy.setRumble(RumbleType.kRightRumble, (System.currentTimeMillis() < timeStartRumble + Constants.RUMBLE_TIME_MS ? 1.0f : 0.0f));
 		}
-		
-		x_g_buffer[x_g_buffer.length - 1] = builtInAccelerometer.getX();
-		y_g_buffer[y_g_buffer.length - 1] = builtInAccelerometer.getY();
-		z_g_buffer[z_g_buffer.length - 1] = builtInAccelerometer.getZ();
-		
-		double x = average(x_g_buffer);
-		double y = average(y_g_buffer);
-		double z = average(z_g_buffer);
-		
-		SmartDashboard.putNumber("Speed X m.s:", Math.abs(x * 9.8));
-		SmartDashboard.putNumber("Speed Y m.s:", Math.abs(y * 9.8));
-		SmartDashboard.putNumber("Speed Z m.s:", Math.abs(z * 9.8));
-		rumble(x, y, z);
 	}
 	
 	private void rumble(double x, double y, double z) {
@@ -97,27 +94,6 @@ public class SubsystemDrive extends Subsystem {
 	}
 
 	/**
-	 * Arcade style driving for the DriveTrain.
-	 * @param x Speed in range [-1,1]
-	 * @param y Speed in range [-1,1]
-	 */
-	public void drive(double x, double y) {
-		driveTrain.arcadeDrive(x, y);
-	}
-	
-	/**
-	 * @param joy This should move the robot and rumble the controller.
-	 * Passing the joy to this method is simply for rumble.
-	 */
-	public void drive(Joystick joy) {
-		drive(Controller.DRIVE_X_AXIS(),Controller.DRIVE_Y_AXIS());
-		if(Robot.isRumbleEnabled()) {
-			joy.setRumble(RumbleType.kLeftRumble, (System.currentTimeMillis() < timeStartRumble + Constants.RUMBLE_TIME_MS ? 1.0f : 0.0f));
-			joy.setRumble(RumbleType.kRightRumble, (System.currentTimeMillis() < timeStartRumble + Constants.RUMBLE_TIME_MS ? 1.0f : 0.0f));
-		}
-	}
-	
-	/**
 	 * Averages a list and returns a double.
 	 * @param list List to average
 	 * @return An average
@@ -128,6 +104,30 @@ public class SubsystemDrive extends Subsystem {
 			sum += d;
 		}
 		return sum / (double)list.length;
+	}
+
+	/**
+	 * The log method puts interesting information to the SmartDashboard.
+	 */
+	public void log() {
+		for(int i = 0; i < x_g_buffer.length - 1; i++) {
+			x_g_buffer[i] = x_g_buffer[i + 1];
+			y_g_buffer[i] = y_g_buffer[i + 1];
+			z_g_buffer[i] = z_g_buffer[i + 1];
+		}
+		
+		x_g_buffer[x_g_buffer.length - 1] = builtInAccelerometer.getX();
+		y_g_buffer[y_g_buffer.length - 1] = builtInAccelerometer.getY();
+		z_g_buffer[z_g_buffer.length - 1] = builtInAccelerometer.getZ();
+		
+		double x = average(x_g_buffer);
+		double y = average(y_g_buffer);
+		double z = average(z_g_buffer);
+		
+		SmartDashboard.putNumber("Speed X", Math.abs(x * 9.8));
+		SmartDashboard.putNumber("Speed Y", Math.abs(y * 9.8));
+		SmartDashboard.putNumber("Speed Z", Math.abs(z * 9.8));
+		rumble(x, y, z);
 	}
 }
 

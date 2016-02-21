@@ -31,16 +31,16 @@ public class SubsystemNetworkTables extends Subsystem {
 		return rawGoalY;
 	}
 	
-	public void log() {
-		SmartDashboard.putNumber("Goal X Position", getRawGoalX());
-		SmartDashboard.putNumber("Goal Y Position", getRawGoalY());
-	}
-	
 	public void updateInfo() {
 		double[] centerX = table.getNumberArray("centerX", new double[] {-1.0});
 		rawGoalX = (centerX.length > 0 ? centerX[0] : -1.0);
 		
 		double[] centerY = table.getNumberArray("centerY", new double[] {-1.0});
 		rawGoalY = (centerY.length > 0 ? centerY[0] : -1.0);
+	}
+
+	public void log() {
+		SmartDashboard.putNumber("Goal X Position", getRawGoalX());
+		SmartDashboard.putNumber("Goal Y Position", getRawGoalY());
 	}
 }

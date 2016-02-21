@@ -4,6 +4,7 @@ import org.usfirst.frc.team3695.robot.Constants;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This subsystem uses pneumatics to move up and down the arm
@@ -12,6 +13,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class SubsystemBucket extends Subsystem {
 	private Solenoid solenoid;
 	private Solenoid solenoid2;
+	
+	private String bucketPosition = "Unknown";
 	
 	public SubsystemBucket() {
 		super();
@@ -26,14 +29,16 @@ public class SubsystemBucket extends Subsystem {
 	public void moveBucketUp() {
 		solenoid.set(false);
 		solenoid2.set(true);
+		bucketPosition = "Up";
 	}
 	
 	public void moveBucketDown() {
 		solenoid.set(true);
 		solenoid2.set(false);
+		bucketPosition = "Down";
 	}
 	
 	public void log() {
-		
+		SmartDashboard.putString("Bucket Position", bucketPosition);
 	}
 }
