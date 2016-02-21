@@ -34,8 +34,8 @@ public class SubsystemSensors extends Subsystem {
 	}
 	
 	public void log() {
-		pickup = Robot.sensorsSubsystem.getPhotoPickupVoltage();
-		loaded = Robot.sensorsSubsystem.getPhotoLoadedVoltage();
+		pickup = getPhotoPickupVoltage();
+		loaded = getPhotoLoadedVoltage();
 		SmartDashboard.putNumber("Test output = " , pickup);
 		if (pickup > limit){
 			detect = true;
