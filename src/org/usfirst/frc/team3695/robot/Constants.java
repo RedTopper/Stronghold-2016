@@ -107,8 +107,10 @@ public class Constants {
 	/**
 	 * Solenoid ports.
 	 */
-	public static final int BUCKET_SOLENOID_PORT = 0,
-							BUCKET_SOLENOID_PORT2 = 1,
-							ARM_SOLENOID_PORT = 2,
-							ARM_SOLENOID_PORT2 = 3;
+	public static final int BUCKET_SOLENOID_UP = 0,
+							BUCKET_SOLENOID_DOWN = 1,
+							LATCH_SOLENOID_ENGAGE = 2,
+							LATCH_SOLENOID_DISENGAGE = 3,
+							ARM_SOLENOID_UP = 4,
+							ARM_SOLENOID_DOWN = 5;
 }

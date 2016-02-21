@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Joystick.RumbleType;
 import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -18,10 +18,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * some unique sensors (like the accelerometer and stuff) that are included.
  */
 public class SubsystemDrive extends Subsystem {
-	private Talon frontLeft;
-	private Talon frontRight;
-	private Talon rearLeft;
-	private Talon rearRight;
+	private TalonSRX frontLeft;
+	private TalonSRX frontRight;
+	private TalonSRX rearLeft;
+	private TalonSRX rearRight;
 	
 	private double[] x_g_buffer = new double[10];
 	private double[] y_g_buffer = new double[x_g_buffer.length];
@@ -36,10 +36,10 @@ public class SubsystemDrive extends Subsystem {
 	public SubsystemDrive() {
 		super();
 		
-		frontLeft = new Talon(Constants.FRONT_LEFT_MOTOR_PORT);
-		frontRight = new Talon(Constants.FRONT_RIGHT_MOTOR_PORT);
-		rearLeft = new Talon(Constants.REAR_LEFT_MOTOR_PORT);
-		rearRight = new Talon(Constants.REAR_RIGHT_MOTOR_PORT);
+		frontLeft = new TalonSRX(Constants.FRONT_LEFT_MOTOR_PORT);
+		frontRight = new TalonSRX(Constants.FRONT_RIGHT_MOTOR_PORT);
+		rearLeft = new TalonSRX(Constants.REAR_LEFT_MOTOR_PORT);
+		rearRight = new TalonSRX(Constants.REAR_RIGHT_MOTOR_PORT);
 		driveTrain = new RobotDrive(frontLeft,rearLeft,frontRight,rearRight);
 		
 		driveTrain.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, Constants.FRONT_LEFT_MOTOR_INVERT);

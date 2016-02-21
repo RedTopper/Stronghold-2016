@@ -11,15 +11,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * of the robot.
  */
 public class SubsystemBucket extends Subsystem {
-	private Solenoid solenoid;
-	private Solenoid solenoid2;
+	private Solenoid bucketDown;
+	private Solenoid bucketUp;
 	
 	private String bucketPosition = "Unknown";
 	
 	public SubsystemBucket() {
 		super();
-		solenoid = new Solenoid(Constants.BUCKET_SOLENOID_PORT);
-		solenoid2 = new Solenoid(Constants.BUCKET_SOLENOID_PORT2);
+		bucketDown = new Solenoid(Constants.BUCKET_SOLENOID_DOWN);
+		bucketUp = new Solenoid(Constants.BUCKET_SOLENOID_UP);
 	}
 	
 	@Override
@@ -27,14 +27,14 @@ public class SubsystemBucket extends Subsystem {
 	}
 	
 	public void moveBucketUp() {
-		solenoid.set(false);
-		solenoid2.set(true);
+		bucketDown.set(false);
+		bucketUp.set(true);
 		bucketPosition = "Up";
 	}
 	
 	public void moveBucketDown() {
-		solenoid.set(true);
-		solenoid2.set(false);
+		bucketDown.set(true);
+		bucketUp.set(false);
 		bucketPosition = "Down";
 	}
 	
