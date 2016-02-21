@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
  * This command moves the arm up and down using pistons
  * and fancy pneumatics.
  */
-public class CommandMoveArm extends Command {
+public class CommandMoveBucket extends Command {
 	public static final int MOVE_UP = 0,
 							MOVE_DOWN = 1;
 	
@@ -19,18 +19,18 @@ public class CommandMoveArm extends Command {
 	 * @param direction use CommandMoveArm.MOVE_UP or CommandMoveArm.MOVE_DOWN
 	 * to move the arm in a direction.
 	 */
-	public CommandMoveArm(int direction) {
-		requires(Robot.throwSubsystem);
+	public CommandMoveBucket(int direction) {
+		requires(Robot.bucketSubsystem);
 		this.dir = direction;
 	}
 
 	protected void initialize() {
 		switch (dir) {
 		case MOVE_UP:
-			Robot.throwSubsystem.moveArmUp();
+			Robot.bucketSubsystem.moveBucketUp();
 			break;
 		case MOVE_DOWN:
-			Robot.throwSubsystem.moveArmDown();
+			Robot.bucketSubsystem.moveBucketDown();
 			break;
 		}
 	}
