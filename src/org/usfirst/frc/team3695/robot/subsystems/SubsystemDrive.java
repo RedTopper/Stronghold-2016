@@ -1,4 +1,3 @@
-
 package org.usfirst.frc.team3695.robot.subsystems;
 
 import org.usfirst.frc.team3695.robot.Constants;
@@ -19,7 +18,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * some unique sensors (like the accelerometer and stuff) that are included.
  */
 public class SubsystemDrive extends Subsystem {
-	
 	private Talon frontLeft;
 	private Talon frontRight;
 	private Talon rearLeft;
@@ -28,7 +26,6 @@ public class SubsystemDrive extends Subsystem {
 	private double[] x_g_buffer = new double[10];
 	private double[] y_g_buffer = new double[x_g_buffer.length];
 	private double[] z_g_buffer = new double[x_g_buffer.length];
-
 	
 	//TODO: Uncomment for encoders: private Encoder leftEncoder, rightEncoder;
 	
