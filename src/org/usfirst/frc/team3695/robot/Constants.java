@@ -39,7 +39,10 @@ public class Constants {
 	 */
 	public static final int PHOTO_PICKUP_PORT = 1,
 							PHOTO_LOADED_PORT = 2;
-	
+	/**
+	 * Limit for the Photoelectric Sensor
+	 */
+	public static final double PHOTO_LIMIT = 0.7;
 	/**
 	 * True if the motor is inverted. False otherwise.
 	 */

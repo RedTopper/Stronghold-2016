@@ -11,11 +11,7 @@ public class SubsystemSensors extends Subsystem {
 	AnalogInput photoPickup = new AnalogInput(Constants.PHOTO_PICKUP_PORT);
 	AnalogInput photoLoaded = new AnalogInput(Constants.PHOTO_LOADED_PORT);
 	AnalogInput ultrasonicInput = new AnalogInput(Constants.ULTRASONIC_INPUT);
-	double pickup;
-	double loaded;
-	boolean fire;
-	boolean detect;
-	double limit = 0.7;
+
 	
 	@Override
 	protected void initDefaultCommand() {
@@ -34,23 +30,26 @@ public class SubsystemSensors extends Subsystem {
 	}
 	
 	public void log() {
+		double pickup;
+		double loaded;
+		boolean detectFire;
+		boolean detectPickup;
 		pickup = getPhotoPickupVoltage();
 		loaded = getPhotoLoadedVoltage();
-		SmartDashboard.putNumber("Test output = " , pickup);
-		if (pickup > limit){
-			detect = true;
+		SmartDashboard.putNumber("Analog Read " , pickup);
+		if (pickup > Constants.PHOTO_LIMIT){
+			detectPickup = true;
 		}
 		else{
-			detect = false;
+			detectPickup = false;
 		}
-		SmartDashboard.putBoolean("Pickup = ",detect);
-		if (loaded > limit){
-			fire = true;
+		if (loaded > Constants.PHOTO_LIMIT){
+			detectFire = true;
 		}
 		else{
-			fire = false;
+			detectFire = false;
 		}
-		SmartDashboard.putBoolean("Pickup = ",detect);
-		SmartDashboard.putBoolean("Loaded = ",fire);
+		SmartDashboard.putBoolean("Pickup = ",detectPickup);
+		SmartDashboard.putBoolean("Loaded = ",detectFire);
 	}
 }
