@@ -27,8 +27,6 @@ public class SubsystemDrive extends Subsystem {
 	private double[] y_g_buffer = new double[x_g_buffer.length];
 	private double[] z_g_buffer = new double[x_g_buffer.length];
 	
-	//TODO: Uncomment for encoders: private Encoder leftEncoder, rightEncoder;
-	
 	private RobotDrive driveTrain;
 	
 	private BuiltInAccelerometer builtInAccelerometer;
@@ -49,11 +47,6 @@ public class SubsystemDrive extends Subsystem {
 		driveTrain.setInvertedMotor(RobotDrive.MotorType.kRearLeft, Constants.REAR_LEFT_MOTOR_INVERT);
 		driveTrain.setInvertedMotor(RobotDrive.MotorType.kRearRight, Constants.REAR_RIGHT_MOTOR_INVERT);
 		
-		//TODO: Uncomment for encoders: leftEncoder = new Encoder(Constants.FRONT_LEFT_MOTOR_PORT, Constants.REAR_LEFT_MOTOR_PORT);
-		//TODO: Uncomment for encoders: rightEncoder = new Encoder(Constants.FRONT_RIGHT_MOTOR_PORT, Constants.REAR_RIGHT_MOTOR_PORT);
-		//TODO: Uncomment for encoders: leftEncoder.setDistancePerPulse(Constants.DISTANCE_PER_PULSE);
-		//TODO: Uncomment for encoders: rightEncoder.setDistancePerPulse(Constants.DISTANCE_PER_PULSE);
-		
 		builtInAccelerometer = new BuiltInAccelerometer();
 	}
 	
@@ -65,10 +58,6 @@ public class SubsystemDrive extends Subsystem {
 	 * The log method puts interesting information to the SmartDashboard.
 	 */
 	public void log() {
-		//TODO: Uncomment for encoders: SmartDashboard.putNumber("Left Distance", leftEncoder.getDistance());
-		//TODO: Uncomment for encoders: SmartDashboard.putNumber("Right Distance", rightEncoder.getDistance());
-		//TODO: Uncomment for encoders: SmartDashboard.putNumber("Left Speed", leftEncoder.getRate());
-		//TODO: Uncomment for encoders: SmartDashboard.putNumber("Right Speed", rightEncoder.getRate());
 		for(int i = 0; i < x_g_buffer.length - 1; i++) {
 			x_g_buffer[i] = x_g_buffer[i + 1];
 			y_g_buffer[i] = y_g_buffer[i + 1];
@@ -129,22 +118,10 @@ public class SubsystemDrive extends Subsystem {
 	}
 	
 	/**
-	 * Reset the robots sensors to the zero states.
+	 * Averages a list and returns a double.
+	 * @param list List to average
+	 * @return An average
 	 */
-	public void reset() {
-		//Zero units (such as a gyro) here
-		//TODO: Uncomment for encoders: leftEncoder.reset();
-		//TODO: Uncomment for encoders: rightEncoder.reset();
-	}
-	
-	/**
-	 * @return The distance driven (average of left and right encoders).
-	 */
-	public double getDistance() {
-		//TODO: Uncomment for encoders: return (leftEncoder.getDistance() + rightEncoder.getDistance())/2;
-		return -1.0;
-	}
-	
 	private double average(double[] list) {
 		double sum = 0.0;
 		for(double d : list) {

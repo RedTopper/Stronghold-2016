@@ -1,8 +1,7 @@
 package org.usfirst.frc.team3695.robot;
 
 import org.usfirst.frc.team3695.robot.commands.CommandGetBall;
-import org.usfirst.frc.team3695.robot.commands.CommandMoveArm;
-import org.usfirst.frc.team3695.robot.commands.CommandPhotoelectric;
+import org.usfirst.frc.team3695.robot.commands.CommandMoveBucket;
 import org.usfirst.frc.team3695.robot.commands.CommandRotateWithCam;
 import org.usfirst.frc.team3695.robot.commands.CommandStartGRIP;
 import org.usfirst.frc.team3695.robot.commands.CommandUltrasonicReposition;
@@ -17,8 +16,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class OI {
 	
-	private CommandMoveArm moveArmUp = new CommandMoveArm(CommandMoveArm.MOVE_UP);
-	private CommandMoveArm moveArmDown = new CommandMoveArm(CommandMoveArm.MOVE_DOWN);
+	private CommandMoveBucket moveArmUp = new CommandMoveBucket(CommandMoveBucket.MOVE_UP);
+	private CommandMoveBucket moveArmDown = new CommandMoveBucket(CommandMoveBucket.MOVE_DOWN);
 	
 	private boolean povUpStateNotPressed = true,
 					povDownStateNotPressed = true;

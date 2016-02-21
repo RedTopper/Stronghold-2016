@@ -30,6 +30,11 @@ public class Constants {
 							BALL_MOTOR_PORT = 4;
 	
 	/**
+	 * Port used for the Ultrasonic Sensor.
+	 */
+	public static final int ULTRASONIC_INPUT = 0;
+	
+	/**
 	 * Port used for Photoelelctric sensor
 	 */
 	public static final int PHOTO_PICKUP_PORT = 1,
@@ -102,6 +107,6 @@ public class Constants {
 	/**
 	 * Solenoid ports.
 	 */
-	public static final int ARM_SOLENOID_PORT = 0,
-							ARM_SOLENOID_PORT2 = 1;
+	public static final int BUCKET_SOLENOID_PORT = 0,
+							BUCKET_SOLENOID_PORT2 = 1;
 }
