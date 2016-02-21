@@ -11,12 +11,12 @@ public class Constants {
 	/**
 	 * Time in MS between when the latch closes and the arm piston moves downwards.
 	 */
-	public static final long TIME_BETWEEN_LATCH_AND_PISTON_RESET = 2500;
+	public static final long TIME_TO_LATCH = 2000;
 	
 	/**
 	 * Time it takes for the piston to move down so the driver can fire the ball again.
 	 */
-	public static final long TIME_BETWEEN_PISTON_RESET_AND_READY = 1000;
+	public static final long TIME_TO_MOVE_ARM_PISTON = 2000;
 
 	/**
 	 * Joystick control port
