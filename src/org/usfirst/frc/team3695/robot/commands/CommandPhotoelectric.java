@@ -1,18 +1,14 @@
 package org.usfirst.frc.team3695.robot.commands;
-import org.usfirst.frc.team3695.robot.Constants;
-
-import edu.wpi.first.wpilibj.AnalogInput;
+import org.usfirst.frc.team3695.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class CommandPhotoelectric extends Command {
-	AnalogInput photoPickup = new AnalogInput(Constants.PHOTO_PICKUP_PORT);
-	AnalogInput photoLoaded = new AnalogInput(Constants.PHOTO_LOADED_PORT);
 	double pickup;
 	double loaded;
 	boolean fire;
 	boolean detect;
-	int limit = 2;
+	double limit = 0.7;
 	@Override
 	protected void end() {
 		// TODO Auto-generated method stub
@@ -22,8 +18,8 @@ public class CommandPhotoelectric extends Command {
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		pickup = photoPickup.getVoltage();
-		loaded = photoLoaded.getVoltage();
+		pickup = Robot.sensorsSubsystem.getPhotoPickupVoltage();
+		loaded = Robot.sensorsSubsystem.getPhotoLoadedVoltage();
 		SmartDashboard.putNumber("Test output = " , pickup);
 		if (pickup > limit){
 			detect = true;
