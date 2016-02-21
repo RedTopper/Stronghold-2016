@@ -1,0 +1,68 @@
+<xml version="1.0">
+<dashboard>
+	<static-widget class="edu.wpi.grip.smartdashboard.GRIPExtension">
+		<location x="441" y="1"/>
+		<width>605</width>
+		<height>266</height>
+		<property name="GRIP Address" value="roboRIO-3695-FRC.local"/>
+	</static-widget>
+	<widget field="Acceleration Y m.s:" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="208"/>
+	</widget>
+	<widget field="Acceleration Z m.s:" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="187"/>
+	</widget>
+	<widget field="Acceleration X m.s:" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="166"/>
+	</widget>
+	<widget field="Speed Z m.s:" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.SimpleDial">
+		<location x="1098" y="324"/>
+	</widget>
+	<widget field="Speed X m.s:" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.SimpleDial">
+		<location x="891" y="324"/>
+	</widget>
+	<widget field="Speed Y m.s:" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="88" y="145"/>
+	</widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.RobotPreferences">
+		<location x="1050" y="1"/>
+	</static-widget>
+	<widget field="Test Analog" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="161" y="446"/>
+	</widget>
+	<widget field="Use camera to align CENTER" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="4" y="57"/>
+	</widget>
+	<widget field="Goal Y Position" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="672" y="270"/>
+	</widget>
+	<widget field="Auto Mode" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="571" y="293"/>
+	</widget>
+	<widget field="Rumble" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="1" y="385"/>
+	</widget>
+	<widget field="Goal X Position" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="510" y="270"/>
+	</widget>
+	<widget field="Scheduler" type="Scheduler" class="edu.wpi.first.smartdashboard.gui.elements.Scheduler">
+		<location x="270" y="6"/>
+	</widget>
+	<widget field="Use camera to rotate LEFT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="12" y="1"/>
+	</widget>
+	<widget field="Auto Status: " type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="87" y="93"/>
+		<width>346</width>
+	</widget>
+	<widget field="SubsystemDrive" type="Subsystem" class="edu.wpi.first.smartdashboard.gui.elements.Subsystem">
+		<location x="74" y="119"/>
+		<width>216</width>
+	</widget>
+	<widget field="Use camera to rotate RIGHT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="4" y="29"/>
+	</widget>
+</dashboard>
+<live-window>
+</live-window>
+</xml>

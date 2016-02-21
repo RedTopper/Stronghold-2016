@@ -18,7 +18,7 @@ public class Controller {
 	 * @return A double from -1.0 to 1.0
 	 */
 	public static double DRIVE_Y_AXIS() {
-		if(driver.getIsXbox()) {
+		if(Constants.DRIVE_JOYSTICK_IS_XBOX) {
 			double left = driver.getRawAxis(2);
 			double right = driver.getRawAxis(3);
 			if(right > 0.05) { //Returning right will ALWAYS take priority.
@@ -41,7 +41,7 @@ public class Controller {
 	 * @return A double from -1.0 to 1.0
 	 */
 	public static double DRIVE_X_AXIS() {
-		if(driver.getIsXbox()) {
+		if(Constants.DRIVE_JOYSTICK_IS_XBOX) {
 			return driver.getX();
 		} else {
 			return driver.getX();
@@ -58,7 +58,7 @@ public class Controller {
 	 * @return Button number.
 	 */
 	public static int DRIVE_BOOST() {
-		if(driver.getIsXbox()) {
+		if(Constants.DRIVE_JOYSTICK_IS_XBOX) {
 			return 2;
 		} else {
 			return 1;
@@ -72,10 +72,10 @@ public class Controller {
 	 * <br>
 	 * If the controller is anything else:<br>
 	 * Button 4<br>
-	 * @return
+	 * @return Button number.
 	 */
 	public static int DRIVE_TARGET_LEFT_WITH_CAM() {
-		if(driver.getIsXbox()) {
+		if(Constants.DRIVE_JOYSTICK_IS_XBOX) {
 			return 5;
 		} else {
 			return 4;
@@ -89,15 +89,16 @@ public class Controller {
 	 * <br>
 	 * If the controller is anything else:<br>
 	 * Button 5<br>
-	 * @return
+	 * @return Button number.
 	 */
 	public static int DRIVE_TARGET_RIGHT_WITH_CAM() {
-		if(driver.getIsXbox()) {
+		if(Constants.DRIVE_JOYSTICK_IS_XBOX) {
 			return 6;
 		} else {
 			return 5;
 		}
 	}
+	
 	
 	
 	
@@ -114,7 +115,7 @@ public class Controller {
 	 * @return Button number.
 	 */
 	public static int OP_SUCK_IN_BALL() {
-		if(operator.getIsXbox()) {
+		if(Constants.OPERATOR_JOYSTICK_IS_XBOX) {
 			return 6;
 		} else {
 			return 5;
@@ -131,7 +132,7 @@ public class Controller {
 	 * @return Button number.
 	 */
 	public static int OP_THROW_OUT_BALL() {
-		if(operator.getIsXbox()) {
+		if(Constants.OPERATOR_JOYSTICK_IS_XBOX) {
 			return 5;
 		} else {
 			return 4;
@@ -145,16 +146,76 @@ public class Controller {
 	 * <br>
 	 * If the controller is anything else:<br>
 	 * Button 1<br>
-	 * @return
+	 * @return Button number.
 	 */
 	public static int OP_FIRE_BALL() {
-		if(driver.getIsXbox()) {
+		if(Constants.OPERATOR_JOYSTICK_IS_XBOX) {
 			return 1;
 		} else {
 			return 1;
 		}
 	}
 	
+	/**
+	 * OPERATOR CONTROL<br>
+	 * If the controller is an xBox controller:<br>
+	 * Y Button (4)<br>
+	 * <br>
+	 * If the controller is anything else:<br>
+	 * Button 0<br>
+	 * @return Button number.
+	 */
+	public static int OP_ARM_UP() {
+		if(Constants.OPERATOR_JOYSTICK_IS_XBOX) {
+			return 4;
+		} else {
+			return 3;
+		}
+	}
+	
+	/**
+	 * OPERATOR CONTROL<br>
+	 * If the controller is an xBox controller:<br>
+	 * B Button (2)<br>
+	 * <br>
+	 * If the controller is anything else:<br>
+	 * Button 0<br>
+	 * @return Button number.
+	 */
+	public static int OP_ARM_DOWN() {
+		if(Constants.OPERATOR_JOYSTICK_IS_XBOX) {
+			return 2;
+		} else {
+			return 2;
+		}
+	}
+	
+	
+	
+	
+	
+	
+	//POV HAT
+	/**
+	 * OPERATOR CONTROL<br>
+	 * The degree amount the POV must be to move the arm UP. See
+	 * OP_ARM_UP().
+	 */
+	public static final int OP_ARM_UP_POV_DEG = 0;
+	
+	/**
+	 * OPERATOR CONTROL<br>
+	 * The degree amount the POV must be to move the arm DOWN. See
+	 * OP_ARM_DOWN().
+	 */
+	public static final int OP_ARM_DOWN_POV_DEG = 180;
+	
+	
+	
+	
+	
+	
+	//Raw joystick values.
 	/**
 	 * Use this to obtain the joystick for the driver.
 	 * @return The driver joystick
@@ -186,7 +247,7 @@ public class Controller {
 	 * @return
 	 */
 	public static int method_name() {
-		if(driver.getIsXbox()) {
+		if(Constants.DRIVE_JOYSTICK_IS_XBOX) {
 			return 0;
 		} else {
 			return 0;

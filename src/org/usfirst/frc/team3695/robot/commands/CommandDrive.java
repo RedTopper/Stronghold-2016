@@ -1,4 +1,3 @@
-
 package org.usfirst.frc.team3695.robot.commands;
 
 import org.usfirst.frc.team3695.robot.Controller;
@@ -11,6 +10,9 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class CommandDrive extends Command {
 
+	/**
+	 * Drives the robot around.
+	 */
     public CommandDrive() {
         requires(Robot.driveSubsystem);
     }
