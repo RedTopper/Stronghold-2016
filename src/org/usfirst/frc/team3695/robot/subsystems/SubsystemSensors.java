@@ -1,7 +1,6 @@
 package org.usfirst.frc.team3695.robot.subsystems;
 
 import org.usfirst.frc.team3695.robot.Constants;
-import org.usfirst.frc.team3695.robot.Robot;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -36,7 +35,7 @@ public class SubsystemSensors extends Subsystem {
 		boolean detectPickup;
 		pickup = getPhotoPickupVoltage();
 		loaded = getPhotoLoadedVoltage();
-		SmartDashboard.putNumber("Analog Read " , pickup);
+		SmartDashboard.putNumber("Analog Read" , pickup);
 		if (pickup > Constants.PHOTO_LIMIT){
 			detectPickup = true;
 		}
@@ -49,7 +48,7 @@ public class SubsystemSensors extends Subsystem {
 		else{
 			detectFire = false;
 		}
-		SmartDashboard.putBoolean("Pickup = ",detectPickup);
-		SmartDashboard.putBoolean("Loaded = ",detectFire);
+		SmartDashboard.putBoolean("Pickup",detectPickup);
+		SmartDashboard.putBoolean("Loaded",detectFire);
 	}
 }

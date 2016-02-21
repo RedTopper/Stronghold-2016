@@ -9,6 +9,16 @@ public class Constants {
 	//private static final char BRIAN_BUTTON = 'h';
 	
 	/**
+	 * Time in MS between when the latch closes and the arm piston moves downwards.
+	 */
+	public static final long TIME_BETWEEN_LATCH_AND_PISTON_RESET = 2500;
+	
+	/**
+	 * Time it takes for the piston to move down so the driver can fire the ball again.
+	 */
+	public static final long TIME_BETWEEN_PISTON_RESET_AND_READY = 1000;
+
+	/**
 	 * Joystick control port
 	 */
 	public static final int DRIVE_JOYSTICK = 0,

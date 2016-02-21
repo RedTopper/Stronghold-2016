@@ -10,8 +10,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * of the robot.
  */
 public class SubsystemArm extends Subsystem {
-	private Solenoid armUp;
-	private Solenoid armDown;
+	private Solenoid armPistonUp;
+	private Solenoid armPistonDown;
 	private Solenoid latchEngage;
 	private Solenoid latchDisengage;
 	
@@ -20,8 +20,8 @@ public class SubsystemArm extends Subsystem {
 	
 	public SubsystemArm() {
 		super();
-		armUp = new Solenoid(Constants.ARM_SOLENOID_UP);
-		armDown = new Solenoid(Constants.ARM_SOLENOID_DOWN);
+		armPistonUp = new Solenoid(Constants.ARM_SOLENOID_UP);
+		armPistonDown = new Solenoid(Constants.ARM_SOLENOID_DOWN);
 		latchEngage = new Solenoid(Constants.LATCH_SOLENOID_ENGAGE);
 		latchDisengage = new Solenoid(Constants.LATCH_SOLENOID_DISENGAGE);
 	}
@@ -31,26 +31,26 @@ public class SubsystemArm extends Subsystem {
 	}
 	
 	/**
-	 * Fires the ball.
+	 * Fires the ball. 
 	 */
-	public void moveArmUp() {
-		armDown.set(false);
-		armUp.set(true);
+	public void fireBall() {
+		armPistonDown.set(true);
+		armPistonUp.set(false);
 		latchEngage.set(false);
 		latchDisengage.set(true);
-		armState = "Fired";
+		armState = "Fired (Pison down)";
 		latchState = "Disengaged";
 	}
 	
 	/**
 	 * Reset the arm.
 	 */
-	public void moveArmDown() {
-		armDown.set(true);
-		armUp.set(false);
+	public void resetArm() {
+		armPistonDown.set(false);
+		armPistonUp.set(true);
 		latchEngage.set(false);
 		latchDisengage.set(true);
-		armState = "Resetting...";
+		armState = "Resetting... (Pison moving up)";
 		latchState = "Disengaged";
 	}
 	
@@ -58,9 +58,25 @@ public class SubsystemArm extends Subsystem {
 	 * Locks the latch.
 	 */
 	public void engageLatch() {
+		armPistonDown.set(false);
+		armPistonUp.set(true);
 		latchEngage.set(true);
 		latchDisengage.set(false);
-		latchState = "Engaged";
+		armState = "Resetting... (Piston holding)";
+		latchState = "Engaging";
+	}
+
+	/**
+	 * Gets the pistons out of the way.
+	 */
+	public void getPisonsOutOfTheWay() {
+		armPistonDown.set(true);
+		armPistonUp.set(false);
+		armState = "Resetting... (Pison moving down)";
+	}
+	
+	public void ready() {
+		armState = "Ready (Pison down)";
 	}
 	
 	public void log() {

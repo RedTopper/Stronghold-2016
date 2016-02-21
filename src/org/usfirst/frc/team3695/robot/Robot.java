@@ -8,6 +8,7 @@ import org.usfirst.frc.team3695.robot.subsystems.SubsystemBall;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemDrive;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemNetworkTables;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemSensors;
+import org.usfirst.frc.team3695.robot.subsystems.pneumatics.SubsystemArm;
 import org.usfirst.frc.team3695.robot.subsystems.pneumatics.SubsystemBucket;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -33,6 +34,7 @@ public class Robot extends IterativeRobot {
     public static SubsystemSensors sensorsSubsystem;
     public static SubsystemBall ballSubsystem;
     public static SubsystemBucket bucketSubsystem;
+    public static SubsystemArm armSubsystem;
     public static OI oi;
     
     public static String STOP_AUTO = null;
@@ -44,6 +46,7 @@ public class Robot extends IterativeRobot {
     	sensorsSubsystem = new SubsystemSensors();
     	ballSubsystem = new SubsystemBall();
     	bucketSubsystem = new SubsystemBucket();
+    	armSubsystem = new SubsystemArm();
         oi = new OI();
         
         //Set up autoChooser for robot
