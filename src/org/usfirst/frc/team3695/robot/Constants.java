@@ -15,6 +15,12 @@ public class Constants {
 							OPERATOR_JOYSTICK = 1;
 	
 	/**
+	 * True if the joystick is an xBox controller.
+	 */
+	public static final boolean DRIVE_JOYSTICK_IS_XBOX = true,
+								OPERATOR_JOYSTICK_IS_XBOX = true;
+	
+	/**
 	 * Port for driving motors.
 	 */
 	public static final int FRONT_LEFT_MOTOR_PORT = 3,
@@ -24,9 +30,15 @@ public class Constants {
 							BALL_MOTOR_PORT = 4;
 	
 	/**
+	 * Port used for the Ultrasonic Sensor.
+	 */
+	public static final int ULTRASONIC_INPUT = 0;
+	
+	/**
 	 * Port used for Photoelelctric sensor
 	 */
-	public static final int PHOTO_PORT = 0;
+	public static final int PHOTO_PICKUP_PORT = 1,
+							PHOTO_LOADED_PORT = 2;
 	
 	/**
 	 * True if the motor is inverted. False otherwise.
@@ -66,13 +78,13 @@ public class Constants {
 	 * the current amount of g force is less than 1 g - RUMBLE_BOUND_G_FORCE then
 	 * rumble will be activated on the driver's controller.
 	 */
-	public static final float RUMBLE_BOUND_G_FORCE = 0.25f;
+	public static final float RUMBLE_BOUND_G_FORCE = 0.4f;
 	
 	/**
 	 * Camera width and height in pixels.
 	 */
-	public static final int CAMERA_WIDTH = 1280,
-							CAMERA_HEIGHT = 720;
+	public static final int CAMERA_WIDTH = 640,
+							CAMERA_HEIGHT = 480;
 	
 	/**
 	 * Used for camera calibration. These numbers represent the offset from the center of the
@@ -85,16 +97,16 @@ public class Constants {
 	/**
 	 * Amount of time that the robot will rotate before timing out in seconds.
 	 */
-	public static final long MAX_ROTATE_TIME = 3;
+	public static final long MAX_ROTATE_TIME = 5;
 
 	/**
 	 * The amount of times code can run while the goal is out of the camera.
 	 */
-	public static final int MAX_ERRORS = 20;
+	public static final int MAX_ERRORS = 100;
 
 	/**
 	 * Solenoid ports.
 	 */
-	public static final int THROW_SOLENOID_PORT = 0,
-							LIFT_SOLENOID_PORT = 0;
+	public static final int BUCKET_SOLENOID_PORT = 0,
+							BUCKET_SOLENOID_PORT2 = 1;
 }

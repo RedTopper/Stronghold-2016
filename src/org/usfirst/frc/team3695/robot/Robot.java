@@ -7,6 +7,8 @@ import org.usfirst.frc.team3695.robot.commands.auto.AutonomousRotateAndScore;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemBall;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemDrive;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemNetworkTables;
+import org.usfirst.frc.team3695.robot.subsystems.SubsystemSensors;
+import org.usfirst.frc.team3695.robot.subsystems.pneumatics.SubsystemBucket;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -28,7 +30,9 @@ public class Robot extends IterativeRobot {
     
     public static SubsystemDrive driveSubsystem;
     public static SubsystemNetworkTables networkTables;
+    public static SubsystemSensors sensorsSubsystem;
     public static SubsystemBall ballSubsystem;
+    public static SubsystemBucket bucketSubsystem;
     public static OI oi;
     
     public static String STOP_AUTO = null;
@@ -36,21 +40,22 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
         // Initialize all subsystems
     	driveSubsystem = new SubsystemDrive();
-    	ballSubsystem = new SubsystemBall();
     	networkTables = new SubsystemNetworkTables();
+    	sensorsSubsystem = new SubsystemSensors();
+    	ballSubsystem = new SubsystemBall();
+    	bucketSubsystem = new SubsystemBucket();
         oi = new OI();
         
         //Set up autoChooser for robot
         autoChooser = new SendableChooser();
         autoChooser.addDefault("Forward ONLY", new AutonomousForwardOnly());
-        autoChooser.addObject("Robot is LEFT of goal", new AutonomousRotateAndScore(CommandRotateWithCam.ROTATE_RIGHT));
-        autoChooser.addObject("Robot is RIGHT of goal", new AutonomousRotateAndScore(CommandRotateWithCam.ROTATE_LEFT));
-        autoChooser.addObject("Robot is CENTER of goal", new AutonomousRotateAndScore(CommandRotateWithCam.ALIGN_CENTER));
-       
+        autoChooser.addObject("Robot is LEFT of goal", new AutonomousRotateAndScore(CommandRotateWithCam.ROTATE_RIGHT_OVERALL));
+        autoChooser.addObject("Robot is RIGHT of goal", new AutonomousRotateAndScore(CommandRotateWithCam.ROTATE_LEFT_OVERALL));
+        
         //Set up rumbleChooser for robot
         rumbleChooser = new SendableChooser();
-        rumbleChooser.addDefault("Rumble ON", Boolean.valueOf(true));
-        rumbleChooser.addObject("Rumble OFF", Boolean.valueOf(false));
+        rumbleChooser.addDefault("Rumble ON", true);
+        rumbleChooser.addObject("Rumble OFF", false);
         
         //Put choosers on robot smart dash.
         SmartDashboard.putData("Auto Mode", autoChooser);
@@ -64,12 +69,13 @@ public class Robot extends IterativeRobot {
     //AUTONOMOUS ZONE:
     public void autonomousInit() {
     	STOP_AUTO = null;
-        autonomousCommand = (Command) autoChooser.getSelected(); // Instantiate the command used for the autonomous period
-    	autonomousCommand.start(); // schedule the autonomous command
+        autonomousCommand = (Command) autoChooser.getSelected(); //Get chosen auto.
+    	autonomousCommand.start();
     }
 
     public void autonomousPeriodic() {
         log();
+        oi.updatePov();
         Scheduler.getInstance().run();
     }
 
@@ -81,6 +87,7 @@ public class Robot extends IterativeRobot {
     
     public void disabledPeriodic() {
     	log();
+    	oi.updatePov();
     }
     
     //TELEOP ZONE:
@@ -92,6 +99,7 @@ public class Robot extends IterativeRobot {
     
     public void teleopPeriodic() {
         log();
+    	oi.updatePov();
         Scheduler.getInstance().run();
     }
     
@@ -104,12 +112,14 @@ public class Robot extends IterativeRobot {
     	networkTables.updateInfo();
     	networkTables.log();
     	driveSubsystem.log();
+    	sensorsSubsystem.log();
+    	bucketSubsystem.log();
     	
     	//Puts a reason for stopping auto on the dash.
     	SmartDashboard.putString("Auto Status: ", (STOP_AUTO == null ? "Everything is normal." : STOP_AUTO));
     }
     
     public static boolean isRumbleEnabled() {
-    	return ((Boolean) rumbleChooser.getSelected());
+    	return ((boolean) rumbleChooser.getSelected());
     }
 }

@@ -5,8 +5,11 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
 
+/**
+ * Kind of convenient way to access network tables from other
+ * parts of the robot.
+ */
 public class SubsystemNetworkTables extends Subsystem {
-	
 	ITable table;
 	
 	double rawGoalX;
@@ -40,5 +43,4 @@ public class SubsystemNetworkTables extends Subsystem {
 		double[] centerY = table.getNumberArray("centerY", new double[] {-1.0});
 		rawGoalY = (centerY.length > 0 ? centerY[0] : -1.0);
 	}
-
 }
