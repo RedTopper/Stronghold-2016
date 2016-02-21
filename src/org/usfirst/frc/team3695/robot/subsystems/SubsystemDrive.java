@@ -117,6 +117,11 @@ public class SubsystemDrive extends Subsystem {
 		}
 	}
 	
+	/**
+	 * Averages a list and returns a double.
+	 * @param list List to average
+	 * @return An average
+	 */
 	private double average(double[] list) {
 		double sum = 0.0;
 		for(double d : list) {
