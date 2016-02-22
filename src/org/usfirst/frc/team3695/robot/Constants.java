@@ -9,6 +9,16 @@ public class Constants {
 	//private static final char BRIAN_BUTTON = 'h';
 	
 	/**
+	 * Time in MS between when the latch closes and the arm piston moves downwards.
+	 */
+	public static final long TIME_TO_LATCH = 2000;
+	
+	/**
+	 * Time it takes for the piston to move down so the driver can fire the ball again.
+	 */
+	public static final long TIME_TO_MOVE_ARM_PISTON = 2000;
+
+	/**
 	 * Joystick control port
 	 */
 	public static final int DRIVE_JOYSTICK = 0,
@@ -39,7 +49,10 @@ public class Constants {
 	 */
 	public static final int PHOTO_PICKUP_PORT = 1,
 							PHOTO_LOADED_PORT = 2;
-	
+	/**
+	 * Limit for the Photoelectric Sensor
+	 */
+	public static final double PHOTO_LIMIT = 0.7;
 	/**
 	 * True if the motor is inverted. False otherwise.
 	 */
@@ -107,6 +120,12 @@ public class Constants {
 	/**
 	 * Solenoid ports.
 	 */
-	public static final int BUCKET_SOLENOID_PORT = 0,
-							BUCKET_SOLENOID_PORT2 = 1;
+	public static final int BUCKET_SOLENOID_UP = 0,
+							BUCKET_SOLENOID_DOWN = 1,
+							LATCH_SOLENOID_ENGAGE = 2,
+							LATCH_SOLENOID_DISENGAGE = 3,
+							ARM_PISTON_SOLENOID_UP = 4,
+							ARM_PISTON_SOLENOID_DOWN = 5;
+
+	public static final double NO_BOOST_MULTIPLIER = 0.8;
 }
