@@ -122,7 +122,7 @@ public class SubsystemArm extends Subsystem {
 	 * if it is fully unlocked or was fully unlocked and is locking.
 	 */
 	public boolean isLatchLocked() {
-		if (latchNextState != -1 && lastLatchUpdateTime + Constants.TIME_TO_LATCH < System.currentTimeMillis()) {
+		if (latchNextState != UNKNOWN && lastLatchUpdateTime + Constants.TIME_TO_LATCH < System.currentTimeMillis()) {
 			if(latchNextState == LATCH_LOCKED) {
 				latchCurrentState = LATCH_LOCKED;
 			} else {
@@ -142,7 +142,7 @@ public class SubsystemArm extends Subsystem {
 	 * if it is fully down or was fully down and is moving up.
 	 */
 	public boolean isPistonUp() {
-		if (armPistonNextState != -1 && lastPistonStateTime + Constants.TIME_TO_MOVE_ARM_PISTON < System.currentTimeMillis()) {
+		if (armPistonNextState != UNKNOWN && lastPistonStateTime + Constants.TIME_TO_MOVE_ARM_PISTON < System.currentTimeMillis()) {
 			if(armPistonNextState == PISTON_UP) {
 				armPistonState = PISTON_UP;
 			} else {
