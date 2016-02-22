@@ -15,14 +15,14 @@ public class SubsystemArm extends Subsystem {
 							 LATCH_NOT_LOCKED = 0,
 							 LATCH_LOCKING = 1, //Same as not locked. Gives more detail to driver.
 							 
-							 LATCH_UNLOCKING = 2, //Same as locked. Gives more detail to driver.
-							 LATCH_LOCKED = 3,
+							 LATCH_LOCKED = 2,
+							 LATCH_UNLOCKING = 3, //Same as locked. Gives more detail to driver.
 							 
 							 PISTON_NOT_UP = 4,
 							 PISTON_MOVING_UP = 5, //Same as down. Gives more detail to driver.
 							 
-							 PISTON_MOVING_DOWN = 6, //Same as up. Gives more detail to driver.
-							 PISTON_UP = 7;
+							 PISTON_UP = 6,
+	 						 PISTON_MOVING_DOWN = 7; //Same as up. Gives more detail to driver.
 	
 	private Solenoid armPistonUp;
 	private Solenoid armPistonDown;

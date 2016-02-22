@@ -6,13 +6,16 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+/**
+ * This class is a subsystem for all sensors.
+ * There is no need to require it (as it should be available to all commands) but
+ * it is needed to make all of the sensors behave as "singletons".
+ */
 public class SubsystemSensors extends Subsystem {
 	AnalogInput photoPickup = new AnalogInput(Constants.PHOTO_PICKUP_PORT);
 	AnalogInput photoLoaded = new AnalogInput(Constants.PHOTO_LOADED_PORT);
 	AnalogInput ultrasonicInput = new AnalogInput(Constants.ULTRASONIC_INPUT);
 
-	
-	@Override
 	protected void initDefaultCommand() {
 	}
 	
