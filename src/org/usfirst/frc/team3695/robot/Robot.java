@@ -67,6 +67,7 @@ public class Robot extends IterativeRobot {
         // Show what command your subsystem is running on the SmartDashboard
         SmartDashboard.putData(Scheduler.getInstance()); //Shows everything the robot is running.
         SmartDashboard.putData(driveSubsystem); //Shows what command the driveSubsystem is running.
+        SmartDashboard.putData(armSubsystem); //Shows what command the armSubsystem is running.
     }
 
     //AUTONOMOUS ZONE:
@@ -117,6 +118,7 @@ public class Robot extends IterativeRobot {
     	driveSubsystem.log();
     	sensorsSubsystem.log();
     	bucketSubsystem.log();
+    	armSubsystem.log();
     	
     	//Puts a reason for stopping auto on the dash.
     	SmartDashboard.putString("Auto Status: ", (STOP_AUTO == null ? "Everything is normal." : STOP_AUTO));
