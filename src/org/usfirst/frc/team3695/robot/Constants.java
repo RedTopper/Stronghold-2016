@@ -130,7 +130,7 @@ public class Constants {
 	/**
 	 * Ultrasonic ranges in inches.
 	 */
-	public static final double minRange = 60,
-							   idealPosition = 66,
-							   maxRange = 72;
+	public static final double MIN_RANGE = 60,
+							   IDEAL_POSITION = 66,
+							   MAX_RANGE = 72;
 }

@@ -36,7 +36,6 @@ public class SubsystemSensors extends Subsystem {
 		pickup = getPhotoPickupVoltage();
 		loaded = getPhotoLoadedVoltage();
 		SmartDashboard.putNumber("Analog Read", pickup);
-		SmartDashboard.putNumber("UltraValue", UltraInches);
 		if (pickup > Constants.PHOTO_LIMIT){
 			detectPickup = true;
 		}

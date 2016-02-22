@@ -7,6 +7,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //TODO
 //TODO define leftIndicator and rightIndicator as buttons, define leftProgressBar and rightProgressBar as progress
 //TODO
+//TODO I think that I should just take out the double and reverse complicated ass GUI
+//TODO and just turn it into a progress bar with raw value and two pipes over it at
+//TODO the max and min ranges, with a completion indicator next to it, wdut?
+//TODO
 public class CommandUltrasonicReposition extends Command {
 	
 	AnalogInput ultrasonicInput = new AnalogInput(0);
@@ -32,15 +36,15 @@ public class CommandUltrasonicReposition extends Command {
 		boolean minnedRangeAndBar = false;
 		boolean inTheZone = false;
 		
-		if(minRange > ultrasonicInches) {
+		if(MIN_RANGE > ultrasonicInches) {
 			Robot.driveSubsystem.drive(1.0, 0.0);
 			completed = false;
 			minnedRange = true;
-        } else if(maxRange < ultrasonicInches) {
+        } else if(MAX_RANGE < ultrasonicInches) {
         	Robot.driveSubsystem.drive(-1.0, 0.0);
         	completed = false;
         	maxedRange = true;
-        } else if(minRange < ultrasonicInches || ultrasonicInches < maxRange) {
+        } else if(MIN_RANGE < ultrasonicInches || ultrasonicInches < MAX_RANGE) {
         	completed = true;
         	inTheZone = true;
         } else {
@@ -57,8 +61,8 @@ public class CommandUltrasonicReposition extends Command {
 		if(maxedRange == true) {
 			rightProgressBar.value = 0;
 			leftProgressBar.rightToLeft = false;
-			if(ultrasonicInches - maxRange < leftBarLength) {
-				leftProgressBar.value = leftBarLength - (ultrasonicInches - maxRange);
+			if(ultrasonicInches - MIN_RANGE < leftBarLength) {
+				leftProgressBar.value = leftBarLength - (ultrasonicInches - MAX_RANGE);
 			} else {
 				leftProgressBar.value = 0;
 				maxedRangeAndBar = true;
@@ -68,15 +72,15 @@ public class CommandUltrasonicReposition extends Command {
 		} else if(minnedRange == true) {
 			leftProgressBar.value = 0;
 			rightProgressBar.rightToLeft = false;
-			if(minRange - ultrasonicInches < rightBarLength) {
-				rightProgressBar.value = rightBarLength - (minRange - ultrasonicInches);
+			if(MIN_RANGE - ultrasonicInches < rightBarLength) {
+				rightProgressBar.value = rightBarLength - (MIN_RANGE - ultrasonicInches);
 			} else {
 				rightProgressBar.value = 0;
 				minnedRangeAndBar = true;
 			}
 		} else if(inTheZone == true) {
-			rightProgressBar.value = Math.abs(maxRange - ultrasonicInches);
-			leftProgressBar.value = Math.abs(ultrasonicInches - minRange);
+			rightProgressBar.value = Math.abs(MAX_RANGE - ultrasonicInches);
+			leftProgressBar.value = Math.abs(ultrasonicInches - MIN_RANGE);
 		}
 		if(maxedRangeAndBar == true) {
 			leftIndicator.enabled = true;
