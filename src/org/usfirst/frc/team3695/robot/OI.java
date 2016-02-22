@@ -1,6 +1,8 @@
 package org.usfirst.frc.team3695.robot;
 
 import org.usfirst.frc.team3695.robot.commands.CommandGetBall;
+import org.usfirst.frc.team3695.robot.commands.CommandMoveArm;
+import org.usfirst.frc.team3695.robot.commands.CommandMoveArmRaw;
 import org.usfirst.frc.team3695.robot.commands.CommandMoveBucket;
 import org.usfirst.frc.team3695.robot.commands.CommandRotateWithCam;
 import org.usfirst.frc.team3695.robot.commands.CommandStartGRIP;
@@ -25,6 +27,15 @@ public class OI {
 		//SmartDash
 		SmartDashboard.putData("Use camera to rotate RIGHT", new CommandRotateWithCam(CommandRotateWithCam.ROTATE_RIGHT_OVERALL));
 		SmartDashboard.putData("Use camera to rotate LEFT", new CommandRotateWithCam(CommandRotateWithCam.ROTATE_LEFT_OVERALL));
+		
+		SmartDashboard.putData("Lock latch", new CommandMoveArmRaw(CommandMoveArmRaw.LOCK_LATCH));
+		SmartDashboard.putData("Unlock latch", new CommandMoveArmRaw(CommandMoveArmRaw.UNLOCK_LATCH));
+		SmartDashboard.putData("Move arm piston up (arm down)", new CommandMoveArmRaw(CommandMoveArmRaw.PISTON_UP));
+		SmartDashboard.putData("Move arm piston down (arm up)", new CommandMoveArmRaw(CommandMoveArmRaw.PISTON_DOWN));
+
+		SmartDashboard.putData("Fire", new CommandMoveArm(CommandMoveArm.FIRE));
+		SmartDashboard.putData("Reset", new CommandMoveArm(CommandMoveArm.RESET));
+		
 		SmartDashboard.putData("Start GRIP", new CommandStartGRIP());
 		
 		//Buttons
