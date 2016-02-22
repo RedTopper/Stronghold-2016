@@ -10,10 +10,19 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * of the robot.
  */
 public class SubsystemArm extends Subsystem {
-	private static final int LATCH_LOCKED = 0,
-							 LATCH_NOT_LOCKED = 1,
-							 PISTON_UP = 2,
-							 PISTON_NOT_UP = 3;
+	private static final int UNKNOWN = -1,
+			
+							 LATCH_NOT_LOCKED = 0,
+							 LATCH_LOCKING = 1, //Same as not locked. Gives more detail to driver.
+							 
+							 LATCH_UNLOCKING = 2, //Same as locked. Gives more detail to driver.
+							 LATCH_LOCKED = 3,
+							 
+							 PISTON_NOT_UP = 4,
+							 PISTON_MOVING_UP = 5, //Same as down. Gives more detail to driver.
+							 
+							 PISTON_MOVING_DOWN = 6, //Same as up. Gives more detail to driver.
+							 PISTON_UP = 7;
 	
 	private Solenoid armPistonUp;
 	private Solenoid armPistonDown;
@@ -21,23 +30,17 @@ public class SubsystemArm extends Subsystem {
 	private Solenoid latchDisengage;
 	
 	/**
-	 * String to put on the SmartDashboard;
+	 * The current state that the pneumatics are. See the statics of this class.
 	 */
-	private String latchState = "Locked",
-				   pistonState = "Down";
-	
-	/**
-	 * True or false value of the current state of the object.
-	 */
-	private boolean latchLocked = true,
-					pistonUp = false;
-	
+	private int latchCurrentState = UNKNOWN,
+				armPistonState = UNKNOWN;
+
 	/**
 	 * The next state that the pneumatics will be. See the statics of this
 	 * class.
 	 */
-	private int latchNextState = -1,
-				pistonNextState = -1;
+	private int latchNextState = UNKNOWN,
+				armPistonNextState = UNKNOWN;
 	
 	/**
 	 * The time the object was last told to update.
@@ -70,7 +73,7 @@ public class SubsystemArm extends Subsystem {
 		if(!subsystemLatchingLocked) {
 			latchEngage.set(true);
 			latchDisengage.set(false);
-			latchState = "Engaging...";
+			latchCurrentState = LATCH_LOCKING; //Currently unlocked, but is locking.
 			changeLatchState(LATCH_LOCKED);
 		}
 	}
@@ -82,7 +85,7 @@ public class SubsystemArm extends Subsystem {
 		if(!subsystemLatchingLocked) {
 			latchEngage.set(false);
 			latchDisengage.set(true);
-			latchState = "Disengaging...";
+			latchCurrentState = LATCH_UNLOCKING; //Currently locked, but is unlocking.
 			changeLatchState(LATCH_NOT_LOCKED);
 		}
 	}
@@ -94,7 +97,7 @@ public class SubsystemArm extends Subsystem {
 		if(!subsystemPistonLocked) {
 			armPistonDown.set(true);
 			armPistonUp.set(false);
-			pistonState = "Moving piston down...";
+			armPistonState = PISTON_MOVING_DOWN; //Currently up, but is moving down.
 			changePistonState(PISTON_NOT_UP);
 		}
 	}
@@ -106,62 +109,86 @@ public class SubsystemArm extends Subsystem {
 		if(!subsystemPistonLocked) {
 			armPistonDown.set(false);
 			armPistonUp.set(true);
-			pistonState = "Moving piston up...";
+			armPistonState = PISTON_MOVING_UP; //Currently down, but is moving up.
 			changePistonState(PISTON_UP);
 		}
 	}
 	
 	/**
-	 * Returns if the latch is fully locked or not locked.
-	 * @return true if the latch is fully locked, false otherwise.
+	 * Returns if the latch is FULLY locked or FULLY unlocked. If the latch is unlocking,
+	 * this method should return the last state it was in until it completely moves to the 
+	 * next state.
+	 * @return TRUE if the latch is fully locked or was fully locked and is unlocking, FALSE
+	 * if it is fully unlocked or was fully unlocked and is locking.
 	 */
 	public boolean isLatchLocked() {
 		if (latchNextState != -1 && lastLatchUpdateTime + Constants.TIME_TO_LATCH < System.currentTimeMillis()) {
-			latchLocked = (latchNextState == LATCH_LOCKED ? true : false);
-			if(latchLocked) {
-				latchState = "Latch locked!";
+			if(latchNextState == LATCH_LOCKED) {
+				latchCurrentState = LATCH_LOCKED;
 			} else {
-				latchState = "Latch unlocked!";
+				latchCurrentState = LATCH_NOT_LOCKED;
 			}
-			latchNextState = -1;
+			latchNextState = UNKNOWN;
 			subsystemLatchingLocked = false;
 		}
-		return latchLocked;
+		return latchCurrentState == LATCH_LOCKED || latchCurrentState == LATCH_UNLOCKING;
 	}
 
 	/**
-	 * Returns if the piston is fully up.
-	 * @return true if the piston is fully up, false otherwise.
+	 * Returns if the piston is FULLY up or FULLY down. If the piston is moving, this
+	 * method should return the last state it was in until it completely moves to the
+	 * next state.
+	 * @return TRUE if the piston is fully up or was fully up and is moving down, FALSE
+	 * if it is fully down or was fully down and is moving up.
 	 */
 	public boolean isPistonUp() {
-		if (pistonNextState != -1 && lastPistonStateTime + Constants.TIME_TO_MOVE_ARM_PISTON < System.currentTimeMillis()) {
-			pistonUp = (pistonNextState == PISTON_UP ? true : false);
-			if(pistonUp) {
-				pistonState = "Piston up!";
+		if (armPistonNextState != -1 && lastPistonStateTime + Constants.TIME_TO_MOVE_ARM_PISTON < System.currentTimeMillis()) {
+			if(armPistonNextState == PISTON_UP) {
+				armPistonState = PISTON_UP;
 			} else {
-				pistonState = "Piston down!";
+				armPistonState = PISTON_NOT_UP;
 			}
-			pistonNextState = -1;
+			armPistonNextState = UNKNOWN;
 			subsystemPistonLocked = false;
 		}
-		return pistonUp;
+		return armPistonState == PISTON_UP || armPistonState == PISTON_MOVING_DOWN;
 	}
 	
+	/**
+	 * Use this method to initiate the changing of the status of the latch.
+	 * @param status Use static ints for the latch.
+	 */
 	private void changeLatchState(int status) {
 		subsystemLatchingLocked = true;
 		latchNextState = status;
 		lastLatchUpdateTime = System.currentTimeMillis();
 	}
 
+	/**
+	 * Use this method to initiate the changing of the status of the piston.
+	 * @param status Use static ints for the piston.
+	 */
 	private void changePistonState(int status) {
 		subsystemPistonLocked = true;
-		pistonNextState = status;
+		armPistonNextState = status;
 		lastPistonStateTime = System.currentTimeMillis();
 	}
 
 	public void log() {
-		SmartDashboard.putString("Latch State", latchState);
-		SmartDashboard.putString("Piston State", pistonState);
+		String latchString = "Unknown.";
+		if(latchCurrentState == LATCH_LOCKED) {latchString = "Locked.";}
+		if(latchCurrentState == LATCH_LOCKING) {latchString = "Locking...";}
+		if(latchCurrentState == LATCH_UNLOCKING) {latchString = "Unlocking...";}
+		if(latchCurrentState == LATCH_NOT_LOCKED) {latchString = "Unlocked.";}
+		SmartDashboard.putString("Latch State", latchString);
+		
+		String pistonString = "Unknown";
+		if(armPistonState == PISTON_UP) {pistonString = "Piston is up. Arm is down.";}
+		if(armPistonState == PISTON_MOVING_UP) {pistonString = "Piston moving up...";}
+		if(armPistonState == PISTON_MOVING_DOWN) {pistonString = "Piston moving down...";}
+		if(armPistonState == PISTON_NOT_UP) {pistonString = "Piston is down. Arm is up.";}
+		SmartDashboard.putString("Piston State", pistonString);
+		
 		SmartDashboard.putString("Piston Locked", (subsystemPistonLocked ? "Subsystem is LOCKED" : "Ready" ));
 		SmartDashboard.putString("Latching Locked", (subsystemPistonLocked ? "Subsystem is LOCKED" : "Ready" ));
 	}
