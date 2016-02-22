@@ -14,7 +14,11 @@ public class SubsystemBucket extends Subsystem {
 	private Solenoid bucketDown;
 	private Solenoid bucketUp;
 	
-	private String bucketPosition = "Unknown.";
+	private static final int UNKNOWN = -1,
+							 BUCKET_UP = 0,
+							 BUCKET_DOWN = 1;
+	
+	private int bucketCurrentPosition = UNKNOWN;
 	
 	public SubsystemBucket() {
 		super();
@@ -22,23 +26,25 @@ public class SubsystemBucket extends Subsystem {
 		bucketUp = new Solenoid(Constants.BUCKET_SOLENOID_UP);
 	}
 	
-	@Override
 	protected void initDefaultCommand() {
 	}
 	
 	public void moveBucketUp() {
 		bucketDown.set(false);
 		bucketUp.set(true);
-		bucketPosition = "Bucket is up.";
+		bucketCurrentPosition = BUCKET_UP;
 	}
 	
 	public void moveBucketDown() {
 		bucketDown.set(true);
 		bucketUp.set(false);
-		bucketPosition = "Bucket is down.";
+		bucketCurrentPosition = BUCKET_DOWN;
 	}
 	
 	public void log() {
-		SmartDashboard.putString("Bucket Position", bucketPosition);
+		String bucketString = "Unknown.";
+		if(bucketCurrentPosition == BUCKET_UP) {bucketString = "Bucket is up.";}
+		if(bucketCurrentPosition == BUCKET_DOWN) {bucketString = "Bucket is down.";}
+		SmartDashboard.putString("Bucket Position", bucketString);
 	}
 }

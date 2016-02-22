@@ -4,6 +4,9 @@ import org.usfirst.frc.team3695.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
+/**
+ * This command moves the mechanics of the arm as raw states. This is for debug.
+ */
 public class CommandMoveArmRaw extends Command {
 	public static final int LOCK_LATCH = 0,
 							UNLOCK_LATCH = 1,
@@ -11,7 +14,15 @@ public class CommandMoveArmRaw extends Command {
 							PISTON_DOWN = 3;
 	private int objective;
 	
+	/**
+	 * Messes with the pneumatics directly.
+	 * @param objective CommandMoveArmRaw.LOCK_LATCH will lock the latch,<br>
+	 * CommandMoveArmRaw.UNLOCK_LATCH will unlock the latch,<br>
+	 * CommandMoveArmRaw.PISTON_UP will move the arm piston up (and move the arm down),<br>
+	 * CommandMoveArmRaw.PISTON_DOWN will move the arm piston down (and move the arm up).
+	 */
 	public CommandMoveArmRaw(int objective) {
+		requires(Robot.armSubsystem);
 		this.objective = objective;
 	}
 	

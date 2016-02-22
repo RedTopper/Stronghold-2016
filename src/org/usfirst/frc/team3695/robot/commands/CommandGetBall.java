@@ -5,8 +5,7 @@ import org.usfirst.frc.team3695.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * This command moves a ball from the playing field into the
- * arm.
+ * This command moves a ball from the playing field into the arm.
  */
 public class CommandGetBall extends Command {
 	public static final int SUCK_IN_BALL = 0,
@@ -16,7 +15,7 @@ public class CommandGetBall extends Command {
 	
 	/**
 	 * Gets or removes the ball from the possession of the arm.
-	 * @param ballDirection use CommandGetBall.SUCK_IN_BALL or CommandGetBall.THROW_OUT_BALL
+	 * @param objective use CommandGetBall.SUCK_IN_BALL or CommandGetBall.THROW_OUT_BALL
 	 * to either grab or remove the ball from the arm.
 	 */
 	public CommandGetBall(int objective) {
