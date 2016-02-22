@@ -44,7 +44,6 @@ public class CommandRotateWithCam extends Command {
 	 */
     public CommandRotateWithCam(int objective) {
     	requires(Robot.driveSubsystem);
-        requires(Robot.networkTables);
         this.objective = objective;
         setTimeout(Constants.MAX_ROTATE_TIME);
     }
