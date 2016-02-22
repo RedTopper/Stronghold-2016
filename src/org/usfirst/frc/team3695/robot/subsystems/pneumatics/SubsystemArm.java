@@ -56,8 +56,8 @@ public class SubsystemArm extends Subsystem {
 	
 	public SubsystemArm() {
 		super();
-		armPistonUp = new Solenoid(Constants.ARM_SOLENOID_UP);
-		armPistonDown = new Solenoid(Constants.ARM_SOLENOID_DOWN);
+		armPistonUp = new Solenoid(Constants.ARM_PISTON_SOLENOID_UP);
+		armPistonDown = new Solenoid(Constants.ARM_PISTON_SOLENOID_DOWN);
 		latchEngage = new Solenoid(Constants.LATCH_SOLENOID_ENGAGE);
 		latchDisengage = new Solenoid(Constants.LATCH_SOLENOID_DISENGAGE);
 	}

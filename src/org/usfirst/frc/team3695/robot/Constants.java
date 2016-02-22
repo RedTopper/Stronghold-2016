@@ -124,6 +124,6 @@ public class Constants {
 							BUCKET_SOLENOID_DOWN = 1,
 							LATCH_SOLENOID_ENGAGE = 2,
 							LATCH_SOLENOID_DISENGAGE = 3,
-							ARM_SOLENOID_UP = 4,
-							ARM_SOLENOID_DOWN = 5;
+							ARM_PISTON_SOLENOID_UP = 4,
+							ARM_PISTON_SOLENOID_DOWN = 5;
 }
