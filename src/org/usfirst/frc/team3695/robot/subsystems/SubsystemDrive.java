@@ -58,9 +58,20 @@ public class SubsystemDrive extends Subsystem {
 	 * Arcade style driving for the DriveTrain.
 	 * @param x Speed in range [-1,1]
 	 * @param y Speed in range [-1,1]
+	 * @param boost True if the robot should go max speed, false if the max speed should be
+	 * Constants.NO_BOOST_MULTIPLIER
 	 */
 	public void drive(double x, double y, boolean boost) {
-		driveTrain.arcadeDrive(x * (boost ? 1.0 : 0.8), y * (boost ? 1.0 : 0.8));
+		driveTrain.arcadeDrive(x * (boost ? 1.0 : 0.8), y * (boost ? 1.0 : Constants.NO_BOOST_MULTIPLIER));
+	}
+	
+	/**
+	 * Arcade style driving for the DriveTrain.
+	 * @param x Speed in range [-1,1]
+	 * @param y Speed in range [-1,1]
+	 */
+	public void drive(double x, double y) {
+		driveTrain.arcadeDrive(x,y);
 	}
 	
 	/**

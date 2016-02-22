@@ -126,4 +126,6 @@ public class Constants {
 							LATCH_SOLENOID_DISENGAGE = 3,
 							ARM_PISTON_SOLENOID_UP = 4,
 							ARM_PISTON_SOLENOID_DOWN = 5;
+
+	public static final double NO_BOOST_MULTIPLIER = 0.8;
 }
