@@ -7,7 +7,9 @@ import org.usfirst.frc.team3695.robot.commands.auto.AutonomousRotateAndScore;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemBall;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemDrive;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemNetworkTables;
+import org.usfirst.frc.team3695.robot.subsystems.SubsystemSensors;
 import org.usfirst.frc.team3695.robot.subsystems.pneumatics.SubsystemArm;
+import org.usfirst.frc.team3695.robot.subsystems.pneumatics.SubsystemBucket;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -29,8 +31,10 @@ public class Robot extends IterativeRobot {
     
     public static SubsystemDrive driveSubsystem;
     public static SubsystemNetworkTables networkTables;
+    public static SubsystemSensors sensorsSubsystem;
     public static SubsystemBall ballSubsystem;
-    public static SubsystemArm throwSubsystem;
+    public static SubsystemBucket bucketSubsystem;
+    public static SubsystemArm armSubsystem;
     public static OI oi;
     
     public static String STOP_AUTO = null;
@@ -38,9 +42,11 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
         // Initialize all subsystems
     	driveSubsystem = new SubsystemDrive();
-    	ballSubsystem = new SubsystemBall();
     	networkTables = new SubsystemNetworkTables();
-    	throwSubsystem = new SubsystemArm();
+    	sensorsSubsystem = new SubsystemSensors();
+    	ballSubsystem = new SubsystemBall();
+    	bucketSubsystem = new SubsystemBucket();
+    	armSubsystem = new SubsystemArm();
         oi = new OI();
         
         //Set up autoChooser for robot
@@ -61,6 +67,7 @@ public class Robot extends IterativeRobot {
         // Show what command your subsystem is running on the SmartDashboard
         SmartDashboard.putData(Scheduler.getInstance()); //Shows everything the robot is running.
         SmartDashboard.putData(driveSubsystem); //Shows what command the driveSubsystem is running.
+        SmartDashboard.putData(armSubsystem); //Shows what command the armSubsystem is running.
     }
 
     //AUTONOMOUS ZONE:
@@ -109,6 +116,9 @@ public class Robot extends IterativeRobot {
     	networkTables.updateInfo();
     	networkTables.log();
     	driveSubsystem.log();
+    	sensorsSubsystem.log();
+    	bucketSubsystem.log();
+    	armSubsystem.log();
     	
     	//Puts a reason for stopping auto on the dash.
     	SmartDashboard.putString("Auto Status: ", (STOP_AUTO == null ? "Everything is normal." : STOP_AUTO));

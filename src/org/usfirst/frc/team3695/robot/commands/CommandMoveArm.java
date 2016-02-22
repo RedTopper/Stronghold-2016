@@ -5,41 +5,57 @@ import org.usfirst.frc.team3695.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * This command moves the arm up and down using pistons
- * and fancy pneumatics.
+ * This command fires the arm (ball launcher) or resets 
+ * it's state.
  */
 public class CommandMoveArm extends Command {
-	public static final int MOVE_UP = 0,
-							MOVE_DOWN = 1;
-	
-	private int dir = 0;
-	
+	public static final int FIRE = 0,
+							RESET = 1;
+	private int objective;
+	private boolean complete = false;
 	/**
-	 * The direction the arm will move.
-	 * @param direction use CommandMoveArm.MOVE_UP or CommandMoveArm.MOVE_DOWN
-	 * to move the arm in a direction.
+	 * Creates a command to move the arm based on an objective.
+	 * @param objective Use CommandMoveArm.FIRE_ARM to fire the arm,
+	 * CommandMoveArm.RESET_ARM to move the arm back to the robot and
+	 * CommandMoveArm.RESET_LATCH to close the latch.
 	 */
-	public CommandMoveArm(int direction) {
-		requires(Robot.throwSubsystem);
-		this.dir = direction;
+	public CommandMoveArm(int objective) {
+		requires(Robot.armSubsystem);
+		this.objective = objective;
 	}
-
+	
 	protected void initialize() {
-		switch (dir) {
-		case MOVE_UP:
-			Robot.throwSubsystem.moveArmUp();
+		switch(objective) {
+		case FIRE:
+			Robot.armSubsystem.movePistonDown();
+			complete = false;
 			break;
-		case MOVE_DOWN:
-			Robot.throwSubsystem.moveArmDown();
+		case RESET:
+			Robot.armSubsystem.movePistonUp();
+			complete = false;
 			break;
 		}
 	}
 
 	protected void execute() {
+		switch(objective) {
+		case FIRE:
+			if(!Robot.armSubsystem.isPistonUp()) {
+				Robot.armSubsystem.disengageLatch();
+				complete = true;
+			}
+			break;
+		case RESET:
+			if(Robot.armSubsystem.isPistonUp()) {
+				Robot.armSubsystem.engageLatch();
+				complete = true;
+			}
+			break;
+		}
 	}
 
 	protected boolean isFinished() {
-		return true; //Always finished. Always.
+		return complete;
 	}
 
 	protected void end() {
