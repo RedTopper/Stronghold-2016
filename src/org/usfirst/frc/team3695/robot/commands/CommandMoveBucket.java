@@ -12,20 +12,20 @@ public class CommandMoveBucket extends Command {
 	public static final int MOVE_UP = 0,
 							MOVE_DOWN = 1;
 	
-	private int dir = 0;
+	private int objective = 0;
 	
 	/**
 	 * The direction the arm will move.
 	 * @param direction use CommandMoveArm.MOVE_UP or CommandMoveArm.MOVE_DOWN
 	 * to move the arm in a direction.
 	 */
-	public CommandMoveBucket(int direction) {
+	public CommandMoveBucket(int objective) {
 		requires(Robot.bucketSubsystem);
-		this.dir = direction;
+		this.objective = objective;
 	}
 
 	protected void initialize() {
-		switch (dir) {
+		switch (objective) {
 		case MOVE_UP:
 			Robot.bucketSubsystem.moveBucketUp();
 			break;

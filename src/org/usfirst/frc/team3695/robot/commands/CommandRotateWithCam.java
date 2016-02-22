@@ -29,7 +29,7 @@ public class CommandRotateWithCam extends Command {
 	Preferences prefs = Preferences.getInstance();
 	private int CAMERA_CALIBRATION_LR = prefs.getInt(Constants.CAMERA_CALIBRATION_LR_NAME, 0);
 	
-	private int direction;
+	private int objective;
 	private boolean complete;
 	private int stage = 0;
 	private int error = 0;
@@ -42,10 +42,10 @@ public class CommandRotateWithCam extends Command {
 	 * CommandRotateRightWithCam.ROTATE_RIGHT_OVERALL to tell the robot to 
 	 * move in a direction.
 	 */
-    public CommandRotateWithCam(int direction) {
+    public CommandRotateWithCam(int objective) {
     	requires(Robot.driveSubsystem);
         requires(Robot.networkTables);
-        this.direction = direction;
+        this.objective = objective;
         setTimeout(Constants.MAX_ROTATE_TIME);
     }
 
@@ -77,7 +77,7 @@ public class CommandRotateWithCam extends Command {
 			}
 		}
     	
-    	switch(direction) {
+    	switch(objective) {
     	case ROTATE_RIGHT_OVERALL:
     		if(stage == 0) {
     			rotDir = ROT_RIGHT;
@@ -139,7 +139,7 @@ public class CommandRotateWithCam extends Command {
     		}
     		break;
     	default:
-    		direction = ROTATE_RIGHT_OVERALL;
+    		objective = ROTATE_RIGHT_OVERALL;
     		break;
     	}
     }

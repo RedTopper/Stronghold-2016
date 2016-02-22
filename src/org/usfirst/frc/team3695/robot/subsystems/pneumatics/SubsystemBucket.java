@@ -14,7 +14,7 @@ public class SubsystemBucket extends Subsystem {
 	private Solenoid bucketDown;
 	private Solenoid bucketUp;
 	
-	private String bucketPosition = "Unknown";
+	private String bucketPosition = "Unknown.";
 	
 	public SubsystemBucket() {
 		super();
@@ -29,13 +29,13 @@ public class SubsystemBucket extends Subsystem {
 	public void moveBucketUp() {
 		bucketDown.set(false);
 		bucketUp.set(true);
-		bucketPosition = "Up";
+		bucketPosition = "Bucket is up.";
 	}
 	
 	public void moveBucketDown() {
 		bucketDown.set(true);
 		bucketUp.set(false);
-		bucketPosition = "Down";
+		bucketPosition = "Bucket is down.";
 	}
 	
 	public void log() {

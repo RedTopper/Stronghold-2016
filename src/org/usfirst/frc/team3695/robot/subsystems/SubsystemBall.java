@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class SubsystemBall extends Subsystem {
 	private TalonSRX motor = new TalonSRX(Constants.BALL_MOTOR_PORT);
-	private String motorStatus = "Stopped";
+	private String motorStatus = "Stopped.";
 	
 	@Override
 	protected void initDefaultCommand() {
@@ -20,17 +20,17 @@ public class SubsystemBall extends Subsystem {
 
 	public void suckInBall() {
 		motor.set((Constants.BALL_MOTOR_INVERT ? -1.0 : 1.0));
-		motorStatus = "Moving ball inwards";
+		motorStatus = "Moving ball inwards.";
 	}
 	
 	public void throwOutBall() {
 		motor.set((Constants.BALL_MOTOR_INVERT ? 1.0 : -1.0));
-		motorStatus = "Pushing ball outwards";
+		motorStatus = "Pushing ball outwards.";
 	}
 	
 	public void stop() {
 		motor.set(0.0);
-		motorStatus = "Stopped";
+		motorStatus = "Stopped.";
 	}
 	
 	public void log() {

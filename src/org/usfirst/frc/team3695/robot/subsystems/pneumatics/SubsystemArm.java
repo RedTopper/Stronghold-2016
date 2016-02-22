@@ -176,10 +176,10 @@ public class SubsystemArm extends Subsystem {
 
 	public void log() {
 		String latchString = "Unknown.";
-		if(latchCurrentState == LATCH_LOCKED) {latchString = "Locked.";}
-		if(latchCurrentState == LATCH_LOCKING) {latchString = "Locking...";}
-		if(latchCurrentState == LATCH_UNLOCKING) {latchString = "Unlocking...";}
-		if(latchCurrentState == LATCH_NOT_LOCKED) {latchString = "Unlocked.";}
+		if(latchCurrentState == LATCH_LOCKED) {latchString = "Latch locked.";}
+		if(latchCurrentState == LATCH_LOCKING) {latchString = "Latch locking...";}
+		if(latchCurrentState == LATCH_UNLOCKING) {latchString = "Latch unlocking...";}
+		if(latchCurrentState == LATCH_NOT_LOCKED) {latchString = "Latch unlocked.";}
 		SmartDashboard.putString("Latch State", latchString);
 		
 		String pistonString = "Unknown";
@@ -189,7 +189,7 @@ public class SubsystemArm extends Subsystem {
 		if(armPistonState == PISTON_NOT_UP) {pistonString = "Piston is down. Arm is up.";}
 		SmartDashboard.putString("Piston State", pistonString);
 		
-		SmartDashboard.putString("Piston Locked", (subsystemPistonLocked ? "Subsystem is LOCKED" : "Ready" ));
-		SmartDashboard.putString("Latching Locked", (subsystemPistonLocked ? "Subsystem is LOCKED" : "Ready" ));
+		SmartDashboard.putString("Piston Subsystem Status", (subsystemPistonLocked ? "Subsystem is running a task!" : "Ready to go!" ));
+		SmartDashboard.putString("Latching Subsystem Status", (subsystemPistonLocked ? "Subsystem is running a task!" : "Ready to go!" ));
 	}
 }
