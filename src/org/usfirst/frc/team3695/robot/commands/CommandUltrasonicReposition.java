@@ -1,4 +1,6 @@
 package org.usfirst.frc.team3695.robot.commands;
+import org.usfirst.frc.team3695.robot.Robot;
+import org.usfirst.frc.team3695.robot.Constants;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -12,6 +14,7 @@ public class CommandUltrasonicReposition extends Command {
 	double rightBarLength = 12;
 	double leftBarLength = 12;
 	
+	
     public CommandUltrasonicReposition() {
     }
 	@Override
@@ -19,21 +22,15 @@ public class CommandUltrasonicReposition extends Command {
 	}
 	@Override
 	protected void execute() {
-		double UltraInches = ultrasonicInput.getValue() / 5.32;
-		SmartDashboard.putNumber("UltraValue", UltraInches);
 		requires(Robot.driveSubsystem);
+		requires(Robot.sensorsSubsystem);
 		double ultrasonicInches = ultrasonicInput.getValue() / 5.32;
-		double minRange = 60;
-		double idealPosition = 66;
-		double maxRange = 72;
 		boolean outOfRange = false;
 		boolean maxedRange = false;
 		boolean maxedRangeAndBar = false;
 		boolean minnedRange = false;
 		boolean minnedRangeAndBar = false;
 		boolean inTheZone = false;
-		leftIndicator.enabled = false;
-		rightIndicator.enabled = false;
 		
 		if(minRange > ultrasonicInches) {
 			Robot.driveSubsystem.drive(1.0, 0.0);
@@ -52,7 +49,8 @@ public class CommandUltrasonicReposition extends Command {
         	outOfRange = true;
         }
 		//////////////////////////////// begin GUI code ///////////////////////////////////////
-		
+		leftIndicator.enabled = false;
+		rightIndicator.enabled = false;
 		leftProgressBar.rightToLeft = true;
 		rightProgressBar.rightToLeft = false;
 		

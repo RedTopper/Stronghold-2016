@@ -126,4 +126,11 @@ public class Constants {
 							LATCH_SOLENOID_DISENGAGE = 3,
 							ARM_SOLENOID_UP = 4,
 							ARM_SOLENOID_DOWN = 5;
+	
+	/**
+	 * Ultrasonic ranges in inches.
+	 */
+	public static final double minRange = 60,
+							   idealPosition = 66,
+							   maxRange = 72;
 }
