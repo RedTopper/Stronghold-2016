@@ -32,13 +32,14 @@ public class SubsystemSensors extends Subsystem {
 	}
 	
 	public void log() {
+		double ultrasonic = getUltrasonicVoltage();
 		double pickup;
 		double loaded;
 		boolean detectFire;
 		boolean detectPickup;
 		pickup = getPhotoPickupVoltage();
 		loaded = getPhotoLoadedVoltage();
-		SmartDashboard.putNumber("Analog Read" , pickup);
+		SmartDashboard.putNumber("Analog Read" , ultrasonic);
 		if (pickup > Constants.PHOTO_LIMIT){
 			detectPickup = true;
 		}

@@ -33,10 +33,10 @@ public class Constants {
 	/**
 	 * Port for driving motors.
 	 */
-	public static final int FRONT_LEFT_MOTOR_PORT = 3,
-							FRONT_RIGHT_MOTOR_PORT = 2,
-							REAR_LEFT_MOTOR_PORT = 1,
-							REAR_RIGHT_MOTOR_PORT = 0,
+	public static final int FRONT_LEFT_MOTOR_PORT = 0,
+							FRONT_RIGHT_MOTOR_PORT = 1,
+							REAR_LEFT_MOTOR_PORT = 2,
+							REAR_RIGHT_MOTOR_PORT = 3,
 							BALL_MOTOR_PORT = 4;
 	
 	/**
@@ -60,7 +60,7 @@ public class Constants {
 								FRONT_RIGHT_MOTOR_INVERT = true,
 								REAR_LEFT_MOTOR_INVERT = false,
 								REAR_RIGHT_MOTOR_INVERT = true,
-								BALL_MOTOR_INVERT = false;
+								BALL_MOTOR_INVERT = true;
 	
 	/**
 	 * Amount the robot has traveled per encoder pulse.
@@ -122,10 +122,10 @@ public class Constants {
 	 */
 	public static final int BUCKET_SOLENOID_UP = 0,
 							BUCKET_SOLENOID_DOWN = 1,
-							LATCH_SOLENOID_ENGAGE = 2,
-							LATCH_SOLENOID_DISENGAGE = 3,
-							ARM_PISTON_SOLENOID_UP = 4,
-							ARM_PISTON_SOLENOID_DOWN = 5;
+							LATCH_SOLENOID_ENGAGE = 3,
+							LATCH_SOLENOID_DISENGAGE = 2,
+							ARM_PISTON_SOLENOID_UP = 5,
+							ARM_PISTON_SOLENOID_DOWN = 4;
 
 	public static final double NO_BOOST_MULTIPLIER = 0.8;
 }
