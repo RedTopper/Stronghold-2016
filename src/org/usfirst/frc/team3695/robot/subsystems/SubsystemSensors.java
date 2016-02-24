@@ -32,14 +32,15 @@ public class SubsystemSensors extends Subsystem {
 	}
 	
 	public void log() {
-		double ultrasonic = getUltrasonicVoltage();
+		double ultrasonic = getUltrasonicVoltage() * 200;
 		double pickup;
 		double loaded;
 		boolean detectFire;
 		boolean detectPickup;
+		boolean rightRange;
 		pickup = getPhotoPickupVoltage();
 		loaded = getPhotoLoadedVoltage();
-		SmartDashboard.putNumber("Analog Read" , ultrasonic);
+		SmartDashboard.putNumber("Ultrasonic Value" , ultrasonic);
 		if (pickup > Constants.PHOTO_LIMIT){
 			detectPickup = true;
 		}
@@ -52,7 +53,13 @@ public class SubsystemSensors extends Subsystem {
 		else{
 			detectFire = false;
 		}
+		if(ultrasonic > Constants.MIN_RANGE && ultrasonic < Constants.MAX_RANGE) {
+			rightRange = true;
+		}else{
+			rightRange = false;
+		}
 		SmartDashboard.putBoolean("Pickup",detectPickup);
 		SmartDashboard.putBoolean("Loaded",detectFire);
+		SmartDashboard.putBoolean("rightRange", rightRange);
 	}
 }

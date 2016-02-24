@@ -123,10 +123,10 @@ public class Constants {
 	public static final int BUCKET_SOLENOID_UP = 0,
 							BUCKET_SOLENOID_DOWN = 1,
 							LATCH_SOLENOID_ENGAGE = 3,
--							LATCH_SOLENOID_DISENGAGE = 2,
--							ARM_PISTON_SOLENOID_UP = 5,
--							ARM_PISTON_SOLENOID_DOWN = 4;
--
+							LATCH_SOLENOID_DISENGAGE = 2,
+							ARM_PISTON_SOLENOID_UP = 5,
+							ARM_PISTON_SOLENOID_DOWN = 4;
+
 	
 	public static final double NO_BOOST_MULTIPLIER = 0.8;
 	
