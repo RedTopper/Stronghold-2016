@@ -1,5 +1,6 @@
 package org.usfirst.frc.team3695.robot;
 
+import org.usfirst.frc.team3695.robot.commands.CommandCompressorToggle;
 import org.usfirst.frc.team3695.robot.commands.CommandGetBall;
 import org.usfirst.frc.team3695.robot.commands.CommandMoveArm;
 import org.usfirst.frc.team3695.robot.commands.CommandMoveArmRaw;
@@ -37,6 +38,10 @@ public class OI {
 		SmartDashboard.putData("Reset", new CommandMoveArm(CommandMoveArm.RESET));
 		
 		SmartDashboard.putData("Start GRIP", new CommandStartGRIP());
+		
+		//Compressor Toggle
+		SmartDashboard.putData("Comp toggle", new CommandCompressorToggle());
+		
 		
 		//Buttons
 		Button getBall = new JoystickButton(Controller.OP_JOY(), Controller.OP_SUCK_IN_BALL());

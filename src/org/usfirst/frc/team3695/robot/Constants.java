@@ -33,10 +33,10 @@ public class Constants {
 	/**
 	 * Port for driving motors.
 	 */
-	public static final int FRONT_LEFT_MOTOR_PORT = 0,
-							FRONT_RIGHT_MOTOR_PORT = 1,
-							REAR_LEFT_MOTOR_PORT = 2,
-							REAR_RIGHT_MOTOR_PORT = 3,
+	public static final int FRONT_LEFT_MOTOR_PORT = 3,
+							FRONT_RIGHT_MOTOR_PORT = 2,
+							REAR_LEFT_MOTOR_PORT = 1,
+							REAR_RIGHT_MOTOR_PORT = 0,
 							BALL_MOTOR_PORT = 4;
 	
 	/**
