@@ -1,12 +1,12 @@
 package org.usfirst.frc.team3695.robot;
 
-import org.usfirst.frc.team3695.robot.commands.CommandCompressorToggle;
 import org.usfirst.frc.team3695.robot.commands.CommandGetBall;
-import org.usfirst.frc.team3695.robot.commands.CommandMoveArm;
-import org.usfirst.frc.team3695.robot.commands.CommandMoveArmRaw;
-import org.usfirst.frc.team3695.robot.commands.CommandMoveBucket;
 import org.usfirst.frc.team3695.robot.commands.CommandRotateWithCam;
 import org.usfirst.frc.team3695.robot.commands.CommandStartGRIP;
+import org.usfirst.frc.team3695.robot.commands.pneumatics.CommandCompressorToggle;
+import org.usfirst.frc.team3695.robot.commands.pneumatics.CommandMoveArm;
+import org.usfirst.frc.team3695.robot.commands.pneumatics.CommandMoveArmRaw;
+import org.usfirst.frc.team3695.robot.commands.pneumatics.CommandMoveBucket;
 
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
