@@ -5,7 +5,16 @@ import edu.wpi.first.wpilibj.Joystick;
 public class Controller {
 	private static final Joystick driver = new Joystick(Constants.DRIVE_JOYSTICK);
 	private static final Joystick operator = new Joystick(Constants.OPERATOR_JOYSTICK);
-
+	/*
+	 * Controls for driver(XBOX):
+	 * Left Trigger: Reverse
+	 * Right Trigger: Forward(priority over reverse)
+	 * Left Stick X-Axis: Left/Right(Left Stick)
+	 * B Button: Boost
+	 * Left Bumper: Target Left With Cam
+	 * Right Bumper: Target Right With Cam
+	 * 
+	 */
 	//Driver controls.
 	/**
 	 * DRIVER CONTROL<br>
