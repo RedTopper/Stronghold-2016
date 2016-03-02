@@ -175,6 +175,9 @@ public class SubsystemArm extends Subsystem {
 	}
 
 	public void log() {
+		isPistonUp();
+		isLatchLocked();
+		
 		String latchString = "Unknown.";
 		if(latchCurrentState == LATCH_LOCKED) {latchString = "Latch locked.";}
 		if(latchCurrentState == LATCH_LOCKING) {latchString = "Latch locking...";}

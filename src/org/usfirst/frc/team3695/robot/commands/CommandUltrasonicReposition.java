@@ -1,9 +1,14 @@
 package org.usfirst.frc.team3695.robot.commands;
+import org.usfirst.frc.team3695.robot.Robot;
+import org.usfirst.frc.team3695.robot.Constants;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //TODO
 //TODO define leftIndicator and rightIndicator as buttons, define leftProgressBar and rightProgressBar as progress
+//TODO
+//TODO I think that I should just take out the double and reverse complicated ass GUI
+//TODO and just turn it into a progress bar with raw value and two pipes over it at
+//TODO the max and min ranges, with a completion indicator next to it, wdut?
 //TODO
 public class CommandUltrasonicReposition extends Command {
 	
@@ -12,88 +17,20 @@ public class CommandUltrasonicReposition extends Command {
 	double rightBarLength = 12;
 	double leftBarLength = 12;
 	
+	
     public CommandUltrasonicReposition() {
+		requires(Robot.driveSubsystem);
     }
 	@Override
 	protected void initialize() {
 	}
 	@Override
 	protected void execute() {
-		double UltraInches = ultrasonicInput.getValue() / 5.32;
-		SmartDashboard.putNumber("UltraValue", UltraInches);
-//		requires(Robot.driveSubsystem);
-//		double ultrasonicInches = ultrasonicInput.getValue() / 5.32;
-//		double minRange = 60;
-//		double idealPosition = 66;
-//		double maxRange = 72;
-//		boolean outOfRange = false;
-//		boolean maxedRange = false;
-//		boolean maxedRangeAndBar = false;
-//		boolean minnedRange = false;
-//		boolean minnedRangeAndBar = false;
-//		boolean inTheZone = false;
-//		leftIndicator.enabled = false;
-//		rightIndicator.enabled = false;
-//		
-//		if(minRange > ultrasonicInches) {
-//			Robot.driveSubsystem.drive(1.0, 0.0);
-//			completed = false;
-//			minnedRange = true;
-//        }
-//        else if(maxRange < ultrasonicInches) {
-//        	Robot.driveSubsystem.drive(-1.0, 0.0);
-//        	completed = false;
-//        	maxedRange = true;
-//        }
-//        else if(minRange < ultrasonicInches || ultrasonicInches < maxRange) {
-//        	completed = true;
-//        	inTheZone = true;
-//        }
-//        else {
-//        	Robot.driveSubsystem.drive(-1.0, 0.0);
-//        	completed = false;
-//        	outOfRange = true;
-//        }
-//		//////////////////////////////// begin GUI code ///////////////////////////////////////
-//		
-//		leftProgressBar.rightToLeft = true;
-//		rightProgressBar.rightToLeft = false;
-//		
-//		if(maxedRange == true) {
-//			rightProgressBar.value = 0;
-//			leftProgressBar.rightToLeft = false;
-//			if(ultrasonicInches - maxRange < leftBarLength) {
-//				leftProgressBar.value = leftBarLength - (ultrasonicInches - maxRange);
-//			}
-//			else {
-//				leftProgressBar.value = 0;
-//				maxedRangeAndBar = true;
-//			}
-//		}
-//		else if(outOfRange == true) {
-//			leftIndicator.enabled = true;
-//		}
-//		else if(minnedRange == true) {
-//			leftProgressBar.value = 0;
-//			rightProgressBar.rightToLeft = false;
-//			if(minRange - ultrasonicInches < rightBarLength) {
-//				rightProgressBar.value = rightBarLength - (minRange - ultrasonicInches);
-//			}
-//			else {
-//				rightProgressBar.value = 0;
-//				minnedRangeAndBar = true;
-//			}
-//		}
-//		else if(inTheZone == true) {
-//			rightProgressBar.value = Math.abs(maxRange - ultrasonicInches);
-//			leftProgressBar.value = Math.abs(ultrasonicInches - minRange);
-//		}
-//		if(maxedRangeAndBar == true) {
-//			leftIndicator.enabled = true;
-//		}
-//		if(minnedRangeAndBar == true) {
-//			rightIndicator.enabled = true;
-//		}
+		double ultrasonicInches = ultrasonicInput.getValue() / 5.32;
+		if(Constants.MIN_RANGE > ultrasonicInches) {Robot.driveSubsystem.drive(1.0, 0.0);}
+		else if(Constants.MAX_RANGE < ultrasonicInches) {Robot.driveSubsystem.drive(-1.0, 0.0);}
+		else if(Constants.MIN_RANGE < ultrasonicInches && ultrasonicInches < Constants.MAX_RANGE) {/* ( ͡° ͜ʖ ͡°) */}
+		else {Robot.driveSubsystem.drive(-1.0, 0.0);}
 	}
 	@Override
 	protected boolean isFinished() {
@@ -101,14 +38,10 @@ public class CommandUltrasonicReposition extends Command {
 	}
 	@Override
 	protected void end() {
-//		leftIndicator.enabled = false;
-//		rightIndicator.enabled = false;
-//		leftProgressBar.value = 0;
-//		rightProgressBar.value = 0;
 	}
 	@Override
 	protected void interrupted() {
-		end(); //Usually default. Change as needed.
+		end();
 	}
 
 }
