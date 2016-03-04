@@ -60,7 +60,7 @@ public class Constants {
 								FRONT_RIGHT_MOTOR_INVERT = true,
 								REAR_LEFT_MOTOR_INVERT = false,
 								REAR_RIGHT_MOTOR_INVERT = true,
-								BALL_MOTOR_INVERT = true;
+								BALL_MOTOR_INVERT = false;
 	
 	/**
 	 * Amount the robot has traveled per encoder pulse.
@@ -122,18 +122,12 @@ public class Constants {
 	 */
 	public static final int BUCKET_SOLENOID_UP = 0,
 							BUCKET_SOLENOID_DOWN = 1,
-							LATCH_SOLENOID_ENGAGE = 3,
-							LATCH_SOLENOID_DISENGAGE = 2,
-							ARM_PISTON_SOLENOID_UP = 5,
-							ARM_PISTON_SOLENOID_DOWN = 4;
-
-	
-	public static final double NO_BOOST_MULTIPLIER = 0.8;
-	
+							LATCH_SOLENOID_ENGAGE = 2,
+							LATCH_SOLENOID_DISENGAGE = 3,
+							ARM_PISTON_SOLENOID_UP = 4,
+							ARM_PISTON_SOLENOID_DOWN = 5;
 	/**
-	 * Ultrasonic ranges in inches.
+	 * Multiplier for max speed when boost button is not pressed.
 	 */
-	public static final double MIN_RANGE = 60,
-				   IDEAL_POSITION = 66,
-				   MAX_RANGE = 72;
+	public static final double NO_BOOST_MULTIPLIER = 0.8;
 }
