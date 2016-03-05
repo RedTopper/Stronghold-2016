@@ -40,6 +40,16 @@ public class Constants {
 							BALL_MOTOR_PORT = 4;
 	
 	/**
+	 * Analog Port used for Pnuematics Transducer Gauge
+	 */
+	public static final int TRANSDUCER_PORT = 4;
+	
+	/**
+	 * Scalar for Pnuematics (Converts volts to ~ PSI)
+	 */
+	public static final double TRANSDUCER_SCALAR = 1.0;
+	
+	/**
 	 * Port used for the Ultrasonic Sensor.
 	 */
 	public static final int ULTRASONIC_INPUT = 0;

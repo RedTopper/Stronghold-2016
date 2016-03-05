@@ -16,6 +16,7 @@ public class SubsystemSensors extends Subsystem {
 	AnalogInput photoLoaded = new AnalogInput(Constants.PHOTO_LOADED_PORT);
 	AnalogInput ultrasonicInput = new AnalogInput(Constants.ULTRASONIC_INPUT);
 	AnalogInput loadedInput = new AnalogInput(Constants.BUTTON_INPUT);
+	AnalogInput pressureGauge = new AnalogInput(Constants.TRANSDUCER_PORT);
 
 	protected void initDefaultCommand() {
 	}
@@ -34,6 +35,10 @@ public class SubsystemSensors extends Subsystem {
 	
 	public double getButtonVoltage(){
 		return loadedInput.getVoltage();
+	}
+	
+	public double getPressure(){
+		return (pressureGauge.getVoltage()) * (Constants.TRANSDUCER_SCALAR);
 	}
 	
 	public void log() {
@@ -70,6 +75,7 @@ public class SubsystemSensors extends Subsystem {
 		} else{
 			buttonLoad = false;
 		}
+		SmartDashboard.putNumber("System Pressure", getPressure());
 		SmartDashboard.putNumber("Button Voltage", detectLoad);
 		SmartDashboard.putBoolean("Launcher Loaded", buttonLoad);
 
