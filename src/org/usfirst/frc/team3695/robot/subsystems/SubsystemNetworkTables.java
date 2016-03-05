@@ -16,7 +16,7 @@ public class SubsystemNetworkTables extends Subsystem {
 	double rawGoalY;
 	
 	public SubsystemNetworkTables() {
-        table = NetworkTable.getTable("GRIP").getSubTable("raw");
+        table = NetworkTable.getTable("GRIP").getSubTable("hulls");
 	}
 	
 	@Override
