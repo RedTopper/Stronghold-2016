@@ -28,6 +28,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 	private static SendableChooser autoChooser;
 	private static SendableChooser rumbleChooser;
+	private static SendableChooser driveChooser;
+	private static SendableChooser boostChooser;
+	
 	private Command autonomousCommand;
     
     public static SubsystemDrive driveSubsystem;
@@ -63,9 +66,21 @@ public class Robot extends IterativeRobot {
         rumbleChooser.addDefault("Rumble ON", true);
         rumbleChooser.addObject("Rumble OFF", false);
         
+        //Set up driveChooser for choice on drive style.
+        driveChooser = new SendableChooser();
+        driveChooser.addDefault("Yu Drive", true);
+        driveChooser.addObject("Intuitive Drive", false);
+        
+        //Set up boostChooser for inverse boost
+        boostChooser = new SendableChooser();
+        boostChooser.addDefault("Boost Button", true);
+        boostChooser.addObject("Slow Button", false);
+        
         //Put choosers on robot smart dash.
         SmartDashboard.putData("Auto Mode", autoChooser);
         SmartDashboard.putData("Rumble", rumbleChooser);
+        SmartDashboard.putData("Drive Mode", driveChooser);
+        SmartDashboard.putData("Boost Mode", boostChooser);
 
         // Show what command your subsystem is running on the SmartDashboard
         SmartDashboard.putData(Scheduler.getInstance()); //Shows everything the robot is running.
@@ -130,5 +145,13 @@ public class Robot extends IterativeRobot {
     
     public static boolean isRumbleEnabled() {
     	return ((boolean) rumbleChooser.getSelected());
+    }
+    
+    public static boolean isYuEnabled() {
+    	return ((boolean) driveChooser.getSelected());
+    }
+    
+    public static boolean isBoostButtonBoost() {
+    	return ((boolean) boostChooser.getSelected());
     }
 }

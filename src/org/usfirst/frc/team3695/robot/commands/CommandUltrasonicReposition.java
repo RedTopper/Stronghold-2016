@@ -27,10 +27,10 @@ public class CommandUltrasonicReposition extends Command {
 	@Override
 	protected void execute() {
 		double ultrasonicInches = ultrasonicInput.getValue() / 5.32;
-		if(Constants.MIN_RANGE > ultrasonicInches) {Robot.driveSubsystem.drive(1.0, 0.0);}
-		else if(Constants.MAX_RANGE < ultrasonicInches) {Robot.driveSubsystem.drive(-1.0, 0.0);}
+		if(Constants.MIN_RANGE > ultrasonicInches) {Robot.driveSubsystem.tankdrive(-1.0, -1.0);}
+		else if(Constants.MAX_RANGE < ultrasonicInches) {Robot.driveSubsystem.tankdrive(1.0, 1.0);}
 		else if(Constants.MIN_RANGE < ultrasonicInches && ultrasonicInches < Constants.MAX_RANGE) {/* ( ͡° ͜ʖ ͡°) */}
-		else {Robot.driveSubsystem.drive(-1.0, 0.0);}
+		else {Robot.driveSubsystem.tankdrive(1.0, 1.0);}
 	}
 	@Override
 	protected boolean isFinished() {
