@@ -53,13 +53,24 @@ public class Constants {
 	 * Limit for the Photoelectric Sensor
 	 */
 	public static final double PHOTO_LIMIT = 0.7;
+	
+	/**
+	 * Port used for detecting if ball launcher is loaded (Button)
+	 */
+	public static final int BUTTON_INPUT = 3;
+	
+	/**
+	 * Limit for the buttons
+	 */
+	public static final double BUTTON_LIMIT = 0.1;
+	
 	/**
 	 * True if the motor is inverted. False otherwise.
 	 */
 	public static final boolean FRONT_LEFT_MOTOR_INVERT = true,
-								FRONT_RIGHT_MOTOR_INVERT = true,
+								FRONT_RIGHT_MOTOR_INVERT = false,
 								REAR_LEFT_MOTOR_INVERT = false,
-								REAR_RIGHT_MOTOR_INVERT = true,
+								REAR_RIGHT_MOTOR_INVERT = false,
 								BALL_MOTOR_INVERT = true;
 	
 	/**
@@ -122,18 +133,18 @@ public class Constants {
 	 */
 	public static final int BUCKET_SOLENOID_UP = 0,
 							BUCKET_SOLENOID_DOWN = 1,
-							LATCH_SOLENOID_ENGAGE = 3,
-							LATCH_SOLENOID_DISENGAGE = 2,
-							ARM_PISTON_SOLENOID_UP = 5,
-							ARM_PISTON_SOLENOID_DOWN = 4;
+							LATCH_SOLENOID_ENGAGE = 2,
+							LATCH_SOLENOID_DISENGAGE = 3,
+							ARM_PISTON_SOLENOID_UP = 4,
+							ARM_PISTON_SOLENOID_DOWN = 5;
 
 	
-	public static final double NO_BOOST_MULTIPLIER = 0.8;
+	public static final double NO_BOOST_MULTIPLIER = 0.7;
 	
 	/**
 	 * Ultrasonic ranges in inches.
 	 */
 	public static final double MIN_RANGE = 60,
-				   IDEAL_POSITION = 66,
-				   MAX_RANGE = 72;
+							   IDEAL_POSITION = 66,
+							   MAX_RANGE = 72;
 }
