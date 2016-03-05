@@ -34,8 +34,8 @@ public class OI {
 		SmartDashboard.putData("Move arm piston up (arm down)", new CommandMoveArmRaw(CommandMoveArmRaw.PISTON_UP));
 		SmartDashboard.putData("Move arm piston down (arm up)", new CommandMoveArmRaw(CommandMoveArmRaw.PISTON_DOWN));
 
-		SmartDashboard.putData("Fire", new CommandMoveArm(CommandMoveArm.FIRE));
-		SmartDashboard.putData("Reset", new CommandMoveArm(CommandMoveArm.RESET));
+		//SmartDashboard.putData("Fire", new CommandMoveArm(CommandMoveArm.FIRE));
+		//SmartDashboard.putData("Reset", new CommandMoveArm(CommandMoveArm.RESET));
 		
 		SmartDashboard.putData("Start GRIP", new CommandStartGRIP());
 		
@@ -50,12 +50,11 @@ public class OI {
 		Button removeBall = new JoystickButton(Controller.DRIVE_JOY(), Controller.DRIVE_RELEASE_BALL);
 		removeBall.whileHeld(new CommandGetBall(CommandGetBall.THROW_OUT_BALL));
 		
-		//Buttons, but also POV hat. See updatePov()
 		Button fire = new JoystickButton(Controller.OP_JOY(), Controller.OP_FIRE_ARM);
-		fire.whenPressed(moveBucketUp);
+		fire.whenPressed(new CommandMoveArm(CommandMoveArm.FIRE));
 		
 		Button reset = new JoystickButton(Controller.OP_JOY(), Controller.OP_RESET_ARM);
-		reset.whenPressed(moveBucketDown);
+		reset.whenPressed(new CommandMoveArm(CommandMoveArm.RESET));
 	}
 	
 	/**
