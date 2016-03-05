@@ -38,7 +38,7 @@ public class Controller {
 		double reverse = driver.getRawAxis(2);
 		double accelerate = driver.getRawAxis(3);
 		double x = driver.getX();
-		double y = (accelerate - reverse);
+		double y = (accelerate - reverse)*(DRIVE_JOY().getRawButton(DRIVE_BOOST)?1.0:Constants.NO_BOOST_MULTIPLIER);
 		double left = 0.0;
 		double right = 0.0;
 		if(Robot.isYuEnabled()) {
