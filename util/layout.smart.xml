@@ -1,68 +1,124 @@
 <xml version="1.0">
 <dashboard>
-	<static-widget class="edu.wpi.grip.smartdashboard.GRIPExtension">
-		<location x="441" y="1"/>
-		<width>605</width>
-		<height>266</height>
-		<property name="GRIP Address" value="roboRIO-3695-FRC.local"/>
-	</static-widget>
-	<widget field="Acceleration Y m.s:" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="208"/>
+	<widget field="Firing Range" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="2" y="232"/>
 	</widget>
-	<widget field="Acceleration Z m.s:" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="187"/>
+	<widget field="System Pressure" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1182" y="31"/>
 	</widget>
-	<widget field="Acceleration X m.s:" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="166"/>
+	<widget field="Boost Mode" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="1040" y="257"/>
 	</widget>
-	<widget field="Speed Z m.s:" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.SimpleDial">
-		<location x="1098" y="324"/>
+	<widget field="Drive Mode" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="1142" y="257"/>
 	</widget>
-	<widget field="Speed X m.s:" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.SimpleDial">
-		<location x="891" y="324"/>
+	<widget field="Launcher Loaded" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="2" y="256"/>
 	</widget>
-	<widget field="Speed Y m.s:" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="88" y="145"/>
+	<widget field="Button Voltage" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="118" y="252"/>
+	</widget>
+	<widget field="Ultrasonic Value" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="113" y="229"/>
+	</widget>
+	<widget field="Pickup" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="3" y="300"/>
 	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.RobotPreferences">
-		<location x="1050" y="1"/>
+		<location x="1041" y="57"/>
+		<width>306</width>
 	</static-widget>
-	<widget field="Test Analog" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="161" y="446"/>
+	<static-widget class="edu.wpi.grip.smartdashboard.GRIPExtension">
+		<location x="355" y="0"/>
+		<width>680</width>
+		<height>354</height>
+		<property name="GRIP Address" value="roboRIO-3695-FRC.local"/>
+	</static-widget>
+	<widget field="Loaded Voltage" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="115" y="275"/>
 	</widget>
-	<widget field="Use camera to align CENTER" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="4" y="57"/>
+	<widget field="Pickup Voltage" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="120" y="298"/>
 	</widget>
-	<widget field="Goal Y Position" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="672" y="270"/>
+	<widget field="Loaded" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="3" y="278"/>
 	</widget>
-	<widget field="Auto Mode" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="571" y="293"/>
+	<widget field="Compressor Status" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="1036" y="0"/>
+		<width>131</width>
+		<height>27</height>
 	</widget>
-	<widget field="Rumble" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="1" y="385"/>
+	<widget field="Comp toggle" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="1215" y="-3"/>
 	</widget>
-	<widget field="Goal X Position" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="510" y="270"/>
+	<widget field="Piston Subsystem Status" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="917" y="426"/>
+	</widget>
+	<widget field="Latching Subsystem Status" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="907" y="450"/>
+	</widget>
+	<widget field="Latch State" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1143" y="450"/>
+		<width>207</width>
+	</widget>
+	<widget field="Piston State" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1141" y="427"/>
+		<width>210</width>
+	</widget>
+	<widget field="Bucket Position" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1128" y="403"/>
+		<width>223</width>
+		<height>20</height>
+	</widget>
+	<widget field="Start GRIP" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="908" y="352"/>
 	</widget>
 	<widget field="Scheduler" type="Scheduler" class="edu.wpi.first.smartdashboard.gui.elements.Scheduler">
-		<location x="270" y="6"/>
+		<location x="7" y="3"/>
+		<height>23</height>
 	</widget>
-	<widget field="Use camera to rotate LEFT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="12" y="1"/>
+	<widget field="Speed Z" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="26" y="427"/>
 	</widget>
-	<widget field="Auto Status: " type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="87" y="93"/>
-		<width>346</width>
+	<widget field="Speed Y" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="27" y="403"/>
 	</widget>
-	<widget field="SubsystemDrive" type="Subsystem" class="edu.wpi.first.smartdashboard.gui.elements.Subsystem">
-		<location x="74" y="119"/>
-		<width>216</width>
+	<widget field="Speed X" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="27" y="379"/>
+	</widget>
+	<widget field="Goal Y Position" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="671" y="357"/>
+		<height>20</height>
 	</widget>
 	<widget field="Use camera to rotate RIGHT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="4" y="29"/>
+		<location x="667" y="377"/>
+	</widget>
+	<widget field="Auto Mode" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="338" y="33"/>
+	</widget>
+	<widget field="Goal X Position" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="355" y="357"/>
+	</widget>
+	<widget field="Rumble" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="1246" y="256"/>
+	</widget>
+	<widget field="Use camera to rotate LEFT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="351" y="377"/>
+	</widget>
+	<widget field="Auto Status: " type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="2" y="451"/>
+		<width>257</width>
 	</widget>
 </dashboard>
 <live-window>
 </live-window>
+	<hidden field="SubsystemArm"/>
+	<hidden field="SubsystemDrive"/>
+	<hidden field="Fire"/>
+	<hidden field="Unlock latch"/>
+	<hidden field="rightRange"/>
+	<hidden field="Lock latch"/>
+	<hidden field="Reset"/>
+	<hidden field="Move arm piston down (arm up)"/>
+	<hidden field="Move arm piston up (arm down)"/>
 </xml>

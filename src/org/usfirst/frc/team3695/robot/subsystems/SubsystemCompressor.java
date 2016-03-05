@@ -8,7 +8,7 @@ public class SubsystemCompressor extends Subsystem{
 	Compressor comp = new Compressor();
 	@Override
 	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub	
+		// TODO Auto-generated method stub	 
 	}
 	
 	/**

@@ -9,7 +9,7 @@ public class CommandCompressorToggle extends Command {
 	boolean complete = true;
 	
 	public CommandCompressorToggle() {
-		requires(Robot.compressorSubsystem);
+		requires(Robot.compressorSubsystem); 
 	}
 	
 	@Override

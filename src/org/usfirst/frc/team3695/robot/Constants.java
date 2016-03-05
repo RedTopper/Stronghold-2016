@@ -42,7 +42,17 @@ public class Constants {
 	/**
 	 * Analog Port used for Pnuematics Transducer Gauge
 	 */
-	public static final int TRANSDUCER_PORT = 4;
+	public static final int ULTRASONIC_INPUT = 0,
+							TRANSDUCER_PORT = 1,
+							PHOTO_LOADED_PORT = 2,
+							BUTTON_INPUT = 3;
+	
+	/**
+	 * Ultrasonic ranges in inches.
+	 */
+	public static final double MIN_RANGE = 60,
+							   IDEAL_POSITION = 66,
+							   MAX_RANGE = 72;
 	
 	/**
 	 * Scalar for Pnuematics (Converts volts to ~ PSI)
@@ -50,24 +60,9 @@ public class Constants {
 	public static final double TRANSDUCER_SCALAR = 1.0;
 	
 	/**
-	 * Port used for the Ultrasonic Sensor.
-	 */
-	public static final int ULTRASONIC_INPUT = 0;
-	
-	/**
-	 * Port used for Photoelelctric sensor
-	 */
-	public static final int PHOTO_PICKUP_PORT = 1,
-							PHOTO_LOADED_PORT = 2;
-	/**
 	 * Limit for the Photoelectric Sensor
 	 */
 	public static final double PHOTO_LIMIT = 0.7;
-	
-	/**
-	 * Port used for detecting if ball launcher is loaded (Button)
-	 */
-	public static final int BUTTON_INPUT = 3;
 	
 	/**
 	 * Limit for the buttons
@@ -150,11 +145,4 @@ public class Constants {
 
 	
 	public static final double NO_BOOST_MULTIPLIER = 0.7;
-	
-	/**
-	 * Ultrasonic ranges in inches.
-	 */
-	public static final double MIN_RANGE = 60,
-							   IDEAL_POSITION = 66,
-							   MAX_RANGE = 72;
 }

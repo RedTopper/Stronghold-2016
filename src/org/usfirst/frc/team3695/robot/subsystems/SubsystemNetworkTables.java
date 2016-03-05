@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.tables.ITable;
 public class SubsystemNetworkTables extends Subsystem {
 	ITable table;
 	
-	double rawGoalX;
+	double rawGoalX; 
 	double rawGoalY;
 	
 	public SubsystemNetworkTables() {

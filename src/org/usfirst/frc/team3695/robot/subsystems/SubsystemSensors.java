@@ -12,17 +12,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * it is needed to make all of the sensors behave as "singletons".
  */
 public class SubsystemSensors extends Subsystem {
-	AnalogInput photoPickup = new AnalogInput(Constants.PHOTO_PICKUP_PORT);
 	AnalogInput photoLoaded = new AnalogInput(Constants.PHOTO_LOADED_PORT);
 	AnalogInput ultrasonicInput = new AnalogInput(Constants.ULTRASONIC_INPUT);
 	AnalogInput loadedInput = new AnalogInput(Constants.BUTTON_INPUT);
 	AnalogInput pressureGauge = new AnalogInput(Constants.TRANSDUCER_PORT);
 
 	protected void initDefaultCommand() {
-	}
-	
-	public double getPhotoPickupVoltage() {
-		return photoPickup.getVoltage();
 	}
 	
 	public double getPhotoLoadedVoltage() {
@@ -50,17 +45,9 @@ public class SubsystemSensors extends Subsystem {
 		}else{
 			rightRange = false;
 		}
-		SmartDashboard.putBoolean("rightRange", rightRange);
-		double pickup = getPhotoPickupVoltage();
+		SmartDashboard.putBoolean("Firing Range", rightRange);
 		double loaded  = getPhotoLoadedVoltage();
 		boolean detectFire;
-		boolean detectPickup;
-		
-		if (pickup > Constants.PHOTO_LIMIT){
-			detectPickup = true;
-		} else{
-			detectPickup = false;
-		}
 		
 		if (loaded < Constants.PHOTO_LIMIT){
 			detectFire = true;
@@ -79,9 +66,7 @@ public class SubsystemSensors extends Subsystem {
 		SmartDashboard.putNumber("Button Voltage", detectLoad);
 		SmartDashboard.putBoolean("Launcher Loaded", buttonLoad);
 
-		SmartDashboard.putBoolean("Pickup",detectPickup);
 		SmartDashboard.putBoolean("Loaded",detectFire);
-		SmartDashboard.putNumber("Pickup Voltage",pickup);
 		SmartDashboard.putNumber("Loaded Voltage",loaded);
 	}
 }

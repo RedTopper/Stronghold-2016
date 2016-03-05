@@ -5,10 +5,10 @@ import org.usfirst.frc.team3695.robot.commands.CommandRotateWithCam;
 import org.usfirst.frc.team3695.robot.commands.auto.AutonomousForwardOnly;
 import org.usfirst.frc.team3695.robot.commands.auto.AutonomousRotateAndScore;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemBall;
+import org.usfirst.frc.team3695.robot.subsystems.SubsystemCompressor;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemDrive;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemNetworkTables;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemSensors;
-import org.usfirst.frc.team3695.robot.subsystems.SubsystemCompressor;
 import org.usfirst.frc.team3695.robot.subsystems.pneumatics.SubsystemArm;
 import org.usfirst.frc.team3695.robot.subsystems.pneumatics.SubsystemBucket;
 
@@ -52,7 +52,7 @@ public class Robot extends IterativeRobot {
     	ballSubsystem = new SubsystemBall();
     	bucketSubsystem = new SubsystemBucket();
     	armSubsystem = new SubsystemArm();
-    	compressorSubsystem = new SubsystemCompressor();
+    	compressorSubsystem = new SubsystemCompressor(); 
         oi = new OI();
         
         //Set up autoChooser for robot
@@ -84,8 +84,8 @@ public class Robot extends IterativeRobot {
 
         // Show what command your subsystem is running on the SmartDashboard
         SmartDashboard.putData(Scheduler.getInstance()); //Shows everything the robot is running.
-        SmartDashboard.putData(driveSubsystem); //Shows what command the driveSubsystem is running.
-        SmartDashboard.putData(armSubsystem); //Shows what command the armSubsystem is running.
+        //SmartDashboard.putData(driveSubsystem); //Shows what command the driveSubsystem is running.
+        //SmartDashboard.putData(armSubsystem); //Shows what command the armSubsystem is running.
     }
 
     //AUTONOMOUS ZONE:
