@@ -57,7 +57,8 @@ public class Constants {
 	/**
 	 * Scalar for Pnuematics (Converts volts to ~ PSI)
 	 */
-	public static final double TRANSDUCER_SCALAR = 1.0;
+	public static final double TRANSDUCER_SCALAR = 25.0,
+							   TRANSDUCER_B = -12.5;
 	
 	/**
 	 * Limit for the Photoelectric Sensor

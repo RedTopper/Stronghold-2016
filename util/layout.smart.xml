@@ -1,16 +1,17 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="System Pressure" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.SimpleDial">
+		<location x="1068" y="52"/>
+		<property name="Upper Limit" value="120.0"/>
+	</widget>
 	<widget field="Firing Range" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
 		<location x="2" y="232"/>
 	</widget>
-	<widget field="System Pressure" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="1182" y="31"/>
-	</widget>
 	<widget field="Boost Mode" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="1040" y="257"/>
+		<location x="1039" y="344"/>
 	</widget>
 	<widget field="Drive Mode" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="1142" y="257"/>
+		<location x="1141" y="345"/>
 	</widget>
 	<widget field="Launcher Loaded" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
 		<location x="2" y="256"/>
@@ -25,8 +26,9 @@
 		<location x="3" y="300"/>
 	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.RobotPreferences">
-		<location x="1041" y="57"/>
+		<location x="1040" y="203"/>
 		<width>306</width>
+		<height>152</height>
 	</static-widget>
 	<static-widget class="edu.wpi.grip.smartdashboard.GRIPExtension">
 		<location x="355" y="0"/>
@@ -75,7 +77,6 @@
 	</widget>
 	<widget field="Scheduler" type="Scheduler" class="edu.wpi.first.smartdashboard.gui.elements.Scheduler">
 		<location x="7" y="3"/>
-		<height>23</height>
 	</widget>
 	<widget field="Speed Z" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="26" y="427"/>
@@ -94,13 +95,13 @@
 		<location x="667" y="377"/>
 	</widget>
 	<widget field="Auto Mode" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="338" y="33"/>
+		<location x="-13" y="149"/>
 	</widget>
 	<widget field="Goal X Position" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="355" y="357"/>
 	</widget>
 	<widget field="Rumble" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="1246" y="256"/>
+		<location x="1248" y="345"/>
 	</widget>
 	<widget field="Use camera to rotate LEFT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
 		<location x="351" y="377"/>
@@ -117,8 +118,8 @@
 	<hidden field="Fire"/>
 	<hidden field="Unlock latch"/>
 	<hidden field="rightRange"/>
-	<hidden field="Lock latch"/>
 	<hidden field="Reset"/>
+	<hidden field="Lock latch"/>
 	<hidden field="Move arm piston down (arm up)"/>
 	<hidden field="Move arm piston up (arm down)"/>
 </xml>

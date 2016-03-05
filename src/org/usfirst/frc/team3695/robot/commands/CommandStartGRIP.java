@@ -12,7 +12,7 @@ public class CommandStartGRIP extends Command {
 
 	protected void initialize() {
         try {
-            new ProcessBuilder("/home/lvuser/grip").inheritIO().start();
+            new ProcessBuilder("/home/lvuser/grip").inheritIO().start(); 
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -33,7 +33,11 @@ public class SubsystemSensors extends Subsystem {
 	}
 	
 	public double getPressure(){
-		return (pressureGauge.getVoltage()) * (Constants.TRANSDUCER_SCALAR);
+		double psi = pressureGauge.getVoltage() * Constants.TRANSDUCER_SCALAR + Constants.TRANSDUCER_B;
+		if (psi < 0.0) {
+			psi = 0.0;
+		}
+		return psi;
 	}
 	
 	public void log() {

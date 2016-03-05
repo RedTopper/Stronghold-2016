@@ -5,10 +5,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SubsystemCompressor extends Subsystem{
-	Compressor comp = new Compressor();
-	@Override
+	private Compressor comp = new Compressor();
+
 	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub	 
 	}
 	
 	/**

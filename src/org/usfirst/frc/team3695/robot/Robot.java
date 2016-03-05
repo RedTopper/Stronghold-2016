@@ -112,6 +112,7 @@ public class Robot extends IterativeRobot {
     	log();
     	oi.updatePov();
     	oi.updateTriggersAsButtons();
+    	Scheduler.getInstance().run();
     }
     
     //TELEOP ZONE:
