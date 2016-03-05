@@ -44,29 +44,29 @@ public class OI {
 		
 		
 		//Buttons
-		Button getBall = new JoystickButton(Controller.OP_JOY(), Controller.OP_SUCK_IN_BALL());
+		Button getBall = new JoystickButton(Controller.DRIVE_JOY(), Controller.DRIVE_GRAB_BALL);
 		getBall.whileHeld(new CommandGetBall(CommandGetBall.SUCK_IN_BALL));
 		
-		Button removeBall = new JoystickButton(Controller.OP_JOY(), Controller.OP_THROW_OUT_BALL());
+		Button removeBall = new JoystickButton(Controller.DRIVE_JOY(), Controller.DRIVE_RELEASE_BALL);
 		removeBall.whileHeld(new CommandGetBall(CommandGetBall.THROW_OUT_BALL));
 		
 		//Buttons, but also POV hat. See updatePov()
-		Button armUp = new JoystickButton(Controller.OP_JOY(), Controller.OP_ARM_DOWN());
-		armUp.whenPressed(moveBucketUp);
+		Button fire = new JoystickButton(Controller.OP_JOY(), Controller.OP_FIRE_ARM);
+		fire.whenPressed(moveBucketUp);
 		
-		Button armDown = new JoystickButton(Controller.OP_JOY(), Controller.OP_ARM_DOWN());
-		armDown.whenPressed(moveBucketDown);
+		Button reset = new JoystickButton(Controller.OP_JOY(), Controller.OP_RESET_ARM);
+		reset.whenPressed(moveBucketDown);
 	}
 	
 	/**
 	 * Updates the POV hat on a controller.
 	 */
 	public void updatePov() {
-		if(povDownStateNotPressed && Controller.OP_JOY().getPOV(0) == Controller.OP_ARM_UP_POV_DEG) {
+		if(povDownStateNotPressed && Controller.OP_JOY().getPOV(0) == Controller.OP_BUCKET_UP_POV_DEG) {
 			moveBucketUp.start();
 			povDownStateNotPressed = false;
 		}
-		if(povUpStateNotPressed && Controller.OP_JOY().getPOV(0) == Controller.OP_ARM_DOWN_POV_DEG) {
+		if(povUpStateNotPressed && Controller.OP_JOY().getPOV(0) == Controller.OP_BUCKET_DOWN_POV_DEG) {
 			moveBucketDown.start();
 			povUpStateNotPressed = false;
 		}

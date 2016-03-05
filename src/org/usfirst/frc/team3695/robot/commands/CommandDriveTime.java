@@ -21,7 +21,7 @@ public class CommandDriveTime extends Command {
 	}
 
 	protected void execute() {
-		Robot.driveSubsystem.drive(0, -1);
+		Robot.driveSubsystem.tankdrive(1, 1);
 	}
 
 	protected boolean isFinished() {
@@ -30,7 +30,7 @@ public class CommandDriveTime extends Command {
 	}
 
 	protected void end() {
-		Robot.driveSubsystem.drive(0, 0);
+		Robot.driveSubsystem.tankdrive(0, 0);
 	}
 
 	protected void interrupted() {

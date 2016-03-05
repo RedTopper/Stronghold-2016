@@ -54,32 +54,13 @@ public class SubsystemDrive extends Subsystem {
 		setDefaultCommand(new CommandDrive());
     }
     
-	/**
-	 * Arcade style driving for the DriveTrain.
-	 * @param x Speed in range [-1,1]
-	 * @param y Speed in range [-1,1]
-	 * @param boost True if the robot should go max speed, false if the max speed should be
-	 * Constants.NO_BOOST_MULTIPLIER
-	 */
-	public void drive(double x, double y, boolean boost) {
-		driveTrain.arcadeDrive(x * (boost ? 1.0 : 0.8), y * (boost ? 1.0 : Constants.NO_BOOST_MULTIPLIER));
+	public void tankdrive(double left, double right) {
+		driveTrain.tankDrive(left,right);
 	}
 	
-	/**
-	 * Arcade style driving for the DriveTrain.
-	 * @param x Speed in range [-1,1]
-	 * @param y Speed in range [-1,1]
-	 */
-	public void drive(double x, double y) {
-		driveTrain.arcadeDrive(x,y);
-	}
-	
-	/**
-	 * @param joy This should move the robot and rumble the controller.
-	 * Passing the joy to this method is simply for rumble.
-	 */
-	public void drive(Joystick joy) {
-		drive(Controller.DRIVE_X_AXIS(),Controller.DRIVE_Y_AXIS(),joy.getRawButton(Controller.DRIVE_BOOST()));
+	public void tankdrive(Joystick joy) {
+		double[] tank = Controller.DRIVE_AXIS();
+		tankdrive(tank[0],tank[1]);
 		if(Robot.isRumbleEnabled()) {
 			joy.setRumble(RumbleType.kLeftRumble, (System.currentTimeMillis() < timeStartRumble + Constants.RUMBLE_TIME_MS ? 1.0f : 0.0f));
 			joy.setRumble(RumbleType.kRightRumble, (System.currentTimeMillis() < timeStartRumble + Constants.RUMBLE_TIME_MS ? 1.0f : 0.0f));

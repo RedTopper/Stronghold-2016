@@ -84,7 +84,7 @@ public class CommandRotateWithCam extends Command {
     			break;
     		}
     		if(stage == 1 && goalX < Constants.CAMERA_WIDTH/2){
-    			Robot.driveSubsystem.drive(1.0, 0);
+    			Robot.driveSubsystem.tankdrive(1.0, -1.0);
     		} else {
     			rotDir = ROT_LEFT;
     			stage++;
@@ -98,7 +98,7 @@ public class CommandRotateWithCam extends Command {
     			stage++;
     		}
     		if (stage == 4 && goalX > (Constants.CAMERA_WIDTH/2) + CAMERA_CALIBRATION_LR) {
-    			Robot.driveSubsystem.drive(-0.3, 0);
+    			Robot.driveSubsystem.tankdrive(-0.5, 0.5);
     		} else {
     			stage++;
     			break;
@@ -114,7 +114,7 @@ public class CommandRotateWithCam extends Command {
     			break;
     		}
     		if(stage == 1 && goalX > Constants.CAMERA_WIDTH/2){
-    			Robot.driveSubsystem.drive(-1.0, 0);
+    			Robot.driveSubsystem.tankdrive(-1.0, 1.0);
     		} else {
     			rotDir = ROT_RIGHT;
     			stage++;
@@ -128,7 +128,7 @@ public class CommandRotateWithCam extends Command {
     			stage++;
     		}
     		if (stage == 4 && goalX < (Constants.CAMERA_WIDTH/2) - CAMERA_CALIBRATION_LR) {
-    			Robot.driveSubsystem.drive(0.3, 0);
+    			Robot.driveSubsystem.tankdrive(0.5, -0.5);
     		} else {
     			stage++;
     			break;
@@ -151,7 +151,7 @@ public class CommandRotateWithCam extends Command {
     }
 
     protected void end() {
-    	Robot.driveSubsystem.drive(0, 0);
+    	Robot.driveSubsystem.tankdrive(0, 0);
     }
 
     protected void interrupted() {

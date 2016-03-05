@@ -21,7 +21,7 @@ public class CommandDrive extends Command {
     }
 
     protected void execute() {
-    	Robot.driveSubsystem.drive(Controller.DRIVE_JOY());
+    	Robot.driveSubsystem.tankdrive(Controller.DRIVE_JOY());
     }
 
     protected boolean isFinished() {
@@ -29,7 +29,7 @@ public class CommandDrive extends Command {
     }
 
     protected void end() {
-    	Robot.driveSubsystem.drive(0, 0);
+    	Robot.driveSubsystem.tankdrive(0, 0);
     }
 
     protected void interrupted() {
