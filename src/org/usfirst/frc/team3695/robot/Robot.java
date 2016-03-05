@@ -98,6 +98,7 @@ public class Robot extends IterativeRobot {
     public void autonomousPeriodic() {
         log();
         oi.updatePov();
+        oi.updateTriggersAsButtons();
         Scheduler.getInstance().run();
     }
 
@@ -110,6 +111,7 @@ public class Robot extends IterativeRobot {
     public void disabledPeriodic() {
     	log();
     	oi.updatePov();
+    	oi.updateTriggersAsButtons();
     }
     
     //TELEOP ZONE:
@@ -122,6 +124,7 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
         log();
     	oi.updatePov();
+    	oi.updateTriggersAsButtons();
         Scheduler.getInstance().run();
     }
     
