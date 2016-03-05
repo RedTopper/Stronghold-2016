@@ -68,10 +68,10 @@ public class CommandRotateWithCam extends Command {
     	if(goalX == -1.0) { 
 			switch(rotDir) {
 			case ROT_LEFT:
-				goalX = Constants.CAMERA_WIDTH + 1;
+				goalX = 0;
 				break;
 			case ROT_RIGHT:
-				goalX = 0;
+				goalX = Constants.CAMERA_WIDTH + 1;
 				break;
 			}
 		}
@@ -83,7 +83,7 @@ public class CommandRotateWithCam extends Command {
     			stage++;
     			break;
     		}
-    		if(stage == 1 && goalX < Constants.CAMERA_WIDTH/2){
+    		if(stage == 1 && goalX > Constants.CAMERA_WIDTH/2){
     			Robot.driveSubsystem.tankdrive(1.0, -1.0);
     		} else {
     			rotDir = ROT_LEFT;
@@ -97,7 +97,7 @@ public class CommandRotateWithCam extends Command {
     		if(stage == 3 && startPauseTime < System.currentTimeMillis() - 1000) { //Magic number. Wait one second.
     			stage++;
     		}
-    		if (stage == 4 && goalX > (Constants.CAMERA_WIDTH/2) + CAMERA_CALIBRATION_LR) {
+    		if (stage == 4 && goalX < (Constants.CAMERA_WIDTH/2) + CAMERA_CALIBRATION_LR) {
     			Robot.driveSubsystem.tankdrive(-0.5, 0.5);
     		} else {
     			stage++;
@@ -113,7 +113,7 @@ public class CommandRotateWithCam extends Command {
     			stage++;
     			break;
     		}
-    		if(stage == 1 && goalX > Constants.CAMERA_WIDTH/2){
+    		if(stage == 1 && goalX < Constants.CAMERA_WIDTH/2){
     			Robot.driveSubsystem.tankdrive(-1.0, 1.0);
     		} else {
     			rotDir = ROT_RIGHT;
@@ -127,7 +127,7 @@ public class CommandRotateWithCam extends Command {
     		if(stage == 3 && startPauseTime < System.currentTimeMillis() - 1000) { //Magic number. Wait one second.
     			stage++;
     		}
-    		if (stage == 4 && goalX < (Constants.CAMERA_WIDTH/2) - CAMERA_CALIBRATION_LR) {
+    		if (stage == 4 && goalX > (Constants.CAMERA_WIDTH/2) - CAMERA_CALIBRATION_LR) {
     			Robot.driveSubsystem.tankdrive(0.5, -0.5);
     		} else {
     			stage++;
