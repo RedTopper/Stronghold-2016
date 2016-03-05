@@ -8,15 +8,15 @@ public class Controller {
 
 	/** XBox "B Button" */
 	public static final int DRIVE_BOOST = 2;
-	/** XBox "Left Bumper" */
-	public static final int DRIVE_RELEASE_BALL = 5;
-	/** XBox "Right Bumper" */
-	public static final int DRIVE_GRAB_BALL = 6;
 	/** The degree amount the POV must be to rotate the robot left for auto targeting. */
 	public static final int DRIVE_TARGET_LEFT = 270;
 	/** The degree amount the POV must be to rotate the robot right for auto targeting. */
 	public static final int DRIVE_TARGET_RIGHT = 90;
 	
+	/** XBox "Left Bumper" */
+	public static final int OP_RELEASE_BALL = 5;
+	/** XBox "Right Bumper" */
+	public static final int OP_GRAB_BALL = 6;
 	/** XBox "A Button" */
 	public static final int OP_FIRE_ARM = 1;
 	/** XBox "B Button" */

@@ -50,10 +50,10 @@ public class OI {
 		
 		
 		//Buttons for Driver
-		Button getBall = new JoystickButton(Controller.DRIVE_JOY(), Controller.DRIVE_GRAB_BALL);
+		Button getBall = new JoystickButton(Controller.OP_JOY(), Controller.OP_GRAB_BALL);
 		getBall.whileHeld(new CommandGetBall(CommandGetBall.SUCK_IN_BALL));
 		
-		Button removeBall = new JoystickButton(Controller.DRIVE_JOY(), Controller.DRIVE_RELEASE_BALL);
+		Button removeBall = new JoystickButton(Controller.OP_JOY(), Controller.OP_RELEASE_BALL);
 		removeBall.whileHeld(new CommandGetBall(CommandGetBall.THROW_OUT_BALL));
 		
 		//Buttons for OP
