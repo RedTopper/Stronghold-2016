@@ -28,6 +28,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 	private static SendableChooser autoChooser;
 	private static SendableChooser rumbleChooser;
+	private static SendableChooser driveChooser;
 	private Command autonomousCommand;
     
     public static SubsystemDrive driveSubsystem;
@@ -62,6 +63,11 @@ public class Robot extends IterativeRobot {
         rumbleChooser = new SendableChooser();
         rumbleChooser.addDefault("Rumble ON", true);
         rumbleChooser.addObject("Rumble OFF", false);
+        
+        //Set up rumbleChooser for robot
+        driveChooser = new SendableChooser();
+        driveChooser.addDefault("Yu Drive", true);
+        driveChooser.addObject("Intuitive Drive", false);
         
         //Put choosers on robot smart dash.
         SmartDashboard.putData("Auto Mode", autoChooser);
@@ -130,5 +136,9 @@ public class Robot extends IterativeRobot {
     
     public static boolean isRumbleEnabled() {
     	return ((boolean) rumbleChooser.getSelected());
+    }
+    
+    public static boolean isYuEnabled() {
+    	return ((boolean) driveChooser.getSelected());
     }
 }

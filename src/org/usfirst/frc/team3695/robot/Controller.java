@@ -39,10 +39,19 @@ public class Controller {
 		double accelerate = driver.getRawAxis(3);
 		double x = driver.getX();
 		double y = (accelerate - reverse);
-		double right = (1.5*y - x > 1.0 ? 1.0 : 1.5*y - x);
-			   right = (1.5*y - x < -1.0 ? -1.0 : right);
-	    double left = (1.5*y + x > 1.0 ? 1.0 : 1.5*y + x);
-			   left = (1.5*y + x < -1.0 ? -1.0 : left);
+		double left = 0.0;
+		double right = 0.0;
+		if(Robot.isYuEnabled()) {
+			right = (1.5*y - x > 1.0 ? 1.0 : 1.5*y - x);
+			right = (1.5*y - x < -1.0 ? -1.0 : right);
+			left = (1.5*y + x > 1.0 ? 1.0 : 1.5*y + x);
+			left = (1.5*y + x < -1.0 ? -1.0 : left);
+		} else {
+			right = (y*Math.abs(1.0 - x) > 1.0 ? 1.0 : y*Math.abs(1.0 - x));
+			right = (y*Math.abs(1.0 - x) < -1.0 ? -1.0 : right);
+			left = (y*Math.abs(1.0 + x) > 1.0 ? 1.0 : y*Math.abs(1.0 + x));
+			left = (y*Math.abs(1.0 + x) < -1.0 ? -1.0 : left);
+		}
 		return new double[]{left,right};
 	}
 
