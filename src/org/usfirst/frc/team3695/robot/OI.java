@@ -64,11 +64,11 @@ public class OI {
 		reset.whenPressed(new CommandMoveArm(CommandMoveArm.RESET));
 		
 		//Manual buttons for OP. USE WITH CAUTION.
-		Button pistonUp = new JoystickButton(Controller.OP_JOY(), Controller.OP_PISTON_UP);
-		pistonUp.whenPressed(new CommandMoveArmRaw(CommandMoveArmRaw.PISTON_UP));
+		//Button pistonUp = new JoystickButton(Controller.OP_JOY(), Controller.OP_PISTON_UP);
+		//pistonUp.whenPressed(new CommandMoveArmRaw(CommandMoveArmRaw.PISTON_UP));
 		
-		Button pistonDown = new JoystickButton(Controller.OP_JOY(), Controller.OP_PISTON_DOWN);
-		pistonDown.whenPressed(new CommandMoveArmRaw(CommandMoveArmRaw.PISTON_DOWN));
+		//Button pistonDown = new JoystickButton(Controller.OP_JOY(), Controller.OP_PISTON_DOWN);
+		//pistonDown.whenPressed(new CommandMoveArmRaw(CommandMoveArmRaw.PISTON_DOWN));
 	}
 	
 	/**
