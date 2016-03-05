@@ -31,6 +31,7 @@ public class CommandMoveArm extends Command {
 			complete = false;
 			break;
 		case RESET:
+			Robot.armSubsystem.disengageLatch();
 			Robot.armSubsystem.movePistonUp();
 			complete = false;
 			break;

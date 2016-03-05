@@ -193,6 +193,6 @@ public class SubsystemArm extends Subsystem {
 		SmartDashboard.putString("Piston State", pistonString);
 		
 		SmartDashboard.putString("Piston Subsystem Status", (subsystemPistonLocked ? "Subsystem is running a task!" : "Ready to go!" ));
-		SmartDashboard.putString("Latching Subsystem Status", (subsystemPistonLocked ? "Subsystem is running a task!" : "Ready to go!" ));
+		SmartDashboard.putString("Latching Subsystem Status", (subsystemLatchingLocked ? "Subsystem is running a task!" : "Ready to go!" ));
 	}
 }
