@@ -46,7 +46,7 @@ public class OI {
 		SmartDashboard.putData("Start GRIP", new CommandStartGRIP());
 		
 		//Compressor Toggle
-		SmartDashboard.putData("Comp toggle", new CommandCompressorToggle());
+		SmartDashboard.putData("Disable Compressor", new CommandCompressorToggle());
 		
 		
 		//Buttons for Driver

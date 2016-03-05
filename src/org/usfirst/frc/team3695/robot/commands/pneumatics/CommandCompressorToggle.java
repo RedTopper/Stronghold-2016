@@ -10,7 +10,7 @@ public class CommandCompressorToggle extends Command {
 	}
 	
 	protected void initialize() {
-		Robot.compressorSubsystem.setState(true);
+		Robot.compressorSubsystem.setState(false);
 	}
 
 	protected void execute() {
@@ -21,7 +21,7 @@ public class CommandCompressorToggle extends Command {
 	}
 
 	protected void end() {
-		Robot.compressorSubsystem.setState(false);
+		Robot.compressorSubsystem.setState(true);
 	}
 
 	protected void interrupted() {	
