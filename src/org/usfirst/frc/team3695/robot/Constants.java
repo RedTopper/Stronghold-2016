@@ -11,7 +11,7 @@ public class Constants {
 	/**
 	 * Time in MS between when the latch closes and the arm piston moves downwards.
 	 */
-	public static final long TIME_TO_LATCH = 2000;
+	public static final long TIME_TO_LATCH = 500;
 	
 	/**
 	 * Time it takes for the piston to move down so the driver can fire the ball again.
