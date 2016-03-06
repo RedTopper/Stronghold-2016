@@ -146,4 +146,9 @@ public class Constants {
 
 	
 	public static final double NO_BOOST_MULTIPLIER = 0.7;
+
+	/**
+	 * How long the robot should stop so the camera can catch up.
+	 */
+	public static final long PAUSE_CAMERA_ROTATION_TIME_MS = 1000;
 }

@@ -34,7 +34,7 @@ public class CommandRotateWithCam extends Command {
 	private int stage = 0;
 	private int error = 0;
 	private int rotDir = 0;
-	private long startPauseTime = 0;
+	private long endPauseTime = 0;
 	
 	/**
 	 * This will tell the robot witch way to move to face the goal the quickest.
@@ -78,12 +78,12 @@ public class CommandRotateWithCam extends Command {
     	
     	switch(objective) {
     	case ROTATE_RIGHT_OVERALL:
-    		if(stage == 0) {
+    		switch(stage) {
+    		case 0:
     			rotDir = ROT_RIGHT;
     			stage++;
     			break;
-    		}
-    		if(stage == 1){
+    		case 1:
     			if(goalX > Constants.CAMERA_WIDTH/2) {
     				Robot.driveSubsystem.tankdrive(1.0, -1.0);
     			} else {
@@ -91,60 +91,52 @@ public class CommandRotateWithCam extends Command {
         			stage++;
         			break;
     			}
-    		}
-    		if(stage == 2) {
-    			startPauseTime = System.currentTimeMillis();
+    			break;
+    		case 2:
+    			endPauseTime = System.currentTimeMillis() + Constants.PAUSE_CAMERA_ROTATION_TIME_MS;
     			stage++;
-    		}
-    		if(stage == 3) { //Magic number. Wait one second.
-    			if (startPauseTime < System.currentTimeMillis() - 1000) {
+    		case 3:
+    			if (System.currentTimeMillis() < endPauseTime) {
     				stage++;
     			}
-    		}
-    		if (stage == 4) {
-    			if (goalX < (Constants.CAMERA_WIDTH/2) + CAMERA_CALIBRATION_LR) {
+    			break;
+    		case 4:
+    			if (goalX < (Constants.CAMERA_WIDTH/2) - CAMERA_CALIBRATION_LR) {
     				Robot.driveSubsystem.tankdrive(-0.5, 0.5);
     			} else {
-        			stage++;
+        			complete = true;
         		}
-    		}
-    		if(stage == 5) {
-    			complete = true;
     		}
     		break;
     	case ROTATE_LEFT_OVERALL:
-    		if(stage == 0) {
+    		switch(stage) {
+    		case 0:
     			rotDir = ROT_LEFT;
     			stage++;
     			break;
-    		}
-    		if(stage == 1){
+    		case 1:
     			if(goalX < Constants.CAMERA_WIDTH/2) {
-    				Robot.driveSubsystem.tankdrive(1.0, -1.0);
+    				Robot.driveSubsystem.tankdrive(-1.0, 1.0);
     			} else {
         			rotDir = ROT_RIGHT;
         			stage++;
         			break;
     			}
-    		}
-    		if(stage == 2) {
-    			startPauseTime = System.currentTimeMillis();
+    			break;
+    		case 2:
+    			endPauseTime = System.currentTimeMillis() + Constants.PAUSE_CAMERA_ROTATION_TIME_MS;
     			stage++;
-    		}
-    		if(stage == 3) { //Magic number. Wait one second.
-    			if (startPauseTime < System.currentTimeMillis() - 1000) {
+    		case 3:
+    			if (System.currentTimeMillis() < endPauseTime) {
     				stage++;
     			}
-    		}
-    		if (stage == 4) {
+    			break;
+    		case 4:
     			if (goalX > (Constants.CAMERA_WIDTH/2) + CAMERA_CALIBRATION_LR) {
     				Robot.driveSubsystem.tankdrive(-0.5, 0.5);
     			} else {
-        			stage++;
+        			complete = true;
         		}
-    		}
-    		if(stage == 5) {
-    			complete = true;
     		}
     		break;
     	default:
