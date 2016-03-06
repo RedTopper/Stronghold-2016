@@ -83,25 +83,30 @@ public class CommandRotateWithCam extends Command {
     			stage++;
     			break;
     		}
-    		if(stage == 1 && goalX > Constants.CAMERA_WIDTH/2){
-    			Robot.driveSubsystem.tankdrive(1.0, -1.0);
-    		} else {
-    			rotDir = ROT_LEFT;
-    			stage++;
-    			break;
+    		if(stage == 1){
+    			if(goalX > Constants.CAMERA_WIDTH/2) {
+    				Robot.driveSubsystem.tankdrive(1.0, -1.0);
+    			} else {
+        			rotDir = ROT_LEFT;
+        			stage++;
+        			break;
+    			}
     		}
     		if(stage == 2) {
     			startPauseTime = System.currentTimeMillis();
     			stage++;
     		}
-    		if(stage == 3 && startPauseTime < System.currentTimeMillis() - 1000) { //Magic number. Wait one second.
-    			stage++;
+    		if(stage == 3) { //Magic number. Wait one second.
+    			if (startPauseTime < System.currentTimeMillis() - 1000) {
+    				stage++;
+    			}
     		}
-    		if (stage == 4 && goalX < (Constants.CAMERA_WIDTH/2) + CAMERA_CALIBRATION_LR) {
-    			Robot.driveSubsystem.tankdrive(-0.5, 0.5);
-    		} else {
-    			stage++;
-    			break;
+    		if (stage == 4) {
+    			if (goalX < (Constants.CAMERA_WIDTH/2) + CAMERA_CALIBRATION_LR) {
+    				Robot.driveSubsystem.tankdrive(-0.5, 0.5);
+    			} else {
+        			stage++;
+        		}
     		}
     		if(stage == 5) {
     			complete = true;
@@ -113,25 +118,30 @@ public class CommandRotateWithCam extends Command {
     			stage++;
     			break;
     		}
-    		if(stage == 1 && goalX < Constants.CAMERA_WIDTH/2){
-    			Robot.driveSubsystem.tankdrive(-1.0, 1.0);
-    		} else {
-    			rotDir = ROT_RIGHT;
-    			stage++;
-    			break;
+    		if(stage == 1){
+    			if(goalX < Constants.CAMERA_WIDTH/2) {
+    				Robot.driveSubsystem.tankdrive(1.0, -1.0);
+    			} else {
+        			rotDir = ROT_RIGHT;
+        			stage++;
+        			break;
+    			}
     		}
     		if(stage == 2) {
     			startPauseTime = System.currentTimeMillis();
     			stage++;
     		}
-    		if(stage == 3 && startPauseTime < System.currentTimeMillis() - 1000) { //Magic number. Wait one second.
-    			stage++;
+    		if(stage == 3) { //Magic number. Wait one second.
+    			if (startPauseTime < System.currentTimeMillis() - 1000) {
+    				stage++;
+    			}
     		}
-    		if (stage == 4 && goalX > (Constants.CAMERA_WIDTH/2) - CAMERA_CALIBRATION_LR) {
-    			Robot.driveSubsystem.tankdrive(0.5, -0.5);
-    		} else {
-    			stage++;
-    			break;
+    		if (stage == 4) {
+    			if (goalX > (Constants.CAMERA_WIDTH/2) + CAMERA_CALIBRATION_LR) {
+    				Robot.driveSubsystem.tankdrive(-0.5, 0.5);
+    			} else {
+        			stage++;
+        		}
     		}
     		if(stage == 5) {
     			complete = true;
