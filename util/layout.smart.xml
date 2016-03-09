@@ -1,11 +1,14 @@
 <xml version="1.0">
 <dashboard>
-	<widget field="System Pressure" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.SimpleDial">
-		<location x="1068" y="52"/>
-		<property name="Upper Limit" value="120.0"/>
-	</widget>
 	<widget field="Firing Range" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
 		<location x="2" y="232"/>
+	</widget>
+	<widget field="Disable Compressor" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="1173" y="2"/>
+	</widget>
+	<widget field="System Pressure" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.SimpleDial">
+		<location x="1068" y="52"/>
+		<property name="Upper Limit" value="110.0"/>
 	</widget>
 	<widget field="Boost Mode" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
 		<location x="1039" y="344"/>
@@ -46,12 +49,9 @@
 		<location x="3" y="278"/>
 	</widget>
 	<widget field="Compressor Status" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
-		<location x="1036" y="0"/>
+		<location x="1037" y="7"/>
 		<width>131</width>
 		<height>27</height>
-	</widget>
-	<widget field="Comp toggle" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="1215" y="-3"/>
 	</widget>
 	<widget field="Piston Subsystem Status" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="917" y="426"/>
@@ -113,13 +113,4 @@
 </dashboard>
 <live-window>
 </live-window>
-	<hidden field="SubsystemArm"/>
-	<hidden field="SubsystemDrive"/>
-	<hidden field="Fire"/>
-	<hidden field="Unlock latch"/>
-	<hidden field="rightRange"/>
-	<hidden field="Reset"/>
-	<hidden field="Lock latch"/>
-	<hidden field="Move arm piston down (arm up)"/>
-	<hidden field="Move arm piston up (arm down)"/>
 </xml>
