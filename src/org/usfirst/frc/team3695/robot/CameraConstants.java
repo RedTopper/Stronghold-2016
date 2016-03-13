@@ -5,6 +5,8 @@ import com.ni.vision.NIVision.Range;
 import edu.wpi.first.wpilibj.Preferences;
 
 public class CameraConstants {
+	private static Preferences pref = Preferences.getInstance();
+	
 	private CameraConstants() throws InstantiationException {
 		throw new InstantiationException();
 	}
@@ -13,24 +15,35 @@ public class CameraConstants {
 	public static final String REAR_CAM_NAME = "cam1";
 	
 	public static final Range HUE() {
-		return new Range(Preferences.getInstance().getInt("Hue Low", 160),Preferences.getInstance().getInt("Hue High", 180));
+		return setAndGetRange("Hue Low", 160, "Hue High", 180);
 	}
 	public static final Range SATURATION() {
-		return new Range(Preferences.getInstance().getInt("Saturation Low", 200),Preferences.getInstance().getInt("Saturation High", 255));
+		return setAndGetRange("Saturation Low", 200, "Saturation High", 255);
 	}
 	public static final Range VALUE() {
-		return new Range(Preferences.getInstance().getInt("Value Low", 200),Preferences.getInstance().getInt("Value High", 255));
+		return setAndGetRange("Value Low", 200, "Value High", 255);
 	}
 	
 	public static final int FRONT_EXPOSURE(){
-		return Preferences.getInstance().getInt("Front Camera Exposure", 50);
+		return setAndGetNumber("Front Camera Exposure", 50);
 	}
 	
 	public static final int FRONT_BRIGHTNESS(){
-		return Preferences.getInstance().getInt("Front Camera Brightness", 50);
+		return setAndGetNumber("Front Camera Brightness", 50);
 	}
 	
 	public static final int SERVER_QUALITY() {
-		return Preferences.getInstance().getInt("Server Quality", 50);
+		return setAndGetNumber("Server Quality", 50);
+	}
+	
+	private static final Range setAndGetRange(String lowKey, int lowValue, String highKey, int highValue) {
+		if(!pref.containsKey(lowKey)) pref.putInt(lowKey, lowValue);
+		if(!pref.containsKey(highKey)) pref.putInt(highKey, highValue);
+		return new Range(pref.getInt(lowKey, lowValue),pref.getInt(highKey, highValue));
+	}
+	
+	private static final int setAndGetNumber(String key, int value) {
+		if(!pref.containsKey(key)) pref.putInt(key, value);
+		return pref.getInt(key, value);
 	}
 }
