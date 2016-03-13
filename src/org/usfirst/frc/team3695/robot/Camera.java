@@ -8,6 +8,7 @@ import com.ni.vision.NIVision.VerticalTextAlignment;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.vision.USBCamera;
 
 public class Camera extends Thread implements Runnable {
@@ -83,6 +84,7 @@ public class Camera extends Thread implements Runnable {
 	public void run() {
 		while(true) {
 			try {
+				long pastTime = System.currentTimeMillis();
 				out: switch(cameraView) {
 				case FRONT_CAM:
 					frontCam.getImage(frontFrame);
@@ -102,6 +104,8 @@ public class Camera extends Thread implements Runnable {
 				} catch (InterruptedException e) {
 					//consume
 				}
+				long currentTime = System.currentTimeMillis();
+				SmartDashboard.putNumber("Camera Thread FPS", 1000.0 / (double)(currentTime - pastTime));
 			} catch (Exception e) {
 				DriverStation.reportError("The main thread exited because of :" + e.getStackTrace(), true);
 				break;

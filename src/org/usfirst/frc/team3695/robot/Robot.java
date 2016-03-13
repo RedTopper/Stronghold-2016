@@ -13,6 +13,7 @@ import org.usfirst.frc.team3695.robot.subsystems.pneumatics.SubsystemArm;
 import org.usfirst.frc.team3695.robot.subsystems.pneumatics.SubsystemBucket;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -116,6 +117,7 @@ public class Robot extends IterativeRobot {
         oi.updatePov();
         oi.updateTriggersAsButtons();
         Scheduler.getInstance().run();
+        try {Thread.sleep(5);} catch (InterruptedException e){}
     }
 
     //DISABLED ZONE:
@@ -130,6 +132,7 @@ public class Robot extends IterativeRobot {
     	oi.updatePov();
     	oi.updateTriggersAsButtons();
     	Scheduler.getInstance().run();
+    	try {Thread.sleep(5);} catch (InterruptedException e){}
     }
     
     //TELEOP ZONE:
@@ -144,6 +147,7 @@ public class Robot extends IterativeRobot {
     	oi.updatePov();
     	oi.updateTriggersAsButtons();
         Scheduler.getInstance().run();
+        try {Thread.sleep(5);} catch (InterruptedException e){}
     }
     
     //INFORMATION ZONE: add log functions here.
