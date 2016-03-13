@@ -143,7 +143,12 @@ public class Constants {
 							LATCH_SOLENOID_DISENGAGE = 3,
 							ARM_PISTON_SOLENOID_UP = 4,
 							ARM_PISTON_SOLENOID_DOWN = 5;
-
+	
+	/**
+	 * LED PCM Ports
+	 */
+	public static final int RED_LED_PORT = 6,
+							BLUE_LED_PORT = 7;
 	
 	public static final double NO_BOOST_MULTIPLIER = 0.7;
 
