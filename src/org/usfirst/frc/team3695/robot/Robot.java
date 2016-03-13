@@ -1,6 +1,10 @@
 
 package org.usfirst.frc.team3695.robot;
 
+import java.lang.management.ManagementFactory;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import org.usfirst.frc.team3695.robot.commands.CommandRotateWithCam;
 import org.usfirst.frc.team3695.robot.commands.auto.AutonomousForwardOnly;
 import org.usfirst.frc.team3695.robot.commands.auto.AutonomousRotateAndScore;
@@ -12,8 +16,9 @@ import org.usfirst.frc.team3695.robot.subsystems.SubsystemSensors;
 import org.usfirst.frc.team3695.robot.subsystems.pneumatics.SubsystemArm;
 import org.usfirst.frc.team3695.robot.subsystems.pneumatics.SubsystemBucket;
 
+import com.sun.management.OperatingSystemMXBean;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -27,17 +32,23 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
+	//Generic variables
 	private Camera cam;
 	private int lastSelectedCamera = Camera.FRONT_CAM;
+	private long lastTime = System.currentTimeMillis();
+	private double ticksPerSecond = 0;
 	
+	//Choosers
 	private static SendableChooser autoChooser;
 	private static SendableChooser rumbleChooser;
 	private static SendableChooser driveChooser;
 	private static SendableChooser boostChooser;
 	private static SendableChooser cameraChooser;
 	
+	//Auto
 	private Command autonomousCommand;
     
+	//Static subsystems
     public static SubsystemDrive driveSubsystem;
     public static SubsystemNetworkTables networkTables;
     public static SubsystemSensors sensorsSubsystem;
@@ -47,6 +58,7 @@ public class Robot extends IterativeRobot {
     public static SubsystemCompressor compressorSubsystem;
     public static OI oi;
     
+    //Error message to notify auto to stop.
     public static String STOP_AUTO = null;
     
     public void robotInit() {
@@ -117,7 +129,6 @@ public class Robot extends IterativeRobot {
         oi.updatePov();
         oi.updateTriggersAsButtons();
         Scheduler.getInstance().run();
-        try {Thread.sleep(5);} catch (InterruptedException e){}
     }
 
     //DISABLED ZONE:
@@ -132,7 +143,6 @@ public class Robot extends IterativeRobot {
     	oi.updatePov();
     	oi.updateTriggersAsButtons();
     	Scheduler.getInstance().run();
-    	try {Thread.sleep(5);} catch (InterruptedException e){}
     }
     
     //TELEOP ZONE:
@@ -147,7 +157,6 @@ public class Robot extends IterativeRobot {
     	oi.updatePov();
     	oi.updateTriggersAsButtons();
         Scheduler.getInstance().run();
-        try {Thread.sleep(5);} catch (InterruptedException e){}
     }
     
     //INFORMATION ZONE: add log functions here.
@@ -156,6 +165,10 @@ public class Robot extends IterativeRobot {
      * any given loop.
      */
     private void log() {
+    	ticksPerSecond = (1000.0 / (double)(System.currentTimeMillis() - lastTime));
+    	lastTime = System.currentTimeMillis();
+    	try {Thread.sleep(5);} catch (InterruptedException e){} //delay the robot so motors can update.
+    	logUnsafe();
     	networkTables.updateInfo();
     	networkTables.log();
     	driveSubsystem.log();
@@ -173,6 +186,40 @@ public class Robot extends IterativeRobot {
     		cam.viewCam(currentCamera);
         	lastSelectedCamera = currentCamera;
     	}
+    }
+    
+    private void logUnsafe() {
+		final Runtime r = Runtime.getRuntime();
+		final OperatingSystemMXBean osBean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
+		
+		//big decimal for proccess load percent.
+		final double load = (osBean.getProcessCpuLoad() * 100D);
+		BigDecimal bd = new BigDecimal(load);
+		
+		//big decimal for CPU load percent.
+		final double load2 = (osBean.getSystemCpuLoad() * 100D);
+		BigDecimal bd2 = new BigDecimal(load2);
+		
+		//big decimal for ticks per second
+		BigDecimal tps = new BigDecimal(ticksPerSecond);
+		
+		//round big decimals
+		bd = bd.setScale(2, RoundingMode.HALF_UP);
+		bd2 = bd2.setScale(2, RoundingMode.HALF_UP);
+		tps = tps.setScale(2, RoundingMode.HALF_UP);
+		
+		//define MiB.
+		final long MB = 1024 * 1024;
+		SmartDashboard.putString("System Information",
+				"Ticks Per Second: " + tps + "\n" 
+				+ "Threads: About " + Thread.activeCount() + "\n"
+				+ "Free memory: " + (r.freeMemory() / MB) + "MiB\n" 
+				+ "Used memory: " + ((r.totalMemory() - r.freeMemory()) / MB) + "MiB\n" 
+				+ "Allocated memory: " + (r.totalMemory() / MB) + "MiB\n"
+				+ "Max memory: " + (r.maxMemory() / MB) + "MiB\n"
+				+ "Total Free memory: " + ((r.freeMemory() + (r.maxMemory() - r.totalMemory())) / MB) + "MiB\n"
+				+ "Process Load: " + bd + "%\n"
+				+ "RoborRIO Load: " + bd2 + "%");
     }
     
     public static boolean isRumbleEnabled() {
