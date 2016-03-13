@@ -12,23 +12,32 @@ import edu.wpi.first.wpilibj.vision.USBCamera;
 
 public class Camera extends Thread implements Runnable {
 	private final USBCamera frontCam;
+	private boolean frontCamOn = false;
 	private final USBCamera rearCam;
+	private boolean rearCamOn = false;
 	
 	private int cameraView = 0;
 	
-	private static final int NO_CAM = 0,
-							 FRONT_CAM = 1,
-							 REAR_CAM = 2;
+	public static final int NO_CAM = 0,
+							FRONT_PROCCESSED = 1,
+							FRONT_CAM = 2,
+							REAR_CAM = 3;
 	
-	Image frontFrame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
-	Image rearFrame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
-	Image noFrame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
+	private Image frontFrame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
+	private Image rearFrame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
+	
+	private Image waitFrame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
+	private Image noFrame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
+
 	
 	public Camera() {
 		NIVision.imaqSetImageSize(noFrame, 640, 480);
 		NIVision.OverlayTextOptions settings = new NIVision.OverlayTextOptions(
 				"Times New Roman", 48, 0, 0, 0, 0, TextAlignment.LEFT, VerticalTextAlignment.BASELINE, new RGBValue(0, 0, 0, 255), 0.0); //dear god
 		NIVision.imaqOverlayText(noFrame, new NIVision.Point(0,0), "No Camera Feed!", NIVision.RGB_RED, settings, "0");
+		
+		NIVision.imaqSetImageSize(waitFrame, 640, 480);
+		NIVision.imaqOverlayText(waitFrame, new NIVision.Point(0,0), "Loading...", NIVision.RGB_RED, settings, "0");
 		
 		frontCam = startCam("front camera", CameraConstants.FRONT_CAM_NAME);
 		rearCam = startCam("rear camera",CameraConstants.REAR_CAM_NAME);
@@ -53,7 +62,7 @@ public class Camera extends Thread implements Runnable {
 			DriverStation.reportWarning("Rear camera started!", false);
 		}
 		CameraServer.getInstance().setQuality(CameraConstants.SERVER_QUALITY);
-		viewFrontCam();
+		viewCam(FRONT_CAM);
 	}
 
 	public void run() {
@@ -73,23 +82,41 @@ public class Camera extends Thread implements Runnable {
 		}
 	}
 	
-	public synchronized void viewFrontCam() {
-		if(cameraView == FRONT_CAM) {
+	public synchronized void viewCam(int cam) {
+		if(cameraView == cam) {
 			return;
 		}
-		if(frontCam == null) {
+		CameraServer.getInstance().setImage(waitFrame);
+		switch(cam) {
+		case FRONT_CAM:
+			if(rearCamOn) {
+				rearCam.stopCapture();
+				rearCam.closeCamera();
+			}
+			frontCam.openCamera();
+			frontCam.startCapture();
+			cameraView = FRONT_CAM;
+			break;
+		case REAR_CAM:
+			if(frontCamOn) {
+				frontCam.stopCapture();
+				frontCam.closeCamera();
+			}
+			rearCam.openCamera();
+			rearCam.startCapture();
+			cameraView = REAR_CAM;
+			break;
+		default:
+		case NO_CAM:
+			if(frontCamOn) {
+				frontCam.stopCapture();
+				frontCam.closeCamera();
+			}
+			if(rearCamOn) {
+				rearCam.stopCapture();
+				rearCam.closeCamera();
+			}
 			cameraView = NO_CAM;
-			return;
-		}
-	}
-	
-	public synchronized void viewRearCam() {
-		if(cameraView == REAR_CAM) {
-			return;
-		}
-		if(rearCam == null) {
-			cameraView = NO_CAM;
-			return;
 		}
 	}
 	

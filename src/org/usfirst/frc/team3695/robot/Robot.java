@@ -26,10 +26,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
+	private Camera cam;
+	private int lastSelectedCamera = Camera.FRONT_CAM;
+	
 	private static SendableChooser autoChooser;
 	private static SendableChooser rumbleChooser;
 	private static SendableChooser driveChooser;
 	private static SendableChooser boostChooser;
+	private static SendableChooser cameraChooser;
 	
 	private Command autonomousCommand;
     
@@ -45,6 +49,10 @@ public class Robot extends IterativeRobot {
     public static String STOP_AUTO = null;
     
     public void robotInit() {
+    	//Hopefully start camera
+    	cam = new Camera();
+    	cam.start();
+    	
         // Initialize all subsystems
     	driveSubsystem = new SubsystemDrive();
     	networkTables = new SubsystemNetworkTables();
@@ -76,11 +84,19 @@ public class Robot extends IterativeRobot {
         boostChooser.addDefault("Boost Button", true);
         boostChooser.addObject("Slow Button", false);
         
+        //Set up cameraChooser for selecting witch camera to view 
+        cameraChooser = new SendableChooser();
+        cameraChooser.addDefault("Front Camera", Camera.FRONT_CAM);
+        cameraChooser.addObject("Front Camera (processed)", Camera.FRONT_PROCCESSED);
+        cameraChooser.addObject("Rear Camera", Camera.REAR_CAM);
+        cameraChooser.addObject("No Camera", Camera.NO_CAM);
+        
         //Put choosers on robot smart dash.
         SmartDashboard.putData("Auto Mode", autoChooser);
-        SmartDashboard.putData("Rumble", rumbleChooser);
+        SmartDashboard.putData("Rumble Mode", rumbleChooser);
         SmartDashboard.putData("Drive Mode", driveChooser);
         SmartDashboard.putData("Boost Mode", boostChooser);
+        SmartDashboard.putData("Camera Mode", cameraChooser);
 
         // Show what command your subsystem is running on the SmartDashboard
         SmartDashboard.putData(Scheduler.getInstance()); //Shows everything the robot is running.
@@ -145,6 +161,13 @@ public class Robot extends IterativeRobot {
     	
     	//Puts a reason for stopping auto on the dash.
     	SmartDashboard.putString("Auto Status: ", (STOP_AUTO == null ? "Everything is normal." : STOP_AUTO));
+    	
+    	//update the camera if the user selects a different camera to show
+    	int currentCamera = (int) cameraChooser.getSelected();
+    	if(lastSelectedCamera != currentCamera) {
+    		cam.viewCam(currentCamera);
+        	lastSelectedCamera = currentCamera;
+    	}
     }
     
     public static boolean isRumbleEnabled() {
