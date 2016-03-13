@@ -18,6 +18,9 @@ public class Camera extends Thread implements Runnable {
 	
 	private int cameraView = 0;
 	
+	/**
+	 * Selectable cameras.
+	 */
 	public static final int NO_CAM = 0,
 							FRONT_PROCCESSED = 1,
 							FRONT_CAM = 2,
@@ -30,10 +33,16 @@ public class Camera extends Thread implements Runnable {
 	private Image noFrame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
 
 	
+	/**
+	 * Creates a new set of cameras. A set of cameras consists of a front and a rear
+	 * camera. If no cameras exist, or some have a problem, this constructor will handle
+	 * that situation without throwing an exception. In theory, it'll print a "No Camera Feed!"
+	 * message to the camera viewer if there is a problem.
+	 */
 	public Camera() {
 		NIVision.imaqSetImageSize(noFrame, 640, 480);
 		NIVision.OverlayTextOptions settings = new NIVision.OverlayTextOptions(
-				"Times New Roman", 48, 0, 0, 0, 0, TextAlignment.LEFT, VerticalTextAlignment.BASELINE, new RGBValue(0, 0, 0, 255), 0.0); //dear god
+				"Times New Roman", 48, 0, 0, 0, 0, TextAlignment.LEFT, VerticalTextAlignment.BASELINE, new RGBValue(0, 0, 0, 255), 0.0); //dear god why
 		NIVision.imaqOverlayText(noFrame, new NIVision.Point(0,0), "No Camera Feed!", NIVision.RGB_RED, settings, "0");
 		
 		NIVision.imaqSetImageSize(waitFrame, 640, 480);
@@ -66,22 +75,35 @@ public class Camera extends Thread implements Runnable {
 	}
 
 	public void run() {
-		switch(cameraView) {
-		case FRONT_CAM:
-			frontCam.getImage(frontFrame);
-			CameraServer.getInstance().setImage(frontFrame);
-			break;
-		case REAR_CAM:
-			rearCam.getImage(rearFrame);
-			CameraServer.getInstance().setImage(rearFrame);
-			break;
-		default:
-		case NO_CAM:
-			CameraServer.getInstance().setImage(noFrame);
-			break;
+		while(true) {
+			switch(cameraView) {
+			case FRONT_CAM:
+				frontCam.getImage(frontFrame);
+				CameraServer.getInstance().setImage(frontFrame);
+				break;
+			case REAR_CAM:
+				rearCam.getImage(rearFrame);
+				CameraServer.getInstance().setImage(rearFrame);
+				break;
+			default:
+			case NO_CAM:
+				CameraServer.getInstance().setImage(noFrame);
+				break;
+			}
+			try {
+				Thread.sleep((long)(1000.0/21.0)); //Sleep for slightly less than 20fps (loop runs at 21fps)?
+			} catch (InterruptedException e) {
+				//consume
+			}
 		}
 	}
 	
+	/**
+	 * This method attempts to switch the camera to a new camera feed.
+	 * @param cam Use the constants Camera.NO_CAM, Camera.FRONT_PROCCESSED
+	 * Camera.FRONT_CAM or Camera.REAR_CAM to switch the camera to a
+	 * different feed. 
+	 */
 	public synchronized void viewCam(int cam) {
 		if(cameraView == cam) {
 			return;
@@ -120,6 +142,12 @@ public class Camera extends Thread implements Runnable {
 		}
 	}
 	
+	/**
+	 * Starts a camera.
+	 * @param humanName A human readable name for the camera
+	 * @param camName The camera string as retrieved by the RoboRIO dash board
+	 * @return A USB camera if no exception is thrown. Null otherwise.
+	 */
 	private USBCamera startCam(String humanName, String camName) {
 		USBCamera cam = null;
 		try{
