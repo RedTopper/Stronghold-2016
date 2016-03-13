@@ -18,4 +18,6 @@ public class CameraConstants {
 	
 	public static final int FRONT_EXPOSURE = Preferences.getInstance().getInt("Front Camera Exposure", 50);
 	public static final int FRONT_BRIGHTNESS = Preferences.getInstance().getInt("Front Camera Brightness", 50);
+	
+	public static final int SERVER_QUALITY = Preferences.getInstance().getInt("Server Quality", 50);
 }
