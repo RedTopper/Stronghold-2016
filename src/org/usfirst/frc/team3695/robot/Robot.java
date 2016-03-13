@@ -77,7 +77,7 @@ public class Robot extends IterativeRobot {
         //Set up driveChooser for choice on drive style.
         driveChooser = new SendableChooser();
         driveChooser.addDefault("Yu Drive", true);
-        driveChooser.addObject("Intuitive Drive", false);
+        driveChooser.addObject("Intuitive Drive", false); //FIXME: Broken. Function needs work.
         
         //Set up boostChooser for inverse boost
         boostChooser = new SendableChooser();
@@ -118,10 +118,11 @@ public class Robot extends IterativeRobot {
         Scheduler.getInstance().run();
     }
 
-    //DISABLED ZONE (Make sure nothing is dangerous here!
-    //When the robot is disabled, it should be DISABLED!
+    //DISABLED ZONE:
     public void disabledInit(){
-
+    	if(autonomousCommand != null) {
+    		autonomousCommand.cancel();
+    	}
     }
     
     public void disabledPeriodic() {
