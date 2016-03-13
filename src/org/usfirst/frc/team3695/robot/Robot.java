@@ -1,8 +1,6 @@
 
 package org.usfirst.frc.team3695.robot;
 
-import java.lang.management.ManagementFactory;
-import java.lang.management.OperatingSystemMXBean;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -194,17 +192,11 @@ public class Robot extends IterativeRobot {
     
     private void logUnsafe() {
 		final Runtime r = Runtime.getRuntime();
-		//final OperatingSystemMXBean osBean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
-		
-		//big decimal for CPU load percent.
-		//final double load2 = (osBean.getSystemLoadAverage() * 100D);
-		//BigDecimal bd = new BigDecimal(load2);
 		
 		//big decimal for ticks per second
 		BigDecimal tps = new BigDecimal(ticksPerSecond);
 		
 		//round big decimals
-//		bd = bd.setScale(2, RoundingMode.HALF_UP);
 		tps = tps.setScale(2, RoundingMode.HALF_UP);
 		
 		//define MiB.
@@ -217,7 +209,7 @@ public class Robot extends IterativeRobot {
 				+ "Allocated memory: " + (r.totalMemory() / MB) + "MiB\n"
 				+ "Max memory: " + (r.maxMemory() / MB) + "MiB\n"
 				+ "Total Free memory: " + ((r.freeMemory() + (r.maxMemory() - r.totalMemory())) / MB) + "MiB\n");
-//				+ "RoborRIO Load: " + bd + "%");
+		
     }
     
     public static boolean isRumbleEnabled() {

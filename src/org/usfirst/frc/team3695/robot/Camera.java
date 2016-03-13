@@ -43,45 +43,24 @@ public class Camera extends Thread implements Runnable {
 	 */
 	public Camera() {
 		NIVision.imaqSetImageSize(noFrame, 640, 480);
-		//NIVision.OverlayTextOptions settings = new NIVision.OverlayTextOptions(
-		//		"Times New Roman", 48, 0, 0, 0, 0, TextAlignment.LEFT, VerticalTextAlignment.BASELINE, new RGBValue(0, 0, 0, 255), 0.0); //dear god why
-		//NIVision.imaqOverlayText(noFrame, new NIVision.Point(0,0), "No Camera Feed!", NIVision.RGB_RED, settings, "0");
+		NIVision.OverlayTextOptions settings = new NIVision.OverlayTextOptions(
+				"", 32, 0, 0, 0, 0, TextAlignment.LEFT, VerticalTextAlignment.BASELINE, new RGBValue(0, 0, 0, 255), 0.0); //dear god why
+		NIVision.imaqOverlayText(noFrame, new NIVision.Point(0,0), "No Camera Feed!", NIVision.RGB_RED, settings, "0");
 		
 		NIVision.imaqSetImageSize(waitFrame, 640, 480);
-		//NIVision.imaqOverlayText(waitFrame, new NIVision.Point(0,0), "Loading...", NIVision.RGB_RED, settings, "0");
+		NIVision.imaqOverlayText(waitFrame, new NIVision.Point(0,0), "Loading...", NIVision.RGB_RED, settings, "0");
 		
 		frontCam = startCam("front camera", CameraConstants.FRONT_CAM_NAME);
 		rearCam = startCam("rear camera",CameraConstants.REAR_CAM_NAME);
 		
-		init();
-	}
-	
-	private void init() {
-		viewCam(NO_CAM); //Disable all cameras.
-		if(frontCam != null) {
-			frontCam.setWhiteBalanceManual(USBCamera.WhiteBalance.kFixedIndoor);
-			frontCam.setExposureManual(CameraConstants.FRONT_EXPOSURE());
-			frontCam.setBrightness(CameraConstants.FRONT_BRIGHTNESS());
-			frontCam.setFPS(20);
-			frontCam.setSize(640, 480);
-			frontCam.updateSettings();
-			DriverStation.reportWarning("Front camera started!", false);
-		}
-		if(rearCam != null) {
-			rearCam.setWhiteBalanceManual(USBCamera.WhiteBalance.kFixedIndoor);
-			rearCam.setFPS(20);
-			rearCam.setSize(640, 480);
-			rearCam.updateSettings();
-			DriverStation.reportWarning("Rear camera started!", false);
-		}
-		CameraServer.getInstance().setQuality(CameraConstants.SERVER_QUALITY());
-		viewCam(FRONT_CAM); //Restart cameras
+		viewCam(FRONT_CAM);
 	}
 
 	public void run() {
 		while(true) {
 			try {
 				long pastTime = System.currentTimeMillis();
+				
 				out: switch(cameraView) {
 				case FRONT_CAM:
 					frontCam.getImage(frontFrame);
@@ -96,6 +75,7 @@ public class Camera extends Thread implements Runnable {
 					CameraServer.getInstance().setImage(noFrame);
 					break out;
 				}
+				
 				long currentTime = System.currentTimeMillis();
 				SmartDashboard.putNumber("Camera Thread FPS", 1000.0 / (double)(currentTime - pastTime));
 				if(newCameraView != cameraView) {
@@ -119,39 +99,55 @@ public class Camera extends Thread implements Runnable {
 	 * Camera.FRONT_CAM or Camera.REAR_CAM to switch the camera to a
 	 * different feed. 
 	 */
-	private synchronized void viewCam(int newCameraView) {
+	private void viewCam(int newCameraView) {
 		CameraServer.getInstance().setImage(waitFrame);
 		switch(newCameraView) {
 		case FRONT_CAM:
-			if(rearCamOn) {
+			if(rearCam != null && rearCamOn) {
 				rearCam.stopCapture();
 				rearCam.closeCamera();
 				rearCamOn = false;
 			}
-			frontCam.openCamera();
-			frontCam.startCapture();
-			frontCamOn = true;
+			if(frontCam != null) {
+				frontCam.setWhiteBalanceManual(USBCamera.WhiteBalance.kFixedIndoor);
+				frontCam.setExposureManual(CameraConstants.FRONT_EXPOSURE());
+				frontCam.setBrightness(CameraConstants.FRONT_BRIGHTNESS());
+				frontCam.setFPS(20);
+				frontCam.setSize(640, 480);
+				frontCam.updateSettings();
+				frontCam.openCamera();
+				frontCam.startCapture();
+				frontCamOn = true;
+				DriverStation.reportWarning("Front camera started!", false);
+			}
 			cameraView = FRONT_CAM;
 			break;
 		case REAR_CAM:
-			if(frontCamOn) {
+			if(frontCam != null && frontCamOn) {
 				frontCam.stopCapture();
 				frontCam.closeCamera();
 				frontCamOn = false;
 			}
-			rearCam.openCamera();
-			rearCam.startCapture();
-			rearCamOn = true;
+			if(rearCam != null) {
+				rearCam.setWhiteBalanceManual(USBCamera.WhiteBalance.kFixedIndoor);
+				rearCam.setFPS(20);
+				rearCam.setSize(640, 480);
+				rearCam.updateSettings();
+				rearCam.openCamera();
+				rearCam.startCapture();
+				rearCamOn = true;
+				DriverStation.reportWarning("Rear camera started!", false);
+			}
 			cameraView = REAR_CAM;
 			break;
 		default:
 		case NO_CAM:
-			if(frontCamOn) {
+			if(frontCam != null &&frontCamOn) {
 				frontCam.stopCapture();
 				frontCam.closeCamera();
 				frontCamOn = false;
 			}
-			if(rearCamOn) {
+			if(rearCam != null && rearCamOn) {
 				rearCam.stopCapture();
 				rearCam.closeCamera();
 				rearCamOn = false;

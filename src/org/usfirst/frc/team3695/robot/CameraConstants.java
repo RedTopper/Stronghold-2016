@@ -9,8 +9,8 @@ public class CameraConstants {
 		throw new InstantiationException();
 	}
 	
-	public static final String FRONT_CAM_NAME = "cam1";
-	public static final String REAR_CAM_NAME = "cam0";
+	public static final String FRONT_CAM_NAME = "cam0";
+	public static final String REAR_CAM_NAME = "cam1";
 	
 	public static final Range HUE() {
 		return new Range(Preferences.getInstance().getInt("Hue Low", 160),Preferences.getInstance().getInt("Hue High", 180));
