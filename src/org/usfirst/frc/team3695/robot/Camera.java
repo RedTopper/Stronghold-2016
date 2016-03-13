@@ -18,6 +18,7 @@ public class Camera extends Thread implements Runnable {
 	private boolean rearCamOn = false;
 	
 	private int cameraView = 0;
+	private int newCameraView = 0;
 	
 	/**
 	 * Selectable cameras.
@@ -42,12 +43,12 @@ public class Camera extends Thread implements Runnable {
 	 */
 	public Camera() {
 		NIVision.imaqSetImageSize(noFrame, 640, 480);
-		NIVision.OverlayTextOptions settings = new NIVision.OverlayTextOptions(
-				"Times New Roman", 48, 0, 0, 0, 0, TextAlignment.LEFT, VerticalTextAlignment.BASELINE, new RGBValue(0, 0, 0, 255), 0.0); //dear god why
-		NIVision.imaqOverlayText(noFrame, new NIVision.Point(0,0), "No Camera Feed!", NIVision.RGB_RED, settings, "0");
+		//NIVision.OverlayTextOptions settings = new NIVision.OverlayTextOptions(
+		//		"Times New Roman", 48, 0, 0, 0, 0, TextAlignment.LEFT, VerticalTextAlignment.BASELINE, new RGBValue(0, 0, 0, 255), 0.0); //dear god why
+		//NIVision.imaqOverlayText(noFrame, new NIVision.Point(0,0), "No Camera Feed!", NIVision.RGB_RED, settings, "0");
 		
 		NIVision.imaqSetImageSize(waitFrame, 640, 480);
-		NIVision.imaqOverlayText(waitFrame, new NIVision.Point(0,0), "Loading...", NIVision.RGB_RED, settings, "0");
+		//NIVision.imaqOverlayText(waitFrame, new NIVision.Point(0,0), "Loading...", NIVision.RGB_RED, settings, "0");
 		
 		frontCam = startCam("front camera", CameraConstants.FRONT_CAM_NAME);
 		rearCam = startCam("rear camera",CameraConstants.REAR_CAM_NAME);
@@ -64,8 +65,6 @@ public class Camera extends Thread implements Runnable {
 			frontCam.setFPS(20);
 			frontCam.setSize(640, 480);
 			frontCam.updateSettings();
-			frontCam.openCamera();
-			frontCam.startCapture();
 			DriverStation.reportWarning("Front camera started!", false);
 		}
 		if(rearCam != null) {
@@ -73,8 +72,6 @@ public class Camera extends Thread implements Runnable {
 			rearCam.setFPS(20);
 			rearCam.setSize(640, 480);
 			rearCam.updateSettings();
-			rearCam.openCamera();
-			rearCam.startCapture();
 			DriverStation.reportWarning("Rear camera started!", false);
 		}
 		CameraServer.getInstance().setQuality(CameraConstants.SERVER_QUALITY());
@@ -99,18 +96,21 @@ public class Camera extends Thread implements Runnable {
 					CameraServer.getInstance().setImage(noFrame);
 					break out;
 				}
-				try {
-					Thread.sleep((long)(1000.0/25.0)); //Sleep for slightly less than 20fps (loop runs at 25fps)?
-				} catch (InterruptedException e) {
-					//consume
-				}
 				long currentTime = System.currentTimeMillis();
 				SmartDashboard.putNumber("Camera Thread FPS", 1000.0 / (double)(currentTime - pastTime));
+				if(newCameraView != cameraView) {
+					viewCam(newCameraView);
+					cameraView = newCameraView;
+				}
 			} catch (Exception e) {
-				DriverStation.reportError("The main thread exited because of :" + e.getStackTrace(), true);
+				DriverStation.reportError("The main thread exited because of :" + e.toString(), true);
 				break;
 			}
 		}
+	}
+	
+	public synchronized void switchCam(int cam) {
+		newCameraView = cam;
 	}
 	
 	/**
@@ -119,28 +119,29 @@ public class Camera extends Thread implements Runnable {
 	 * Camera.FRONT_CAM or Camera.REAR_CAM to switch the camera to a
 	 * different feed. 
 	 */
-	public synchronized void viewCam(int cam) {
-		if(cameraView == cam) {
-			return;
-		}
+	private synchronized void viewCam(int newCameraView) {
 		CameraServer.getInstance().setImage(waitFrame);
-		switch(cam) {
+		switch(newCameraView) {
 		case FRONT_CAM:
 			if(rearCamOn) {
 				rearCam.stopCapture();
 				rearCam.closeCamera();
+				rearCamOn = false;
 			}
 			frontCam.openCamera();
 			frontCam.startCapture();
+			frontCamOn = true;
 			cameraView = FRONT_CAM;
 			break;
 		case REAR_CAM:
 			if(frontCamOn) {
 				frontCam.stopCapture();
 				frontCam.closeCamera();
+				frontCamOn = false;
 			}
 			rearCam.openCamera();
 			rearCam.startCapture();
+			rearCamOn = true;
 			cameraView = REAR_CAM;
 			break;
 		default:
@@ -148,10 +149,12 @@ public class Camera extends Thread implements Runnable {
 			if(frontCamOn) {
 				frontCam.stopCapture();
 				frontCam.closeCamera();
+				frontCamOn = false;
 			}
 			if(rearCamOn) {
 				rearCam.stopCapture();
 				rearCam.closeCamera();
+				rearCamOn = false;
 			}
 			cameraView = NO_CAM;
 		}
@@ -168,7 +171,7 @@ public class Camera extends Thread implements Runnable {
 		try{
 			cam = new USBCamera(camName);
 		} catch (Exception e) {
-			DriverStation.reportError("Could not start the " + humanName + " nammed \"" + camName + "\": " + e.getStackTrace(), true);
+			DriverStation.reportError("Could not start the " + humanName + " nammed \"" + camName + "\": " + e, true);
 		}
 		return cam;
 	}

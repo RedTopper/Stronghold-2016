@@ -2,6 +2,7 @@
 package org.usfirst.frc.team3695.robot;
 
 import java.lang.management.ManagementFactory;
+import java.lang.management.OperatingSystemMXBean;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -16,8 +17,7 @@ import org.usfirst.frc.team3695.robot.subsystems.SubsystemSensors;
 import org.usfirst.frc.team3695.robot.subsystems.pneumatics.SubsystemArm;
 import org.usfirst.frc.team3695.robot.subsystems.pneumatics.SubsystemBucket;
 
-import com.sun.management.OperatingSystemMXBean;
-
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -62,10 +62,6 @@ public class Robot extends IterativeRobot {
     public static String STOP_AUTO = null;
     
     public void robotInit() {
-    	//Hopefully start camera
-    	cam = new Camera();
-    	cam.start();
-    	
         // Initialize all subsystems
     	driveSubsystem = new SubsystemDrive();
     	networkTables = new SubsystemNetworkTables();
@@ -99,10 +95,10 @@ public class Robot extends IterativeRobot {
         
         //Set up cameraChooser for selecting witch camera to view 
         cameraChooser = new SendableChooser();
-        cameraChooser.addDefault("Front Camera", Camera.FRONT_CAM);
-        cameraChooser.addObject("Front Camera (processed)", Camera.FRONT_PROCCESSED);
-        cameraChooser.addObject("Rear Camera", Camera.REAR_CAM);
-        cameraChooser.addObject("No Camera", Camera.NO_CAM);
+        cameraChooser.addDefault("Front Camera", new Integer(Camera.FRONT_CAM));
+        cameraChooser.addObject("Front Camera (processed)", new Integer(Camera.FRONT_PROCCESSED));
+        cameraChooser.addObject("Rear Camera", new Integer(Camera.REAR_CAM));
+        cameraChooser.addObject("No Camera", new Integer(Camera.NO_CAM));
         
         //Put choosers on robot smart dash.
         SmartDashboard.putData("Auto Mode", autoChooser);
@@ -115,6 +111,15 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData(Scheduler.getInstance()); //Shows everything the robot is running.
         //SmartDashboard.putData(driveSubsystem); //Shows what command the driveSubsystem is running.
         //SmartDashboard.putData(armSubsystem); //Shows what command the armSubsystem is running.
+        
+    	//Hopefully start camera
+        try {
+    	cam = new Camera();
+    	cam.start();
+        } catch (Exception e) {
+        	DriverStation.reportError("Cam thing! " + e, true);
+        }
+    	
     }
 
     //AUTONOMOUS ZONE:
@@ -167,7 +172,6 @@ public class Robot extends IterativeRobot {
     private void log() {
     	ticksPerSecond = (1000.0 / (double)(System.currentTimeMillis() - lastTime));
     	lastTime = System.currentTimeMillis();
-    	try {Thread.sleep(5);} catch (InterruptedException e){} //delay the robot so motors can update.
     	logUnsafe();
     	networkTables.updateInfo();
     	networkTables.log();
@@ -181,31 +185,26 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putString("Auto Status: ", (STOP_AUTO == null ? "Everything is normal." : STOP_AUTO));
     	
     	//update the camera if the user selects a different camera to show
-    	int currentCamera = (int) cameraChooser.getSelected();
+    	int currentCamera = (int) (cameraChooser.getSelected());
     	if(lastSelectedCamera != currentCamera) {
-    		cam.viewCam(currentCamera);
+    		cam.switchCam(currentCamera);
         	lastSelectedCamera = currentCamera;
     	}
     }
     
     private void logUnsafe() {
 		final Runtime r = Runtime.getRuntime();
-		final OperatingSystemMXBean osBean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
-		
-		//big decimal for proccess load percent.
-		final double load = (osBean.getProcessCpuLoad() * 100D);
-		BigDecimal bd = new BigDecimal(load);
+		//final OperatingSystemMXBean osBean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
 		
 		//big decimal for CPU load percent.
-		final double load2 = (osBean.getSystemCpuLoad() * 100D);
-		BigDecimal bd2 = new BigDecimal(load2);
+		//final double load2 = (osBean.getSystemLoadAverage() * 100D);
+		//BigDecimal bd = new BigDecimal(load2);
 		
 		//big decimal for ticks per second
 		BigDecimal tps = new BigDecimal(ticksPerSecond);
 		
 		//round big decimals
-		bd = bd.setScale(2, RoundingMode.HALF_UP);
-		bd2 = bd2.setScale(2, RoundingMode.HALF_UP);
+//		bd = bd.setScale(2, RoundingMode.HALF_UP);
 		tps = tps.setScale(2, RoundingMode.HALF_UP);
 		
 		//define MiB.
@@ -217,9 +216,8 @@ public class Robot extends IterativeRobot {
 				+ "Used memory: " + ((r.totalMemory() - r.freeMemory()) / MB) + "MiB\n" 
 				+ "Allocated memory: " + (r.totalMemory() / MB) + "MiB\n"
 				+ "Max memory: " + (r.maxMemory() / MB) + "MiB\n"
-				+ "Total Free memory: " + ((r.freeMemory() + (r.maxMemory() - r.totalMemory())) / MB) + "MiB\n"
-				+ "Process Load: " + bd + "%\n"
-				+ "RoborRIO Load: " + bd2 + "%");
+				+ "Total Free memory: " + ((r.freeMemory() + (r.maxMemory() - r.totalMemory())) / MB) + "MiB\n");
+//				+ "RoborRIO Load: " + bd + "%");
     }
     
     public static boolean isRumbleEnabled() {
