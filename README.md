@@ -6,7 +6,7 @@ Code for FRC Robotics team 3695.
 
 ### Program Team Goals
 - [ ] Pneumatics safety checks (Dumb Driver Checks)
-- [ ] Update/Document constants on a per robot basis
+- [x] Update/Document constants on a per robot basis
 - [ ] Solder resistors for Photoelectric Sensor
 - [ ] Photoelectric Sensor testing
 - [ ] Ultrasonic Sensor testing
