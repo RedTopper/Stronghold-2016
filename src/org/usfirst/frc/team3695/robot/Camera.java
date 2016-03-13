@@ -50,10 +50,16 @@ public class Camera extends Thread implements Runnable {
 		
 		frontCam = startCam("front camera", CameraConstants.FRONT_CAM_NAME);
 		rearCam = startCam("rear camera",CameraConstants.REAR_CAM_NAME);
+		
+		init();
+	}
+	
+	private void init() {
+		viewCam(NO_CAM); //Disable all cameras.
 		if(frontCam != null) {
 			frontCam.setWhiteBalanceManual(USBCamera.WhiteBalance.kFixedIndoor);
-			frontCam.setExposureManual(CameraConstants.FRONT_EXPOSURE);
-			frontCam.setBrightness(CameraConstants.FRONT_BRIGHTNESS);
+			frontCam.setExposureManual(CameraConstants.FRONT_EXPOSURE());
+			frontCam.setBrightness(CameraConstants.FRONT_BRIGHTNESS());
 			frontCam.setFPS(20);
 			frontCam.setSize(640, 480);
 			frontCam.updateSettings();
@@ -70,30 +76,35 @@ public class Camera extends Thread implements Runnable {
 			rearCam.startCapture();
 			DriverStation.reportWarning("Rear camera started!", false);
 		}
-		CameraServer.getInstance().setQuality(CameraConstants.SERVER_QUALITY);
-		viewCam(FRONT_CAM);
+		CameraServer.getInstance().setQuality(CameraConstants.SERVER_QUALITY());
+		viewCam(FRONT_CAM); //Restart cameras
 	}
 
 	public void run() {
 		while(true) {
-			switch(cameraView) {
-			case FRONT_CAM:
-				frontCam.getImage(frontFrame);
-				CameraServer.getInstance().setImage(frontFrame);
-				break;
-			case REAR_CAM:
-				rearCam.getImage(rearFrame);
-				CameraServer.getInstance().setImage(rearFrame);
-				break;
-			default:
-			case NO_CAM:
-				CameraServer.getInstance().setImage(noFrame);
-				break;
-			}
 			try {
-				Thread.sleep((long)(1000.0/21.0)); //Sleep for slightly less than 20fps (loop runs at 21fps)?
-			} catch (InterruptedException e) {
-				//consume
+				out: switch(cameraView) {
+				case FRONT_CAM:
+					frontCam.getImage(frontFrame);
+					CameraServer.getInstance().setImage(frontFrame);
+					break out;
+				case REAR_CAM:
+					rearCam.getImage(rearFrame);
+					CameraServer.getInstance().setImage(rearFrame);
+					break out;
+				default:
+				case NO_CAM:
+					CameraServer.getInstance().setImage(noFrame);
+					break out;
+				}
+				try {
+					Thread.sleep((long)(1000.0/25.0)); //Sleep for slightly less than 20fps (loop runs at 25fps)?
+				} catch (InterruptedException e) {
+					//consume
+				}
+			} catch (Exception e) {
+				DriverStation.reportError("The main thread exited because of :" + e.getStackTrace(), true);
+				break;
 			}
 		}
 	}
