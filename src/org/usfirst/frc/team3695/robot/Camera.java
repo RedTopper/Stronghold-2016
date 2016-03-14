@@ -62,7 +62,7 @@ public class Camera extends Thread implements Runnable {
 				out: switch(cameraView) {
 				case FRONT_CAM:
 					frontCam.getImage(frontFrame);
-					NIVision.imaqDrawShapeOnImage(frontFrame, frontFrame, new Rect((480/2) - 50,(640/2) - 50, 100, 100), DrawMode.PAINT_VALUE, ShapeMode.SHAPE_OVAL, getColor(255,0,0));
+					NIVision.imaqDrawShapeOnImage(frontFrame, frontFrame, new Rect((480/2) - 220,(640/2) - 50, 100, 100), DrawMode.PAINT_VALUE, ShapeMode.SHAPE_RECT, getColor(0,0,0));
 					CameraServer.getInstance().setImage(frontFrame);
 					break out;
 				case REAR_CAM:

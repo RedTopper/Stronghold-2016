@@ -16,7 +16,7 @@ public class Constants {
 	/**
 	 * Time it takes for the piston to move down so the driver can fire the ball again.
 	 */
-	public static final long TIME_TO_MOVE_ARM_PISTON = 2000;
+	public static final long TIME_TO_MOVE_ARM_PISTON = 1000;
 
 	/**
 	 * Joystick control port
