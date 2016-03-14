@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3695.robot;
 
 import org.usfirst.frc.team3695.robot.commands.CommandGetBall;
+import org.usfirst.frc.team3695.robot.commands.CommandLights;
 import org.usfirst.frc.team3695.robot.commands.CommandRotateWithCam;
 import org.usfirst.frc.team3695.robot.commands.CommandStartGRIP;
 import org.usfirst.frc.team3695.robot.commands.pneumatics.CommandCompressorToggle;
@@ -44,6 +45,8 @@ public class OI {
 		
 		//Should start the camera
 		//SmartDashboard.putData("Start GRIP", new CommandStartGRIP());
+		
+		SmartDashboard.putData("Do Lights", new CommandLights());
 		
 		//Compressor Toggle
 		SmartDashboard.putData("Disable Compressor", new CommandCompressorToggle());

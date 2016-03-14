@@ -2,8 +2,10 @@ package org.usfirst.frc.team3695.robot.subsystems;
 
 import org.usfirst.frc.team3695.robot.Constants;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SubsystemBling extends Subsystem {
 
@@ -44,5 +46,8 @@ public class SubsystemBling extends Subsystem {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	public void log(){
+		SmartDashboard.putString("Team", DriverStation.getInstance().getAlliance().toString());
+	}
 }

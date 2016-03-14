@@ -8,6 +8,7 @@ import org.usfirst.frc.team3695.robot.commands.CommandRotateWithCam;
 import org.usfirst.frc.team3695.robot.commands.auto.AutonomousForwardOnly;
 import org.usfirst.frc.team3695.robot.commands.auto.AutonomousRotateAndScore;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemBall;
+import org.usfirst.frc.team3695.robot.subsystems.SubsystemBling;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemCompressor;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemDrive;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemNetworkTables;
@@ -54,6 +55,7 @@ public class Robot extends IterativeRobot {
     public static SubsystemBucket bucketSubsystem;
     public static SubsystemArm armSubsystem;
     public static SubsystemCompressor compressorSubsystem;
+    public static SubsystemBling blingSubsystem;
     public static OI oi;
     
     //Error message to notify auto to stop.
@@ -68,6 +70,7 @@ public class Robot extends IterativeRobot {
     	bucketSubsystem = new SubsystemBucket();
     	armSubsystem = new SubsystemArm();
     	compressorSubsystem = new SubsystemCompressor(); 
+    	blingSubsystem = new SubsystemBling();
         oi = new OI();
         
         //Set up autoChooser for robot
@@ -104,6 +107,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData("Drive Mode", driveChooser);
         SmartDashboard.putData("Boost Mode", boostChooser);
         SmartDashboard.putData("Camera Mode", cameraChooser);
+        
 
         // Show what command your subsystem is running on the SmartDashboard
         SmartDashboard.putData(Scheduler.getInstance()); //Shows everything the robot is running.
@@ -178,6 +182,7 @@ public class Robot extends IterativeRobot {
     	bucketSubsystem.log();
     	armSubsystem.log();
     	compressorSubsystem.log();
+    	blingSubsystem.log();
     	
     	//Puts a reason for stopping auto on the dash.
     	SmartDashboard.putString("Auto Status: ", (STOP_AUTO == null ? "Everything is normal." : STOP_AUTO));
