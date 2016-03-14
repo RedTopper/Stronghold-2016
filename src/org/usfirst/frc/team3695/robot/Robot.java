@@ -112,8 +112,8 @@ public class Robot extends IterativeRobot {
         
     	//Hopefully start camera
         try {
-    	cam = new Camera();
-    	cam.start();
+        	cam = new Camera();
+        	cam.start();
         } catch (Exception e) {
         	DriverStation.reportError("Cam thing! " + e, true);
         }

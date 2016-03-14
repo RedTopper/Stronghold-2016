@@ -43,7 +43,7 @@ public class OI {
 		//SmartDashboard.putData("Reset", new CommandMoveArm(CommandMoveArm.RESET));
 		
 		//Should start the camera
-		SmartDashboard.putData("Start GRIP", new CommandStartGRIP());
+		//SmartDashboard.putData("Start GRIP", new CommandStartGRIP());
 		
 		//Compressor Toggle
 		SmartDashboard.putData("Disable Compressor", new CommandCompressorToggle());

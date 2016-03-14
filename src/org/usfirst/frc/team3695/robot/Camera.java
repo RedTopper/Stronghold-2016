@@ -1,8 +1,11 @@
 package org.usfirst.frc.team3695.robot;
 
 import com.ni.vision.NIVision;
+import com.ni.vision.NIVision.DrawMode;
 import com.ni.vision.NIVision.Image;
 import com.ni.vision.NIVision.RGBValue;
+import com.ni.vision.NIVision.Rect;
+import com.ni.vision.NIVision.ShapeMode;
 import com.ni.vision.NIVision.TextAlignment;
 import com.ni.vision.NIVision.VerticalTextAlignment;
 
@@ -43,20 +46,15 @@ public class Camera extends Thread implements Runnable {
 	 */
 	public Camera() {
 		NIVision.imaqSetImageSize(noFrame, 640, 480);
-		NIVision.OverlayTextOptions settings = new NIVision.OverlayTextOptions(
-				"", 32, 0, 0, 0, 0, TextAlignment.LEFT, VerticalTextAlignment.BASELINE, new RGBValue(0, 0, 0, 255), 0.0); //dear god why
-		NIVision.imaqOverlayText(noFrame, new NIVision.Point(0,0), "No Camera Feed!", NIVision.RGB_RED, settings, "0");
-		
+				
 		NIVision.imaqSetImageSize(waitFrame, 640, 480);
-		NIVision.imaqOverlayText(waitFrame, new NIVision.Point(0,0), "Loading...", NIVision.RGB_RED, settings, "0");
 		
 		frontCam = startCam("front camera", CameraConstants.FRONT_CAM_NAME);
 		rearCam = startCam("rear camera",CameraConstants.REAR_CAM_NAME);
-		
-		viewCam(FRONT_CAM);
 	}
 
 	public void run() {
+		viewCam(FRONT_CAM);
 		while(true) {
 			try {
 				long pastTime = System.currentTimeMillis();
@@ -64,6 +62,7 @@ public class Camera extends Thread implements Runnable {
 				out: switch(cameraView) {
 				case FRONT_CAM:
 					frontCam.getImage(frontFrame);
+					NIVision.imaqDrawShapeOnImage(frontFrame, frontFrame, new Rect((480/2) - 50,(640/2) - 50, 100, 100), DrawMode.PAINT_VALUE, ShapeMode.SHAPE_OVAL, getColor(255,0,0));
 					CameraServer.getInstance().setImage(frontFrame);
 					break out;
 				case REAR_CAM:
@@ -100,6 +99,7 @@ public class Camera extends Thread implements Runnable {
 	 * different feed. 
 	 */
 	private void viewCam(int newCameraView) {
+		CameraServer.getInstance().setQuality(CameraConstants.SERVER_QUALITY());
 		CameraServer.getInstance().setImage(waitFrame);
 		switch(newCameraView) {
 		case FRONT_CAM:
@@ -110,7 +110,7 @@ public class Camera extends Thread implements Runnable {
 			}
 			if(frontCam != null) {
 				frontCam.setWhiteBalanceManual(USBCamera.WhiteBalance.kFixedIndoor);
-				frontCam.setExposureManual(CameraConstants.FRONT_EXPOSURE());
+				//frontCam.setExposureManual(CameraConstants.FRONT_EXPOSURE());
 				frontCam.setBrightness(CameraConstants.FRONT_BRIGHTNESS());
 				frontCam.setFPS(20);
 				frontCam.setSize(640, 480);
@@ -170,5 +170,19 @@ public class Camera extends Thread implements Runnable {
 			DriverStation.reportError("Could not start the " + humanName + " nammed \"" + camName + "\": " + e, true);
 		}
 		return cam;
+	}
+	
+	/**
+	 * Takes a Red, Green, and Blue value and returns the appropriate float. Maybe
+	 * @param r Redness
+	 * @param g Greenness
+	 * @param b Blueness
+	 * @return A float
+	 */
+	public static float getColor(int r, int g, int b) {
+		if(r<0) {r=0;}; if(r>0xFF) {r = 0xFF;}; //Limit range for red
+		if(g<0) {g=0;}; if(g>0xFF) {g = 0xFF;}; //Limit range for blue
+		if(b<0) {b=0;}; if(b>0xFF) {b = 0xFF;}; //Limit range for green
+		return (float)(0xFF000000 + (((int)g) << 16) + (((int)b) << 8) + (((int)r)));
 	}
 }
