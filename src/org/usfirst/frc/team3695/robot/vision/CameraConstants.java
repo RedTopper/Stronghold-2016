@@ -1,4 +1,4 @@
-package org.usfirst.frc.team3695.robot;
+package org.usfirst.frc.team3695.robot.vision;
 
 import com.ni.vision.NIVision.Range;
 

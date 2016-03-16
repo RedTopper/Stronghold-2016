@@ -15,6 +15,7 @@ import org.usfirst.frc.team3695.robot.subsystems.SubsystemNetworkTables;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemSensors;
 import org.usfirst.frc.team3695.robot.subsystems.pneumatics.SubsystemArm;
 import org.usfirst.frc.team3695.robot.subsystems.pneumatics.SubsystemBucket;
+import org.usfirst.frc.team3695.robot.vision.Camera;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -189,7 +190,7 @@ public class Robot extends IterativeRobot {
     	
     	//update the camera if the user selects a different camera to show
     	int currentCamera = (int) (cameraChooser.getSelected());
-    	if(lastSelectedCamera != currentCamera) {
+    	if(cam != null && lastSelectedCamera != currentCamera) {
     		cam.switchCam(currentCamera);
         	lastSelectedCamera = currentCamera;
     	}

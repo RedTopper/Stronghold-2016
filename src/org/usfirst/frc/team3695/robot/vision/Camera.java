@@ -1,13 +1,11 @@
-package org.usfirst.frc.team3695.robot;
+package org.usfirst.frc.team3695.robot.vision;
 
 import com.ni.vision.NIVision;
 import com.ni.vision.NIVision.DrawMode;
 import com.ni.vision.NIVision.Image;
-import com.ni.vision.NIVision.RGBValue;
+import com.ni.vision.NIVision.Point;
 import com.ni.vision.NIVision.Rect;
 import com.ni.vision.NIVision.ShapeMode;
-import com.ni.vision.NIVision.TextAlignment;
-import com.ni.vision.NIVision.VerticalTextAlignment;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -46,6 +44,17 @@ public class Camera extends Thread implements Runnable {
 	 */
 	public Camera() {
 		NIVision.imaqSetImageSize(noFrame, 640, 480);
+		NIVision.imaqDrawShapeOnImage(noFrame, noFrame, new Rect(0,(640/2) - (480/2), 480, 480), DrawMode.PAINT_VALUE, ShapeMode.SHAPE_OVAL, getColor(0xFF,0x0,0x0));
+		NIVision.imaqDrawShapeOnImage(noFrame, noFrame, new Rect(10,(640/2) - (480/2) + 10, 460, 460), DrawMode.PAINT_VALUE, ShapeMode.SHAPE_OVAL, getColor(0,0,0));
+		Point topLeft = new Point((int)((320 - 230 * (Math.sqrt(2)/2))+ 0.5),
+								  (int)((240 - 230 * (Math.sqrt(2)/2)) + 0.5));
+		Point bottomRight = new Point((int)((320 + 230 * (Math.sqrt(2)/2)) + 0.5),
+				  					  (int)((240 + 230 * (Math.sqrt(2)/2)) + 0.5));
+		NIVision.imaqDrawLineOnImage(noFrame, noFrame, DrawMode.PAINT_VALUE, topLeft, bottomRight, getColor(0xFF,0x00,0x00));
+		for(int i = 1; i <= 3; i++) { //This for loop causes the lines to draw out to a thickness of 7, however, because the diagnal of a pixel is root 2, it will be 10 wide.
+			NIVision.imaqDrawLineOnImage(noFrame, noFrame, DrawMode.PAINT_VALUE, new Point(topLeft.x, topLeft.y + i), new Point(bottomRight.x + i, bottomRight.y), getColor(0xFF,0x00,0x00));
+			NIVision.imaqDrawLineOnImage(noFrame, noFrame, DrawMode.PAINT_VALUE, new Point(topLeft.x - i, topLeft.y), new Point(bottomRight.x, bottomRight.y - i), getColor(0xFF,0x00,0x00));
+		}
 				
 		NIVision.imaqSetImageSize(waitFrame, 640, 480);
 		
@@ -58,7 +67,7 @@ public class Camera extends Thread implements Runnable {
 		while(true) {
 			try {
 				long pastTime = System.currentTimeMillis();
-				
+
 				out: switch(cameraView) {
 				case FRONT_CAM:
 					frontCam.getImage(frontFrame);
@@ -82,7 +91,7 @@ public class Camera extends Thread implements Runnable {
 					cameraView = newCameraView;
 				}
 			} catch (Exception e) {
-				DriverStation.reportError("The main thread exited because of :" + e.toString(), true);
+				DriverStation.reportError("The main thread exited because of: " + e.toString(), true);
 				break;
 			}
 		}
@@ -110,9 +119,8 @@ public class Camera extends Thread implements Runnable {
 			}
 			if(frontCam != null) {
 				frontCam.setWhiteBalanceManual(USBCamera.WhiteBalance.kFixedIndoor);
-				//frontCam.setExposureManual(CameraConstants.FRONT_EXPOSURE());
 				frontCam.setBrightness(CameraConstants.FRONT_BRIGHTNESS());
-				frontCam.setFPS(20);
+				frontCam.setFPS(30);
 				frontCam.setSize(640, 480);
 				frontCam.updateSettings();
 				frontCam.openCamera();
@@ -130,7 +138,7 @@ public class Camera extends Thread implements Runnable {
 			}
 			if(rearCam != null) {
 				rearCam.setWhiteBalanceManual(USBCamera.WhiteBalance.kFixedIndoor);
-				rearCam.setFPS(20);
+				rearCam.setFPS(30);
 				rearCam.setSize(640, 480);
 				rearCam.updateSettings();
 				rearCam.openCamera();
