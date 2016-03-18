@@ -32,6 +32,7 @@ public class Camera extends Thread implements Runnable {
 	private Image frontFrame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
 	private Image rearFrame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
 	
+	double startTime = 0.0;
 	private Image waitFrame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
 	private Image noFrame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
 
@@ -117,9 +118,10 @@ public class Camera extends Thread implements Runnable {
 	 */
 	private void viewCam(int newCameraView) throws Exception {
 		CameraServer.getInstance().setQuality(CameraConstants.SERVER_QUALITY());
-		CameraServer.getInstance().setImage(waitFrame);
+		Loading load = new Loading(waitFrame, startTime);
 		switch(newCameraView) {
 		case FRONT_CAM:
+			DriverStation.reportWarning("Start front cam...", false);
 			if(rearCam != null && rearCamOn) {
 				rearCam.stopCapture();
 				rearCam.closeCamera();
@@ -134,11 +136,11 @@ public class Camera extends Thread implements Runnable {
 				frontCam.openCamera();
 				frontCam.startCapture();
 				frontCamOn = true;
-				DriverStation.reportWarning("Front camera started!", false);
 			}
 			cameraView = FRONT_CAM;
 			break;
 		case REAR_CAM:
+			DriverStation.reportWarning("Start rear cam...", false);
 			if(frontCam != null && frontCamOn) {
 				frontCam.stopCapture();
 				frontCam.closeCamera();
@@ -152,7 +154,6 @@ public class Camera extends Thread implements Runnable {
 				rearCam.openCamera();
 				rearCam.startCapture();
 				rearCamOn = true;
-				DriverStation.reportWarning("Rear camera started!", false);
 			}
 			cameraView = REAR_CAM;
 			break;
@@ -170,6 +171,12 @@ public class Camera extends Thread implements Runnable {
 			}
 			cameraView = NO_CAM;
 		}
+		DriverStation.reportWarning("Stoping loading animation...", false);
+		startTime = load.end();
+		while(load.running()) {
+			Thread.sleep(100);
+		}
+		DriverStation.reportWarning("Done!", false);
 	}
 	
 	/**
