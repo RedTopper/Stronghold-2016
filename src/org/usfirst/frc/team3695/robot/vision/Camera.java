@@ -42,7 +42,7 @@ public class Camera extends Thread implements Runnable {
 	 * that situation without throwing an exception. In theory, it'll print a "No Camera Feed!"
 	 * message to the camera viewer if there is a problem.
 	 */
-	public Camera() {
+	public Camera() throws Exception {
 		NIVision.imaqSetImageSize(noFrame, 640, 480);
 		NIVision.imaqDrawShapeOnImage(noFrame, noFrame, new Rect(0,(640/2) - (480/2), 480, 480), DrawMode.PAINT_VALUE, ShapeMode.SHAPE_OVAL, getColor(0xFF,0x0,0x0));
 		NIVision.imaqDrawShapeOnImage(noFrame, noFrame, new Rect(10,(640/2) - (480/2) + 10, 460, 460), DrawMode.PAINT_VALUE, ShapeMode.SHAPE_OVAL, getColor(0,0,0));
@@ -63,8 +63,15 @@ public class Camera extends Thread implements Runnable {
 	}
 
 	public void run() {
-		viewCam(FRONT_CAM);
-		while(true) {
+		boolean launchThread = true;
+		try {
+			viewCam(FRONT_CAM);
+			viewCam(FRONT_CAM);//try again?
+		} catch (Exception e) {
+			DriverStation.reportError("The main thread exited because of: " + e.toString(), true);
+			launchThread = false;
+		}
+		while(launchThread) {
 			try {
 				long pastTime = System.currentTimeMillis();
 
@@ -92,6 +99,7 @@ public class Camera extends Thread implements Runnable {
 				}
 			} catch (Exception e) {
 				DriverStation.reportError("The main thread exited because of: " + e.toString(), true);
+				launchThread = false;
 				break;
 			}
 		}
@@ -107,7 +115,7 @@ public class Camera extends Thread implements Runnable {
 	 * Camera.FRONT_CAM or Camera.REAR_CAM to switch the camera to a
 	 * different feed. 
 	 */
-	private void viewCam(int newCameraView) {
+	private void viewCam(int newCameraView) throws Exception {
 		CameraServer.getInstance().setQuality(CameraConstants.SERVER_QUALITY());
 		CameraServer.getInstance().setImage(waitFrame);
 		switch(newCameraView) {
