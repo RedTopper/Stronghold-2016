@@ -1,8 +1,11 @@
 package org.usfirst.frc.team3695.robot.vision;
 
 import com.ni.vision.NIVision;
+import com.ni.vision.NIVision.ColorMode;
 import com.ni.vision.NIVision.DrawMode;
 import com.ni.vision.NIVision.Image;
+import com.ni.vision.NIVision.MeasureParticlesCalibrationMode;
+import com.ni.vision.NIVision.MeasureParticlesReport;
 import com.ni.vision.NIVision.Point;
 import com.ni.vision.NIVision.Rect;
 import com.ni.vision.NIVision.ShapeMode;
@@ -77,6 +80,19 @@ public class Camera extends Thread implements Runnable {
 				long pastTime = System.currentTimeMillis();
 
 				out: switch(cameraView) {
+				case FRONT_PROCCESSED:
+					frontCam.getImage(frontFrame);
+					NIVision.imaqColorThreshold(frontFrame, frontFrame, 0xFF/*???*/, ColorMode.HSV, CameraConstants.HUE(), CameraConstants.SATURATION(),  CameraConstants.VALUE());
+					NIVision.imaqFillHoles(frontFrame, frontFrame, 4);
+					NIVision.MeasurementType x = NIVision.MeasurementType.MT_CENTER_OF_MASS_X;
+					NIVision.MeasurementType y = NIVision.MeasurementType.MT_CENTER_OF_MASS_Y;
+					MeasureParticlesReport report = NIVision.imaqMeasureParticles(frontFrame, MeasureParticlesCalibrationMode.CALIBRATION_MODE_PIXEL, new NIVision.MeasurementType[]{x, y});
+					for(int i = 0; i < report.numParticles; i++) { 
+						SmartDashboard.putNumber("Test", x.getValue());
+					}
+					report.free();
+					CameraServer.getInstance().setImage(frontFrame);
+					break out;
 				case FRONT_CAM:
 					frontCam.getImage(frontFrame);
 					NIVision.imaqDrawShapeOnImage(frontFrame, frontFrame, new Rect((480/2) - 220,(640/2) - 50, 100, 100), DrawMode.PAINT_VALUE, ShapeMode.SHAPE_RECT, getColor(0,0,0));
@@ -119,7 +135,9 @@ public class Camera extends Thread implements Runnable {
 	private void viewCam(int newCameraView) throws Exception {
 		CameraServer.getInstance().setQuality(CameraConstants.SERVER_QUALITY());
 		Loading load = new Loading(waitFrame, startTime);
+		load.start();
 		switch(newCameraView) {
+		case FRONT_PROCCESSED:
 		case FRONT_CAM:
 			DriverStation.reportWarning("Start front cam...", false);
 			if(rearCam != null && rearCamOn) {
