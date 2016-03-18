@@ -6,9 +6,11 @@ import org.usfirst.frc.team3695.robot.commands.pneumatics.CommandCompressorToggl
 import org.usfirst.frc.team3695.robot.commands.pneumatics.CommandMoveArm;
 import org.usfirst.frc.team3695.robot.commands.pneumatics.CommandMoveArmRaw;
 import org.usfirst.frc.team3695.robot.commands.pneumatics.CommandMoveBucket;
+import org.usfirst.frc.team3695.robot.vision.Camera;
 
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -51,13 +53,31 @@ public class OI {
 		
 		
 		//Buttons for Driver
+		Button rearView = new JoystickButton(Controller.OP_JOY(), Controller.DRIVE_REAR_CAM);
+		rearView.whileHeld(new Command() { //TODO: Move this to a real class in the vision package.
+			protected void initialize() {if(Robot.cam != null) Robot.cam.switchCam(Camera.REAR_CAM);}
+			protected void execute() {}
+			protected boolean isFinished() {return false;}
+			protected void end() {if(Robot.cam != null) Robot.cam.switchCam(Camera.FRONT_CAM);}
+			protected void interrupted() {end();}
+		});
+		
+		Button robotView = new JoystickButton(Controller.OP_JOY(), Controller.DRIVE_PROCESSED_CAM);
+		robotView.whileHeld(new Command() { //TODO: Move this to a real class in the vision package.
+			protected void initialize() {if(Robot.cam != null) Robot.cam.switchCam(Camera.FRONT_PROCCESSED);}
+			protected void execute() {}
+			protected boolean isFinished() {return false;}
+			protected void end() {if(Robot.cam != null) Robot.cam.switchCam(Camera.FRONT_CAM);}
+			protected void interrupted() {end();}
+		});
+		
+		//Buttons for OP
 		Button getBall = new JoystickButton(Controller.OP_JOY(), Controller.OP_GRAB_BALL);
 		getBall.whileHeld(new CommandGetBall(CommandGetBall.SUCK_IN_BALL));
 		
 		Button removeBall = new JoystickButton(Controller.OP_JOY(), Controller.OP_RELEASE_BALL);
 		removeBall.whileHeld(new CommandGetBall(CommandGetBall.THROW_OUT_BALL));
 		
-		//Buttons for OP
 		Button fire = new JoystickButton(Controller.OP_JOY(), Controller.OP_FIRE_ARM);
 		fire.whenPressed(new CommandMoveArm(CommandMoveArm.FIRE));
 		

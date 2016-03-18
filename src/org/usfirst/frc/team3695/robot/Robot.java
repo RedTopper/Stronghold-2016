@@ -33,17 +33,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 	//Generic variables
-	private Camera cam;
-	private int lastSelectedCamera = Camera.FRONT_CAM;
 	private long lastTime = System.currentTimeMillis();
 	private double ticksPerSecond = 0;
+	public static Camera cam;
+	//private int lastSelectedCamera = Camera.FRONT_CAM;
 	
 	//Choosers
 	private static SendableChooser autoChooser;
 	private static SendableChooser rumbleChooser;
 	private static SendableChooser driveChooser;
 	private static SendableChooser boostChooser;
-	private static SendableChooser cameraChooser;
+	//private static SendableChooser cameraChooser;
 	
 	//Auto
 	private Command autonomousCommand;
@@ -96,18 +96,20 @@ public class Robot extends IterativeRobot {
         boostChooser.addObject("Slow Button", false);
         
         //Set up cameraChooser for selecting witch camera to view 
+        /*
         cameraChooser = new SendableChooser();
         cameraChooser.addDefault("Front Camera", new Integer(Camera.FRONT_CAM));
         cameraChooser.addObject("Front Camera (processed)", new Integer(Camera.FRONT_PROCCESSED));
         cameraChooser.addObject("Rear Camera", new Integer(Camera.REAR_CAM));
         cameraChooser.addObject("No Camera", new Integer(Camera.NO_CAM));
+        */
         
         //Put choosers on robot smart dash.
         SmartDashboard.putData("Auto Mode", autoChooser);
         SmartDashboard.putData("Rumble Mode", rumbleChooser);
         SmartDashboard.putData("Drive Mode", driveChooser);
         SmartDashboard.putData("Boost Mode", boostChooser);
-        SmartDashboard.putData("Camera Mode", cameraChooser);
+        //SmartDashboard.putData("Camera Mode", cameraChooser);
         
 
         // Show what command your subsystem is running on the SmartDashboard
@@ -189,11 +191,14 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putString("Auto Status: ", (STOP_AUTO == null ? "Everything is normal." : STOP_AUTO));
     	
     	//update the camera if the user selects a different camera to show
+    	
+    	/*
     	int currentCamera = (int) (cameraChooser.getSelected());
     	if(cam != null && lastSelectedCamera != currentCamera) {
     		cam.switchCam(currentCamera);
         	lastSelectedCamera = currentCamera;
     	}
+    	*/
     }
     
     private void logUnsafe() {
