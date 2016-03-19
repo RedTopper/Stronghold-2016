@@ -17,7 +17,6 @@ import org.usfirst.frc.team3695.robot.subsystems.pneumatics.SubsystemArm;
 import org.usfirst.frc.team3695.robot.subsystems.pneumatics.SubsystemBucket;
 import org.usfirst.frc.team3695.robot.vision.Camera;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -63,6 +62,8 @@ public class Robot extends IterativeRobot {
     public static String STOP_AUTO = null;
     
     public void robotInit() {
+    	//Print message
+    	Logger.err("Starting the robot.");
         // Initialize all subsystems
     	driveSubsystem = new SubsystemDrive();
     	networkTables = new SubsystemNetworkTables();
@@ -122,7 +123,7 @@ public class Robot extends IterativeRobot {
         	cam = new Camera();
         	cam.start();
         } catch (Exception e) {
-        	DriverStation.reportError("Cam thing! " + e, true);
+        	Logger.err("There was a camera error! Check the constructor of the camera class.", e);
         }
     	
     }
@@ -136,8 +137,7 @@ public class Robot extends IterativeRobot {
 
     public void autonomousPeriodic() {
         log();
-        oi.updatePov();
-        oi.updateTriggersAsButtons();
+        oi.updateJoyManual();
         Scheduler.getInstance().run();
     }
 
@@ -150,8 +150,7 @@ public class Robot extends IterativeRobot {
     
     public void disabledPeriodic() {
     	log();
-    	oi.updatePov();
-    	oi.updateTriggersAsButtons();
+    	oi.updateJoyManual();
     	Scheduler.getInstance().run();
     }
     
@@ -164,8 +163,7 @@ public class Robot extends IterativeRobot {
     
     public void teleopPeriodic() {
         log();
-    	oi.updatePov();
-    	oi.updateTriggersAsButtons();
+        oi.updateJoyManual();
         Scheduler.getInstance().run();
     }
     

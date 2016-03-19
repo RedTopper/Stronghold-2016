@@ -30,6 +30,15 @@ public class OI {
 					triggerUnlockLatchStateNotPressed = true,
 					triggerLockLatchStateNotPressed = true;
 	
+	/**
+	 * These booleans provide the manual update buttons method with ways to 
+	 * keep track of when the buttons need to update. This means that when
+	 * a button is pressed, code for that operation will run once. When a button
+	 * is released, code will only run once for that too.
+	 */
+	private boolean driveRearCamNeedsUpdate = false,
+					driveFrontCamProcNeedsUpdate = false;
+	
 	public OI() {
 		//SmartDash
 		SmartDashboard.putData("Use camera to rotate RIGHT", new CommandRotateWithCam(CommandRotateWithCam.ROTATE_RIGHT_OVERALL));
@@ -53,14 +62,6 @@ public class OI {
 		
 		
 		//Buttons for Driver
-		Button rearView = new JoystickButton(Controller.OP_JOY(), Controller.DRIVE_REAR_CAM);
-		rearView.whileHeld(new Command() { //TODO: Move this to a real class in the vision package.
-			protected void initialize() {if(Robot.cam != null) Robot.cam.switchCam(Camera.REAR_CAM);}
-			protected void execute() {}
-			protected boolean isFinished() {return false;}
-			protected void end() {if(Robot.cam != null) Robot.cam.switchCam(Camera.FRONT_CAM);}
-			protected void interrupted() {end();}
-		});
 		
 		Button robotView = new JoystickButton(Controller.OP_JOY(), Controller.DRIVE_PROCESSED_CAM);
 		robotView.whileHeld(new Command() { //TODO: Move this to a real class in the vision package.
@@ -95,7 +96,7 @@ public class OI {
 	/**
 	 * Updates the POV hat on a controller.
 	 */
-	public void updatePov() {
+	private void updatePov() {
 		if(povDownStateNotPressed && Controller.OP_JOY().getPOV(0) == Controller.OP_BUCKET_UP_POV_DEG) {
 			moveBucketUp.start();
 			povDownStateNotPressed = false;
@@ -110,7 +111,11 @@ public class OI {
 		}
 	}
 	
-	public void updateTriggersAsButtons() {
+	/**
+	 * This method gets the axis for triggers and manually
+	 * tries to convert them to buttons.
+	 */
+	private void updateTriggersAsButtons() {
 		double lockLatch = Controller.OP_JOY().getRawAxis(2);
 		double unlockLatch = Controller.OP_JOY().getRawAxis(3);
 		
@@ -128,6 +133,47 @@ public class OI {
 		if(unlockLatch < 0.1) {
 			triggerUnlockLatchStateNotPressed = true;
 		}
+	}
+	
+	/**
+	 * This is the method to manually do stuff with buttons.
+	 * It runs outside of the scope of the scheduler and, as
+	 * such, is unsafe.
+	 */
+	private void updateButtonsManual() {
+		//Code for viewing the rear view cam
+		if(!driveRearCamNeedsUpdate && Controller.DRIVE_JOY().getRawButton(Controller.DRIVE_REAR_CAM)) {
+			if(Robot.cam != null) Robot.cam.switchCam(Camera.REAR_CAM);
+			driveRearCamNeedsUpdate = true;
+		}
+		if(driveRearCamNeedsUpdate && !Controller.DRIVE_JOY().getRawButton(Controller.DRIVE_REAR_CAM)){
+			if(Robot.cam != null) Robot.cam.switchCam(Camera.FRONT_CAM);
+			driveRearCamNeedsUpdate = false;
+		}
+		
+		//Code for viewing the processed vision camera.
+		if(!driveFrontCamProcNeedsUpdate && Controller.DRIVE_JOY().getRawButton(Controller.DRIVE_PROCESSED_CAM)) {
+			if(Robot.cam != null) Robot.cam.switchCam(Camera.FRONT_PROCCESSED);
+			driveFrontCamProcNeedsUpdate = true;
+		} 
+		if(driveFrontCamProcNeedsUpdate && !Controller.DRIVE_JOY().getRawButton(Controller.DRIVE_REAR_CAM)){
+			if(Robot.cam != null) Robot.cam.switchCam(Camera.FRONT_CAM);
+			driveFrontCamProcNeedsUpdate = false;
+		}
+	}
+
+	/**
+	 * This method allows the programmer to manually override specific
+	 * functions of the controller. Generally, this method should be unused
+	 * because the command scheduler should override the controls that
+	 * are needed for the controller to function. If, however, it is 
+	 * neccicsary for one to manually accept input for an axis. d-pad, or
+	 * button, that should be done here.
+	 */
+	public void updateJoyManual() {
+		updatePov();
+		updateTriggersAsButtons();
+		updateButtonsManual();
 	}
 }
 
