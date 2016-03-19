@@ -112,12 +112,19 @@ public class Camera extends Thread implements Runnable {
 				SmartDashboard.putNumber("Camera Thread FPS", 1000.0 / (double)(currentTime - pastTime));
 				if(newCameraView != cameraView) {
 					viewCam(newCameraView);
-					cameraView = newCameraView;
 				}
 			} catch (Exception e) {
-				Logger.err("The main thread exited! ", e);
-				launchThread = false;
-				break;
+				Logger.err("Possibly recoverable error occcured! ", e);
+				try {
+					CameraServer.getInstance().setImage(noFrame);
+					Thread.sleep(2000);	//Wait for error to go away.
+					viewCam(FRONT_CAM); //Attempt to restart the front camera. Might fail.
+				} catch (Exception e2) {
+					CameraServer.getInstance().setImage(noFrame);
+					Logger.err("Nope, it was an irrecoverable error :( ", e2); 
+					launchThread = false;
+					break;
+				}
 			}
 		}
 	}
@@ -153,6 +160,7 @@ public class Camera extends Thread implements Runnable {
 				frontCam.updateSettings();
 				frontCam.openCamera();
 				frontCam.startCapture();
+				frontCam.getImage(frontFrame); //Remove broken image.
 				frontCamOn = true;
 			}
 			cameraView = FRONT_CAM;
@@ -171,6 +179,7 @@ public class Camera extends Thread implements Runnable {
 				rearCam.updateSettings();
 				rearCam.openCamera();
 				rearCam.startCapture();
+				rearCam.getImage(rearFrame); //Remove broken image.
 				rearCamOn = true;
 			}
 			cameraView = REAR_CAM;
@@ -191,11 +200,14 @@ public class Camera extends Thread implements Runnable {
 			cameraView = NO_CAM;
 		}
 		Logger.out("Stop loading animation...");
+		Thread.sleep(500); //Give the camera about a second to fully switch.
 		startTime = load.end();
 		while(load.running()) {
-			Thread.sleep(100);
+			Thread.sleep(50);
 		}
+		load = null; //Dispose the thread.
 		Logger.err("Switched cams!");
+		cameraView = newCameraView;
 	}
 	
 	/**

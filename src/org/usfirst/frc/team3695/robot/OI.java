@@ -156,7 +156,7 @@ public class OI {
 			if(Robot.cam != null) Robot.cam.switchCam(Camera.FRONT_PROCCESSED);
 			driveFrontCamProcNeedsUpdate = true;
 		} 
-		if(driveFrontCamProcNeedsUpdate && !Controller.DRIVE_JOY().getRawButton(Controller.DRIVE_REAR_CAM)){
+		if(driveFrontCamProcNeedsUpdate && !Controller.DRIVE_JOY().getRawButton(Controller.DRIVE_PROCESSED_CAM)){
 			if(Robot.cam != null) Robot.cam.switchCam(Camera.FRONT_CAM);
 			driveFrontCamProcNeedsUpdate = false;
 		}
