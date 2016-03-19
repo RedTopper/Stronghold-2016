@@ -1,5 +1,7 @@
 package org.usfirst.frc.team3695.robot.vision;
 
+import org.usfirst.frc.team3695.robot.Logger;
+
 import com.ni.vision.NIVision;
 import com.ni.vision.NIVision.DrawMode;
 import com.ni.vision.NIVision.Image;
@@ -62,7 +64,7 @@ public class Loading extends Thread implements Runnable{
 				Thread.sleep(1000/FPS);
 			} catch (Exception e) {
 				loop = false;
-				DriverStation.reportError("The loading thread exited because of: " + e.toString(), true);
+				Logger.err("The main thread exited! ", e);
 			}
 		}
 		running = false;

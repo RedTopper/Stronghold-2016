@@ -42,7 +42,7 @@ public class Output extends Thread implements Runnable {
 		for(int i = 0; i < 3 - (int)(Math.log10(message)); i++) {
 			spacing += " ";
 		}
-		messages.add(status + "[" + message + spacing + "][LOGGER]" + str);
+		messages.add(status + "[" + spacing + message + "][LOG]" + str);
 	}
 	
 	/**
@@ -61,12 +61,13 @@ public class Output extends Thread implements Runnable {
 	
 	public void run() {
 		try {Thread.sleep(1000);} catch (InterruptedException e) {} //Wait a second to awaken the debugger.
+		System.out.println("WARNING: INITIALIZING LOGGER! ---------------------------------"); //Tells the user that the logger and robot has started.
 		while(true) {
+			//Sleep for .1 seconds so the messages print out in order! This is the whole point of the class btw.
+			try {Thread.sleep(100);} catch (InterruptedException e) {System.out.println("ERROR: The debugger has awoken. This should not have happened!");} 
 			if(messages.size() > 0) {
 				System.out.println(messages.remove(0)); //Dequeue message and print it.
 			}
-			//Sleep for .1 seconds so the messages come out in order! This is the whole point of the class btw.
-			try {Thread.sleep(100);} catch (InterruptedException e) {System.out.println("ERROR: The debugger has awoken. This should not have happened!");} 
 		}
 	}
 }

@@ -1,5 +1,7 @@
 package org.usfirst.frc.team3695.robot.vision;
 
+import org.usfirst.frc.team3695.robot.Logger;
+
 import com.ni.vision.NIVision;
 import com.ni.vision.NIVision.ColorMode;
 import com.ni.vision.NIVision.DrawMode;
@@ -11,7 +13,6 @@ import com.ni.vision.NIVision.Rect;
 import com.ni.vision.NIVision.ShapeMode;
 
 import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.vision.USBCamera;
 
@@ -21,8 +22,8 @@ public class Camera extends Thread implements Runnable {
 	private final USBCamera rearCam;
 	private boolean rearCamOn = false;
 	
-	private int cameraView = 0;
-	private int newCameraView = 0;
+	private int cameraView = FRONT_CAM;
+	private int newCameraView = FRONT_CAM;
 	
 	/**
 	 * Selectable cameras.
@@ -54,10 +55,10 @@ public class Camera extends Thread implements Runnable {
 								  (int)((240 - 230 * (Math.sqrt(2)/2)) + 0.5));
 		Point bottomRight = new Point((int)((320 + 230 * (Math.sqrt(2)/2)) + 0.5),
 				  					  (int)((240 + 230 * (Math.sqrt(2)/2)) + 0.5));
-		NIVision.imaqDrawLineOnImage(noFrame, noFrame, DrawMode.PAINT_VALUE, topLeft, bottomRight, getColor(0xFF,0x00,0x00));
+		NIVision.imaqDrawLineOnImage(noFrame, noFrame, DrawMode.DRAW_VALUE, topLeft, bottomRight, getColor(0xFF,0x00,0x00));
 		for(int i = 1; i <= 3; i++) { //This for loop causes the lines to draw out to a thickness of 7, however, because the diagnal of a pixel is root 2, it will be 10 wide.
-			NIVision.imaqDrawLineOnImage(noFrame, noFrame, DrawMode.PAINT_VALUE, new Point(topLeft.x, topLeft.y + i), new Point(bottomRight.x + i, bottomRight.y), getColor(0xFF,0x00,0x00));
-			NIVision.imaqDrawLineOnImage(noFrame, noFrame, DrawMode.PAINT_VALUE, new Point(topLeft.x - i, topLeft.y), new Point(bottomRight.x, bottomRight.y - i), getColor(0xFF,0x00,0x00));
+			NIVision.imaqDrawLineOnImage(noFrame, noFrame, DrawMode.DRAW_VALUE, new Point(topLeft.x, topLeft.y + i), new Point(bottomRight.x + i, bottomRight.y), getColor(0xFF,0x00,0x00));
+			NIVision.imaqDrawLineOnImage(noFrame, noFrame, DrawMode.DRAW_VALUE, new Point(topLeft.x - i, topLeft.y), new Point(bottomRight.x, bottomRight.y - i), getColor(0xFF,0x00,0x00));
 		}
 				
 		NIVision.imaqSetImageSize(waitFrame, 640, 480);
@@ -70,9 +71,8 @@ public class Camera extends Thread implements Runnable {
 		boolean launchThread = true;
 		try {
 			viewCam(FRONT_CAM);
-			viewCam(FRONT_CAM);//try again?
 		} catch (Exception e) {
-			DriverStation.reportError("The main thread exited because of: " + e.toString(), true);
+			Logger.err("The main thread exited! ", e); 
 			launchThread = false;
 		}
 		while(launchThread) {
@@ -115,7 +115,7 @@ public class Camera extends Thread implements Runnable {
 					cameraView = newCameraView;
 				}
 			} catch (Exception e) {
-				DriverStation.reportError("The main thread exited because of: " + e.toString(), true);
+				Logger.err("The main thread exited! ", e);
 				launchThread = false;
 				break;
 			}
@@ -139,7 +139,7 @@ public class Camera extends Thread implements Runnable {
 		switch(newCameraView) {
 		case FRONT_PROCCESSED:
 		case FRONT_CAM:
-			DriverStation.reportWarning("Start front cam...", false);
+			Logger.out("Start front cam...");
 			if(rearCam != null && rearCamOn) {
 				rearCam.stopCapture();
 				rearCam.closeCamera();
@@ -158,7 +158,7 @@ public class Camera extends Thread implements Runnable {
 			cameraView = FRONT_CAM;
 			break;
 		case REAR_CAM:
-			DriverStation.reportWarning("Start rear cam...", false);
+			Logger.out("Start rear cam...");
 			if(frontCam != null && frontCamOn) {
 				frontCam.stopCapture();
 				frontCam.closeCamera();
@@ -177,6 +177,7 @@ public class Camera extends Thread implements Runnable {
 			break;
 		default:
 		case NO_CAM:
+			Logger.out("Start no cam...");
 			if(frontCam != null &&frontCamOn) {
 				frontCam.stopCapture();
 				frontCam.closeCamera();
@@ -189,12 +190,12 @@ public class Camera extends Thread implements Runnable {
 			}
 			cameraView = NO_CAM;
 		}
-		DriverStation.reportWarning("Stoping loading animation...", false);
+		Logger.out("Stop loading animation...");
 		startTime = load.end();
 		while(load.running()) {
 			Thread.sleep(100);
 		}
-		DriverStation.reportWarning("Done!", false);
+		Logger.err("Switched cams!");
 	}
 	
 	/**
@@ -208,7 +209,7 @@ public class Camera extends Thread implements Runnable {
 		try{
 			cam = new USBCamera(camName);
 		} catch (Exception e) {
-			DriverStation.reportError("Could not start the " + humanName + " nammed \"" + camName + "\": " + e, true);
+			Logger.err("Could not start the " + humanName + " nammed \"" + camName + "\"!", e);
 		}
 		return cam;
 	}
