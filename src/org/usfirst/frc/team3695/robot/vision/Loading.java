@@ -9,7 +9,6 @@ import com.ni.vision.NIVision.Rect;
 import com.ni.vision.NIVision.ShapeMode;
 
 import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.DriverStation;
 
 public class Loading extends Thread implements Runnable{
 	/**
@@ -53,7 +52,7 @@ public class Loading extends Thread implements Runnable{
 	public void run() {
 		while(loop) {
 			try {
-				NIVision.imaqDrawShapeOnImage(waitImage, waitImage, new Rect(0,0,480,640), DrawMode.PAINT_VALUE, ShapeMode.SHAPE_RECT ,hsvToRgb((currentTimeSeconds/1000.0) % 1.0, 0.7, 1.0));
+				NIVision.imaqDrawShapeOnImage(waitImage, waitImage, new Rect(0,0,480,640), DrawMode.PAINT_VALUE, ShapeMode.SHAPE_RECT ,hsvToRgb((currentTimeSeconds/2000.0) % 1.0, 0.7, 1.0));
 				for(int i = 0; i < 5; i++) {
 					double x = calcX(currentTimeSeconds - (i * DISTANCE));
 					double y = calcY(currentTimeSeconds - (i * DISTANCE));

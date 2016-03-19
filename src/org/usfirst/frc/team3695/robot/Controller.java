@@ -9,9 +9,9 @@ public class Controller {
 	/** XBox "B Button" */
 	public static final int DRIVE_BOOST = 2;
 	/** XBox "Y Button" */
-	public static final int DRIVE_REAR_CAM = 3;
+	public static final int DRIVE_REAR_CAM = 4;
 	/** XBox "X Button" */
-	public static final int DRIVE_PROCESSED_CAM = 4;
+	public static final int DRIVE_PROCESSED_CAM = 3;
 	/** The degree amount the POV must be to rotate the robot left for auto targeting. */
 	public static final int DRIVE_TARGET_LEFT = 270;
 	/** The degree amount the POV must be to rotate the robot right for auto targeting. */

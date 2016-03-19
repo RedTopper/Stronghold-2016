@@ -56,9 +56,9 @@ public class Camera extends Thread implements Runnable {
 		Point bottomRight = new Point((int)((320 + 230 * (Math.sqrt(2)/2)) + 0.5),
 				  					  (int)((240 + 230 * (Math.sqrt(2)/2)) + 0.5));
 		NIVision.imaqDrawLineOnImage(noFrame, noFrame, DrawMode.DRAW_VALUE, topLeft, bottomRight, getColor(0xFF,0x00,0x00));
-		for(int i = 1; i <= 3; i++) { //This for loop causes the lines to draw out to a thickness of 7, however, because the diagnal of a pixel is root 2, it will be 10 wide.
-			NIVision.imaqDrawLineOnImage(noFrame, noFrame, DrawMode.DRAW_VALUE, new Point(topLeft.x, topLeft.y + i), new Point(bottomRight.x + i, bottomRight.y), getColor(0xFF,0x00,0x00));
-			NIVision.imaqDrawLineOnImage(noFrame, noFrame, DrawMode.DRAW_VALUE, new Point(topLeft.x - i, topLeft.y), new Point(bottomRight.x, bottomRight.y - i), getColor(0xFF,0x00,0x00));
+		for(int i = 1; i <= 5; i++) { //This for loop causes the lines to draw out to a thickness of 7, however, because the diagnal of a pixel is root 2, it will be 10 wide.
+			NIVision.imaqDrawLineOnImage(noFrame, noFrame, DrawMode.DRAW_VALUE, new Point(topLeft.x, topLeft.y - i), new Point(bottomRight.x + i, bottomRight.y), getColor(0xFF,0x00,0x00));
+			NIVision.imaqDrawLineOnImage(noFrame, noFrame, DrawMode.DRAW_VALUE, new Point(topLeft.x - i, topLeft.y), new Point(bottomRight.x, bottomRight.y + i), getColor(0xFF,0x00,0x00));
 		}
 				
 		NIVision.imaqSetImageSize(waitFrame, 640, 480);
@@ -199,8 +199,8 @@ public class Camera extends Thread implements Runnable {
 			}
 			cameraView = NO_CAM;
 		}
+		Thread.sleep(100); //Give the camera about a tenth of a second to fully switch. This clears the broken images from the camera que.
 		Logger.out("Stop loading animation...");
-		Thread.sleep(500); //Give the camera about a second to fully switch.
 		startTime = load.end();
 		while(load.running()) {
 			Thread.sleep(50);
