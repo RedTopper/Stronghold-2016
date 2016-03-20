@@ -64,7 +64,7 @@ public class Output extends Thread implements Runnable {
 		System.out.println("WARNING: INITIALIZING LOGGER! ---------------------------------"); //Tells the user that the logger and robot has started.
 		while(true) {
 			//Sleep for .1 seconds so the messages print out in order! This is the whole point of the class btw.
-			try {Thread.sleep(100);} catch (InterruptedException e) {System.out.println("ERROR: The debugger has awoken. This should not have happened!");} 
+			try {Thread.sleep(80);} catch (InterruptedException e) {System.out.println("ERROR: The debugger has awoken. This should not have happened!");} 
 			if(messages.size() > 0) {
 				System.out.println(messages.remove(0)); //Dequeue message and print it.
 			}

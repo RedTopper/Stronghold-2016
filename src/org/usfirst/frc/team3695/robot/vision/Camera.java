@@ -51,7 +51,7 @@ public class Camera extends Thread implements Runnable {
 	/**
 	 * Variables used to control the camera.
 	 */
-	private int cameraView = FRONT_CAM;
+	private volatile int cameraView = FRONT_CAM;
 	
 	/**
 	 * Variable used to control outside access to switching cameras.
@@ -258,7 +258,6 @@ public class Camera extends Thread implements Runnable {
 				frontCam.getImage(frontFrame); //Remove broken image.
 				frontCamOn = true;
 			}
-			cameraView = FRONT_PROCESSED;
 			break;
 		case FRONT_CAM:
 			Logger.out("Start front cam...");
@@ -278,7 +277,6 @@ public class Camera extends Thread implements Runnable {
 				frontCam.getImage(frontFrame); //Remove broken image.
 				frontCamOn = true;
 			}
-			cameraView = FRONT_CAM;
 			break;
 		case REAR_CAM:
 			Logger.out("Start rear cam...");
@@ -297,7 +295,6 @@ public class Camera extends Thread implements Runnable {
 				rearCam.getImage(rearFrame); //Remove broken image.
 				rearCamOn = true;
 			}
-			cameraView = REAR_CAM;
 			break;
 		default:
 		case NO_CAM:
@@ -312,13 +309,12 @@ public class Camera extends Thread implements Runnable {
 				rearCam.closeCamera();
 				rearCamOn = false;
 			}
-			cameraView = NO_CAM;
 		}
-		Thread.sleep(100); //Give the camera about a tenth of a second to fully switch. This clears the broken images caused by switching from the camera server.
+		Thread.sleep(50); //Give the camera about a tenth of a second to fully switch. This clears the broken images caused by switching from the camera server.
 		Logger.out("Stop loading animation...");
 		startTime = load.end();
 		while(load.running()) {
-			Thread.sleep(50);
+			Thread.sleep(20);
 		}
 		load = null; //Dispose the thread.
 		Logger.err("Switched cams!");
