@@ -150,7 +150,7 @@ public class Robot extends IterativeRobot {
     private void log() {
     	double currentTime = System.currentTimeMillis();
     	ticksPerSecond = (1000.0 / (double)(currentTime - lastTime));
-    	if(currentTime - lastTime > 100) {
+    	if(currentTime - lastTime > 200) {
     		Logger.err("Can't keep up! Did the system time change, or is the server overloaded? Running " + ((long)currentTime - (long)lastTime) + "ms behind");
     	}
     	lastTime = System.currentTimeMillis();

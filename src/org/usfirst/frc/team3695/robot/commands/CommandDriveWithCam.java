@@ -46,10 +46,12 @@ public class CommandDriveWithCam extends Command {
 
     protected void execute(){
 		if(!cam.isProccessingCamera()) {
+			Robot.driveSubsystem.tankdrive(0, 0);
 			lastTime = System.currentTimeMillis(); 			//Wait for the camera to switch over.
 			return;
 		}
 		if(lastTime + 700 > System.currentTimeMillis()) { 	//Wait for the camera to actually update the images.
+			Robot.driveSubsystem.tankdrive(0, 0);
 			return;
 		}
     	double goalY = cam.getGoalXY()[1];
@@ -60,7 +62,7 @@ public class CommandDriveWithCam extends Command {
     			Robot.driveSubsystem.tankdrive(-0.5, -0.5);
     		} else {
     			complete = true;
-    			Logger.err("So the camera ended here: " + goalY);
+    			Logger.out("So the camera ended here: " + goalY);
     		}
 		} else {
 			Logger.err("Quit because I could not find a goal! Has the robot been rotated first?");
