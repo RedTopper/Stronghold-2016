@@ -47,7 +47,7 @@ public class Camera extends Thread implements Runnable {
 	 *  Different images that can be displayed to the camera feed.
 	 */
 	public static final int NO_CAM = 0,
-							FRONT_PROCCESSED = 1,
+							FRONT_PROCESSED = 1,
 							FRONT_CAM = 2,
 							REAR_CAM = 3;
 	
@@ -158,7 +158,7 @@ public class Camera extends Thread implements Runnable {
 
 				//Switch to which camera we are viewing.
 				out: switch(cameraView) {
-				case FRONT_PROCCESSED:
+				case FRONT_PROCESSED:
 					frontCam.getImage(frontFrame);
 					NIVision.imaqColorThreshold(frontProcFrame, frontFrame, 0x00FFFFFF, ColorMode.HSV, H, S, V); //Get a black and white image from a Hue, Saturation, and Value
 					int numOfParticles = NIVision.imaqCountParticles(frontProcFrame, 1);
@@ -174,6 +174,7 @@ public class Camera extends Thread implements Runnable {
 					for(int i = 0; i < output.size(); i++) {
 						NIVision.imaqDrawShapeOnImage(frontFrame, frontFrame, new Rect(output.get(i)[1] - 2, output.get(i)[0] - 2, 4, 4), DrawMode.PAINT_VALUE, ShapeMode.SHAPE_RECT, Camera.getColor(0xFF, 0x00, 0x00));
 					}
+					getGoalXY();
 					CameraServer.getInstance().setImage(frontFrame);
 					break out;
 				case FRONT_CAM:
@@ -232,7 +233,7 @@ public class Camera extends Thread implements Runnable {
 		Loading load = new Loading(waitFrame, startTime);
 		load.start();
 		switch(newCameraView) {
-		case FRONT_PROCCESSED:
+		case FRONT_PROCESSED:
 			H = CameraConstants.HUE();
 			S = CameraConstants.SATURATION();
 			V = CameraConstants.VALUE();
@@ -254,7 +255,7 @@ public class Camera extends Thread implements Runnable {
 				frontCam.getImage(frontFrame); //Remove broken image.
 				frontCamOn = true;
 			}
-			cameraView = FRONT_PROCCESSED;
+			cameraView = FRONT_PROCESSED;
 			break;
 		case FRONT_CAM:
 			Logger.out("Start front cam...");
@@ -355,7 +356,7 @@ public class Camera extends Thread implements Runnable {
 	 * Returns if the camera is actually doing image processing.
 	 */
 	public boolean isProccessingCamera() {
-		return cameraView == FRONT_PROCCESSED;
+		return cameraView == FRONT_PROCESSED;
 	}
 	
 	/**
@@ -379,10 +380,10 @@ public class Camera extends Thread implements Runnable {
 	 * Returns the X/Y position of the goal.
 	 * @return getGoalXY()[0] x position and getGoalXY()[1] y position.
 	 */
-	public double[] getGoalXY() {
+	public synchronized double[] getGoalXY() {
 		int convexArea = -1;
 		int x = -1;
-		int y = -1;;
+		int y = -1;
 		for(int[] data : output) {
 			if(data[3/*The convex hull area*/] > GOAL_MIN_AREA) {
 				convexArea = data[3];
@@ -395,8 +396,12 @@ public class Camera extends Thread implements Runnable {
 			}
 		}
 		if(convexArea < 0) {
+			SmartDashboard.putNumber("Goal X", -1);
+			SmartDashboard.putNumber("Goal Y", -1);
 			return new double[]{-1.0,-1.0};
 		} else {
+			SmartDashboard.putNumber("Goal X", x);
+			SmartDashboard.putNumber("Goal Y", y);
 			return new double[]{(double)x,(double)y};
 		}
 	}

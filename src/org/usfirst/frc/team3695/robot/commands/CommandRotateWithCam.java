@@ -29,6 +29,8 @@ public class CommandRotateWithCam extends Command {
 	private int stage = 0;
 	private int calibration = CameraConstants.setAndGetNumber("Calibration Value", 10);
 	
+	private long lastTime = 0;
+	
 	/**
 	 * This will tell the robot witch way to move to face the goal the quickest.
 	 * @param direction use CommandRotateWithCam.ROTATE_LEFT_OVERALL or 
@@ -47,7 +49,7 @@ public class CommandRotateWithCam extends Command {
     	complete = false;
     	if(Camera.getInstance() != null) {
     		Camera.getInstance().controllerable(false);
-    		Camera.getInstance().switchCam(Camera.FRONT_PROCCESSED);
+    		Camera.getInstance().switchCam(Camera.FRONT_PROCESSED);
     	} else {
     		Logger.err("The camera isn't a thing, yo.");
     	}
@@ -55,6 +57,10 @@ public class CommandRotateWithCam extends Command {
 
     protected void execute(){
 		if(!Camera.getInstance().isProccessingCamera()) {
+			lastTime = System.currentTimeMillis(); 			//Wait for the camera to switch over.
+			return;
+		}
+		if(lastTime + 700 > System.currentTimeMillis()) { 	//Wait for the camera to actually update the images.
 			return;
 		}
     	double goalX = Camera.getInstance().getGoalXY()[0];
@@ -84,11 +90,12 @@ public class CommandRotateWithCam extends Command {
     	if(stage == 1) {
     		if(goalX != -1.0) {
 	    		if(goalX > (double)(Constants.CAMERA_WIDTH)/2.0 + calibration) {
-	    			Robot.driveSubsystem.tankdrive(0.7, -0.7);
+	    			Robot.driveSubsystem.tankdrive(0.6, -0.6);
 	    		} else if(goalX < (double)(Constants.CAMERA_WIDTH)/2.0 - calibration) {
-	    			Robot.driveSubsystem.tankdrive(-0.7, 0.7);
+	    			Robot.driveSubsystem.tankdrive(-0.6, 0.6);
 	    		} else {
 	    			complete = true;
+	    			Logger.err("So the camera ended here: " + goalX);
 	    		}
     		}
     	}
@@ -112,6 +119,7 @@ public class CommandRotateWithCam extends Command {
     }
 
     protected void interrupted() {
+    	Logger.err("You can't just interrupt the camera like that! ...  Ok, maybe you can.");
     	end();
     }
 }

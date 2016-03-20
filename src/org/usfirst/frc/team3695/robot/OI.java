@@ -145,7 +145,7 @@ public class OI {
 		
 		//Code for viewing the processed vision camera.
 		if(cam.isControllable() && !driveFrontCamProcNeedsUpdate && Controller.DRIVE_JOY().getRawButton(Controller.DRIVE_PROCESSED_CAM)) {
-			if(cam != null) cam.switchCam(Camera.FRONT_PROCCESSED);
+			if(cam != null) cam.switchCam(Camera.FRONT_PROCESSED);
 			driveFrontCamProcNeedsUpdate = true;
 		} 
 		if(cam.isControllable() && driveFrontCamProcNeedsUpdate && !Controller.DRIVE_JOY().getRawButton(Controller.DRIVE_PROCESSED_CAM)){
