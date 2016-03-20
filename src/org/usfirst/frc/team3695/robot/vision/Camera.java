@@ -1,14 +1,15 @@
 package org.usfirst.frc.team3695.robot.vision;
 
+import java.util.ArrayList;
+
 import org.usfirst.frc.team3695.robot.Logger;
 
 import com.ni.vision.NIVision;
 import com.ni.vision.NIVision.ColorMode;
 import com.ni.vision.NIVision.DrawMode;
 import com.ni.vision.NIVision.Image;
-import com.ni.vision.NIVision.MeasureParticlesCalibrationMode;
-import com.ni.vision.NIVision.MeasureParticlesReport;
 import com.ni.vision.NIVision.Point;
+import com.ni.vision.NIVision.Range;
 import com.ni.vision.NIVision.Rect;
 import com.ni.vision.NIVision.ShapeMode;
 
@@ -34,12 +35,16 @@ public class Camera extends Thread implements Runnable {
 							REAR_CAM = 3;
 	
 	private Image frontFrame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
+	private Image frontProc = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_U8, 0);
 	private Image rearFrame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
 	
 	double startTime = 0.0;
 	private Image waitFrame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
 	private Image noFrame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
-
+	
+	private Range H = CameraConstants.HUE(),
+				  S = CameraConstants.SATURATION(),
+				  V = CameraConstants.VALUE();
 	
 	/**
 	 * Creates a new set of cameras. A set of cameras consists of a front and a rear
@@ -49,6 +54,8 @@ public class Camera extends Thread implements Runnable {
 	 */
 	public Camera() throws Exception {
 		NIVision.imaqSetImageSize(noFrame, 640, 480);
+		NIVision.imaqSetImageSize(waitFrame, 640, 480);
+		NIVision.imaqSetImageSize(frontProc, 640, 480);
 		NIVision.imaqDrawShapeOnImage(noFrame, noFrame, new Rect(0,(640/2) - (480/2), 480, 480), DrawMode.PAINT_VALUE, ShapeMode.SHAPE_OVAL, getColor(0xFF,0x0,0x0));
 		NIVision.imaqDrawShapeOnImage(noFrame, noFrame, new Rect(10,(640/2) - (480/2) + 10, 460, 460), DrawMode.PAINT_VALUE, ShapeMode.SHAPE_OVAL, getColor(0,0,0));
 		Point topLeft = new Point((int)((320 - 230 * (Math.sqrt(2)/2))+ 0.5),
@@ -56,12 +63,10 @@ public class Camera extends Thread implements Runnable {
 		Point bottomRight = new Point((int)((320 + 230 * (Math.sqrt(2)/2)) + 0.5),
 				  					  (int)((240 + 230 * (Math.sqrt(2)/2)) + 0.5));
 		NIVision.imaqDrawLineOnImage(noFrame, noFrame, DrawMode.DRAW_VALUE, topLeft, bottomRight, getColor(0xFF,0x00,0x00));
-		for(int i = 1; i <= 5; i++) { //This for loop causes the lines to draw out to a thickness of 7, however, because the diagnal of a pixel is root 2, it will be 10 wide.
+		for(int i = 1; i <= 5; i++) { 
 			NIVision.imaqDrawLineOnImage(noFrame, noFrame, DrawMode.DRAW_VALUE, new Point(topLeft.x, topLeft.y - i), new Point(bottomRight.x + i, bottomRight.y), getColor(0xFF,0x00,0x00));
 			NIVision.imaqDrawLineOnImage(noFrame, noFrame, DrawMode.DRAW_VALUE, new Point(topLeft.x - i, topLeft.y), new Point(bottomRight.x, bottomRight.y + i), getColor(0xFF,0x00,0x00));
 		}
-				
-		NIVision.imaqSetImageSize(waitFrame, 640, 480);
 		
 		frontCam = startCam("front camera", CameraConstants.FRONT_CAM_NAME);
 		rearCam = startCam("rear camera",CameraConstants.REAR_CAM_NAME);
@@ -82,20 +87,27 @@ public class Camera extends Thread implements Runnable {
 				out: switch(cameraView) {
 				case FRONT_PROCCESSED:
 					frontCam.getImage(frontFrame);
-					NIVision.imaqColorThreshold(frontFrame, frontFrame, 0xFF/*???*/, ColorMode.HSV, CameraConstants.HUE(), CameraConstants.SATURATION(),  CameraConstants.VALUE());
-					NIVision.imaqFillHoles(frontFrame, frontFrame, 4);
-					NIVision.MeasurementType x = NIVision.MeasurementType.MT_CENTER_OF_MASS_X;
-					NIVision.MeasurementType y = NIVision.MeasurementType.MT_CENTER_OF_MASS_Y;
-					MeasureParticlesReport report = NIVision.imaqMeasureParticles(frontFrame, MeasureParticlesCalibrationMode.CALIBRATION_MODE_PIXEL, new NIVision.MeasurementType[]{x, y});
-					for(int i = 0; i < report.numParticles; i++) { 
-						SmartDashboard.putNumber("Test", x.getValue());
+					NIVision.imaqColorThreshold(frontProc, frontFrame, 0x00FFFFFF/*???*/, ColorMode.HSV, H, S, V);
+					int numOfParticles = NIVision.imaqCountParticles(frontProc, 1);
+					ArrayList<int[]> output = new ArrayList<>();
+					for (int i = 0; i < numOfParticles; i++) {
+						output.add(new int[]
+								{(int)(NIVision.imaqMeasureParticle(frontProc, i, 0, NIVision.MeasurementType.MT_CENTER_OF_MASS_X)),
+								 (int)(NIVision.imaqMeasureParticle(frontProc, i, 0, NIVision.MeasurementType.MT_CENTER_OF_MASS_Y)),
+								 (int)(NIVision.imaqMeasureParticle(frontProc, i, 0, NIVision.MeasurementType.MT_AREA)),
+								 (int)(NIVision.imaqMeasureParticle(frontProc, i, 0, NIVision.MeasurementType.MT_CONVEX_HULL_AREA)),
+								 (int)(NIVision.imaqMeasureParticle(frontProc, i, 0, NIVision.MeasurementType.MT_BOUNDING_RECT_WIDTH)),
+								 (int)(NIVision.imaqMeasureParticle(frontProc, i, 0, NIVision.MeasurementType.MT_BOUNDING_RECT_HEIGHT))});
 					}
-					report.free();
+					NIVision.imaqMask(frontFrame, frontFrame, frontProc);
+					for(int i = 0; i < output.size(); i++) {
+						NIVision.imaqDrawShapeOnImage(frontFrame, frontFrame, new Rect(output.get(i)[1] - 2, output.get(i)[0] - 2, 4, 4), DrawMode.PAINT_VALUE, ShapeMode.SHAPE_RECT, Camera.getColor(0xFF, 0x00, 0x00));
+					}
 					CameraServer.getInstance().setImage(frontFrame);
 					break out;
 				case FRONT_CAM:
 					frontCam.getImage(frontFrame);
-					NIVision.imaqDrawShapeOnImage(frontFrame, frontFrame, new Rect((480/2) - 220,(640/2) - 50, 100, 100), DrawMode.PAINT_VALUE, ShapeMode.SHAPE_RECT, getColor(0,0,0));
+					//NIVision.imaqDrawShapeOnImage(frontFrame, frontFrame, new Rect((480/2) - 220,(640/2) - 50, 100, 100), DrawMode.PAINT_VALUE, ShapeMode.SHAPE_RECT, getColor(0,0,0));
 					CameraServer.getInstance().setImage(frontFrame);
 					break out;
 				case REAR_CAM:
@@ -145,6 +157,29 @@ public class Camera extends Thread implements Runnable {
 		load.start();
 		switch(newCameraView) {
 		case FRONT_PROCCESSED:
+			H = CameraConstants.HUE();
+			S = CameraConstants.SATURATION();
+			V = CameraConstants.VALUE();
+			Logger.out("This: " + H.minValue + ", " + H.maxValue + "; " + S.minValue + ", " + S.maxValue + "; " + V.minValue + ", " + V.maxValue);
+			Logger.out("Start proccessed cam...");
+			if(rearCam != null && rearCamOn) {
+				rearCam.stopCapture();
+				rearCam.closeCamera();
+				rearCamOn = false;
+			}
+			if(frontCam != null) {
+				frontCam.setWhiteBalanceManual(USBCamera.WhiteBalance.kFixedIndoor);
+				frontCam.setBrightness(CameraConstants.FRONT_BRIGHTNESS()); //different brightness.
+				frontCam.setFPS(30);
+				frontCam.setSize(320, 240);  //lower res
+				frontCam.updateSettings();
+				frontCam.openCamera();
+				frontCam.startCapture();
+				frontCam.getImage(frontFrame); //Remove broken image.
+				frontCamOn = true;
+			}
+			cameraView = FRONT_PROCCESSED;
+			break;
 		case FRONT_CAM:
 			Logger.out("Start front cam...");
 			if(rearCam != null && rearCamOn) {
@@ -154,7 +189,7 @@ public class Camera extends Thread implements Runnable {
 			}
 			if(frontCam != null) {
 				frontCam.setWhiteBalanceManual(USBCamera.WhiteBalance.kFixedIndoor);
-				frontCam.setBrightness(CameraConstants.FRONT_BRIGHTNESS());
+				frontCam.setBrightness(0);
 				frontCam.setFPS(30);
 				frontCam.setSize(640, 480);
 				frontCam.updateSettings();
@@ -199,7 +234,7 @@ public class Camera extends Thread implements Runnable {
 			}
 			cameraView = NO_CAM;
 		}
-		Thread.sleep(100); //Give the camera about a tenth of a second to fully switch. This clears the broken images from the camera que.
+		Thread.sleep(100); //Give the camera about a tenth of a second to fully switch. This clears the broken images caused by switching from the camera server.
 		Logger.out("Stop loading animation...");
 		startTime = load.end();
 		while(load.running()) {
@@ -237,6 +272,6 @@ public class Camera extends Thread implements Runnable {
 		if(r<0) {r=0;}; if(r>0xFF) {r = 0xFF;}; //Limit range for red
 		if(g<0) {g=0;}; if(g>0xFF) {g = 0xFF;}; //Limit range for blue
 		if(b<0) {b=0;}; if(b>0xFF) {b = 0xFF;}; //Limit range for green
-		return (float)(0xFF000000 + (((int)g) << 16) + (((int)b) << 8) + (((int)r)));
+		return (float)(0x00000000 + (((int)g) << 16) + (((int)b) << 8) + (((int)r)));
 	}
 }

@@ -15,7 +15,7 @@ public class CameraConstants {
 	public static final String REAR_CAM_NAME = "cam1";
 	
 	public static final Range HUE() {
-		return setAndGetRange("Hue Low", 160, "Hue High", 180);
+		return setAndGetRange("Hue Low", 110, "Hue High", 130);
 	}
 	public static final Range SATURATION() {
 		return setAndGetRange("Saturation Low", 200, "Saturation High", 255);
