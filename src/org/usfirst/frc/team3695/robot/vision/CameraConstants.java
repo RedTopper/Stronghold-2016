@@ -36,13 +36,13 @@ public class CameraConstants {
 		return setAndGetNumber("Server Quality", 50);
 	}
 	
-	private static final Range setAndGetRange(String lowKey, int lowValue, String highKey, int highValue) {
+	public static final Range setAndGetRange(String lowKey, int lowValue, String highKey, int highValue) {
 		if(!pref.containsKey(lowKey)) pref.putInt(lowKey, lowValue);
 		if(!pref.containsKey(highKey)) pref.putInt(highKey, highValue);
 		return new Range(pref.getInt(lowKey, lowValue),pref.getInt(highKey, highValue));
 	}
 	
-	private static final int setAndGetNumber(String key, int value) {
+	public static final int setAndGetNumber(String key, int value) {
 		if(!pref.containsKey(key)) pref.putInt(key, value);
 		return pref.getInt(key, value);
 	}

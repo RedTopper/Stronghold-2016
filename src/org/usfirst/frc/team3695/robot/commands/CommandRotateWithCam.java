@@ -1,7 +1,10 @@
 package org.usfirst.frc.team3695.robot.commands;
 
 import org.usfirst.frc.team3695.robot.Constants;
+import org.usfirst.frc.team3695.robot.Logger;
 import org.usfirst.frc.team3695.robot.Robot;
+import org.usfirst.frc.team3695.robot.vision.Camera;
+import org.usfirst.frc.team3695.robot.vision.CameraConstants;
 
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Command;
@@ -19,22 +22,12 @@ public class CommandRotateWithCam extends Command {
 	public static final int ROTATE_LEFT_OVERALL = 0,
 							ROTATE_RIGHT_OVERALL = 1;
 	
-	/**
-	 * Used to tell the robot the current direction it should be moving. The
-	 * values here are usually temporary.
-	 */
-	private static final int ROT_LEFT = 0,
-			 				 ROT_RIGHT = 1;
-	
 	Preferences prefs = Preferences.getInstance();
-	private int CAMERA_CALIBRATION_LR = prefs.getInt(Constants.CAMERA_CALIBRATION_LR_NAME, 0);
 	
 	private int objective;
 	private boolean complete;
 	private int stage = 0;
-	private int error = 0;
-	private int rotDir = 0;
-	private long endPauseTime = 0;
+	private int calibration = CameraConstants.setAndGetNumber("Calibration Value", 10);
 	
 	/**
 	 * This will tell the robot witch way to move to face the goal the quickest.
@@ -49,99 +42,55 @@ public class CommandRotateWithCam extends Command {
     }
 
     protected void initialize() {
-    	error = 0;
+    	calibration = CameraConstants.setAndGetNumber("Calibration Value", 10);
     	stage = 0;
-    	rotDir = 0;
     	complete = false;
+    	if(Camera.getInstance() != null) {
+    		Camera.getInstance().controllerable(false);
+    		Camera.getInstance().switchCam(Camera.FRONT_PROCCESSED);
+    	} else {
+    		Logger.err("The camera isn't a thing, yo.");
+    	}
     }
 
     protected void execute(){
-    	if (error  > Constants.MAX_ERRORS) {
-    		Robot.STOP_AUTO = "The robot had too many camera errors.";
-    		complete = true;
-    	}
-    	
-    	double goalX = Robot.networkTables.getRawGoalX();
-    	if(goalX == -1.0 && stage >= 4) {
-    		error++;
-    	}
-    	if(goalX == -1.0) { 
-			switch(rotDir) {
-			case ROT_LEFT:
-				goalX = 0;
-				break;
-			case ROT_RIGHT:
-				goalX = Constants.CAMERA_WIDTH + 1;
-				break;
-			}
+		if(!Camera.getInstance().isProccessingCamera()) {
+			return;
 		}
+    	double goalX = Camera.getInstance().getGoalXY()[0];
     	
     	switch(objective) {
     	case ROTATE_RIGHT_OVERALL:
-    		switch(stage) {
-    		case 0:
-    			rotDir = ROT_RIGHT;
-    			stage++;
-    			break;
-    		case 1:
-    			if(goalX > Constants.CAMERA_WIDTH/2) {
-    				Robot.driveSubsystem.tankdrive(1.0, -1.0);
-    			} else {
-        			rotDir = ROT_LEFT;
-        			stage++;
-        			break;
-    			}
-    			break;
-    		case 2:
-    			endPauseTime = System.currentTimeMillis() + Constants.PAUSE_CAMERA_ROTATION_TIME_MS;
-    			stage++;
-    		case 3:
-    			if (System.currentTimeMillis() < endPauseTime) {
+    		if(stage == 0) {
+    			Robot.driveSubsystem.tankdrive(0.8, -0.8);
+    			if(goalX != -1.0 && goalX > 0.0) {
     				stage++;
     			}
-    			break;
-    		case 4:
-    			if (goalX < (Constants.CAMERA_WIDTH/2) - CAMERA_CALIBRATION_LR) {
-    				Robot.driveSubsystem.tankdrive(-0.5, 0.5);
-    			} else {
-        			complete = true;
-        		}
     		}
     		break;
     	case ROTATE_LEFT_OVERALL:
-    		switch(stage) {
-    		case 0:
-    			rotDir = ROT_LEFT;
-    			stage++;
-    			break;
-    		case 1:
-    			if(goalX < Constants.CAMERA_WIDTH/2) {
-    				Robot.driveSubsystem.tankdrive(-1.0, 1.0);
-    			} else {
-        			rotDir = ROT_RIGHT;
-        			stage++;
-        			break;
-    			}
-    			break;
-    		case 2:
-    			endPauseTime = System.currentTimeMillis() + Constants.PAUSE_CAMERA_ROTATION_TIME_MS;
-    			stage++;
-    		case 3:
-    			if (System.currentTimeMillis() < endPauseTime) {
+    		if(stage == 0) {
+    			Robot.driveSubsystem.tankdrive(-0.8, 0.8);
+    			if(goalX != -1.0 && goalX > 0.0) {
     				stage++;
     			}
-    			break;
-    		case 4:
-    			if (goalX > (Constants.CAMERA_WIDTH/2) + CAMERA_CALIBRATION_LR) {
-    				Robot.driveSubsystem.tankdrive(-0.5, 0.5);
-    			} else {
-        			complete = true;
-        		}
     		}
     		break;
     	default:
     		objective = ROTATE_RIGHT_OVERALL;
     		break;
+    	}
+    	
+    	if(stage == 1) {
+    		if(goalX != -1.0) {
+	    		if(goalX > (double)(Constants.CAMERA_WIDTH)/2.0 + calibration) {
+	    			Robot.driveSubsystem.tankdrive(0.7, -0.7);
+	    		} else if(goalX < (double)(Constants.CAMERA_WIDTH)/2.0 - calibration) {
+	    			Robot.driveSubsystem.tankdrive(-0.7, 0.7);
+	    		} else {
+	    			complete = true;
+	    		}
+    		}
     	}
     }
 
@@ -154,6 +103,12 @@ public class CommandRotateWithCam extends Command {
 
     protected void end() {
     	Robot.driveSubsystem.tankdrive(0, 0);
+    	if(Camera.getInstance() != null) {
+    		Camera.getInstance().controllerable(true);
+    		Camera.getInstance().switchCam(Camera.FRONT_CAM);
+    	} else {
+    		Logger.err("The camera isn't a thing, yo.");
+    	}
     }
 
     protected void interrupted() {

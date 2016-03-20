@@ -113,8 +113,8 @@ public class Constants {
 	/**
 	 * Camera width and height in pixels.
 	 */
-	public static final int CAMERA_WIDTH = 640,
-							CAMERA_HEIGHT = 480;
+	public static final int CAMERA_WIDTH = 320,
+							CAMERA_HEIGHT = 240;
 	
 	/**
 	 * Used for camera calibration. These numbers represent the offset from the center of the
@@ -127,7 +127,7 @@ public class Constants {
 	/**
 	 * Amount of time that the robot will rotate before timing out in seconds.
 	 */
-	public static final long MAX_ROTATE_TIME = 7;
+	public static final long MAX_ROTATE_TIME = 15;
 
 	/**
 	 * The amount of times code can run while the goal is out of the camera.

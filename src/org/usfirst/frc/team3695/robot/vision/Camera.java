@@ -1,6 +1,6 @@
 package org.usfirst.frc.team3695.robot.vision;
 
-import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.usfirst.frc.team3695.robot.Logger;
 
@@ -19,6 +19,17 @@ import edu.wpi.first.wpilibj.vision.USBCamera;
 
 public class Camera extends Thread implements Runnable {
 	private static Camera instance;
+	
+	/**
+	 * The minimum size of the convex hull of the goal.
+	 */
+	public static final int GOAL_MIN_AREA = 800;
+	
+	/**
+	 * Boolean that represents if the camera should be
+	 * controlled with a controller or not.
+	 */
+	private boolean controllerable = true;
 	
 	/**
 	 * Cameras attached to the robot.
@@ -43,8 +54,8 @@ public class Camera extends Thread implements Runnable {
 	/**
 	 * Variables used to control the camera.
 	 */
-	private static int cameraView = FRONT_CAM,
-					   newCameraView = FRONT_CAM;
+	private int cameraView = FRONT_CAM,
+				newCameraView = FRONT_CAM;
 	/**
 	 * All of the images that can be shown on camera.
 	 */
@@ -61,12 +72,26 @@ public class Camera extends Thread implements Runnable {
 				  S = CameraConstants.SATURATION(),
 				  V = CameraConstants.VALUE();
 	
+	/**
+	 * Used for the loading animation.
+	 */
 	private double startTime = 0.0;
 	
 	/**
 	 * An array list of arrays that contain data about the particles on the robot.
 	 */
-	private static ArrayList<int[]> output = new ArrayList<>(); 
+	private CopyOnWriteArrayList<int[]> output = new CopyOnWriteArrayList<>(); 
+	
+	/**
+	 * List of data that needs to be collected for each particle.
+	 */
+	private NIVision.MeasurementType[] dataToCollect = new NIVision.MeasurementType[]{
+			NIVision.MeasurementType.MT_CENTER_OF_MASS_X,
+			NIVision.MeasurementType.MT_CENTER_OF_MASS_Y,
+			NIVision.MeasurementType.MT_AREA,
+			NIVision.MeasurementType.MT_CONVEX_HULL_AREA,
+			NIVision.MeasurementType.MT_BOUNDING_RECT_WIDTH,
+			NIVision.MeasurementType.MT_BOUNDING_RECT_HEIGHT};
 	
 	/**
 	 * Creates a new set of cameras. A set of cameras consists of a front and a rear
@@ -137,15 +162,13 @@ public class Camera extends Thread implements Runnable {
 					frontCam.getImage(frontFrame);
 					NIVision.imaqColorThreshold(frontProcFrame, frontFrame, 0x00FFFFFF, ColorMode.HSV, H, S, V); //Get a black and white image from a Hue, Saturation, and Value
 					int numOfParticles = NIVision.imaqCountParticles(frontProcFrame, 1);
-					output = new ArrayList<>();
-					for (int i = 0; i < numOfParticles; i++) { //Process the particles
-						output.add(new int[]
-								{(int)(NIVision.imaqMeasureParticle(frontProcFrame, i, 0, NIVision.MeasurementType.MT_CENTER_OF_MASS_X)),
-								 (int)(NIVision.imaqMeasureParticle(frontProcFrame, i, 0, NIVision.MeasurementType.MT_CENTER_OF_MASS_Y)),
-								 (int)(NIVision.imaqMeasureParticle(frontProcFrame, i, 0, NIVision.MeasurementType.MT_AREA)),
-								 (int)(NIVision.imaqMeasureParticle(frontProcFrame, i, 0, NIVision.MeasurementType.MT_CONVEX_HULL_AREA)),
-								 (int)(NIVision.imaqMeasureParticle(frontProcFrame, i, 0, NIVision.MeasurementType.MT_BOUNDING_RECT_WIDTH)),
-								 (int)(NIVision.imaqMeasureParticle(frontProcFrame, i, 0, NIVision.MeasurementType.MT_BOUNDING_RECT_HEIGHT))});
+					output = new CopyOnWriteArrayList<>();
+					for (int particle = 0; particle < numOfParticles; particle++) { //Process the particles
+						int[] data = new int[dataToCollect.length];
+						for(int i = 0; i < dataToCollect.length; i++) {
+							data[i] = (int)(NIVision.imaqMeasureParticle(frontProcFrame, particle, 0, dataToCollect[i]));
+						}
+						output.add(data);
 					}
 					NIVision.imaqMask(frontFrame, frontFrame, frontProcFrame); //Mask the image with the color one.
 					for(int i = 0; i < output.size(); i++) {
@@ -329,18 +352,52 @@ public class Camera extends Thread implements Runnable {
 	}
 	
 	/**
-	 * Returns a detailed list of arrays from all of the camera
-	 * particles.
-	 * @return
+	 * Returns if the camera is actually doing image processing.
 	 */
-	public static ArrayList<int[]> getPoints() {
-		return output;
+	public boolean isProccessingCamera() {
+		return cameraView == FRONT_PROCCESSED;
 	}
 	
 	/**
-	 * Returns if the camera is actually doing image processing.
+	 * True if the camera can be manually be controlled by a controller.
+	 * @return True if the controller should be able to switch the camera
+	 * to some other camera, false if it should not.
 	 */
-	public static boolean isProccessingCamera() {
-		return cameraView == FRONT_PROCCESSED;
+	public boolean isControllable() {
+		return controllerable;
+	}
+	
+	/**
+	 * Set if a controller should be used on the camera.
+	 * @param controllerable True for controllers, false for code based controlling.
+	 */
+	public void controllerable(boolean controllerable) {
+		this.controllerable = controllerable;
+	}
+
+	/**
+	 * Returns the X/Y position of the goal.
+	 * @return getGoalXY()[0] x position and getGoalXY()[1] y position.
+	 */
+	public double[] getGoalXY() {
+		int convexArea = -1;
+		int x = -1;
+		int y = -1;;
+		for(int[] data : output) {
+			if(data[3/*The convex hull area*/] > GOAL_MIN_AREA) {
+				convexArea = data[3];
+				if(data[0/*The X position*/] > x) {
+					x = data[0];
+				}
+				if(data[1/*The Y position]*/] > y) {
+					y = data[1];
+				}
+			}
+		}
+		if(convexArea < 0) {
+			return new double[]{-1.0,-1.0};
+		} else {
+			return new double[]{(double)x,(double)y};
+		}
 	}
 }

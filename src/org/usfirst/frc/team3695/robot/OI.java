@@ -134,21 +134,21 @@ public class OI {
 	 */
 	private void updateButtonsManual() {
 		//Code for viewing the rear view cam
-		if(!driveRearCamNeedsUpdate && Controller.DRIVE_JOY().getRawButton(Controller.DRIVE_REAR_CAM)) {
+		if(cam.isControllable() && !driveRearCamNeedsUpdate && Controller.DRIVE_JOY().getRawButton(Controller.DRIVE_REAR_CAM)) {
 			if(cam != null) cam.switchCam(Camera.REAR_CAM);
 			driveRearCamNeedsUpdate = true;
 		}
-		if(driveRearCamNeedsUpdate && !Controller.DRIVE_JOY().getRawButton(Controller.DRIVE_REAR_CAM)){
+		if(cam.isControllable() && driveRearCamNeedsUpdate && !Controller.DRIVE_JOY().getRawButton(Controller.DRIVE_REAR_CAM)){
 			if(cam != null) cam.switchCam(Camera.FRONT_CAM);
 			driveRearCamNeedsUpdate = false;
 		}
 		
 		//Code for viewing the processed vision camera.
-		if(!driveFrontCamProcNeedsUpdate && Controller.DRIVE_JOY().getRawButton(Controller.DRIVE_PROCESSED_CAM)) {
+		if(cam.isControllable() && !driveFrontCamProcNeedsUpdate && Controller.DRIVE_JOY().getRawButton(Controller.DRIVE_PROCESSED_CAM)) {
 			if(cam != null) cam.switchCam(Camera.FRONT_PROCCESSED);
 			driveFrontCamProcNeedsUpdate = true;
 		} 
-		if(driveFrontCamProcNeedsUpdate && !Controller.DRIVE_JOY().getRawButton(Controller.DRIVE_PROCESSED_CAM)){
+		if(cam.isControllable() && driveFrontCamProcNeedsUpdate && !Controller.DRIVE_JOY().getRawButton(Controller.DRIVE_PROCESSED_CAM)){
 			if(cam != null) cam.switchCam(Camera.FRONT_CAM);
 			driveFrontCamProcNeedsUpdate = false;
 		}
