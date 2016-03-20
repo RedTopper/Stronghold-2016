@@ -317,7 +317,7 @@ public class Camera extends Thread implements Runnable {
 			Thread.sleep(20);
 		}
 		load = null; //Dispose the thread.
-		Logger.err("Switched cams!");
+		Logger.out("Switched cams!");
 		cameraView = newCameraView;
 	}
 	

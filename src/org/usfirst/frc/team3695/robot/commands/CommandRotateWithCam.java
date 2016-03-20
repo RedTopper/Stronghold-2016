@@ -93,9 +93,9 @@ public class CommandRotateWithCam extends Command {
     	if(stage == 1) {
     		if(goalX != -1.0) {
 	    		if(goalX > (double)(CameraConstants.LOW_RES_CAMERA_WIDTH)/2.0 + calibration + center) {
-	    			Robot.driveSubsystem.tankdrive(0.6, -0.6);
+	    			Robot.driveSubsystem.tankdrive(0.7, -0.7);
 	    		} else if(goalX < (double)(CameraConstants.LOW_RES_CAMERA_WIDTH)/2.0 - calibration + center) {
-	    			Robot.driveSubsystem.tankdrive(-0.6, 0.6);
+	    			Robot.driveSubsystem.tankdrive(-0.7, 0.7);
 	    		} else {
 	    			complete = true;
 	    			Logger.out("So the camera ended here: " + goalX);
