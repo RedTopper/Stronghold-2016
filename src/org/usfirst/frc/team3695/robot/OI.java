@@ -1,5 +1,6 @@
 package org.usfirst.frc.team3695.robot;
 
+import org.usfirst.frc.team3695.robot.commands.CommandDriveWithCam;
 import org.usfirst.frc.team3695.robot.commands.CommandGetBall;
 import org.usfirst.frc.team3695.robot.commands.CommandRotateWithCam;
 import org.usfirst.frc.team3695.robot.commands.pneumatics.CommandCompressorToggle;
@@ -44,6 +45,8 @@ public class OI {
 		//SmartDash
 		SmartDashboard.putData("Use camera to rotate RIGHT", new CommandRotateWithCam(CommandRotateWithCam.ROTATE_RIGHT_OVERALL));
 		SmartDashboard.putData("Use camera to rotate LEFT", new CommandRotateWithCam(CommandRotateWithCam.ROTATE_LEFT_OVERALL));
+		
+		SmartDashboard.putData("Use camera to drive", new CommandDriveWithCam());
 		
 		//SmartDashboard.putData("Lock latch", new CommandMoveArmRaw(CommandMoveArmRaw.LOCK_LATCH));
 		//SmartDashboard.putData("Unlock latch", new CommandMoveArmRaw(CommandMoveArmRaw.UNLOCK_LATCH));

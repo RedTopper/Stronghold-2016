@@ -23,11 +23,6 @@ public class Camera extends Thread implements Runnable {
 	private static Camera instance;
 	
 	/**
-	 * The minimum size of the convex hull of the goal.
-	 */
-	public static final int GOAL_MIN_AREA = 800;
-	
-	/**
 	 * Boolean that represents if the camera should be
 	 * controlled with a controller or not.
 	 */
@@ -56,8 +51,12 @@ public class Camera extends Thread implements Runnable {
 	/**
 	 * Variables used to control the camera.
 	 */
-	private int cameraView = FRONT_CAM,
-				newCameraView = FRONT_CAM;
+	private int cameraView = FRONT_CAM;
+	
+	/**
+	 * Variable used to control outside access to switching cameras.
+	 */
+	private volatile int newCameraView = FRONT_CAM;
 	/**
 	 * All of the images that can be shown on camera.
 	 */
@@ -177,7 +176,8 @@ public class Camera extends Thread implements Runnable {
 					for(int i = 0; i < output.size(); i++) {
 						NIVision.imaqDrawShapeOnImage(frontFrame, frontFrame, new Rect(output.get(i)[1] - 2, output.get(i)[0] - 2, 4, 4), DrawMode.PAINT_VALUE, ShapeMode.SHAPE_RECT, Util.getColor(0xFF, 0x00, 0x00));
 					}
-					getGoalXY();
+					double[] xy = getGoalXY();
+					NIVision.imaqDrawShapeOnImage(frontFrame, frontFrame, new Rect((int)xy[1] - 4, (int)xy[0] - 4, 8, 8), DrawMode.PAINT_VALUE, ShapeMode.SHAPE_RECT, Util.getColor(0x00, 0x00, 0xFF));
 					CameraServer.getInstance().setImage(frontFrame);
 					break out;
 				case FRONT_CAM:
@@ -221,7 +221,7 @@ public class Camera extends Thread implements Runnable {
 	 * Camera.NO_CAM, Camera.FRONT_PROCCESSED, Camera.FRONT_CAM, Camera.REAR_CAM
 	 * @param cam An integer of the camera.
 	 */
-	public synchronized void switchCam(int cam) {
+	public void switchCam(int cam) {
 		newCameraView = cam;
 	}
 	
@@ -374,7 +374,7 @@ public class Camera extends Thread implements Runnable {
 		int x = -1;
 		int y = -1;
 		for(int[] data : output) {
-			if(data[3/*The convex hull area*/] > GOAL_MIN_AREA) {
+			if(data[3/*The convex hull area*/] > CameraConstants.GOAL_MIN_AREA) {
 				convexArea = data[3];
 				if(data[0/*The X position*/] > x) {
 					x = data[0];

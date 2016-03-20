@@ -33,14 +33,12 @@ public class Robot extends IterativeRobot {
 	//Generic variables
 	private long lastTime = System.currentTimeMillis();
 	private double ticksPerSecond = 0;
-	//private int lastSelectedCamera = Camera.FRONT_CAM;
 	
 	//Choosers
 	private static SendableChooser autoChooser;
 	private static SendableChooser rumbleChooser;
 	private static SendableChooser driveChooser;
 	private static SendableChooser boostChooser;
-	//private static SendableChooser cameraChooser;
 	
 	//Auto
 	private Command autonomousCommand;
@@ -92,21 +90,11 @@ public class Robot extends IterativeRobot {
         boostChooser.addDefault("Boost Button", true);
         boostChooser.addObject("Slow Button", false);
         
-        //Set up cameraChooser for selecting witch camera to view 
-        /*
-        cameraChooser = new SendableChooser();
-        cameraChooser.addDefault("Front Camera", new Integer(Camera.FRONT_CAM));
-        cameraChooser.addObject("Front Camera (processed)", new Integer(Camera.FRONT_PROCCESSED));
-        cameraChooser.addObject("Rear Camera", new Integer(Camera.REAR_CAM));
-        cameraChooser.addObject("No Camera", new Integer(Camera.NO_CAM));
-        */
-        
         //Put choosers on robot smart dash.
         SmartDashboard.putData("Auto Mode", autoChooser);
         SmartDashboard.putData("Rumble Mode", rumbleChooser);
         SmartDashboard.putData("Drive Mode", driveChooser);
         SmartDashboard.putData("Boost Mode", boostChooser);
-        //SmartDashboard.putData("Camera Mode", cameraChooser);
         
 
         // Show what command your subsystem is running on the SmartDashboard
@@ -160,7 +148,11 @@ public class Robot extends IterativeRobot {
      * any given loop.
      */
     private void log() {
-    	ticksPerSecond = (1000.0 / (double)(System.currentTimeMillis() - lastTime));
+    	double currentTime = System.currentTimeMillis();
+    	ticksPerSecond = (1000.0 / (double)(currentTime - lastTime));
+    	if(currentTime - lastTime > 100) {
+    		Logger.err("Can't keep up! Did the system time change, or is the server overloaded? Running " + ((long)currentTime - (long)lastTime) + "ms behind");
+    	}
     	lastTime = System.currentTimeMillis();
     	logUnsafe();
     	driveSubsystem.log();
@@ -172,16 +164,6 @@ public class Robot extends IterativeRobot {
     	
     	//Puts a reason for stopping auto on the dash.
     	SmartDashboard.putString("Auto Status: ", (STOP_AUTO == null ? "Everything is normal." : STOP_AUTO));
-    	
-    	//update the camera if the user selects a different camera to show
-    	
-    	/*
-    	int currentCamera = (int) (cameraChooser.getSelected());
-    	if(cam != null && lastSelectedCamera != currentCamera) {
-    		cam.switchCam(currentCamera);
-        	lastSelectedCamera = currentCamera;
-    	}
-    	*/
     }
     
     private void logUnsafe() {

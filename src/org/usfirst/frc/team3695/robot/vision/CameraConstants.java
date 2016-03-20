@@ -10,6 +10,21 @@ public class CameraConstants {
 	}
 	
 	/**
+	 * Amount of time that the robot will rotate before timing out in seconds.
+	 */
+	public static final int MAX_ROTATE_TIME = 5;
+	
+	/**
+	 * Amount of time that the robot will rotate before timing out in seconds.
+	 */
+	public static final int MAX_FORWARD_TIME = 5;
+	
+	/**
+	 * The minimum size of the convex hull of the goal.
+	 */
+	public static final int GOAL_MIN_AREA = 600;
+	
+	/**
 	 * Camera width and height in pixels. This is used for image recognition because it is
 	 * faster to process.
 	 */
@@ -42,7 +57,7 @@ public class CameraConstants {
 	 * @return The backup value as defined in the method or the value stored in the preferences if available.
 	 */
 	public static final Range HUE() {
-		return Util.setAndGetRange("Hue Low", 110, "Hue High", 130); //Set default ranges here
+		return Util.setAndGetRange("REC", "Hue Low", 110, "Hue High", 130); //Set default ranges here
 	}
 	
 	/**
@@ -50,7 +65,7 @@ public class CameraConstants {
 	 * @return The backup value as defined in the method or the value stored in the preferences if available.
 	 */
 	public static final Range SATURATION() {
-		return Util.setAndGetRange("Saturation Low", 200, "Saturation High", 255); //Set default ranges here
+		return Util.setAndGetRange("REC", "Saturation Low", 200, "Saturation High", 255); //Set default ranges here
 	}
 	
 	/**
@@ -58,7 +73,7 @@ public class CameraConstants {
 	 * @return The backup value as defined in the method or the value stored in the preferences if available.
 	 */
 	public static final Range VALUE() {
-		return Util.setAndGetRange("Value Low", 200, "Value High", 255); //Set default ranges here
+		return Util.setAndGetRange("REC", "Value Low", 200, "Value High", 255); //Set default ranges here
 	}
 	
 	/**
@@ -66,7 +81,7 @@ public class CameraConstants {
 	 * @return The backup value as defined in the method or the value stored in the preferences if available.
 	 */
 	public static final int FRONT_BRIGHTNESS(){
-		return Util.setAndGetNumber("Front Camera Brightness", 50); //Set default value here
+		return Util.setAndGetNumber("CAM", "Front Brightness", 50); //Set default value here
 	}
 	
 	/**
@@ -74,6 +89,6 @@ public class CameraConstants {
 	 * @return The backup value as defined in the method or the value stored in the preferences if available.
 	 */
 	public static final int SERVER_QUALITY() {
-		return Util.setAndGetNumber("Server Quality", 50); //Set default value here
+		return Util.setAndGetNumber("CAM", "Server Quality", 50); //Set default value here
 	}
 }

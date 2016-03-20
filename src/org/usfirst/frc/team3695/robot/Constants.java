@@ -102,6 +102,7 @@ public class Constants {
 	 * The controller will rumble for at least this long before stopping. 
 	 */
 	public static final long RUMBLE_TIME_MS = 200;
+	
 	/**
 	 * This value defines the amount of needed g forces to activate rumble. If
 	 * the current amount of g force is higher than 1 g + RUMBLE_BOUND_G_FORCE -OR-
@@ -117,16 +118,6 @@ public class Constants {
 	 */
 	public static final String CAMERA_CALIBRATION_LR_NAME = "LeftRight",
 							   CAMERA_CALIBRATION_UD_NAME = "ForwardBackward";
-
-	/**
-	 * Amount of time that the robot will rotate before timing out in seconds.
-	 */
-	public static final long MAX_ROTATE_TIME = 15;
-
-	/**
-	 * The amount of times code can run while the goal is out of the camera.
-	 */
-	public static final int MAX_ERRORS = 100;
 
 	/**
 	 * Solenoid ports.

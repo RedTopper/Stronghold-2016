@@ -20,27 +20,29 @@ public class Util {
 	
 	/**
 	 * Either sets a backup range or returns the one set by the driver on the smartdash preferences.
+	 * @param type The type of control this preference is for. Example: "REC" is for image recognition, and "CAM" is for camera.
 	 * @param lowKey The name of the low value.
 	 * @param lowValue The default value of the low value
 	 * @param highKey The name of the high value
 	 * @param highValue The default value of the high value
 	 * @return The range that was either just created by calling this method, or the one set in robot preferences.
 	 */
-	public static final Range setAndGetRange(String lowKey, int lowValue, String highKey, int highValue) {
-		if(!pref.containsKey(lowKey)) pref.putInt(lowKey, lowValue);
-		if(!pref.containsKey(highKey)) pref.putInt(highKey, highValue);
-		return new Range(pref.getInt(lowKey, lowValue),pref.getInt(highKey, highValue));
+	public static final Range setAndGetRange(String type, String lowKey, int lowValue, String highKey, int highValue) {
+		if(!pref.containsKey(type + ": " + lowKey)) pref.putInt(type + ": " + lowKey, lowValue);
+		if(!pref.containsKey(type + ": " + highKey)) pref.putInt(type + ": " + highKey, highValue);
+		return new Range(pref.getInt(type + ": " + lowKey, lowValue),pref.getInt(type + ": " + highKey, highValue));
 	}
 	
 	/**
-	 * Either sets a backup value or returns the one set by the driver on the smartdash preferences.
+	 * Either sets a backup value or returns the one set by the driver on the smart dash preferences.
+	 * @param type The type of control this preference is for. Example: "REC" is for image recognition, and "CAM" is for camera.
 	 * @param key The name of the value
 	 * @param value The default value if one has not been set yet.
 	 * @return The value that was either just created, or a previous one set by the robot preferences.
 	 */
-	public static final int setAndGetNumber(String key, int value) {
-		if(!pref.containsKey(key)) pref.putInt(key, value);
-		return pref.getInt(key, value);
+	public static final int setAndGetNumber(String type, String key, int value) {
+		if(!pref.containsKey(type + ": " + key)) pref.putInt(type + ": " + key, value);
+		return pref.getInt(type + ": " + key, value);
 	}
 	
 	/**
@@ -54,7 +56,7 @@ public class Util {
 		if(r<0) {r=0;}; if(r>0xFF) {r = 0xFF;}; //Limit range for red
 		if(g<0) {g=0;}; if(g>0xFF) {g = 0xFF;}; //Limit range for blue
 		if(b<0) {b=0;}; if(b>0xFF) {b = 0xFF;}; //Limit range for green
-		return (float)(0x00000000 + (((int)g) << 16) + (((int)b) << 8) + (((int)r)));
+		return (float)(0x00000000 + (((int)b) << 16) + (((int)g) << 8) + (((int)r)));
 	}
 	
 	/**
