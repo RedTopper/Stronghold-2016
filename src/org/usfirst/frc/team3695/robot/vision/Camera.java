@@ -2,12 +2,14 @@ package org.usfirst.frc.team3695.robot.vision;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import org.usfirst.frc.team3695.robot.Logger;
+import org.usfirst.frc.team3695.robot.util.Logger;
+import org.usfirst.frc.team3695.robot.util.Util;
 
 import com.ni.vision.NIVision;
 import com.ni.vision.NIVision.ColorMode;
 import com.ni.vision.NIVision.DrawMode;
 import com.ni.vision.NIVision.Image;
+import com.ni.vision.NIVision.MorphologyMethod;
 import com.ni.vision.NIVision.Point;
 import com.ni.vision.NIVision.Range;
 import com.ni.vision.NIVision.Rect;
@@ -59,8 +61,8 @@ public class Camera extends Thread implements Runnable {
 	/**
 	 * All of the images that can be shown on camera.
 	 */
-	private Image frontFrame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0),
-				  frontProcFrame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_U8, 0),
+	private Image frontFrame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 2),
+				  frontProcFrame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_U8, 2),
 				  rearFrame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0),
 				  waitFrame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0),
 				  noFrame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
@@ -103,19 +105,19 @@ public class Camera extends Thread implements Runnable {
 		//Create the images
 		NIVision.imaqSetImageSize(noFrame, 640, 480);
 		NIVision.imaqSetImageSize(waitFrame, 640, 480);
-		NIVision.imaqSetImageSize(frontProcFrame, 640, 480);
+		//NIVision.imaqSetImageSize(frontProcFrame, 640, 480);
 		
 		//Create a big red "NO" sign on one of them. This is shown when an exception is thrown.
-		NIVision.imaqDrawShapeOnImage(noFrame, noFrame, new Rect(0,(640/2) - (480/2), 480, 480), DrawMode.PAINT_VALUE, ShapeMode.SHAPE_OVAL, getColor(0xFF,0x0,0x0));
-		NIVision.imaqDrawShapeOnImage(noFrame, noFrame, new Rect(10,(640/2) - (480/2) + 10, 460, 460), DrawMode.PAINT_VALUE, ShapeMode.SHAPE_OVAL, getColor(0,0,0));
+		NIVision.imaqDrawShapeOnImage(noFrame, noFrame, new Rect(0,(640/2) - (480/2), 480, 480), DrawMode.PAINT_VALUE, ShapeMode.SHAPE_OVAL, Util.getColor(0xFF,0x0,0x0));
+		NIVision.imaqDrawShapeOnImage(noFrame, noFrame, new Rect(10,(640/2) - (480/2) + 10, 460, 460), DrawMode.PAINT_VALUE, ShapeMode.SHAPE_OVAL, Util.getColor(0,0,0));
 		Point topLeft = new Point((int)((320 - 230 * (Math.sqrt(2)/2))+ 0.5),
 								  (int)((240 - 230 * (Math.sqrt(2)/2)) + 0.5));
 		Point bottomRight = new Point((int)((320 + 230 * (Math.sqrt(2)/2)) + 0.5),
 				  					  (int)((240 + 230 * (Math.sqrt(2)/2)) + 0.5));
-		NIVision.imaqDrawLineOnImage(noFrame, noFrame, DrawMode.DRAW_VALUE, topLeft, bottomRight, getColor(0xFF,0x00,0x00));
+		NIVision.imaqDrawLineOnImage(noFrame, noFrame, DrawMode.DRAW_VALUE, topLeft, bottomRight, Util.getColor(0xFF,0x00,0x00));
 		for(int i = 1; i <= 5; i++) { 
-			NIVision.imaqDrawLineOnImage(noFrame, noFrame, DrawMode.DRAW_VALUE, new Point(topLeft.x, topLeft.y - i), new Point(bottomRight.x + i, bottomRight.y), getColor(0xFF,0x00,0x00));
-			NIVision.imaqDrawLineOnImage(noFrame, noFrame, DrawMode.DRAW_VALUE, new Point(topLeft.x - i, topLeft.y), new Point(bottomRight.x, bottomRight.y + i), getColor(0xFF,0x00,0x00));
+			NIVision.imaqDrawLineOnImage(noFrame, noFrame, DrawMode.DRAW_VALUE, new Point(topLeft.x, topLeft.y - i), new Point(bottomRight.x + i, bottomRight.y), Util.getColor(0xFF,0x00,0x00));
+			NIVision.imaqDrawLineOnImage(noFrame, noFrame, DrawMode.DRAW_VALUE, new Point(topLeft.x - i, topLeft.y), new Point(bottomRight.x, bottomRight.y + i), Util.getColor(0xFF,0x00,0x00));
 		}
 		
 		//Attempt to start the two cameras.
@@ -161,6 +163,7 @@ public class Camera extends Thread implements Runnable {
 				case FRONT_PROCESSED:
 					frontCam.getImage(frontFrame);
 					NIVision.imaqColorThreshold(frontProcFrame, frontFrame, 0x00FFFFFF, ColorMode.HSV, H, S, V); //Get a black and white image from a Hue, Saturation, and Value
+					NIVision.imaqMorphology(frontProcFrame, frontProcFrame, MorphologyMethod.PCLOSE,null);
 					int numOfParticles = NIVision.imaqCountParticles(frontProcFrame, 1);
 					output = new CopyOnWriteArrayList<>();
 					for (int particle = 0; particle < numOfParticles; particle++) { //Process the particles
@@ -172,7 +175,7 @@ public class Camera extends Thread implements Runnable {
 					}
 					NIVision.imaqMask(frontFrame, frontFrame, frontProcFrame); //Mask the image with the color one.
 					for(int i = 0; i < output.size(); i++) {
-						NIVision.imaqDrawShapeOnImage(frontFrame, frontFrame, new Rect(output.get(i)[1] - 2, output.get(i)[0] - 2, 4, 4), DrawMode.PAINT_VALUE, ShapeMode.SHAPE_RECT, Camera.getColor(0xFF, 0x00, 0x00));
+						NIVision.imaqDrawShapeOnImage(frontFrame, frontFrame, new Rect(output.get(i)[1] - 2, output.get(i)[0] - 2, 4, 4), DrawMode.PAINT_VALUE, ShapeMode.SHAPE_RECT, Util.getColor(0xFF, 0x00, 0x00));
 					}
 					getGoalXY();
 					CameraServer.getInstance().setImage(frontFrame);
@@ -248,7 +251,7 @@ public class Camera extends Thread implements Runnable {
 				frontCam.setWhiteBalanceManual(USBCamera.WhiteBalance.kFixedIndoor);
 				frontCam.setBrightness(CameraConstants.FRONT_BRIGHTNESS()); //different brightness.
 				frontCam.setFPS(30);
-				frontCam.setSize(320, 240);  //lower res for faster processing.
+				frontCam.setSize(CameraConstants.LOW_RES_CAMERA_WIDTH, CameraConstants.LOW_RES_CAMERA_HEIGHT);  //lower res for faster processing.
 				frontCam.updateSettings();
 				frontCam.openCamera();
 				frontCam.startCapture();
@@ -268,7 +271,7 @@ public class Camera extends Thread implements Runnable {
 				frontCam.setWhiteBalanceManual(USBCamera.WhiteBalance.kFixedIndoor);
 				frontCam.setBrightness(0);
 				frontCam.setFPS(30);
-				frontCam.setSize(640, 480);
+				frontCam.setSize(CameraConstants.HIGH_RES_CAMERA_WIDTH, CameraConstants.HIGH_RES_CAMERA_HEIGHT);
 				frontCam.updateSettings();
 				frontCam.openCamera();
 				frontCam.startCapture();
@@ -336,20 +339,6 @@ public class Camera extends Thread implements Runnable {
 			Logger.err("Could not start the " + humanName + " nammed \"" + camName + "\"!", e);
 		}
 		return cam;
-	}
-	
-	/**
-	 * Takes a Red, Green, and Blue value and returns the appropriate float. Maybe
-	 * @param r Redness
-	 * @param g Greenness
-	 * @param b Blueness
-	 * @return A float
-	 */
-	public static float getColor(int r, int g, int b) {
-		if(r<0) {r=0;}; if(r>0xFF) {r = 0xFF;}; //Limit range for red
-		if(g<0) {g=0;}; if(g>0xFF) {g = 0xFF;}; //Limit range for blue
-		if(b<0) {b=0;}; if(b>0xFF) {b = 0xFF;}; //Limit range for green
-		return (float)(0x00000000 + (((int)g) << 16) + (((int)b) << 8) + (((int)r)));
 	}
 	
 	/**

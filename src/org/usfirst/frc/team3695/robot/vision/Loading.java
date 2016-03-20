@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3695.robot.vision;
 
-import org.usfirst.frc.team3695.robot.Logger;
+import org.usfirst.frc.team3695.robot.util.Logger;
+import org.usfirst.frc.team3695.robot.util.Util;
 
 import com.ni.vision.NIVision;
 import com.ni.vision.NIVision.DrawMode;
@@ -52,11 +53,11 @@ public class Loading extends Thread implements Runnable{
 	public void run() {
 		while(loop) {
 			try {
-				NIVision.imaqDrawShapeOnImage(waitImage, waitImage, new Rect(0,0,480,640), DrawMode.PAINT_VALUE, ShapeMode.SHAPE_RECT ,hsvToRgb((currentTimeSeconds/2000.0) % 1.0, 0.7, 1.0));
+				NIVision.imaqDrawShapeOnImage(waitImage, waitImage, new Rect(0,0,480,640), DrawMode.PAINT_VALUE, ShapeMode.SHAPE_RECT ,Util.hsvToRgb((currentTimeSeconds/2000.0) % 1.0, 0.7, 1.0));
 				for(int i = 0; i < 5; i++) {
 					double x = calcX(currentTimeSeconds - (i * DISTANCE));
 					double y = calcY(currentTimeSeconds - (i * DISTANCE));
-					NIVision.imaqDrawShapeOnImage(waitImage, waitImage, getRectFromPoint((int)x,(int)y), DrawMode.PAINT_VALUE, ShapeMode.SHAPE_OVAL , Camera.getColor(0xFF, 0xFF, 0xFF));
+					NIVision.imaqDrawShapeOnImage(waitImage, waitImage, getRectFromPoint((int)x,(int)y), DrawMode.PAINT_VALUE, ShapeMode.SHAPE_OVAL , Util.getColor(0xFF, 0xFF, 0xFF));
 				}
 				currentTimeSeconds += (double)1000/(double)FPS;
 				CameraServer.getInstance().setImage(waitImage);
@@ -88,30 +89,5 @@ public class Loading extends Thread implements Runnable{
 	
 	public static Rect getRectFromPoint(int x, int y) {
 		return new Rect((480/2) - SMALL_RADIUS - y, (640/2) - SMALL_RADIUS + x, SMALL_RADIUS, SMALL_RADIUS);
-	}
-	
-	/**
-	 * Convert a hue, saturation, and value to a float compatible with NIVision.
-	 * @param hue double from 0-1
-	 * @param saturation double from 0-1
-	 * @param value double from 0-1
-	 * @return a float based on NIVision.
-	 */
-	public static float hsvToRgb(double hue, double saturation, double value) {		
-	    int h = (int)(hue * 6);
-	    double f = hue * 6 - h;
-	    double p = value * (1 - saturation);
-	    double q = value * (1 - f * saturation);
-	    double t = value * (1 - (1 - f) * saturation);
-
-	    switch (h) {
-	      case 0: return Camera.getColor((int)(value * 256.0), (int)(t * 256.0), (int)( p * 256.0));
-	      case 1: return Camera.getColor((int)(q * 256.0), (int)(value * 256.0), (int)( p * 256.0));
-	      case 2: return Camera.getColor((int)(p * 256.0), (int)(value * 256.0), (int)( t * 256.0));
-	      case 3: return Camera.getColor((int)(p * 256.0), (int)(q * 256.0), (int)( value * 256.0));
-	      case 4: return Camera.getColor((int)(t * 256.0), (int)(p * 256.0), (int)( value * 256.0));
-	      case 5: return Camera.getColor((int)(value * 256.0), (int)(p * 256.0), (int)( q * 256.0));
-	      default: return Camera.getColor(0, 0, 0);
-	    }
 	}
 }

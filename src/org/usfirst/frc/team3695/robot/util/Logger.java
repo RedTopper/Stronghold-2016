@@ -1,4 +1,4 @@
-package org.usfirst.frc.team3695.robot;
+package org.usfirst.frc.team3695.robot.util;
 
 public class Logger {
 	/**

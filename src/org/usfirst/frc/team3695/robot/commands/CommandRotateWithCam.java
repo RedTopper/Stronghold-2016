@@ -1,8 +1,9 @@
 package org.usfirst.frc.team3695.robot.commands;
 
 import org.usfirst.frc.team3695.robot.Constants;
-import org.usfirst.frc.team3695.robot.Logger;
 import org.usfirst.frc.team3695.robot.Robot;
+import org.usfirst.frc.team3695.robot.util.Logger;
+import org.usfirst.frc.team3695.robot.util.Util;
 import org.usfirst.frc.team3695.robot.vision.Camera;
 import org.usfirst.frc.team3695.robot.vision.CameraConstants;
 
@@ -27,7 +28,7 @@ public class CommandRotateWithCam extends Command {
 	private int objective;
 	private boolean complete;
 	private int stage = 0;
-	private int calibration = CameraConstants.setAndGetNumber("Calibration Value", 10);
+	private int calibration = Util.setAndGetNumber("Calibration Value", 10);
 	
 	private long lastTime = 0;
 	
@@ -44,7 +45,7 @@ public class CommandRotateWithCam extends Command {
     }
 
     protected void initialize() {
-    	calibration = CameraConstants.setAndGetNumber("Calibration Value", 10);
+    	calibration = Util.setAndGetNumber("Calibration Value", 10);
     	stage = 0;
     	complete = false;
     	if(Camera.getInstance() != null) {
@@ -89,9 +90,9 @@ public class CommandRotateWithCam extends Command {
     	
     	if(stage == 1) {
     		if(goalX != -1.0) {
-	    		if(goalX > (double)(Constants.CAMERA_WIDTH)/2.0 + calibration) {
+	    		if(goalX > (double)(CameraConstants.LOW_RES_CAMERA_WIDTH)/2.0 + calibration) {
 	    			Robot.driveSubsystem.tankdrive(0.6, -0.6);
-	    		} else if(goalX < (double)(Constants.CAMERA_WIDTH)/2.0 - calibration) {
+	    		} else if(goalX < (double)(CameraConstants.LOW_RES_CAMERA_WIDTH)/2.0 - calibration) {
 	    			Robot.driveSubsystem.tankdrive(-0.6, 0.6);
 	    		} else {
 	    			complete = true;

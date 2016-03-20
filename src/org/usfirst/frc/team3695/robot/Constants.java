@@ -111,12 +111,6 @@ public class Constants {
 	public static final float RUMBLE_BOUND_G_FORCE = 0.4f;
 	
 	/**
-	 * Camera width and height in pixels.
-	 */
-	public static final int CAMERA_WIDTH = 320,
-							CAMERA_HEIGHT = 240;
-	
-	/**
 	 * Used for camera calibration. These numbers represent the offset from the center of the
 	 * camera in pixels. The variables here are the names to use when obtaining them through
 	 * the preferences.
@@ -150,6 +144,9 @@ public class Constants {
 	public static final int RED_LED_PORT = 6,
 							BLUE_LED_PORT = 7;
 	
+	/**
+	 * Multiplier used when the b button is not held.
+	 */
 	public static final double NO_BOOST_MULTIPLIER = 0.7;
 
 	/**
