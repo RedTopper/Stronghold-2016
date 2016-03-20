@@ -87,7 +87,7 @@ public class Camera extends Thread implements Runnable {
 				out: switch(cameraView) {
 				case FRONT_PROCCESSED:
 					frontCam.getImage(frontFrame);
-					NIVision.imaqColorThreshold(frontProc, frontFrame, 0x00FFFFFF/*???*/, ColorMode.HSV, H, S, V);
+					NIVision.imaqColorThreshold(frontProc, frontFrame, 0x00FFFFFF, ColorMode.HSV, H, S, V);
 					int numOfParticles = NIVision.imaqCountParticles(frontProc, 1);
 					ArrayList<int[]> output = new ArrayList<>();
 					for (int i = 0; i < numOfParticles; i++) {

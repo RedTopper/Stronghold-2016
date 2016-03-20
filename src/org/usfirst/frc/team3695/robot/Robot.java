@@ -11,7 +11,6 @@ import org.usfirst.frc.team3695.robot.subsystems.SubsystemBall;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemBling;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemCompressor;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemDrive;
-import org.usfirst.frc.team3695.robot.subsystems.SubsystemNetworkTables;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemSensors;
 import org.usfirst.frc.team3695.robot.subsystems.pneumatics.SubsystemArm;
 import org.usfirst.frc.team3695.robot.subsystems.pneumatics.SubsystemBucket;
@@ -49,7 +48,6 @@ public class Robot extends IterativeRobot {
     
 	//Static subsystems
     public static SubsystemDrive driveSubsystem;
-    public static SubsystemNetworkTables networkTables;
     public static SubsystemSensors sensorsSubsystem;
     public static SubsystemBall ballSubsystem;
     public static SubsystemBucket bucketSubsystem;
@@ -66,7 +64,6 @@ public class Robot extends IterativeRobot {
     	Logger.err("Starting the robot.");
         // Initialize all subsystems
     	driveSubsystem = new SubsystemDrive();
-    	networkTables = new SubsystemNetworkTables();
     	sensorsSubsystem = new SubsystemSensors();
     	ballSubsystem = new SubsystemBall();
     	bucketSubsystem = new SubsystemBucket();
@@ -176,8 +173,6 @@ public class Robot extends IterativeRobot {
     	ticksPerSecond = (1000.0 / (double)(System.currentTimeMillis() - lastTime));
     	lastTime = System.currentTimeMillis();
     	logUnsafe();
-    	networkTables.updateInfo();
-    	networkTables.log();
     	driveSubsystem.log();
     	sensorsSubsystem.log();
     	bucketSubsystem.log();
