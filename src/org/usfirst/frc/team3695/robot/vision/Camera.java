@@ -269,7 +269,7 @@ public class Camera extends Thread implements Runnable {
 			}
 			if(frontCam != null) {
 				frontCam.setWhiteBalanceManual(USBCamera.WhiteBalance.kFixedIndoor);
-				frontCam.setBrightness(0);
+				frontCam.setBrightness(CameraConstants.FRONT_BRIGHTNESS);
 				frontCam.setFPS(30);
 				frontCam.setSize(CameraConstants.HIGH_RES_CAMERA_WIDTH, CameraConstants.HIGH_RES_CAMERA_HEIGHT);
 				frontCam.updateSettings();

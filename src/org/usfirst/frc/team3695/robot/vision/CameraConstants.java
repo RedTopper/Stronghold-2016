@@ -23,45 +23,50 @@ public class CameraConstants {
 							HIGH_RES_CAMERA_HEIGHT = 480;
 	
 	/**
-	 * Name of the front cam.
+	 * Name of the front camera.
 	 */
 	public static final String FRONT_CAM_NAME = "cam0";
 	
 	/**
-	 * Name of the rear cam.
+	 * Name of the rear camera.
 	 */
 	public static final String REAR_CAM_NAME = "cam1";
+
+	/**
+	 * Brightness that should be used when driving around normally.
+	 */
+	public static final int FRONT_BRIGHTNESS = 0;
 	
 	/**
-	 * The hue for the image rec.
+	 * The hue for the image recognition.
 	 * @return The backup value as defined in the method or the value stored in the preferences if available.
 	 */
 	public static final Range HUE() {
-		return Util.setAndGetRange("Hue Low", 110, "Hue High", 130);
+		return Util.setAndGetRange("Hue Low", 110, "Hue High", 130); //Set default ranges here
 	}
 	
 	/**
-	 * The saturation for the image rec.
+	 * The saturation for the image recognition.
 	 * @return The backup value as defined in the method or the value stored in the preferences if available.
 	 */
 	public static final Range SATURATION() {
-		return Util.setAndGetRange("Saturation Low", 200, "Saturation High", 255);
+		return Util.setAndGetRange("Saturation Low", 200, "Saturation High", 255); //Set default ranges here
 	}
 	
 	/**
-	 * The value for the image rec.
+	 * The value for the image recognition.
 	 * @return The backup value as defined in the method or the value stored in the preferences if available.
 	 */
 	public static final Range VALUE() {
-		return Util.setAndGetRange("Value Low", 200, "Value High", 255);
+		return Util.setAndGetRange("Value Low", 200, "Value High", 255); //Set default ranges here
 	}
 	
 	/**
-	 * The brightness of the front cam during imagerec.
+	 * The brightness of the front camera during image recognition.
 	 * @return The backup value as defined in the method or the value stored in the preferences if available.
 	 */
 	public static final int FRONT_BRIGHTNESS(){
-		return Util.setAndGetNumber("Front Camera Brightness", 50);
+		return Util.setAndGetNumber("Front Camera Brightness", 50); //Set default value here
 	}
 	
 	/**
@@ -69,6 +74,6 @@ public class CameraConstants {
 	 * @return The backup value as defined in the method or the value stored in the preferences if available.
 	 */
 	public static final int SERVER_QUALITY() {
-		return Util.setAndGetNumber("Server Quality", 50);
+		return Util.setAndGetNumber("Server Quality", 50); //Set default value here
 	}
 }
