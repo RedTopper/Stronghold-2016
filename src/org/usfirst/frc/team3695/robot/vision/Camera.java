@@ -18,33 +18,55 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.vision.USBCamera;
 
 public class Camera extends Thread implements Runnable {
-	private final USBCamera frontCam;
-	private boolean frontCamOn = false;
-	private final USBCamera rearCam;
-	private boolean rearCamOn = false;
-	
-	private int cameraView = FRONT_CAM;
-	private int newCameraView = FRONT_CAM;
+	private static Camera instance;
 	
 	/**
-	 * Selectable cameras.
+	 * Cameras attached to the robot.
+	 */
+	private final USBCamera frontCam,
+							rearCam;
+	
+	/**
+	 * True if the camera is running. Only one should be true at a time.
+	 */
+	private boolean frontCamOn = false,
+					rearCamOn = false;
+	
+	/**
+	 *  Different images that can be displayed to the camera feed.
 	 */
 	public static final int NO_CAM = 0,
 							FRONT_PROCCESSED = 1,
 							FRONT_CAM = 2,
 							REAR_CAM = 3;
 	
-	private Image frontFrame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
-	private Image frontProc = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_U8, 0);
-	private Image rearFrame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
+	/**
+	 * Variables used to control the camera.
+	 */
+	private static int cameraView = FRONT_CAM,
+					   newCameraView = FRONT_CAM;
+	/**
+	 * All of the images that can be shown on camera.
+	 */
+	private Image frontFrame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0),
+				  frontProcFrame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_U8, 0),
+				  rearFrame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0),
+				  waitFrame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0),
+				  noFrame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
 	
-	double startTime = 0.0;
-	private Image waitFrame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
-	private Image noFrame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
-	
+	/**
+	 * The Hue, Saturation, and Value ranges for image recognition.
+	 */
 	private Range H = CameraConstants.HUE(),
 				  S = CameraConstants.SATURATION(),
 				  V = CameraConstants.VALUE();
+	
+	private double startTime = 0.0;
+	
+	/**
+	 * An array list of arrays that contain data about the particles on the robot.
+	 */
+	private static ArrayList<int[]> output = new ArrayList<>(); 
 	
 	/**
 	 * Creates a new set of cameras. A set of cameras consists of a front and a rear
@@ -52,10 +74,13 @@ public class Camera extends Thread implements Runnable {
 	 * that situation without throwing an exception. In theory, it'll print a "No Camera Feed!"
 	 * message to the camera viewer if there is a problem.
 	 */
-	public Camera() throws Exception {
+	private Camera() throws Exception {
+		//Create the images
 		NIVision.imaqSetImageSize(noFrame, 640, 480);
 		NIVision.imaqSetImageSize(waitFrame, 640, 480);
-		NIVision.imaqSetImageSize(frontProc, 640, 480);
+		NIVision.imaqSetImageSize(frontProcFrame, 640, 480);
+		
+		//Create a big red "NO" sign on one of them. This is shown when an exception is thrown.
 		NIVision.imaqDrawShapeOnImage(noFrame, noFrame, new Rect(0,(640/2) - (480/2), 480, 480), DrawMode.PAINT_VALUE, ShapeMode.SHAPE_OVAL, getColor(0xFF,0x0,0x0));
 		NIVision.imaqDrawShapeOnImage(noFrame, noFrame, new Rect(10,(640/2) - (480/2) + 10, 460, 460), DrawMode.PAINT_VALUE, ShapeMode.SHAPE_OVAL, getColor(0,0,0));
 		Point topLeft = new Point((int)((320 - 230 * (Math.sqrt(2)/2))+ 0.5),
@@ -68,11 +93,33 @@ public class Camera extends Thread implements Runnable {
 			NIVision.imaqDrawLineOnImage(noFrame, noFrame, DrawMode.DRAW_VALUE, new Point(topLeft.x - i, topLeft.y), new Point(bottomRight.x, bottomRight.y + i), getColor(0xFF,0x00,0x00));
 		}
 		
+		//Attempt to start the two cameras.
 		frontCam = startCam("front camera", CameraConstants.FRONT_CAM_NAME);
 		rearCam = startCam("rear camera",CameraConstants.REAR_CAM_NAME);
 	}
+	
+	/**
+	 * Gets the one and only instance of this camera thread.
+	 * @return The camera thread.
+	 */
+	public static Camera getInstance() {
+		if(instance == null) {
+	        try {
+	        	instance = new Camera();
+	        	instance.start();
+	        	return instance;
+	        } catch (Exception e) {
+	        	Logger.err("There was a camera error! Check the constructor of the camera class.", e);
+	        	instance = null;
+	        	return instance;
+	        }
+		} else {
+			return instance;
+		}
+	}
 
 	public void run() {
+		//Try to switch the camera.
 		boolean launchThread = true;
 		try {
 			viewCam(FRONT_CAM);
@@ -84,22 +131,23 @@ public class Camera extends Thread implements Runnable {
 			try {
 				long pastTime = System.currentTimeMillis();
 
+				//Switch to which camera we are viewing.
 				out: switch(cameraView) {
 				case FRONT_PROCCESSED:
 					frontCam.getImage(frontFrame);
-					NIVision.imaqColorThreshold(frontProc, frontFrame, 0x00FFFFFF, ColorMode.HSV, H, S, V);
-					int numOfParticles = NIVision.imaqCountParticles(frontProc, 1);
-					ArrayList<int[]> output = new ArrayList<>();
-					for (int i = 0; i < numOfParticles; i++) {
+					NIVision.imaqColorThreshold(frontProcFrame, frontFrame, 0x00FFFFFF, ColorMode.HSV, H, S, V); //Get a black and white image from a Hue, Saturation, and Value
+					int numOfParticles = NIVision.imaqCountParticles(frontProcFrame, 1);
+					output = new ArrayList<>();
+					for (int i = 0; i < numOfParticles; i++) { //Process the particles
 						output.add(new int[]
-								{(int)(NIVision.imaqMeasureParticle(frontProc, i, 0, NIVision.MeasurementType.MT_CENTER_OF_MASS_X)),
-								 (int)(NIVision.imaqMeasureParticle(frontProc, i, 0, NIVision.MeasurementType.MT_CENTER_OF_MASS_Y)),
-								 (int)(NIVision.imaqMeasureParticle(frontProc, i, 0, NIVision.MeasurementType.MT_AREA)),
-								 (int)(NIVision.imaqMeasureParticle(frontProc, i, 0, NIVision.MeasurementType.MT_CONVEX_HULL_AREA)),
-								 (int)(NIVision.imaqMeasureParticle(frontProc, i, 0, NIVision.MeasurementType.MT_BOUNDING_RECT_WIDTH)),
-								 (int)(NIVision.imaqMeasureParticle(frontProc, i, 0, NIVision.MeasurementType.MT_BOUNDING_RECT_HEIGHT))});
+								{(int)(NIVision.imaqMeasureParticle(frontProcFrame, i, 0, NIVision.MeasurementType.MT_CENTER_OF_MASS_X)),
+								 (int)(NIVision.imaqMeasureParticle(frontProcFrame, i, 0, NIVision.MeasurementType.MT_CENTER_OF_MASS_Y)),
+								 (int)(NIVision.imaqMeasureParticle(frontProcFrame, i, 0, NIVision.MeasurementType.MT_AREA)),
+								 (int)(NIVision.imaqMeasureParticle(frontProcFrame, i, 0, NIVision.MeasurementType.MT_CONVEX_HULL_AREA)),
+								 (int)(NIVision.imaqMeasureParticle(frontProcFrame, i, 0, NIVision.MeasurementType.MT_BOUNDING_RECT_WIDTH)),
+								 (int)(NIVision.imaqMeasureParticle(frontProcFrame, i, 0, NIVision.MeasurementType.MT_BOUNDING_RECT_HEIGHT))});
 					}
-					NIVision.imaqMask(frontFrame, frontFrame, frontProc);
+					NIVision.imaqMask(frontFrame, frontFrame, frontProcFrame); //Mask the image with the color one.
 					for(int i = 0; i < output.size(); i++) {
 						NIVision.imaqDrawShapeOnImage(frontFrame, frontFrame, new Rect(output.get(i)[1] - 2, output.get(i)[0] - 2, 4, 4), DrawMode.PAINT_VALUE, ShapeMode.SHAPE_RECT, Camera.getColor(0xFF, 0x00, 0x00));
 					}
@@ -141,6 +189,11 @@ public class Camera extends Thread implements Runnable {
 		}
 	}
 	
+	/**
+	 * Start the process of switching the camera from one cam to another. Parameters are
+	 * Camera.NO_CAM, Camera.FRONT_PROCCESSED, Camera.FRONT_CAM, Camera.REAR_CAM
+	 * @param cam An integer of the camera.
+	 */
 	public synchronized void switchCam(int cam) {
 		newCameraView = cam;
 	}
@@ -171,7 +224,7 @@ public class Camera extends Thread implements Runnable {
 				frontCam.setWhiteBalanceManual(USBCamera.WhiteBalance.kFixedIndoor);
 				frontCam.setBrightness(CameraConstants.FRONT_BRIGHTNESS()); //different brightness.
 				frontCam.setFPS(30);
-				frontCam.setSize(320, 240);  //lower res
+				frontCam.setSize(320, 240);  //lower res for faster processing.
 				frontCam.updateSettings();
 				frontCam.openCamera();
 				frontCam.startCapture();
@@ -273,5 +326,21 @@ public class Camera extends Thread implements Runnable {
 		if(g<0) {g=0;}; if(g>0xFF) {g = 0xFF;}; //Limit range for blue
 		if(b<0) {b=0;}; if(b>0xFF) {b = 0xFF;}; //Limit range for green
 		return (float)(0x00000000 + (((int)g) << 16) + (((int)b) << 8) + (((int)r)));
+	}
+	
+	/**
+	 * Returns a detailed list of arrays from all of the camera
+	 * particles.
+	 * @return
+	 */
+	public static ArrayList<int[]> getPoints() {
+		return output;
+	}
+	
+	/**
+	 * Returns if the camera is actually doing image processing.
+	 */
+	public static boolean isProccessingCamera() {
+		return cameraView == FRONT_PROCCESSED;
 	}
 }

@@ -14,7 +14,6 @@ import org.usfirst.frc.team3695.robot.subsystems.SubsystemDrive;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemSensors;
 import org.usfirst.frc.team3695.robot.subsystems.pneumatics.SubsystemArm;
 import org.usfirst.frc.team3695.robot.subsystems.pneumatics.SubsystemBucket;
-import org.usfirst.frc.team3695.robot.vision.Camera;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -33,7 +32,6 @@ public class Robot extends IterativeRobot {
 	//Generic variables
 	private long lastTime = System.currentTimeMillis();
 	private double ticksPerSecond = 0;
-	public static Camera cam;
 	//private int lastSelectedCamera = Camera.FRONT_CAM;
 	
 	//Choosers
@@ -114,15 +112,6 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData(Scheduler.getInstance()); //Shows everything the robot is running.
         //SmartDashboard.putData(driveSubsystem); //Shows what command the driveSubsystem is running.
         //SmartDashboard.putData(armSubsystem); //Shows what command the armSubsystem is running.
-        
-    	//Hopefully start camera
-        try {
-        	cam = new Camera();
-        	cam.start();
-        } catch (Exception e) {
-        	Logger.err("There was a camera error! Check the constructor of the camera class.", e);
-        }
-    	
     }
 
     //AUTONOMOUS ZONE:

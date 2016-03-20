@@ -10,7 +10,6 @@ import org.usfirst.frc.team3695.robot.vision.Camera;
 
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -39,6 +38,8 @@ public class OI {
 	private boolean driveRearCamNeedsUpdate = false,
 					driveFrontCamProcNeedsUpdate = false;
 	
+	private static Camera cam = Camera.getInstance();
+	
 	public OI() {
 		//SmartDash
 		SmartDashboard.putData("Use camera to rotate RIGHT", new CommandRotateWithCam(CommandRotateWithCam.ROTATE_RIGHT_OVERALL));
@@ -62,15 +63,6 @@ public class OI {
 		
 		
 		//Buttons for Driver
-		
-		Button robotView = new JoystickButton(Controller.OP_JOY(), Controller.DRIVE_PROCESSED_CAM);
-		robotView.whileHeld(new Command() { //TODO: Move this to a real class in the vision package.
-			protected void initialize() {if(Robot.cam != null) Robot.cam.switchCam(Camera.FRONT_PROCCESSED);}
-			protected void execute() {}
-			protected boolean isFinished() {return false;}
-			protected void end() {if(Robot.cam != null) Robot.cam.switchCam(Camera.FRONT_CAM);}
-			protected void interrupted() {end();}
-		});
 		
 		//Buttons for OP
 		Button getBall = new JoystickButton(Controller.OP_JOY(), Controller.OP_GRAB_BALL);
@@ -143,21 +135,21 @@ public class OI {
 	private void updateButtonsManual() {
 		//Code for viewing the rear view cam
 		if(!driveRearCamNeedsUpdate && Controller.DRIVE_JOY().getRawButton(Controller.DRIVE_REAR_CAM)) {
-			if(Robot.cam != null) Robot.cam.switchCam(Camera.REAR_CAM);
+			if(cam != null) cam.switchCam(Camera.REAR_CAM);
 			driveRearCamNeedsUpdate = true;
 		}
 		if(driveRearCamNeedsUpdate && !Controller.DRIVE_JOY().getRawButton(Controller.DRIVE_REAR_CAM)){
-			if(Robot.cam != null) Robot.cam.switchCam(Camera.FRONT_CAM);
+			if(cam != null) cam.switchCam(Camera.FRONT_CAM);
 			driveRearCamNeedsUpdate = false;
 		}
 		
 		//Code for viewing the processed vision camera.
 		if(!driveFrontCamProcNeedsUpdate && Controller.DRIVE_JOY().getRawButton(Controller.DRIVE_PROCESSED_CAM)) {
-			if(Robot.cam != null) Robot.cam.switchCam(Camera.FRONT_PROCCESSED);
+			if(cam != null) cam.switchCam(Camera.FRONT_PROCCESSED);
 			driveFrontCamProcNeedsUpdate = true;
 		} 
 		if(driveFrontCamProcNeedsUpdate && !Controller.DRIVE_JOY().getRawButton(Controller.DRIVE_PROCESSED_CAM)){
-			if(Robot.cam != null) Robot.cam.switchCam(Camera.FRONT_CAM);
+			if(cam != null) cam.switchCam(Camera.FRONT_CAM);
 			driveFrontCamProcNeedsUpdate = false;
 		}
 	}
