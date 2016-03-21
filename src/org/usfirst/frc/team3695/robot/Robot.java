@@ -37,7 +37,7 @@ public class Robot extends IterativeRobot {
 	private static SendableChooser rumbleChooser;
 	private static SendableChooser driveChooser;
 	private static SendableChooser boostChooser;
-	private static SendableChooser cameraChooser;
+	private static SendableChooser camChooser;
 	
 	//Auto
 	private Autonomous autonomousCommand;
@@ -78,9 +78,10 @@ public class Robot extends IterativeRobot {
         autoChooser.addObject("Rock Wall", Defense.ROCK_WALL);
         
         //set up cameraChooser for the robot.
-        cameraChooser.addDefault("Do not use camera", RotateWithCam.NOTHING);
-        cameraChooser.addObject("Rotate robot LEFT", RotateWithCam.ROTATE_LEFT_OVERALL);
-        cameraChooser.addObject("Rotate robot RIGHT", RotateWithCam.ROTATE_RIGHT_OVERALL);
+        camChooser = new SendableChooser();
+        camChooser.addDefault("Do not use camera", RotateWithCam.NOTHING);
+        camChooser.addObject("Rotate robot LEFT", RotateWithCam.ROTATE_LEFT_OVERALL);
+        camChooser.addObject("Rotate robot RIGHT", RotateWithCam.ROTATE_RIGHT_OVERALL);
         
         //Set up rumbleChooser for robot
         rumbleChooser = new SendableChooser();
@@ -102,6 +103,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData("Rumble Mode", rumbleChooser);
         SmartDashboard.putData("Drive Mode", driveChooser);
         SmartDashboard.putData("Boost Mode", boostChooser);
+        SmartDashboard.putData("Cam Mode", camChooser);
         
 
         // Show what command your subsystem is running on the SmartDashboard
@@ -113,7 +115,7 @@ public class Robot extends IterativeRobot {
     //AUTONOMOUS ZONE:
     public void autonomousInit() {
     	STOP_AUTO = null;
-        autonomousCommand = new Autonomous((Defense)(autoChooser.getSelected()), (RotateWithCam)(cameraChooser.getSelected()));
+        autonomousCommand = new Autonomous((Defense)(autoChooser.getSelected()), (RotateWithCam)(camChooser.getSelected()));
     	autonomousCommand.start();
     }
 
