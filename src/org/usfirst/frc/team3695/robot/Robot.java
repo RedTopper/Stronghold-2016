@@ -4,8 +4,7 @@ package org.usfirst.frc.team3695.robot;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import org.usfirst.frc.team3695.robot.commands.auto.AutonomousForwardOnly;
-import org.usfirst.frc.team3695.robot.commands.auto.AutonomousRotateAndScore;
+import org.usfirst.frc.team3695.robot.enumeration.objective.Defense;
 import org.usfirst.frc.team3695.robot.enumeration.objective.RotateWithCam;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemBall;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemBling;
@@ -17,7 +16,6 @@ import org.usfirst.frc.team3695.robot.subsystems.pneumatics.SubsystemBucket;
 import org.usfirst.frc.team3695.robot.util.Logger;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -39,9 +37,10 @@ public class Robot extends IterativeRobot {
 	private static SendableChooser rumbleChooser;
 	private static SendableChooser driveChooser;
 	private static SendableChooser boostChooser;
+	private static SendableChooser cameraChooser;
 	
 	//Auto
-	private Command autonomousCommand;
+	private Autonomous autonomousCommand;
     
 	//Static subsystems
     public static SubsystemDrive driveSubsystem;
@@ -71,9 +70,17 @@ public class Robot extends IterativeRobot {
         
         //Set up autoChooser for robot
         autoChooser = new SendableChooser();
-        autoChooser.addDefault("Forward ONLY", new AutonomousForwardOnly());
-        autoChooser.addObject("Robot is LEFT of goal", new AutonomousRotateAndScore(RotateWithCam.ROTATE_RIGHT_OVERALL));
-        autoChooser.addObject("Robot is RIGHT of goal", new AutonomousRotateAndScore(RotateWithCam.ROTATE_LEFT_OVERALL));
+        autoChooser.addDefault("Do Nothing", Defense.NOTHING);
+        autoChooser.addObject("Low Bar", Defense.LOW_BAR);
+        autoChooser.addObject("Ramparts", Defense.RAMPARTS);
+        autoChooser.addObject("Rough Terrain", Defense.ROUGH_TERRAIN);
+        autoChooser.addObject("Moat", Defense.MOAT);
+        autoChooser.addObject("Rock Wall", Defense.ROCK_WALL);
+        
+        //set up cameraChooser for the robot.
+        cameraChooser.addDefault("Do not use camera", RotateWithCam.NOTHING);
+        cameraChooser.addObject("Rotate robot LEFT", RotateWithCam.ROTATE_LEFT_OVERALL);
+        cameraChooser.addObject("Rotate robot RIGHT", RotateWithCam.ROTATE_RIGHT_OVERALL);
         
         //Set up rumbleChooser for robot
         rumbleChooser = new SendableChooser();
@@ -106,7 +113,7 @@ public class Robot extends IterativeRobot {
     //AUTONOMOUS ZONE:
     public void autonomousInit() {
     	STOP_AUTO = null;
-        autonomousCommand = (Command) autoChooser.getSelected(); //Get chosen auto.
+        autonomousCommand = new Autonomous((Defense)(autoChooser.getSelected()), (RotateWithCam)(cameraChooser.getSelected()));
     	autonomousCommand.start();
     }
 

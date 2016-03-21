@@ -6,5 +6,5 @@ package org.usfirst.frc.team3695.robot.enumeration.objective;
  * robot should do when rotating automatically with the camera
  */
 public enum RotateWithCam {
-	ROTATE_LEFT_OVERALL, ROTATE_RIGHT_OVERALL
+	ROTATE_LEFT_OVERALL, ROTATE_RIGHT_OVERALL, NOTHING
 }

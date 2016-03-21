@@ -79,8 +79,8 @@ public class CommandRotateWithCam extends Command {
     			}
     		}
     		break;
-    	default:
-    		objective = RotateWithCam.ROTATE_RIGHT_OVERALL;
+    	case NOTHING:
+    		complete = true;
     		break;
     	}
     	
