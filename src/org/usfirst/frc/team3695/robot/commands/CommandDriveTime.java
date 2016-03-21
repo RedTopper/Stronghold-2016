@@ -13,6 +13,11 @@ public class CommandDriveTime extends Command {
 	private long driveTime = 0;
 	private double power = 0.0;
 	
+	/**
+	 * Drives for a certain amount of time for a certain power.
+	 * @param timeToDrive Time in ms to drive forward
+	 * @param power The percent power that should drive.
+	 */
 	public CommandDriveTime(long timeToDrive, double power) {
 		driveTime = timeToDrive;
 		this.power = power;
