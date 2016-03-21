@@ -10,6 +10,7 @@ import org.usfirst.frc.team3695.robot.enumeration.objective.MoveArm;
 import org.usfirst.frc.team3695.robot.enumeration.objective.MoveBucket;
 import org.usfirst.frc.team3695.robot.enumeration.objective.RotateWithCam;
 import org.usfirst.frc.team3695.robot.util.CommandDoNothing;
+import org.usfirst.frc.team3695.robot.util.Util;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -29,23 +30,23 @@ public class Autonomous extends CommandGroup {
 			break;
 		case LOW_BAR:
 			addSequential(new CommandMoveBucket(MoveBucket.MOVE_DOWN));
-			addSequential(new CommandDriveTime(3000, 0.6));
+			addSequential(new CommandDriveTime(Util.setAndGetNumber("TIME", "Low Bar", 3000), Util.setAndGetDouble("SPEED", "Low Bar", 0.6)));
 			finalize(objectiveDirection);
 			break;
 		case MOAT:
-			addSequential(new CommandDriveTime(3500, 0.6));
+			addSequential(new CommandDriveTime(Util.setAndGetNumber("TIME", "Moat", 3500), Util.setAndGetDouble("SPEED", "Moat", 0.6)));
 			finalize(objectiveDirection);
 			break;
 		case RAMPARTS:
-			addSequential(new CommandDriveTime(3500, 0.6));
+			addSequential(new CommandDriveTime(Util.setAndGetNumber("TIME", "Ramparts", 3500), Util.setAndGetDouble("SPEED", "Ramparts", 0.6)));
 			finalize(objectiveDirection);
 			break;
 		case ROCK_WALL:
-			addSequential(new CommandDriveTime(3500, 0.6));
+			addSequential(new CommandDriveTime(Util.setAndGetNumber("TIME", "Rock Wall", 3500), Util.setAndGetDouble("SPEED", "Rock Wall", 0.6)));
 			finalize(objectiveDirection);
 			break;
 		case ROUGH_TERRAIN:
-			addSequential(new CommandDriveTime(3500, 0.6));
+			addSequential(new CommandDriveTime(Util.setAndGetNumber("TIME", "Rough Terrain", 3500), Util.setAndGetDouble("SPEED", "Rough Terrain", 0.6)));
 			finalize(objectiveDirection);
 			break;
 		}

@@ -37,20 +37,26 @@ public class CommandRotateWithCam extends Command {
     }
 
     protected void initialize() {
+    	complete = false;
+    	if(Robot.AUTOING && Robot.STOP_AUTO != null) {
+    		complete = true;
+    		return;
+    	}
     	calibration = Util.setAndGetNumber("ROT", "Calibration Value", 10);
     	center = Util.setAndGetNumber("ROT", "Center Offset Value", 0);
     	stage = 0;
-    	complete = false;
     	if(cam != null) {
     		cam.controllerable(false);
     		cam.switchCam(Cam.FRONT_PROCESSED);
     	} else {
     		Logger.err("The camera isn't a thing, yo.");
     	}
-    	lastTime = System.currentTimeMillis(); 	
     }
 
     protected void execute(){
+    	if(complete) {
+    		return;
+    	}
 		if(!cam.isProccessingCamera()) {
 			Robot.driveSubsystem.tankdrive(0, 0);
 			lastTime = System.currentTimeMillis(); 			//Wait for the camera to switch over.

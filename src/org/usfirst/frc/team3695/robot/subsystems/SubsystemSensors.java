@@ -13,10 +13,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * it is needed to make all of the sensors behave as "singletons".
  */
 public class SubsystemSensors extends Subsystem implements Loggable {
-	AnalogInput photoLoaded = new AnalogInput(Constants.PHOTO_LOADED_PORT);
-	AnalogInput ultrasonicInput = new AnalogInput(Constants.ULTRASONIC_INPUT);
-	AnalogInput loadedInput = new AnalogInput(Constants.BUTTON_INPUT);
-	AnalogInput pressureGauge = new AnalogInput(Constants.TRANSDUCER_PORT);
+	
+	/**
+	 * Various sensors used for the robot.
+	 */
+	private AnalogInput photoLoaded = new AnalogInput(Constants.PHOTO_LOADED_PORT),
+						ultrasonicInput = new AnalogInput(Constants.ULTRASONIC_INPUT),
+						loadedInput = new AnalogInput(Constants.BUTTON_INPUT),
+						pressureGauge = new AnalogInput(Constants.TRANSDUCER_PORT);
 
 	protected void initDefaultCommand() {
 	}
@@ -29,8 +33,9 @@ public class SubsystemSensors extends Subsystem implements Loggable {
 		return ultrasonicInput.getVoltage();
 	}
 	
-	public double getButtonVoltage(){
-		return loadedInput.getVoltage();
+	public boolean isSwitchPressed(){
+		double switchVoltage = loadedInput.getVoltage();
+		return switchVoltage < 0.1;
 	}
 	
 	public double getPressure(){
@@ -42,6 +47,9 @@ public class SubsystemSensors extends Subsystem implements Loggable {
 	}
 	
 	public void log() {
+		SmartDashboard.putNumber("System Pressure", getPressure());
+		SmartDashboard.putBoolean("Catapult Completely Down", isSwitchPressed());
+		/*
 		double ultrasonic = getUltrasonicVoltage() * 200;
 		SmartDashboard.putNumber("Ultrasonic Value" , ultrasonic);
 		boolean rightRange;
@@ -67,11 +75,11 @@ public class SubsystemSensors extends Subsystem implements Loggable {
 		} else{
 			buttonLoad = false;
 		}
-		SmartDashboard.putNumber("System Pressure", getPressure());
 		SmartDashboard.putNumber("Button Voltage", detectLoad);
 		SmartDashboard.putBoolean("Launcher Loaded", buttonLoad);
 
 		SmartDashboard.putBoolean("Loaded",detectFire);
 		SmartDashboard.putNumber("Loaded Voltage",loaded);
+		*/
 	}
 }

@@ -46,6 +46,18 @@ public class Util {
 	}
 	
 	/**
+	 * Either sets a backup value or returns the one set by the driver on the smart dash preferences.
+	 * @param type The type of control this preference is for. Example: "REC" is for image recognition, and "CAM" is for camera.
+	 * @param key The name of the value
+	 * @param value The default value if one has not been set yet. This is a double unlike setAndGetNumber(...)
+	 * @return The value that was either just created, or a previous one set by the robot preferences.
+	 */
+	public static final double setAndGetDouble(String type, String key, double value) {
+		if(!pref.containsKey(type + ": " + key)) pref.putDouble(type + ": " + key, value);
+		return pref.getDouble(type + ": " + key, value);
+	}
+	
+	/**
 	 * Takes a Red, Green, and Blue value and returns the appropriate float. Maybe
 	 * @param r Redness
 	 * @param g Greenness

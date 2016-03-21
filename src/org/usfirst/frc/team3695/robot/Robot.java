@@ -54,10 +54,12 @@ public class Robot extends IterativeRobot {
     
     //Error message to notify auto to stop.
     public static String STOP_AUTO = null;
+    public static boolean AUTOING = false;
     
     public void robotInit() {
     	//Print message
     	Logger.err("Starting the robot.");
+    	
         // Initialize all subsystems
     	driveSubsystem = new SubsystemDrive();
     	sensorsSubsystem = new SubsystemSensors();
@@ -113,6 +115,7 @@ public class Robot extends IterativeRobot {
     //AUTONOMOUS ZONE:
     public void autonomousInit() {
     	STOP_AUTO = null;
+    	AUTOING = true;
         autonomousCommand = new Autonomous((Defense)(autoChooser.getSelected()), (RotateWithCam)(camChooser.getSelected()));
     	autonomousCommand.start();
     }
@@ -125,6 +128,7 @@ public class Robot extends IterativeRobot {
 
     //DISABLED ZONE:
     public void disabledInit(){
+    	AUTOING = false;
     	if(autonomousCommand != null) {
     		autonomousCommand.cancel();
     	}
@@ -138,6 +142,7 @@ public class Robot extends IterativeRobot {
     
     //TELEOP ZONE:
     public void teleopInit() {
+    	AUTOING = false;
     	if(autonomousCommand != null) {
     		autonomousCommand.cancel();
     	}

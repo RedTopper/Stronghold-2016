@@ -22,10 +22,8 @@ public class CommandDriveWithCam extends Command {
 	private Camera cam = Camera.getInstance();
 	
 	/**
-	 * This will tell the robot witch way to move to face the goal the quickest.
-	 * @param direction use CommandRotateWithCam.ROTATE_LEFT_OVERALL or 
-	 * CommandRotateRightWithCam.ROTATE_RIGHT_OVERALL to tell the robot to 
-	 * move in a direction.
+	 * This drives either forward or backwards a certain distance to 
+	 * align itself with the goal.
 	 */
     public CommandDriveWithCam() {
     	requires(Robot.driveSubsystem);
@@ -33,19 +31,25 @@ public class CommandDriveWithCam extends Command {
     }
 
     protected void initialize() {
-    	calibration = Util.setAndGetNumber("FWD", "Calibration Value", 10);
-    	center = Util.setAndGetNumber("FWD", "Center Offset Value", 0);
     	complete = false;
+    	if(Robot.AUTOING && Robot.STOP_AUTO != null) {
+    		complete = true;
+    		return;
+    	}
+    	calibration = Util.setAndGetNumber("FWD", "Calibration Value", 10);
+    	center = Util.setAndGetNumber("FWD", "Center Offset Value", 100);
     	if(cam != null) {
     		cam.controllerable(false);
     		cam.switchCam(Cam.FRONT_PROCESSED);
     	} else {
     		Logger.err("The camera isn't a thing, yo.");
     	}
-    	lastTime = System.currentTimeMillis(); 	
     }
 
     protected void execute(){
+    	if(complete) {
+    		return;
+    	}
 		if(!cam.isProccessingCamera()) {
 			Robot.driveSubsystem.tankdrive(0, 0);
 			lastTime = System.currentTimeMillis(); 			//Wait for the camera to switch over.

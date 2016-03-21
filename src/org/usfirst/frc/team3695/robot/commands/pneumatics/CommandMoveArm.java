@@ -23,6 +23,11 @@ public class CommandMoveArm extends Command {
 	}
 	
 	protected void initialize() {
+    	complete = false;
+    	if(Robot.AUTOING && Robot.STOP_AUTO != null) {
+    		complete = true;
+    		return;
+    	}
 		switch(objective) {
 		case FIRE:
 			Robot.armSubsystem.movePistonDown();
@@ -37,6 +42,9 @@ public class CommandMoveArm extends Command {
 	}
 
 	protected void execute() {
+    	if(complete) {
+    		return;
+    	}
 		switch(objective) {
 		case FIRE:
 			if(!Robot.armSubsystem.isPistonUp()) {
