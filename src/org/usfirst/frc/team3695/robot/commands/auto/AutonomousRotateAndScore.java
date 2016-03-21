@@ -2,7 +2,7 @@
 package org.usfirst.frc.team3695.robot.commands.auto;
 
 import org.usfirst.frc.team3695.robot.commands.CommandRotateWithCam;
-import org.usfirst.frc.team3695.robot.enumeration.RotateWithCam;
+import org.usfirst.frc.team3695.robot.enumeration.objective.RotateWithCam;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 

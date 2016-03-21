@@ -1,6 +1,7 @@
-package org.usfirst.frc.team3695.robot.enumeration;
+package org.usfirst.frc.team3695.robot.enumeration.objective;
 
 /**
+ * --OBJECTIVE--
  * This enum is used for the motor that either grabs the ball, or 
  * pushes the ball back out of the bucket.
  */

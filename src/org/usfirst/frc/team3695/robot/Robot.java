@@ -6,7 +6,7 @@ import java.math.RoundingMode;
 
 import org.usfirst.frc.team3695.robot.commands.auto.AutonomousForwardOnly;
 import org.usfirst.frc.team3695.robot.commands.auto.AutonomousRotateAndScore;
-import org.usfirst.frc.team3695.robot.enumeration.RotateWithCam;
+import org.usfirst.frc.team3695.robot.enumeration.objective.RotateWithCam;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemBall;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemBling;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemCompressor;

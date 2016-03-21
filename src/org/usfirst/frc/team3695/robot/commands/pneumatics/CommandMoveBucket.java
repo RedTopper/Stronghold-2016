@@ -1,7 +1,7 @@
 package org.usfirst.frc.team3695.robot.commands.pneumatics;
 
 import org.usfirst.frc.team3695.robot.Robot;
-import org.usfirst.frc.team3695.robot.enumeration.MoveBucket;
+import org.usfirst.frc.team3695.robot.enumeration.objective.MoveBucket;
 
 import edu.wpi.first.wpilibj.command.Command;
 

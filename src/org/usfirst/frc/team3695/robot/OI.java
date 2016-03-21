@@ -7,12 +7,12 @@ import org.usfirst.frc.team3695.robot.commands.pneumatics.CommandCompressorToggl
 import org.usfirst.frc.team3695.robot.commands.pneumatics.CommandMoveArm;
 import org.usfirst.frc.team3695.robot.commands.pneumatics.CommandMoveArmRaw;
 import org.usfirst.frc.team3695.robot.commands.pneumatics.CommandMoveBucket;
-import org.usfirst.frc.team3695.robot.enumeration.Ball;
 import org.usfirst.frc.team3695.robot.enumeration.Cam;
-import org.usfirst.frc.team3695.robot.enumeration.MoveArm;
-import org.usfirst.frc.team3695.robot.enumeration.MoveArmRaw;
-import org.usfirst.frc.team3695.robot.enumeration.MoveBucket;
-import org.usfirst.frc.team3695.robot.enumeration.RotateWithCam;
+import org.usfirst.frc.team3695.robot.enumeration.objective.Ball;
+import org.usfirst.frc.team3695.robot.enumeration.objective.MoveArm;
+import org.usfirst.frc.team3695.robot.enumeration.objective.MoveArmRaw;
+import org.usfirst.frc.team3695.robot.enumeration.objective.MoveBucket;
+import org.usfirst.frc.team3695.robot.enumeration.objective.RotateWithCam;
 import org.usfirst.frc.team3695.robot.vision.Camera;
 
 import edu.wpi.first.wpilibj.buttons.Button;
