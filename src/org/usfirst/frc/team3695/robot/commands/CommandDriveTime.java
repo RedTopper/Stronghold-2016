@@ -10,10 +10,12 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class CommandDriveTime extends Command {
 	private long startTime = 0;
-	private float driveTime = 0;
+	private long driveTime = 0;
+	private double power = 0.0;
 	
-	public CommandDriveTime(float timeToDrive) {
+	public CommandDriveTime(long timeToDrive, double power) {
 		driveTime = timeToDrive;
+		this.power = power;
 	}
 	
 	protected void initialize() {
@@ -21,7 +23,7 @@ public class CommandDriveTime extends Command {
 	}
 
 	protected void execute() {
-		Robot.driveSubsystem.tankdrive(1, 1);
+		Robot.driveSubsystem.tankdrive(power, power);
 	}
 
 	protected boolean isFinished() {

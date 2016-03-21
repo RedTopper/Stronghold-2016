@@ -107,9 +107,7 @@ public class Robot extends IterativeRobot {
         
 
         // Show what command your subsystem is running on the SmartDashboard
-        SmartDashboard.putData(Scheduler.getInstance()); //Shows everything the robot is running.
-        //SmartDashboard.putData(driveSubsystem); //Shows what command the driveSubsystem is running.
-        //SmartDashboard.putData(armSubsystem); //Shows what command the armSubsystem is running.
+        SmartDashboard.putData(Scheduler.getInstance()); //Shows everything the robot is running. In theory.
     }
 
     //AUTONOMOUS ZONE:
