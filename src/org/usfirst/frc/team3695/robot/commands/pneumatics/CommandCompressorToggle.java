@@ -4,7 +4,16 @@ import org.usfirst.frc.team3695.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
+/**
+ * Used for turning the compressor off and (hopefully)
+ * back on again. This command disables the compressor until
+ * the command is interrupted.
+ */
 public class CommandCompressorToggle extends Command {
+	
+	/**
+	 * Create the compressor switching command.
+	 */
 	public CommandCompressorToggle() {
 		requires(Robot.compressorSubsystem); 
 	}

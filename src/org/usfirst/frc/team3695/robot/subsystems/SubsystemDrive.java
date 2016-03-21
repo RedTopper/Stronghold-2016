@@ -4,6 +4,7 @@ import org.usfirst.frc.team3695.robot.Constants;
 import org.usfirst.frc.team3695.robot.Controller;
 import org.usfirst.frc.team3695.robot.Robot;
 import org.usfirst.frc.team3695.robot.commands.CommandDrive;
+import org.usfirst.frc.team3695.robot.util.Loggable;
 
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.Joystick;
@@ -17,7 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * This subsystem controls the driving motors and drive train variables. There are also
  * some unique sensors (like the accelerometer and stuff) that are included.
  */
-public class SubsystemDrive extends Subsystem {
+public class SubsystemDrive extends Subsystem implements Loggable {
 	private TalonSRX frontLeft;
 	private TalonSRX frontRight;
 	private TalonSRX rearLeft;
@@ -122,9 +123,6 @@ public class SubsystemDrive extends Subsystem {
 		return sum / (double)list.length;
 	}
 
-	/**
-	 * The log method puts interesting information to the SmartDashboard.
-	 */
 	public void log() {
 		for(int i = 0; i < x_g_buffer.length - 1; i++) {
 			x_g_buffer[i] = x_g_buffer[i + 1];

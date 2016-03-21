@@ -281,7 +281,7 @@ public class Camera extends Thread implements Runnable {
 			if(rearCam != null) {
 				rearCam.setWhiteBalanceManual(USBCamera.WhiteBalance.kFixedIndoor);
 				rearCam.setFPS(30);
-				rearCam.setSize(640, 480);
+				rearCam.setSize(CameraConstants.HIGH_RES_CAMERA_WIDTH, CameraConstants.HIGH_RES_CAMERA_HEIGHT);
 				rearCam.updateSettings();
 				rearCam.openCamera();
 				rearCam.startCapture();
@@ -303,11 +303,11 @@ public class Camera extends Thread implements Runnable {
 				rearCamOn = false;
 			}
 		}
-		Thread.sleep(50); //Give the camera about a tenth of a second to fully switch. This clears the broken images caused by switching from the camera server.
+		Thread.sleep(100); //Give the camera about a tenth of a second to fully switch. This clears the broken images caused by switching from the camera server.
 		Logger.out("Stop loading animation...");
 		startTime = load.end();
 		while(load.running()) {
-			Thread.sleep(20);
+			Thread.sleep(50);
 		}
 		load = null; //Dispose the thread.
 		Logger.out("Switched cams!");

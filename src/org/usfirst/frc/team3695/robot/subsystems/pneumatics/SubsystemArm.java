@@ -3,6 +3,7 @@ package org.usfirst.frc.team3695.robot.subsystems.pneumatics;
 import org.usfirst.frc.team3695.robot.Constants;
 import org.usfirst.frc.team3695.robot.enumeration.Catapult;
 import org.usfirst.frc.team3695.robot.enumeration.Latch;
+import org.usfirst.frc.team3695.robot.util.Loggable;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -12,7 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * This subsystem uses pneumatics to move up and down the arm
  * of the robot.
  */
-public class SubsystemArm extends Subsystem {
+public class SubsystemArm extends Subsystem implements Loggable {
 	private Solenoid armPistonUp;
 	private Solenoid armPistonDown;
 	private Solenoid latchEngage;
@@ -36,6 +37,10 @@ public class SubsystemArm extends Subsystem {
 	private boolean subsystemLatchingLocked = false,
 					subsystemPistonLocked = false;
 	
+	/**
+	 * Creates a very complicated method of managing the state of both
+	 * the latch and catapult.
+	 */
 	public SubsystemArm() {
 		super();
 		armPistonUp = new Solenoid(Constants.ARM_PISTON_SOLENOID_UP);

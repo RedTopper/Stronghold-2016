@@ -1,17 +1,26 @@
 package org.usfirst.frc.team3695.robot.subsystems;
 
 import org.usfirst.frc.team3695.robot.Constants;
+import org.usfirst.frc.team3695.robot.util.Loggable;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class SubsystemBling extends Subsystem {
-
+/**
+ * Totally bling out the robot with colorful LEDs.
+ */
+public class SubsystemBling extends Subsystem implements Loggable {
 	private Solenoid redLEDS;
 	private Solenoid blueLEDS;
+
+	protected void initDefaultCommand() {
+	}
 	
+	/**
+	 * Creates a colorful robot.
+	 */
 	public SubsystemBling(){
 		super();
 		redLEDS = new Solenoid(Constants.RED_LED_PORT);
@@ -41,12 +50,7 @@ public class SubsystemBling extends Subsystem {
 		redLEDS.set(redLED);
 		blueLEDS.set(blueLED);
 	}
-	@Override
-	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub
-		
-	}
-	
+
 	public void log(){
 		SmartDashboard.putString("Team", DriverStation.getInstance().getAlliance().toString());
 	}
