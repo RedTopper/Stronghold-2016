@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3695.robot.commands.pneumatics;
 
 import org.usfirst.frc.team3695.robot.Robot;
+import org.usfirst.frc.team3695.robot.enumeration.MoveArm;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -8,10 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
  * This command fires the arm (ball launcher) or resets it's state.
  */
 public class CommandMoveArm extends Command {
-	public static final int FIRE = 0,
-							RESET = 1;
-	
-	private int objective;
+	private MoveArm objective;
 	private boolean complete = false;
 	
 	/**
@@ -19,7 +17,7 @@ public class CommandMoveArm extends Command {
 	 * @param objective Use CommandMoveArm.FIRE to fire the arm and
 	 * CommandMoveArm.RESET to move the arm back to the robot.
 	 */
-	public CommandMoveArm(int objective) {
+	public CommandMoveArm(MoveArm objective) {
 		requires(Robot.armSubsystem);
 		this.objective = objective;
 	}

@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3695.robot.commands;
 
 import org.usfirst.frc.team3695.robot.Robot;
+import org.usfirst.frc.team3695.robot.enumeration.RotateWithCam;
 import org.usfirst.frc.team3695.robot.util.Logger;
 import org.usfirst.frc.team3695.robot.util.Util;
 import org.usfirst.frc.team3695.robot.vision.Camera;
@@ -13,15 +14,7 @@ import edu.wpi.first.wpilibj.command.Command;
  * a camera.
  */
 public class CommandRotateWithCam extends Command {
-	/**
-	 * Used for telling the robot to move a certain direction to aim
-	 * at the goal. Use these in the constructor of the class. These
-	 * also represent the overall direction the robot will move.
-	 */
-	public static final int ROTATE_LEFT_OVERALL = 0,
-							ROTATE_RIGHT_OVERALL = 1;
-	
-	private int objective;
+	private RotateWithCam objective;
 	private boolean complete;
 	private int stage = 0;
 	private int calibration = Util.setAndGetNumber("ROT", "Calibration Value", 10);
@@ -36,7 +29,7 @@ public class CommandRotateWithCam extends Command {
 	 * CommandRotateRightWithCam.ROTATE_RIGHT_OVERALL to tell the robot to 
 	 * move in a direction.
 	 */
-    public CommandRotateWithCam(int objective) {
+    public CommandRotateWithCam(RotateWithCam objective) {
     	requires(Robot.driveSubsystem);
         this.objective = objective;
         setTimeout(CameraConstants.MAX_ROTATE_TIME);
@@ -86,7 +79,7 @@ public class CommandRotateWithCam extends Command {
     		}
     		break;
     	default:
-    		objective = ROTATE_RIGHT_OVERALL;
+    		objective = RotateWithCam.ROTATE_RIGHT_OVERALL;
     		break;
     	}
     	

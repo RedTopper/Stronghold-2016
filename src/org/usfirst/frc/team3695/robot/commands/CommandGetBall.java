@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3695.robot.commands;
 
 import org.usfirst.frc.team3695.robot.Robot;
+import org.usfirst.frc.team3695.robot.enumeration.GetBall;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -8,17 +9,14 @@ import edu.wpi.first.wpilibj.command.Command;
  * This command moves a ball from the playing field into the arm.
  */
 public class CommandGetBall extends Command {
-	public static final int SUCK_IN_BALL = 0,
-							THROW_OUT_BALL = 1;
-	
-	private int objective;
+	private GetBall objective;
 	
 	/**
 	 * Gets or removes the ball from the possession of the arm.
 	 * @param objective use CommandGetBall.SUCK_IN_BALL or CommandGetBall.THROW_OUT_BALL
 	 * to either grab or remove the ball from the arm.
 	 */
-	public CommandGetBall(int objective) {
+	public CommandGetBall(GetBall objective) {
 		requires(Robot.ballSubsystem);
 		this.objective = objective;
 	}

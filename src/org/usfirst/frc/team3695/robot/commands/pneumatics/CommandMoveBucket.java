@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3695.robot.commands.pneumatics;
 
 import org.usfirst.frc.team3695.robot.Robot;
+import org.usfirst.frc.team3695.robot.enumeration.MoveBucket;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -9,17 +10,14 @@ import edu.wpi.first.wpilibj.command.Command;
  * and fancy pneumatics.
  */
 public class CommandMoveBucket extends Command {
-	public static final int MOVE_UP = 0,
-							MOVE_DOWN = 1;
-	
-	private int objective = 0;
+	private MoveBucket objective;
 	
 	/**
 	 * The direction the arm will move.
 	 * @param direction use CommandMoveArm.MOVE_UP or CommandMoveArm.MOVE_DOWN
 	 * to move the arm in a direction.
 	 */
-	public CommandMoveBucket(int objective) {
+	public CommandMoveBucket(MoveBucket objective) {
 		requires(Robot.bucketSubsystem);
 		this.objective = objective;
 	}
