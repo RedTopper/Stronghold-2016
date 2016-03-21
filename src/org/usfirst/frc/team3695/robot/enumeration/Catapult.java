@@ -1,5 +1,8 @@
 package org.usfirst.frc.team3695.robot.enumeration;
 
+/**
+ * This enum defines the current status of the catapult. 
+ */
 public enum Catapult {
 	UNKNOWN,
 
