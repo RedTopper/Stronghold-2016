@@ -5,13 +5,19 @@ Code for FRC Robotics team 3695.
 [Stronghold-2016](http://redinquisitive.github.io/Stronghold-2016/)
 
 ### Program Team Goals
-- [ ] Pneumatics safety checks (Dumb Driver Checks)
 - [x] Update/Document constants on a per robot basis
+- [x] Auto Targeting
+- [ ] Complete Autonomous
+- [ ] Autonomous Calibration
+- [ ] Make code readable for future students
+- [ ] Pneumatics safety checks (Dumb Driver Checks)
+- [ ] Correct Transducer Wiring
+- [ ] Rewire CAN
+- [ ] Sensors Mounting
+- [ ] Ultrasonic Sensor testing/calibrating
 - [ ] Solder resistors for Photoelectric Sensor
 - [ ] Photoelectric Sensor testing
-- [ ] Ultrasonic Sensor testing
-- [ ] Make code readable for future students
-- [ ] Raspberry PI Image Streaming
+- [ ] TalonSRX CAN Wiring/Testing
 
 
 ### Contributors (Program Team 2016)
