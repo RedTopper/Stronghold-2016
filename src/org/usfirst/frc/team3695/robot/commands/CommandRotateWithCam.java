@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3695.robot.commands;
 
 import org.usfirst.frc.team3695.robot.Robot;
+import org.usfirst.frc.team3695.robot.enumeration.Cam;
 import org.usfirst.frc.team3695.robot.enumeration.RotateWithCam;
 import org.usfirst.frc.team3695.robot.util.Logger;
 import org.usfirst.frc.team3695.robot.util.Util;
@@ -42,7 +43,7 @@ public class CommandRotateWithCam extends Command {
     	complete = false;
     	if(cam != null) {
     		cam.controllerable(false);
-    		cam.switchCam(Camera.FRONT_PROCESSED);
+    		cam.switchCam(Cam.FRONT_PROCESSED);
     	} else {
     		Logger.err("The camera isn't a thing, yo.");
     	}
@@ -108,7 +109,7 @@ public class CommandRotateWithCam extends Command {
     	Robot.driveSubsystem.tankdrive(0, 0);
     	if(cam != null) {
     		cam.controllerable(true);
-    		cam.switchCam(Camera.FRONT_CAM);
+    		cam.switchCam(Cam.FRONT_CAM);
     	} else {
     		Logger.err("The camera isn't a thing, yo.");
     	}

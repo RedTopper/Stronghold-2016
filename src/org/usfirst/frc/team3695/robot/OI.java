@@ -8,6 +8,7 @@ import org.usfirst.frc.team3695.robot.commands.pneumatics.CommandMoveArm;
 import org.usfirst.frc.team3695.robot.commands.pneumatics.CommandMoveArmRaw;
 import org.usfirst.frc.team3695.robot.commands.pneumatics.CommandMoveBucket;
 import org.usfirst.frc.team3695.robot.enumeration.Ball;
+import org.usfirst.frc.team3695.robot.enumeration.Cam;
 import org.usfirst.frc.team3695.robot.enumeration.MoveArm;
 import org.usfirst.frc.team3695.robot.enumeration.MoveArmRaw;
 import org.usfirst.frc.team3695.robot.enumeration.MoveBucket;
@@ -143,21 +144,21 @@ public class OI {
 	private void updateButtonsManual() {
 		//Code for viewing the rear view cam
 		if(cam.isControllable() && !driveRearCamNeedsUpdate && Controller.DRIVE_JOY().getRawButton(Controller.DRIVE_REAR_CAM)) {
-			if(cam != null) cam.switchCam(Camera.REAR_CAM);
+			if(cam != null) cam.switchCam(Cam.REAR_CAM);
 			driveRearCamNeedsUpdate = true;
 		}
 		if(cam.isControllable() && driveRearCamNeedsUpdate && !Controller.DRIVE_JOY().getRawButton(Controller.DRIVE_REAR_CAM)){
-			if(cam != null) cam.switchCam(Camera.FRONT_CAM);
+			if(cam != null) cam.switchCam(Cam.FRONT_CAM);
 			driveRearCamNeedsUpdate = false;
 		}
 		
 		//Code for viewing the processed vision camera.
 		if(cam.isControllable() && !driveFrontCamProcNeedsUpdate && Controller.DRIVE_JOY().getRawButton(Controller.DRIVE_PROCESSED_CAM)) {
-			if(cam != null) cam.switchCam(Camera.FRONT_PROCESSED);
+			if(cam != null) cam.switchCam(Cam.FRONT_PROCESSED);
 			driveFrontCamProcNeedsUpdate = true;
 		} 
 		if(cam.isControllable() && driveFrontCamProcNeedsUpdate && !Controller.DRIVE_JOY().getRawButton(Controller.DRIVE_PROCESSED_CAM)){
-			if(cam != null) cam.switchCam(Camera.FRONT_CAM);
+			if(cam != null) cam.switchCam(Cam.FRONT_CAM);
 			driveFrontCamProcNeedsUpdate = false;
 		}
 	}

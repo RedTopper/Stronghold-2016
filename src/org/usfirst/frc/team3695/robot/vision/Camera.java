@@ -2,6 +2,7 @@ package org.usfirst.frc.team3695.robot.vision;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import org.usfirst.frc.team3695.robot.enumeration.Cam;
 import org.usfirst.frc.team3695.robot.util.Logger;
 import org.usfirst.frc.team3695.robot.util.Util;
 
@@ -39,24 +40,16 @@ public class Camera extends Thread implements Runnable {
 	 */
 	private boolean frontCamOn = false,
 					rearCamOn = false;
-	
-	/**
-	 *  Different images that can be displayed to the camera feed.
-	 */
-	public static final int NO_CAM = 0,
-							FRONT_PROCESSED = 1,
-							FRONT_CAM = 2,
-							REAR_CAM = 3;
-	
+
 	/**
 	 * Variables used to control the camera.
 	 */
-	private volatile int cameraView = FRONT_CAM;
+	private volatile Cam cameraView = Cam.FRONT_CAM;
 	
 	/**
 	 * Variable used to control outside access to switching cameras.
 	 */
-	private volatile int newCameraView = FRONT_CAM;
+	private volatile Cam newCameraView = Cam.FRONT_CAM;
 	/**
 	 * All of the images that can be shown on camera.
 	 */
@@ -148,7 +141,7 @@ public class Camera extends Thread implements Runnable {
 		//Try to switch the camera.
 		boolean launchThread = true;
 		try {
-			viewCam(FRONT_CAM);
+			viewCam(Cam.FRONT_CAM);
 		} catch (Exception e) {
 			Logger.err("The main thread exited! ", e); 
 			launchThread = false;
@@ -205,7 +198,7 @@ public class Camera extends Thread implements Runnable {
 				try {
 					CameraServer.getInstance().setImage(noFrame);
 					Thread.sleep(2000);	//Wait for error to go away.
-					viewCam(FRONT_CAM); //Attempt to restart the front camera. Might fail.
+					viewCam(Cam.FRONT_CAM); //Attempt to restart the front camera. Might fail.
 				} catch (Exception e2) {
 					CameraServer.getInstance().setImage(noFrame);
 					Logger.err("Nope, it was an irrecoverable error :( ", e2); 
@@ -221,7 +214,7 @@ public class Camera extends Thread implements Runnable {
 	 * Camera.NO_CAM, Camera.FRONT_PROCCESSED, Camera.FRONT_CAM, Camera.REAR_CAM
 	 * @param cam An integer of the camera.
 	 */
-	public void switchCam(int cam) {
+	public void switchCam(Cam cam) {
 		newCameraView = cam;
 	}
 	
@@ -231,7 +224,7 @@ public class Camera extends Thread implements Runnable {
 	 * Camera.FRONT_CAM or Camera.REAR_CAM to switch the camera to a
 	 * different feed. 
 	 */
-	private void viewCam(int newCameraView) throws Exception {
+	private void viewCam(Cam newCameraView) throws Exception {
 		CameraServer.getInstance().setQuality(CameraConstants.SERVER_QUALITY());
 		Loading load = new Loading(waitFrame, startTime);
 		load.start();
@@ -341,7 +334,7 @@ public class Camera extends Thread implements Runnable {
 	 * Returns if the camera is actually doing image processing.
 	 */
 	public boolean isProccessingCamera() {
-		return cameraView == FRONT_PROCESSED;
+		return cameraView == Cam.FRONT_PROCESSED;
 	}
 	
 	/**
