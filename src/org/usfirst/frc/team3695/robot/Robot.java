@@ -4,9 +4,9 @@ package org.usfirst.frc.team3695.robot;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import org.usfirst.frc.team3695.robot.commands.CommandRotateWithCam;
 import org.usfirst.frc.team3695.robot.commands.auto.AutonomousForwardOnly;
 import org.usfirst.frc.team3695.robot.commands.auto.AutonomousRotateAndScore;
+import org.usfirst.frc.team3695.robot.enumeration.RotateWithCam;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemBall;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemBling;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemCompressor;
@@ -72,8 +72,8 @@ public class Robot extends IterativeRobot {
         //Set up autoChooser for robot
         autoChooser = new SendableChooser();
         autoChooser.addDefault("Forward ONLY", new AutonomousForwardOnly());
-        autoChooser.addObject("Robot is LEFT of goal", new AutonomousRotateAndScore(CommandRotateWithCam.ROTATE_RIGHT_OVERALL));
-        autoChooser.addObject("Robot is RIGHT of goal", new AutonomousRotateAndScore(CommandRotateWithCam.ROTATE_LEFT_OVERALL));
+        autoChooser.addObject("Robot is LEFT of goal", new AutonomousRotateAndScore(RotateWithCam.ROTATE_RIGHT_OVERALL));
+        autoChooser.addObject("Robot is RIGHT of goal", new AutonomousRotateAndScore(RotateWithCam.ROTATE_LEFT_OVERALL));
         
         //Set up rumbleChooser for robot
         rumbleChooser = new SendableChooser();

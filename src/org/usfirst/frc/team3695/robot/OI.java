@@ -1,12 +1,17 @@
 package org.usfirst.frc.team3695.robot;
 
+import org.usfirst.frc.team3695.robot.commands.CommandBall;
 import org.usfirst.frc.team3695.robot.commands.CommandDriveWithCam;
-import org.usfirst.frc.team3695.robot.commands.CommandGetBall;
 import org.usfirst.frc.team3695.robot.commands.CommandRotateWithCam;
 import org.usfirst.frc.team3695.robot.commands.pneumatics.CommandCompressorToggle;
 import org.usfirst.frc.team3695.robot.commands.pneumatics.CommandMoveArm;
 import org.usfirst.frc.team3695.robot.commands.pneumatics.CommandMoveArmRaw;
 import org.usfirst.frc.team3695.robot.commands.pneumatics.CommandMoveBucket;
+import org.usfirst.frc.team3695.robot.enumeration.Ball;
+import org.usfirst.frc.team3695.robot.enumeration.MoveArm;
+import org.usfirst.frc.team3695.robot.enumeration.MoveArmRaw;
+import org.usfirst.frc.team3695.robot.enumeration.MoveBucket;
+import org.usfirst.frc.team3695.robot.enumeration.RotateWithCam;
 import org.usfirst.frc.team3695.robot.vision.Camera;
 
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -19,11 +24,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class OI {
 	
-	private CommandMoveBucket moveBucketUp = new CommandMoveBucket(CommandMoveBucket.MOVE_UP);
-	private CommandMoveBucket moveBucketDown = new CommandMoveBucket(CommandMoveBucket.MOVE_DOWN);
+	private CommandMoveBucket moveBucketUp = new CommandMoveBucket(MoveBucket.MOVE_UP);
+	private CommandMoveBucket moveBucketDown = new CommandMoveBucket(MoveBucket.MOVE_DOWN);
 	
-	private CommandMoveArmRaw unlockLatch = new CommandMoveArmRaw(CommandMoveArmRaw.UNLOCK_LATCH);
-	private CommandMoveArmRaw lockLatch = new CommandMoveArmRaw(CommandMoveArmRaw.LOCK_LATCH);
+	private CommandMoveArmRaw unlockLatch = new CommandMoveArmRaw(MoveArmRaw.UNLOCK_LATCH);
+	private CommandMoveArmRaw lockLatch = new CommandMoveArmRaw(MoveArmRaw.LOCK_LATCH);
 	
 	private boolean povUpStateNotPressed = true,
 					povDownStateNotPressed = true,
@@ -43,8 +48,8 @@ public class OI {
 	
 	public OI() {
 		//SmartDash
-		SmartDashboard.putData("Use camera to rotate RIGHT", new CommandRotateWithCam(CommandRotateWithCam.ROTATE_RIGHT_OVERALL));
-		SmartDashboard.putData("Use camera to rotate LEFT", new CommandRotateWithCam(CommandRotateWithCam.ROTATE_LEFT_OVERALL));
+		SmartDashboard.putData("Use camera to rotate RIGHT", new CommandRotateWithCam(RotateWithCam.ROTATE_RIGHT_OVERALL));
+		SmartDashboard.putData("Use camera to rotate LEFT", new CommandRotateWithCam(RotateWithCam.ROTATE_LEFT_OVERALL));
 		
 		SmartDashboard.putData("Use camera to drive", new CommandDriveWithCam());
 		
@@ -69,16 +74,16 @@ public class OI {
 		
 		//Buttons for OP
 		Button getBall = new JoystickButton(Controller.OP_JOY(), Controller.OP_GRAB_BALL);
-		getBall.whileHeld(new CommandGetBall(CommandGetBall.SUCK_IN_BALL));
+		getBall.whileHeld(new CommandBall(Ball.SUCK_IN_BALL));
 		
 		Button removeBall = new JoystickButton(Controller.OP_JOY(), Controller.OP_RELEASE_BALL);
-		removeBall.whileHeld(new CommandGetBall(CommandGetBall.THROW_OUT_BALL));
+		removeBall.whileHeld(new CommandBall(Ball.THROW_OUT_BALL));
 		
 		Button fire = new JoystickButton(Controller.OP_JOY(), Controller.OP_FIRE_ARM);
-		fire.whenPressed(new CommandMoveArm(CommandMoveArm.FIRE));
+		fire.whenPressed(new CommandMoveArm(MoveArm.FIRE));
 		
 		Button reset = new JoystickButton(Controller.OP_JOY(), Controller.OP_RESET_ARM);
-		reset.whenPressed(new CommandMoveArm(CommandMoveArm.RESET));
+		reset.whenPressed(new CommandMoveArm(MoveArm.RESET));
 		
 		//Manual buttons for OP. USE WITH CAUTION.
 		//Button pistonUp = new JoystickButton(Controller.OP_JOY(), Controller.OP_PISTON_UP);

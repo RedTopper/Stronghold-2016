@@ -2,6 +2,7 @@
 package org.usfirst.frc.team3695.robot.commands.auto;
 
 import org.usfirst.frc.team3695.robot.commands.CommandRotateWithCam;
+import org.usfirst.frc.team3695.robot.enumeration.RotateWithCam;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -10,9 +11,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class AutonomousRotateAndScore extends CommandGroup 
 {
-    public AutonomousRotateAndScore(int direction)
+    public AutonomousRotateAndScore(RotateWithCam rotateRightOverall)
     {
-    	addSequential(new CommandRotateWithCam(CommandRotateWithCam.ROTATE_LEFT_OVERALL));
+    	addSequential(new CommandRotateWithCam(RotateWithCam.ROTATE_LEFT_OVERALL));
     	//addSequential(new CommandLaunchBall()); // TODO: DO SOMETHING WICKED :O
     }
 }
