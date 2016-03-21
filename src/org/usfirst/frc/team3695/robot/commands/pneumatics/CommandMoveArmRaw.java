@@ -13,10 +13,10 @@ public class CommandMoveArmRaw extends Command {
 	
 	/**
 	 * Messes with the pneumatics directly.
-	 * @param objective CommandMoveArmRaw.LOCK_LATCH will lock the latch,<br>
-	 * CommandMoveArmRaw.UNLOCK_LATCH will unlock the latch,<br>
-	 * CommandMoveArmRaw.PISTON_UP will move the arm piston up (and move the arm down),<br>
-	 * CommandMoveArmRaw.PISTON_DOWN will move the arm piston down (and move the arm up).
+	 * @param objective MoveArmRaw.LOCK_LATCH will lock the latch,<br>
+	 * MoveArmRaw.UNLOCK_LATCH will unlock the latch,<br>
+	 * MoveArmRaw.PISTON_UP will move the arm piston up (and move the arm down),<br>
+	 * MoveArmRaw.PISTON_DOWN will move the arm piston down (and move the arm up).
 	 */
 	public CommandMoveArmRaw(MoveArmRaw objective) {
 		requires(Robot.armSubsystem);

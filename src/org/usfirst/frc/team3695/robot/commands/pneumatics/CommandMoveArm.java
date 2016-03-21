@@ -14,8 +14,8 @@ public class CommandMoveArm extends Command {
 	
 	/**
 	 * Creates a command to move the arm based on an objective.
-	 * @param objective Use CommandMoveArm.FIRE to fire the arm and
-	 * CommandMoveArm.RESET to move the arm back to the robot.
+	 * @param objective Use MoveArm.FIRE to fire the arm and
+	 * MoveArm.RESET to move the arm back to the robot.
 	 */
 	public CommandMoveArm(MoveArm objective) {
 		requires(Robot.armSubsystem);

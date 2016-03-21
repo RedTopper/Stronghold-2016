@@ -211,8 +211,8 @@ public class Camera extends Thread implements Runnable {
 	
 	/**
 	 * Start the process of switching the camera from one cam to another. Parameters are
-	 * Camera.NO_CAM, Camera.FRONT_PROCCESSED, Camera.FRONT_CAM, Camera.REAR_CAM
-	 * @param cam An integer of the camera.
+	 * Cam.NO_CAM, Cam.FRONT_PROCCESSED, Cam.FRONT_CAM, Cam.REAR_CAM
+	 * @param cam The camera to switch to.
 	 */
 	public void switchCam(Cam cam) {
 		newCameraView = cam;
@@ -220,8 +220,8 @@ public class Camera extends Thread implements Runnable {
 	
 	/**
 	 * This method attempts to switch the camera to a new camera feed.
-	 * @param cam Use the constants Camera.NO_CAM, Camera.FRONT_PROCCESSED
-	 * Camera.FRONT_CAM or Camera.REAR_CAM to switch the camera to a
+	 * @param cam Use the constants Cam.NO_CAM, Cam.FRONT_PROCCESSED
+	 * Cam.FRONT_CAM or Cam.REAR_CAM to switch the camera to a
 	 * different feed. 
 	 */
 	private void viewCam(Cam newCameraView) throws Exception {

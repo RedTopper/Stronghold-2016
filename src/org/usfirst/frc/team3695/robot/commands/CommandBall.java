@@ -13,7 +13,7 @@ public class CommandBall extends Command {
 	
 	/**
 	 * Gets or removes the ball from the possession of the arm.
-	 * @param objective use CommandGetBall.SUCK_IN_BALL or CommandGetBall.THROW_OUT_BALL
+	 * @param objective use Ball.SUCK_IN_BALL or Ball.THROW_OUT_BALL
 	 * to either grab or remove the ball from the arm.
 	 */
 	public CommandBall(Ball objective) {

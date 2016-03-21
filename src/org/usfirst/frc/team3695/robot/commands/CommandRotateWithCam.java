@@ -27,8 +27,8 @@ public class CommandRotateWithCam extends Command {
 	
 	/**
 	 * This will tell the robot witch way to move to face the goal the quickest.
-	 * @param direction use CommandRotateWithCam.ROTATE_LEFT_OVERALL or 
-	 * CommandRotateRightWithCam.ROTATE_RIGHT_OVERALL to tell the robot to 
+	 * @param direction use RotateWithCam.ROTATE_LEFT_OVERALL or 
+	 * RotateRightWithCam.ROTATE_RIGHT_OVERALL to tell the robot to 
 	 * move in a direction.
 	 */
     public CommandRotateWithCam(RotateWithCam objective) {

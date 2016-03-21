@@ -14,7 +14,7 @@ public class CommandMoveBucket extends Command {
 	
 	/**
 	 * The direction the arm will move.
-	 * @param direction use CommandMoveArm.MOVE_UP or CommandMoveArm.MOVE_DOWN
+	 * @param direction use MoveArm.MOVE_UP or MoveArm.MOVE_DOWN
 	 * to move the arm in a direction.
 	 */
 	public CommandMoveBucket(MoveBucket objective) {

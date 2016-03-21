@@ -64,7 +64,7 @@ public class SubsystemDrive extends Subsystem implements Loggable {
      * Drives the robot like a tank.
      * @param left The speed of the left wheels from -1 to 1, where -1 is the max
      * reverse speed and 1 is the max forward speed.
-     * @param right The speed of the right wheels from -1 to 1, where -1 is the mmax
+     * @param right The speed of the right wheels from -1 to 1, where -1 is the max
      * reverse speed and 1 is the max forward speed.
      */
 	public void tankdrive(double left, double right) {

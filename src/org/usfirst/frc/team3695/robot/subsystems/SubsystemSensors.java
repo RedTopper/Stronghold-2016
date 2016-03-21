@@ -33,11 +33,19 @@ public class SubsystemSensors extends Subsystem implements Loggable {
 		return ultrasonicInput.getVoltage();
 	}
 	
+	/**
+	 * @return True if the arm switch is pressed, false
+	 * otherwise.
+	 */
 	public boolean isSwitchPressed(){
 		double switchVoltage = loadedInput.getVoltage();
 		return switchVoltage < 0.1;
 	}
 	
+	/**
+	 * Gets the pressure of the pneumatics.
+	 * @return An amount of pressure in PSI.
+	 */
 	public double getPressure(){
 		double psi = pressureGauge.getVoltage() * Constants.TRANSDUCER_SCALAR + Constants.TRANSDUCER_B;
 		if (psi < 0.0) {
