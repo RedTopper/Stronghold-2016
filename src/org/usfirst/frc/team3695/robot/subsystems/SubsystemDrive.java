@@ -22,17 +22,22 @@ public class SubsystemDrive extends Subsystem {
 	private TalonSRX frontRight;
 	private TalonSRX rearLeft;
 	private TalonSRX rearRight;
-	
-	private double[] x_g_buffer = new double[10];
-	private double[] y_g_buffer = new double[x_g_buffer.length];
-	private double[] z_g_buffer = new double[x_g_buffer.length];
-	
 	private RobotDrive driveTrain;
-	
 	private BuiltInAccelerometer builtInAccelerometer;
+	
+	/**
+	 * An array of the last ten g-force values on the
+	 * x, y, and z values of the built in accelerometer.
+	 */
+	private double[] x_g_buffer = new double[10],
+					 y_g_buffer = new double[x_g_buffer.length],
+					 z_g_buffer = new double[x_g_buffer.length];
 	
 	private long timeStartRumble = 0;
 	
+	/**
+	 * Creates the ability to drive the robot.
+	 */
 	public SubsystemDrive() {
 		super();
 		
@@ -54,10 +59,22 @@ public class SubsystemDrive extends Subsystem {
 		setDefaultCommand(new CommandDrive());
     }
     
+    /**
+     * Drives the robot like a tank.
+     * @param left The speed of the left wheels from -1 to 1, where -1 is the max
+     * reverse speed and 1 is the max forward speed.
+     * @param right The speed of the right wheels from -1 to 1, where -1 is the mmax
+     * reverse speed and 1 is the max forward speed.
+     */
 	public void tankdrive(double left, double right) {
 		driveTrain.tankDrive(left,right);
 	}
 	
+	/**
+	 * Uses a controller to drive the tank.
+	 * @param joy The joystick to rumple when the tank is 
+	 * being  driven.
+	 */
 	public void tankdrive(Joystick joy) {
 		double[] tank = Controller.DRIVE_AXIS();
 		tankdrive(tank[0],tank[1]);
@@ -67,6 +84,13 @@ public class SubsystemDrive extends Subsystem {
 		}
 	}
 	
+	/**
+	 * Rumbles a controller when some amount of g-force is exceeded. 
+	 * See the Constants.RUMBLE_BOUND_G_FORCE for more detail.
+	 * @param x X g force.
+	 * @param y Y g force.
+	 * @param z Z g force.
+	 */
 	private void rumble(double x, double y, double z) {
 		double downGForce;
 		switch(Constants.DOWN_AXIS) {

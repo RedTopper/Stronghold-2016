@@ -8,6 +8,9 @@ import org.usfirst.frc.team3695.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
+/**
+ * Drives for some amount of time.
+ */
 public class CommandDriveTime extends Command {
 	private long startTime = 0;
 	private long driveTime = 0;

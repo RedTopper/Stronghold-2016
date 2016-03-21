@@ -39,5 +39,4 @@ public class CommandDoNothing extends Command {
 	protected void interrupted() {
 		end();
 	}
-
 }

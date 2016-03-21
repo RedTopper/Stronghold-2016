@@ -13,7 +13,16 @@ import org.usfirst.frc.team3695.robot.util.CommandDoNothing;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
+/**
+ * Everything that makes our robot do magical things.
+ */
 public class Autonomous extends CommandGroup {
+	
+	/**
+	 * Starts the autonomous (hopefully)
+	 * @param objectiveDefense Witch defense we are breaching
+	 * @param objectiveDirection Witch way we need to rotate to view the goal.
+	 */
 	public Autonomous(Defense objectiveDefense, RotateWithCam objectiveDirection) {
 		switch(objectiveDefense) {
 		case NOTHING:
@@ -42,6 +51,11 @@ public class Autonomous extends CommandGroup {
 		}
 	}
 	
+	/**
+	 * If needed, this method will do the final stages of robot autonimation.
+	 * @param objectiveDirection The direction the robot needs to rotate to complete
+	 * autonomous.
+	 */
 	private void finalize(RotateWithCam objectiveDirection) {
 		switch(objectiveDirection) {
 		case NOTHING:
