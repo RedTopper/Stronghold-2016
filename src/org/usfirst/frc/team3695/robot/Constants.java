@@ -40,7 +40,7 @@ public class Constants {
 							BALL_MOTOR_PORT = 4;
 	
 	/**
-	 * Analog Port used for Pnuematics Transducer Gauge
+	 * Analog Port used for sensors.
 	 */
 	public static final int ULTRASONIC_INPUT = 0,
 							TRANSDUCER_PORT = 1,
@@ -55,7 +55,8 @@ public class Constants {
 							   MAX_RANGE = 72;
 	
 	/**
-	 * Scalar for Pnuematics (Converts volts to ~ PSI)
+	 * Scalar for Pnuematics (Converts volts to ~ PSI).
+	 * Generic linear MX + B equation.
 	 */
 	public static final double TRANSDUCER_SCALAR = 25.0,
 							   TRANSDUCER_B = -12.5;
@@ -78,11 +79,6 @@ public class Constants {
 								REAR_LEFT_MOTOR_INVERT = false,
 								REAR_RIGHT_MOTOR_INVERT = false,
 								BALL_MOTOR_INVERT = true;
-	
-	/**
-	 * Amount the robot has traveled per encoder pulse.
-	 */
-	public static final double DISTANCE_PER_PULSE = 0.042;
 	
 	/**
 	 * String that tells the robot which axis is down. By default, 
@@ -110,14 +106,6 @@ public class Constants {
 	 * rumble will be activated on the driver's controller.
 	 */
 	public static final float RUMBLE_BOUND_G_FORCE = 0.4f;
-	
-	/**
-	 * Used for camera calibration. These numbers represent the offset from the center of the
-	 * camera in pixels. The variables here are the names to use when obtaining them through
-	 * the preferences.
-	 */
-	public static final String CAMERA_CALIBRATION_LR_NAME = "LeftRight",
-							   CAMERA_CALIBRATION_UD_NAME = "ForwardBackward";
 
 	/**
 	 * Solenoid ports.
@@ -138,10 +126,5 @@ public class Constants {
 	/**
 	 * Multiplier used when the b button is not held.
 	 */
-	public static final double NO_BOOST_MULTIPLIER = 0.7;
-
-	/**
-	 * How long the robot should stop so the camera can catch up.
-	 */
-	public static final long PAUSE_CAMERA_ROTATION_TIME_MS = 1000;
+	public static final double NO_BOOST_MULTIPLIER = 0.6;
 }

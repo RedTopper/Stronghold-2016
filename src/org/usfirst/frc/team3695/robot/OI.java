@@ -52,7 +52,6 @@ public class OI {
 		SmartDashboard.putData("Use camera to rotate RIGHT", new CommandRotateWithCam(RotateWithCam.ROTATE_RIGHT_OVERALL));
 		SmartDashboard.putData("Use camera to rotate LEFT", new CommandRotateWithCam(RotateWithCam.ROTATE_LEFT_OVERALL));
 		SmartDashboard.putData("Use camera to drive", new CommandDriveWithCam());
-		
 		//SmartDashboard.putData("Do Lights", new CommandLights()); //Get your code to work first pls.
 		
 		//Compressor Toggle

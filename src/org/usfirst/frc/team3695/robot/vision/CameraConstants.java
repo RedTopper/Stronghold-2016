@@ -10,6 +10,13 @@ public class CameraConstants {
 	}
 	
 	/**
+	 * Amount of times the camera can miss the goal after discovering it for the first time.
+	 * Any amount more than this will cancel the running command and return an error
+	 * during autonomous. 
+	 */
+	public static final int MAX_CAMERA_MISSES = 10;
+	
+	/**
 	 * Amount of time that the robot will rotate before timing out in seconds.
 	 */
 	public static final int MAX_ROTATE_TIME = 5;

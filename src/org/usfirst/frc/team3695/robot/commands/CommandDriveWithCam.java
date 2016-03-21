@@ -17,6 +17,7 @@ public class CommandDriveWithCam extends Command {
 	private boolean complete;
 	private int calibration = Util.setAndGetNumber("FWD", "Calibration Value", 10);
 	private int center = Util.setAndGetNumber("FWD", "Center Offset Value", 100);
+	private int errors = 0;
 	
 	private long lastTime = 0;
 	private Camera cam = Camera.getInstance();
@@ -44,6 +45,7 @@ public class CommandDriveWithCam extends Command {
     	} else {
     		Logger.err("The camera isn't a thing, yo.");
     	}
+    	errors = 0;
     }
 
     protected void execute(){
@@ -70,9 +72,11 @@ public class CommandDriveWithCam extends Command {
     			Logger.out("So the camera ended here: " + goalY);
     		}
 		} else {
-			Logger.err("Quit because I could not find a goal! Has the robot been rotated first?");
-			Robot.STOP_AUTO = "Can't find goal to drive!";
-			complete = true;
+			if(errors++ > CameraConstants.MAX_CAMERA_MISSES) {
+				Logger.err("Quit because I could not find a goal! Has the robot been rotated first?");
+				Robot.STOP_AUTO = "Can't find goal to drive!";
+				complete = true;
+			}
 		}
     }
 

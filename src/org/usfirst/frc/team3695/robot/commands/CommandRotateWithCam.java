@@ -20,6 +20,7 @@ public class CommandRotateWithCam extends Command {
 	private int stage = 0;
 	private int calibration = Util.setAndGetNumber("ROT", "Calibration Value", 10);
 	private int center = Util.setAndGetNumber("ROT", "Center Offset Value", 0);
+	private int errors = 0;
 	
 	private long lastTime = 0;
 	private Camera cam = Camera.getInstance();
@@ -51,6 +52,7 @@ public class CommandRotateWithCam extends Command {
     	} else {
     		Logger.err("The camera isn't a thing, yo.");
     	}
+    	errors = 0;
     }
 
     protected void execute(){
@@ -100,6 +102,12 @@ public class CommandRotateWithCam extends Command {
 	    			complete = true;
 	    			Logger.out("So the camera ended here: " + goalX);
 	    		}
+    		} else {
+    			if(errors++ > CameraConstants.MAX_CAMERA_MISSES) {
+    				Logger.err("Quit because I could not find a goal! Did the image get distorted?");
+    				Robot.STOP_AUTO = "Can't find goal to rotate to!";
+    				complete = true;
+    			}
     		}
     	}
     }
