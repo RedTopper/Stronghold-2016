@@ -1,4 +1,4 @@
-package org.usfirst.frc.team3695.robot.enumeration;
+package org.usfirst.frc.team3695.robot.enumeration.objective;
 
 /**
  * This enum defines the defenses that the robot can handle 
