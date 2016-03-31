@@ -3,7 +3,7 @@ package org.usfirst.frc.team3695.robot.subsystems;
 import org.usfirst.frc.team3695.robot.Constants;
 import org.usfirst.frc.team3695.robot.util.Loggable;
 
-import edu.wpi.first.wpilibj.TalonSRX;
+import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * ball into the arm.
  */
 public class SubsystemBall extends Subsystem implements Loggable {
-	private TalonSRX motor = new TalonSRX(Constants.BALL_MOTOR_PORT);
+	private CANTalon motor = new CANTalon(Constants.BALL_MOTOR_PORT);
 	private String motorStatus = "Stopped.";
 	
 	protected void initDefaultCommand() {

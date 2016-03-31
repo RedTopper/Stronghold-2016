@@ -7,6 +7,7 @@ import org.usfirst.frc.team3695.robot.commands.CommandDrive;
 import org.usfirst.frc.team3695.robot.util.Loggable;
 
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
+import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Joystick.RumbleType;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -19,10 +20,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * some unique sensors (like the accelerometer and stuff) that are included.
  */
 public class SubsystemDrive extends Subsystem implements Loggable {
-	private TalonSRX frontLeft;
-	private TalonSRX frontRight;
-	private TalonSRX rearLeft;
-	private TalonSRX rearRight;
+	private CANTalon frontLeft;
+	private CANTalon frontRight;
+	private CANTalon rearLeft;
+	private CANTalon rearRight;
 	private RobotDrive driveTrain;
 	private BuiltInAccelerometer builtInAccelerometer;
 	
@@ -42,10 +43,10 @@ public class SubsystemDrive extends Subsystem implements Loggable {
 	public SubsystemDrive() {
 		super();
 		
-		frontLeft = new TalonSRX(Constants.FRONT_LEFT_MOTOR_PORT);
-		frontRight = new TalonSRX(Constants.FRONT_RIGHT_MOTOR_PORT);
-		rearLeft = new TalonSRX(Constants.REAR_LEFT_MOTOR_PORT);
-		rearRight = new TalonSRX(Constants.REAR_RIGHT_MOTOR_PORT);
+		frontLeft = new CANTalon(Constants.FRONT_LEFT_MOTOR_PORT);
+		frontRight = new CANTalon(Constants.FRONT_RIGHT_MOTOR_PORT);
+		rearLeft = new CANTalon(Constants.REAR_LEFT_MOTOR_PORT);
+		rearRight = new CANTalon(Constants.REAR_RIGHT_MOTOR_PORT);
 		driveTrain = new RobotDrive(frontLeft,rearLeft,frontRight,rearRight);
 		
 		driveTrain.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, Constants.FRONT_LEFT_MOTOR_INVERT);
