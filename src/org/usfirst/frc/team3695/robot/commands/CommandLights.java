@@ -4,7 +4,6 @@ import org.usfirst.frc.team3695.robot.Robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class CommandLights extends Command {
 

@@ -2,12 +2,12 @@
 <dashboard>
 	<widget field="Catapult Completely Down" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
 		<location x="451" y="112"/>
-		<width>316</width>
+		<width>268</width>
 		<height>42</height>
 	</widget>
 	<widget field="Compressor Status" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
-		<location x="577" y="239"/>
-		<width>190</width>
+		<location x="533" y="239"/>
+		<width>186</width>
 		<height>41</height>
 	</widget>
 	<widget field="System Pressure" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.SimpleDial">
@@ -20,16 +20,16 @@
 		<height>248</height>
 	</static-widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
-		<location x="415" y="18"/>
+		<location x="384" y="18"/>
 		<height>14</height>
 		<property name="Text" value="...then do this..."/>
 	</static-widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
-		<location x="320" y="18"/>
+		<location x="304" y="18"/>
 		<property name="Text" value="...Do this..."/>
 	</static-widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
-		<location x="320" y="2"/>
+		<location x="304" y="2"/>
 		<property name="Text" value="Autonomous settings:"/>
 	</static-widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
@@ -43,8 +43,8 @@
 		<property name="Text" value="-------------New SmartDash things appear above.------------"/>
 	</static-widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.WebcamViewerExtension">
-		<location x="768" y="0"/>
-		<width>592</width>
+		<location x="720" y="0"/>
+		<width>640</width>
 		<height>480</height>
 	</static-widget>
 	<widget field="Drive Mode" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
@@ -57,19 +57,19 @@
 		<location x="2" y="2"/>
 	</widget>
 	<widget field="Cam Mode" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="400" y="16"/>
+		<location x="368" y="16"/>
 	</widget>
 	<widget field="Use camera to drive" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="592" y="59"/>
+		<location x="550" y="59"/>
 	</widget>
 	<widget field="Auto Mode" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="304" y="16"/>
+		<location x="288" y="16"/>
 	</widget>
 	<widget field="Scheduler" type="Scheduler" class="edu.wpi.first.smartdashboard.gui.elements.Scheduler">
 		<location x="124" y="9"/>
 	</widget>
 	<widget field="Disable Compressor" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="584" y="416"/>
+		<location x="542" y="412"/>
 	</widget>
 	<widget field="Do Lights" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
 		<location x="-2" y="24"/>
@@ -78,62 +78,62 @@
 		<location x="208" y="144"/>
 	</widget>
 	<widget field="Use camera to rotate LEFT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="560" y="15"/>
+		<location x="519" y="15"/>
 	</widget>
 	<widget field="Use camera to rotate RIGHT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="552" y="37"/>
+		<location x="511" y="37"/>
 	</widget>
 	<widget field="Piston Subsystem Status" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="324" y="239"/>
-		<width>252</width>
+		<width>208</width>
 	</widget>
 	<widget field="Goal Y" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="652" y="323"/>
+		<location x="603" y="323"/>
 	</widget>
 	<widget field="Latch State" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="327" y="176"/>
-		<width>441</width>
+		<width>392</width>
 		<height>20</height>
 	</widget>
 	<widget field="Bucket Position" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="310" y="218"/>
-		<width>458</width>
+		<width>409</width>
 	</widget>
 	<widget field="Speed Y" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="643" y="365"/>
+		<location x="594" y="365"/>
 	</widget>
 	<widget field="Goal X" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="652" y="302"/>
+		<location x="603" y="302"/>
 	</widget>
 	<widget field="Speed Z" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="643" y="386"/>
+		<location x="594" y="386"/>
 	</widget>
 	<widget field="System Information" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="-93" y="451"/>
-		<width>860</width>
+		<width>829</width>
 	</widget>
 	<widget field="Speed X" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="643" y="344"/>
+		<location x="594" y="344"/>
 	</widget>
 	<widget field="Team" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="416" y="281"/>
-		<width>352</width>
+		<width>303</width>
 	</widget>
 	<widget field="Latching Subsystem Status" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="313" y="260"/>
-		<width>263</width>
+		<width>219</width>
 	</widget>
 	<widget field="Camera Thread FPS" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="587" y="0"/>
+		<location x="538" y="0"/>
 	</widget>
 	<widget field="Piston State" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="324" y="197"/>
-		<width>444</width>
+		<width>395</width>
 		<height>20</height>
 	</widget>
 	<widget field="Auto Status: " type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="387" y="155"/>
-		<width>381</width>
+		<width>332</width>
 		<height>20</height>
 	</widget>
 </dashboard>

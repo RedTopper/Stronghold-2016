@@ -189,14 +189,14 @@ public class Robot extends IterativeRobot {
 		
 		//define MiB.
 		final long MB = 1024 * 1024;
-		SmartDashboard.putString("System Information",
-				"Ticks Per Second: " + tps + "\n" 
-				+ "Threads: About " + Thread.activeCount() + "\n"
-				+ "Free memory: " + (r.freeMemory() / MB) + "MiB\n" 
-				+ "Used memory: " + ((r.totalMemory() - r.freeMemory()) / MB) + "MiB\n" 
-				+ "Allocated memory: " + (r.totalMemory() / MB) + "MiB\n"
-				+ "Max memory: " + (r.maxMemory() / MB) + "MiB\n"
-				+ "Total Free memory: " + ((r.freeMemory() + (r.maxMemory() - r.totalMemory())) / MB) + "MiB\n");
+		SmartDashboard.putString("System Information:",
+				"|Ticks Per Second: " + tps 
+				+ "|Threads: " + Thread.activeCount()
+				+ "|Free mem: " + (r.freeMemory() / MB) 
+				+ "|Used mem: " + ((r.totalMemory() - r.freeMemory()) / MB) + "MiB" 
+				+ "|Allocated mem: " + (r.totalMemory() / MB) + "MiB"
+				+ "|Max mem: " + (r.maxMemory() / MB) + "MiB"
+				+ "|Total Free mem: " + ((r.freeMemory() + (r.maxMemory() - r.totalMemory())) / MB) + "MiB\n");
 		
     }
     

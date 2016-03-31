@@ -33,11 +33,11 @@ public class Constants {
 	/**
 	 * Port for driving motors.
 	 */
-	public static final int FRONT_LEFT_MOTOR_PORT = 0,
-							FRONT_RIGHT_MOTOR_PORT = 1,
+	public static final int FRONT_LEFT_MOTOR_PORT = 1,
+							FRONT_RIGHT_MOTOR_PORT = 5,
 							REAR_LEFT_MOTOR_PORT = 2,
-							REAR_RIGHT_MOTOR_PORT = 3,
-							BALL_MOTOR_PORT = 4;
+							REAR_RIGHT_MOTOR_PORT = 4,
+							BALL_MOTOR_PORT = 3;
 	
 	/**
 	 * Analog Port used for sensors.
