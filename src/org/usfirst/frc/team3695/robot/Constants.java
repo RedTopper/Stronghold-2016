@@ -33,10 +33,10 @@ public class Constants {
 	/**
 	 * Port for driving motors.
 	 */
-	public static final int FRONT_LEFT_MOTOR_PORT = 3,
-							FRONT_RIGHT_MOTOR_PORT = 2,
-							REAR_LEFT_MOTOR_PORT = 1,
-							REAR_RIGHT_MOTOR_PORT = 0,
+	public static final int FRONT_LEFT_MOTOR_PORT = 0,
+							FRONT_RIGHT_MOTOR_PORT = 1,
+							REAR_LEFT_MOTOR_PORT = 2,
+							REAR_RIGHT_MOTOR_PORT = 3,
 							BALL_MOTOR_PORT = 4;
 	
 	/**
@@ -45,7 +45,7 @@ public class Constants {
 	public static final int ULTRASONIC_INPUT = 0,
 							TRANSDUCER_PORT = 1,
 							PHOTO_LOADED_PORT = 2,
-							BUTTON_INPUT = 3;
+							BUTTON_INPUT = 0;
 	
 	/**
 	 * Ultrasonic ranges in inches.
@@ -75,9 +75,9 @@ public class Constants {
 	 * True if the motor is inverted. False otherwise.
 	 */
 	public static final boolean FRONT_LEFT_MOTOR_INVERT = true,
-								FRONT_RIGHT_MOTOR_INVERT = false,
+								FRONT_RIGHT_MOTOR_INVERT = true,
 								REAR_LEFT_MOTOR_INVERT = false,
-								REAR_RIGHT_MOTOR_INVERT = false,
+								REAR_RIGHT_MOTOR_INVERT = true,
 								BALL_MOTOR_INVERT = true;
 	
 	/**
@@ -112,10 +112,10 @@ public class Constants {
 	 */
 	public static final int BUCKET_SOLENOID_UP = 0,
 							BUCKET_SOLENOID_DOWN = 1,
-							LATCH_SOLENOID_ENGAGE = 2,
-							LATCH_SOLENOID_DISENGAGE = 3,
-							ARM_PISTON_SOLENOID_UP = 4,
-							ARM_PISTON_SOLENOID_DOWN = 5;
+							LATCH_SOLENOID_ENGAGE = 3,
+							LATCH_SOLENOID_DISENGAGE = 2,
+							ARM_PISTON_SOLENOID_UP = 5,
+							ARM_PISTON_SOLENOID_DOWN = 4;
 	
 	/**
 	 * LED PCM Ports
