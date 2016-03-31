@@ -2,6 +2,8 @@ package org.usfirst.frc.team3695.robot;
 
 import org.usfirst.frc.team3695.robot.commands.CommandBall;
 import org.usfirst.frc.team3695.robot.commands.CommandDriveWithCam;
+import org.usfirst.frc.team3695.robot.commands.CommandFlash;
+import org.usfirst.frc.team3695.robot.commands.CommandLights;
 import org.usfirst.frc.team3695.robot.commands.CommandRotateWithCam;
 import org.usfirst.frc.team3695.robot.commands.pneumatics.CommandCompressorToggle;
 import org.usfirst.frc.team3695.robot.commands.pneumatics.CommandMoveArm;
@@ -52,7 +54,8 @@ public class OI {
 		SmartDashboard.putData("Use camera to rotate RIGHT", new CommandRotateWithCam(RotateWithCam.ROTATE_RIGHT_OVERALL));
 		SmartDashboard.putData("Use camera to rotate LEFT", new CommandRotateWithCam(RotateWithCam.ROTATE_LEFT_OVERALL));
 		SmartDashboard.putData("Use camera to drive", new CommandDriveWithCam());
-		//SmartDashboard.putData("Do Lights", new CommandLights()); //Get your code to work first pls.
+		SmartDashboard.putData("Do Lights", new CommandLights()); //Get your code to work first pls.
+		SmartDashboard.putData("Do Flash", new CommandFlash());
 		
 		//Compressor Toggle
 		SmartDashboard.putData("Disable Compressor", new CommandCompressorToggle());
