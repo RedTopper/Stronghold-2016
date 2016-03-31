@@ -42,7 +42,7 @@ public class Constants {
 	/**
 	 * Analog Port used for sensors.
 	 */
-	public static final int ULTRASONIC_INPUT = 0,
+	public static final int ULTRASONIC_INPUT = 3,
 							TRANSDUCER_PORT = 1,
 							PHOTO_LOADED_PORT = 2,
 							BUTTON_INPUT = 0;
@@ -74,10 +74,10 @@ public class Constants {
 	/**
 	 * True if the motor is inverted. False otherwise.
 	 */
-	public static final boolean FRONT_LEFT_MOTOR_INVERT = true,
-								FRONT_RIGHT_MOTOR_INVERT = true,
+	public static final boolean FRONT_LEFT_MOTOR_INVERT = false,
+								FRONT_RIGHT_MOTOR_INVERT = false,
 								REAR_LEFT_MOTOR_INVERT = false,
-								REAR_RIGHT_MOTOR_INVERT = true,
+								REAR_RIGHT_MOTOR_INVERT = false,
 								BALL_MOTOR_INVERT = true;
 	
 	/**
