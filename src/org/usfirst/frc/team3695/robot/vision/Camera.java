@@ -171,11 +171,11 @@ public class Camera extends Thread implements Runnable {
 					}
 					double[] xy = getGoalXY();
 					NIVision.imaqDrawShapeOnImage(frontFrame, frontFrame, new Rect((int)xy[1] - 4, (int)xy[0] - 4, 8, 8), DrawMode.PAINT_VALUE, ShapeMode.SHAPE_RECT, Util.getColor(0x00, 0x00, 0xFF));
+					drawCroshair(frontFrame, Util.setAndGetNumber("CAM", "Cross X", 320), Util.setAndGetNumber("CAM", "Cross Y", 135), 40, 40);
 					CameraServer.getInstance().setImage(frontFrame);
 					break out;
 				case FRONT_CAM:
 					frontCam.getImage(frontFrame);
-					//Should be a Box
 					drawCroshair(frontFrame, Util.setAndGetNumber("CAM", "Cross X", 320), Util.setAndGetNumber("CAM", "Cross Y", 135), 40, 40);
 					CameraServer.getInstance().setImage(frontFrame);
 					break out;

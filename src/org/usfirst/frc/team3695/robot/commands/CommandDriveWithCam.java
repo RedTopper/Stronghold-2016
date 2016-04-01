@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class CommandDriveWithCam extends Command {
 	private boolean complete;
 	private int calibration = Util.setAndGetNumber("FWD", "Calibration Value", 10);
-	private int center = Util.setAndGetNumber("FWD", "Center Offset Value", 100);
+	private int center = Util.setAndGetNumber("CAM", "Cross Y", 135);
 	private int errors = 0;
 	
 	private long lastTime = 0;
@@ -38,7 +38,7 @@ public class CommandDriveWithCam extends Command {
     		return;
     	}
     	calibration = Util.setAndGetNumber("FWD", "Calibration Value", 10);
-    	center = Util.setAndGetNumber("FWD", "Center Offset Value", 100);
+    	center = Util.setAndGetNumber("CAM", "Cross Y", 135);
     	if(cam != null) {
     		cam.controllerable(false);
     		cam.switchCam(Cam.FRONT_PROCESSED);
@@ -63,9 +63,9 @@ public class CommandDriveWithCam extends Command {
 		}
     	double goalY = cam.getGoalXY()[1];
 		if(goalY != -1.0) {
-    		if(goalY > (double)(CameraConstants.LOW_RES_CAMERA_WIDTH)/2.0 - calibration - center) {
+    		if(goalY > (double)(center + calibration)) {
     			Robot.driveSubsystem.tankdrive(0.5, 0.5);
-    		} else if(goalY < (double)(CameraConstants.LOW_RES_CAMERA_WIDTH)/2.0 + calibration - center) {
+    		} else if(goalY < (double)(center - calibration)) {
     			Robot.driveSubsystem.tankdrive(-0.5, -0.5);
     		} else {
     			complete = true;

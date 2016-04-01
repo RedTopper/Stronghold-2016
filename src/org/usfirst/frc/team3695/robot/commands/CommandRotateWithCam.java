@@ -19,7 +19,7 @@ public class CommandRotateWithCam extends Command {
 	private boolean complete;
 	private int stage = 0;
 	private int calibration = Util.setAndGetNumber("ROT", "Calibration Value", 10);
-	private int center = Util.setAndGetNumber("ROT", "Center Offset Value", 0);
+	private int center = Util.setAndGetNumber("CAM", "Cross X", 320);
 	private int errors = 0;
 	
 	private long lastTime = 0;
@@ -44,7 +44,7 @@ public class CommandRotateWithCam extends Command {
     		return;
     	}
     	calibration = Util.setAndGetNumber("ROT", "Calibration Value", 10);
-    	center = Util.setAndGetNumber("ROT", "Center Offset Value", 0);
+    	center = Util.setAndGetNumber("CAM", "Cross X", 320);
     	stage = 0;
     	if(cam != null) {
     		cam.controllerable(false);
@@ -94,9 +94,9 @@ public class CommandRotateWithCam extends Command {
     	
     	if(stage == 1) {
     		if(goalX != -1.0) {
-	    		if(goalX > (double)(CameraConstants.LOW_RES_CAMERA_WIDTH)/2.0 + calibration + center) {
+	    		if(goalX > (double)(center + calibration)) {
 	    			Robot.driveSubsystem.tankdrive(0.75, -0.75);
-	    		} else if(goalX < (double)(CameraConstants.LOW_RES_CAMERA_WIDTH)/2.0 - calibration + center) {
+	    		} else if(goalX < (double)(center - calibration)) {
 	    			Robot.driveSubsystem.tankdrive(-0.75, 0.75);
 	    		} else {
 	    			complete = true;
