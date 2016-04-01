@@ -54,7 +54,7 @@ public class OI {
 		SmartDashboard.putData("Use camera to rotate RIGHT", new CommandRotateWithCam(RotateWithCam.ROTATE_RIGHT_OVERALL));
 		SmartDashboard.putData("Use camera to rotate LEFT", new CommandRotateWithCam(RotateWithCam.ROTATE_LEFT_OVERALL));
 		SmartDashboard.putData("Use camera to drive", new CommandDriveWithCam());
-		SmartDashboard.putData("Do Lights", new CommandLights()); //Get your code to work first pls.
+		SmartDashboard.putData("Do Lights", new CommandLights());
 		SmartDashboard.putData("Do Flash", new CommandFlash());
 		
 		//Compressor Toggle
@@ -148,7 +148,7 @@ public class OI {
 	 * functions of the controller. Generally, this method should be unused
 	 * because the command scheduler should override the controls that
 	 * are needed for the controller to function. If, however, it is 
-	 * neccicsary for one to manually accept input for an axis. d-pad, or
+	 * necessary for one to manually accept input for an axis. d-pad, or
 	 * button, that should be done here.
 	 */
 	public void updateJoyManual() {

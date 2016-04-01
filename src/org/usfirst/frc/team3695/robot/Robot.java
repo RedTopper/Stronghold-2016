@@ -4,6 +4,7 @@ package org.usfirst.frc.team3695.robot;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import org.usfirst.frc.team3695.robot.commands.CommandLights;
 import org.usfirst.frc.team3695.robot.enumeration.objective.Defense;
 import org.usfirst.frc.team3695.robot.enumeration.objective.RotateWithCam;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemBall;
@@ -110,6 +111,9 @@ public class Robot extends IterativeRobot {
 
         // Show what command your subsystem is running on the SmartDashboard
         SmartDashboard.putData(Scheduler.getInstance()); //Shows everything the robot is running. In theory.
+        
+        CommandLights bling = new CommandLights();
+        bling.start();
     }
 
     //AUTONOMOUS ZONE:
