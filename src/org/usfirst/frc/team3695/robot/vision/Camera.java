@@ -176,7 +176,7 @@ public class Camera extends Thread implements Runnable {
 				case FRONT_CAM:
 					frontCam.getImage(frontFrame);
 					//Should be a Box
-					NIVision.imaqDrawShapeOnImage(frontFrame, frontFrame, new Rect((480/2) - 180,(640/2) - 50, 75, 75), DrawMode.PAINT_VALUE, ShapeMode.SHAPE_RECT, Util.getColor(255,255,255));
+					drawCroshair(frontFrame, Util.setAndGetNumber("CAM", "Cross X", 320), Util.setAndGetNumber("CAM", "Cross Y", 135), 40, 40);
 					CameraServer.getInstance().setImage(frontFrame);
 					break out;
 				case REAR_CAM:
@@ -383,5 +383,16 @@ public class Camera extends Thread implements Runnable {
 			SmartDashboard.putNumber("Goal Y", y);
 			return new double[]{(double)x,(double)y};
 		}
+	}
+	
+	private void drawCroshair(Image frame,int x,int y,int w, int h) {
+		final int WIDTH = 50,
+				  HEIGHT = 50,
+				  BAR_WIDTH = 6,
+				  BAR_HEIGHT = 6;
+		
+		NIVision.imaqDrawShapeOnImage(frontFrame, frontFrame, new Rect(y, x, h, w), DrawMode.PAINT_VALUE, ShapeMode.SHAPE_OVAL, Util.getColor(255,255,255));
+		NIVision.imaqDrawShapeOnImage(frontFrame, frontFrame, new Rect(y + h / 2 - BAR_HEIGHT/2, x + w / 2 - WIDTH, BAR_HEIGHT, WIDTH*2), DrawMode.PAINT_VALUE, ShapeMode.SHAPE_RECT, Util.getColor(255,255,255));
+		NIVision.imaqDrawShapeOnImage(frontFrame, frontFrame, new Rect(y + h / 2 - HEIGHT,  x + w / 2 - BAR_WIDTH/2, HEIGHT*2, BAR_WIDTH), DrawMode.PAINT_VALUE, ShapeMode.SHAPE_RECT, Util.getColor(255,255,255));
 	}
 }

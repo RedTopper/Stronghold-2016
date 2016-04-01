@@ -1,5 +1,9 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="System Information:" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="-97" y="452"/>
+		<width>815</width>
+	</widget>
 	<widget field="Catapult Completely Down" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
 		<location x="451" y="112"/>
 		<width>268</width>
@@ -108,10 +112,6 @@
 	<widget field="Speed Z" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="594" y="386"/>
 	</widget>
-	<widget field="System Information" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="-93" y="451"/>
-		<width>829</width>
-	</widget>
 	<widget field="Speed X" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="594" y="344"/>
 	</widget>
@@ -139,4 +139,5 @@
 </dashboard>
 <live-window>
 </live-window>
+	<hidden field="System Information"/>
 </xml>
