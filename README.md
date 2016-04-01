@@ -8,16 +8,12 @@ Code for FRC Robotics Team 3695
 - [x] Update/Document constants on a per robot basis
 - [x] Auto Targeting
 - [x] Complete Autonomous
-- [ ] Autonomous Calibration
-- [ ] Make code readable for future students
-- [ ] Pneumatics safety checks (Dumb Driver Checks)
-- [ ] Correct Transducer Wiring
-- [ ] Rewire CAN
-- [ ] Sensors Mounting
-- [ ] Ultrasonic Sensor testing/calibrating
-- [ ] Solder resistors for Photoelectric Sensor
-- [ ] Photoelectric Sensor testing
-- [ ] TalonSRX CAN Wiring/Testing
+- [X] Autonomous Calibration
+- [X] Make code readable for future students
+- [X] Correct Transducer Wiring
+- [X] Rewire CAN
+- [X] Sensors Mounting
+- [X] TalonSRX CAN Wiring/Testing
 
 
 ### Contributors (Program Team 2016)
