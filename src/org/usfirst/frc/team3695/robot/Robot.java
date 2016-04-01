@@ -4,7 +4,6 @@ package org.usfirst.frc.team3695.robot;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import org.usfirst.frc.team3695.robot.commands.CommandLights;
 import org.usfirst.frc.team3695.robot.enumeration.objective.Defense;
 import org.usfirst.frc.team3695.robot.enumeration.objective.RotateWithCam;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemBall;
@@ -109,15 +108,16 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData("Cam Mode", camChooser);
         
 
-        // Show what command your subsystem is running on the SmartDashboard
+        //Show what command your subsystem is running on the SmartDashboard
         SmartDashboard.putData(Scheduler.getInstance()); //Shows everything the robot is running. In theory.
         
-        CommandLights bling = new CommandLights();
-        bling.start();
+        //Flash when Robot Turns Boots Up - Debug/status
+        blingSubsystem.setFlashTime(5000);
     }
 
     //AUTONOMOUS ZONE:
     public void autonomousInit() {
+    	blingSubsystem.setFlashTime(15000);
     	STOP_AUTO = null;
     	AUTOING = true;
         autonomousCommand = new Autonomous((Defense)(autoChooser.getSelected()), (RotateWithCam)(camChooser.getSelected()));
