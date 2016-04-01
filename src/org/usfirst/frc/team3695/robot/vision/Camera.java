@@ -171,12 +171,12 @@ public class Camera extends Thread implements Runnable {
 					}
 					double[] xy = getGoalXY();
 					NIVision.imaqDrawShapeOnImage(frontFrame, frontFrame, new Rect((int)xy[1] - 4, (int)xy[0] - 4, 8, 8), DrawMode.PAINT_VALUE, ShapeMode.SHAPE_RECT, Util.getColor(0x00, 0x00, 0xFF));
-					drawCroshair(frontFrame, Util.setAndGetNumber("CAM", "Cross X", 320), Util.setAndGetNumber("CAM", "Cross Y", 135), 40, 40);
+					drawCroshair(frontFrame, Util.setAndGetNumber("CAM", "Cross X", 320), Util.setAndGetNumber("CAM", "Cross Y", 135), 40, 40, false);
 					CameraServer.getInstance().setImage(frontFrame);
 					break out;
 				case FRONT_CAM:
 					frontCam.getImage(frontFrame);
-					drawCroshair(frontFrame, Util.setAndGetNumber("CAM", "Cross X", 320), Util.setAndGetNumber("CAM", "Cross Y", 135), 40, 40);
+					drawCroshair(frontFrame, Util.setAndGetNumber("CAM", "Cross X", 320), Util.setAndGetNumber("CAM", "Cross Y", 135), 40, 40, true);
 					CameraServer.getInstance().setImage(frontFrame);
 					break out;
 				case REAR_CAM:
@@ -385,11 +385,22 @@ public class Camera extends Thread implements Runnable {
 		}
 	}
 	
-	private void drawCroshair(Image frame,int x,int y,int w, int h) {
-		final int WIDTH = 50,
-				  HEIGHT = 50,
-				  BAR_WIDTH = 6,
-				  BAR_HEIGHT = 6;
+	private void drawCroshair(Image frame,int x,int y,int w, int h, boolean large) {
+		int WIDTH = 50,
+			HEIGHT = 100,
+			BAR_WIDTH = 6,
+			BAR_HEIGHT = 6;
+		if(!large) {
+			WIDTH /= 2;
+			HEIGHT /= 2;
+			BAR_WIDTH /= 2;
+			BAR_HEIGHT /= 2;
+			x /= 2;
+			y /= 2;
+			w /= 2;
+			h /= 2;
+		}
+		
 		
 		NIVision.imaqDrawShapeOnImage(frontFrame, frontFrame, new Rect(y, x, h, w), DrawMode.PAINT_VALUE, ShapeMode.SHAPE_OVAL, Util.getColor(255,255,255));
 		NIVision.imaqDrawShapeOnImage(frontFrame, frontFrame, new Rect(y + h / 2 - BAR_HEIGHT/2, x + w / 2 - WIDTH, BAR_HEIGHT, WIDTH*2), DrawMode.PAINT_VALUE, ShapeMode.SHAPE_RECT, Util.getColor(255,255,255));

@@ -4,9 +4,11 @@ import org.usfirst.frc.team3695.robot.commands.CommandDriveTime;
 import org.usfirst.frc.team3695.robot.commands.CommandDriveWithCam;
 import org.usfirst.frc.team3695.robot.commands.CommandRotateWithCam;
 import org.usfirst.frc.team3695.robot.commands.pneumatics.CommandMoveArm;
+import org.usfirst.frc.team3695.robot.commands.pneumatics.CommandMoveArmRaw;
 import org.usfirst.frc.team3695.robot.commands.pneumatics.CommandMoveBucket;
 import org.usfirst.frc.team3695.robot.enumeration.objective.Defense;
 import org.usfirst.frc.team3695.robot.enumeration.objective.MoveArm;
+import org.usfirst.frc.team3695.robot.enumeration.objective.MoveArmRaw;
 import org.usfirst.frc.team3695.robot.enumeration.objective.MoveBucket;
 import org.usfirst.frc.team3695.robot.enumeration.objective.RotateWithCam;
 import org.usfirst.frc.team3695.robot.util.CommandDoNothing;
@@ -25,6 +27,12 @@ public class Autonomous extends CommandGroup {
 	 * @param objectiveDirection Witch way we need to rotate to view the goal.
 	 */
 	public Autonomous(Defense objectiveDefense, RotateWithCam objectiveDirection) {
+		for(int i = 0; i < 2; i++) {
+			addSequential(new CommandMoveArmRaw(MoveArmRaw.UNLOCK_LATCH));
+			addSequential(new CommandDoNothing(500));
+			addSequential(new CommandMoveArmRaw(MoveArmRaw.LOCK_LATCH));
+			addSequential(new CommandDoNothing(500));
+		}
 		switch(objectiveDefense) {
 		case NOTHING:
 			break;

@@ -16,12 +16,12 @@
 	</widget>
 	<widget field="System Pressure" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.SimpleDial">
 		<location x="304" y="301"/>
-		<property name="Upper Limit" value="130.0"/>
+		<property name="Upper Limit" value="120.0"/>
 	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.RobotPreferences">
-		<location x="0" y="200"/>
+		<location x="0" y="208"/>
 		<width>304</width>
-		<height>248</height>
+		<height>240</height>
 	</static-widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
 		<location x="384" y="18"/>
@@ -70,7 +70,7 @@
 		<location x="288" y="16"/>
 	</widget>
 	<widget field="Scheduler" type="Scheduler" class="edu.wpi.first.smartdashboard.gui.elements.Scheduler">
-		<location x="124" y="9"/>
+		<location x="3" y="54"/>
 	</widget>
 	<widget field="Disable Compressor" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
 		<location x="542" y="412"/>
@@ -139,5 +139,4 @@
 </dashboard>
 <live-window>
 </live-window>
-	<hidden field="System Information"/>
 </xml>

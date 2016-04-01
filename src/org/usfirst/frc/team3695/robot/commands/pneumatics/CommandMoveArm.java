@@ -2,6 +2,7 @@ package org.usfirst.frc.team3695.robot.commands.pneumatics;
 
 import org.usfirst.frc.team3695.robot.Robot;
 import org.usfirst.frc.team3695.robot.enumeration.objective.MoveArm;
+import org.usfirst.frc.team3695.robot.util.Logger;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -23,6 +24,7 @@ public class CommandMoveArm extends Command {
 	}
 	
 	protected void initialize() {
+		Logger.debug(Robot.sensorsSubsystem.getPressure() + " PSI Before moving Arm");
     	complete = false;
     	if(Robot.AUTOING && Robot.STOP_AUTO != null) {
     		complete = true;

@@ -58,8 +58,8 @@ public class Constants {
 	 * Scalar for Pnuematics (Converts volts to ~ PSI).
 	 * Generic linear MX + B equation.
 	 */
-	public static final double TRANSDUCER_SCALAR = 25.0,
-							   TRANSDUCER_B = -12.5;
+	public static final double TRANSDUCER_SCALAR = 24.866,
+							   TRANSDUCER_B = 9.365;
 	
 	/**
 	 * Limit for the Photoelectric Sensor

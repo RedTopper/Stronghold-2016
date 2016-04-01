@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class CommandDriveWithCam extends Command {
 	private boolean complete;
 	private int calibration = Util.setAndGetNumber("FWD", "Calibration Value", 10);
-	private int center = Util.setAndGetNumber("CAM", "Cross Y", 135);
+	private int center = Util.setAndGetNumber("CAM", "Cross Y", 135) / 2;
 	private int errors = 0;
 	
 	private long lastTime = 0;
@@ -37,7 +37,7 @@ public class CommandDriveWithCam extends Command {
     		complete = true;
     		return;
     	}
-    	calibration = Util.setAndGetNumber("FWD", "Calibration Value", 10);
+    	calibration = Util.setAndGetNumber("FWD", "Calibration Value", 10) / 2; //Image is half normal
     	center = Util.setAndGetNumber("CAM", "Cross Y", 135);
     	if(cam != null) {
     		cam.controllerable(false);

@@ -19,7 +19,7 @@ public class CameraConstants {
 	/**
 	 * Amount of time that the robot will rotate before timing out in seconds.
 	 */
-	public static final int MAX_ROTATE_TIME = 5;
+	public static final int MAX_ROTATE_TIME = 7;
 	
 	/**
 	 * Amount of time that the robot will rotate before timing out in seconds.
