@@ -73,7 +73,7 @@ public class CommandRotateWithCam extends Command {
     	switch(objective) {
     	case ROTATE_RIGHT_OVERALL:
     		if(stage == 0) {
-    			Robot.driveSubsystem.tankdrive(0.75, -0.75);
+    			Robot.driveSubsystem.tankdrive(0.73, -0.73);
     			if(goalX != -1.0 && goalX > 0.0) {
     				stage++;
     			}
@@ -81,7 +81,7 @@ public class CommandRotateWithCam extends Command {
     		break;
     	case ROTATE_LEFT_OVERALL:
     		if(stage == 0) {
-    			Robot.driveSubsystem.tankdrive(-0.75, 0.75);
+    			Robot.driveSubsystem.tankdrive(-0.73, 0.73);
     			if(goalX != -1.0 && goalX > 0.0) {
     				stage++;
     			}
@@ -95,9 +95,9 @@ public class CommandRotateWithCam extends Command {
     	if(stage == 1) {
     		if(goalX != -1.0) {
 	    		if(goalX > (double)(center + calibration)) {
-	    			Robot.driveSubsystem.tankdrive(0.75, -0.75);
+	    			Robot.driveSubsystem.tankdrive(0.73, -0.73);
 	    		} else if(goalX < (double)(center - calibration)) {
-	    			Robot.driveSubsystem.tankdrive(-0.75, 0.75);
+	    			Robot.driveSubsystem.tankdrive(-0.73, 0.73);
 	    		} else {
 	    			complete = true;
 	    			Logger.out("So the camera ended here: " + goalX);

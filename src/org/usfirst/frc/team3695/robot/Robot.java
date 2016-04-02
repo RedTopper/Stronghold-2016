@@ -135,6 +135,7 @@ public class Robot extends IterativeRobot {
     	AUTOING = false;
     	if(autonomousCommand != null) {
     		autonomousCommand.cancel();
+    		autonomousCommand = null;
     	}
     }
     
@@ -149,6 +150,7 @@ public class Robot extends IterativeRobot {
     	AUTOING = false;
     	if(autonomousCommand != null) {
     		autonomousCommand.cancel();
+    		autonomousCommand = null;
     	}
     }
     

@@ -54,7 +54,7 @@ public class SubsystemBling extends Subsystem implements Loggable {
 	/**
 	 * Used during auto or other functions to do non-abusive flash timing
 	 */
-	private void flash(){
+	public void flash(){
 		timeCount++;
 		if (timeCount % 10 == 0){
 			setLEDS(magic, !magic);
@@ -95,6 +95,8 @@ public class SubsystemBling extends Subsystem implements Loggable {
 		//Flashing Logic
 		if ((flashUntil - curTime) >= 0) //if still flashing (based on time)
 			flash();
+//		else if (DriverStation.getInstance().getMatchTime() > 10.0)
+//			flash();
 		else //if not still flashing (Teleop)
 			updateAlliance();
 	}

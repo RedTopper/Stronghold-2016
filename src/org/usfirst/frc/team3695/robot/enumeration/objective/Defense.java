@@ -6,5 +6,5 @@ package org.usfirst.frc.team3695.robot.enumeration.objective;
  * during autonomous.
  */
 public enum Defense {
-	NOTHING, LOW_BAR, RAMPARTS, ROUGH_TERRAIN, MOAT, ROCK_WALL
+	NOTHING, LOW_BAR, RAMPARTS, ROUGH_TERRAIN, MOAT, ROCK_WALL, PORTCULLIS
 }

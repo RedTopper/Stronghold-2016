@@ -27,12 +27,13 @@ public class Autonomous extends CommandGroup {
 	 * @param objectiveDirection Witch way we need to rotate to view the goal.
 	 */
 	public Autonomous(Defense objectiveDefense, RotateWithCam objectiveDirection) {
-		for(int i = 0; i < 2; i++) {
-			addSequential(new CommandMoveArmRaw(MoveArmRaw.UNLOCK_LATCH));
-			addSequential(new CommandDoNothing(500));
-			addSequential(new CommandMoveArmRaw(MoveArmRaw.LOCK_LATCH));
-			addSequential(new CommandDoNothing(500));
+		if(objectiveDefense == Defense.PORTCULLIS) {
+			addSequential(new CommandMoveBucket(MoveBucket.MOVE_DOWN));
 		}
+		addSequential(new CommandMoveArmRaw(MoveArmRaw.UNLOCK_LATCH));
+		addSequential(new CommandMoveArmRaw(MoveArmRaw.LOCK_LATCH));
+		addSequential(new CommandMoveArmRaw(MoveArmRaw.UNLOCK_LATCH));
+		addSequential(new CommandMoveArmRaw(MoveArmRaw.LOCK_LATCH));
 		switch(objectiveDefense) {
 		case NOTHING:
 			break;
@@ -57,6 +58,12 @@ public class Autonomous extends CommandGroup {
 			addSequential(new CommandDriveTime(Util.setAndGetNumber("TIME", "Rough Terrain", 3500), Util.setAndGetDouble("SPEED", "Rough Terrain", 0.6)));
 			finalize(objectiveDirection);
 			break;
+		case PORTCULLIS:
+			addSequential(new CommandDriveTime(Util.setAndGetNumber("TIME", "Portcullis STAGE 1", 1000), Util.setAndGetDouble("SPEED", "Portcullis STAGE 1", -0.6)));
+			addSequential(new CommandMoveBucket(MoveBucket.MOVE_UP));
+			addSequential(new CommandDriveTime(Util.setAndGetNumber("TIME", "Portcullis STAGE 2", 1000), Util.setAndGetDouble("SPEED", "Portcullis STAGE 2", -0.6)));
+			finalize(objectiveDirection);
+			break;
 		}
 	}
 	
@@ -74,6 +81,7 @@ public class Autonomous extends CommandGroup {
 			addSequential(new CommandMoveBucket(MoveBucket.MOVE_UP));
 			addSequential(new CommandRotateWithCam(objectiveDirection));
 			addSequential(new CommandDriveWithCam());
+			addSequential(new CommandRotateWithCam(objectiveDirection));
 			addSequential(new CommandMoveBucket(MoveBucket.MOVE_DOWN));
 			addSequential(new CommandDoNothing(1000));
 			addSequential(new CommandMoveArm(MoveArm.FIRE));

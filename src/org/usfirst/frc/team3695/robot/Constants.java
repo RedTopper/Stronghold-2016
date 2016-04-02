@@ -120,8 +120,8 @@ public class Constants {
 	/**
 	 * LED PCM Ports
 	 */
-	public static final int RED_LED_PORT = 6,
-							BLUE_LED_PORT = 7;
+	public static final int RED_LED_PORT = 7,
+							BLUE_LED_PORT = 6;
 	
 	/**
 	 * Multiplier used when the b button is not held.

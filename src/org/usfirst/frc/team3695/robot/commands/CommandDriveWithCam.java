@@ -37,8 +37,8 @@ public class CommandDriveWithCam extends Command {
     		complete = true;
     		return;
     	}
-    	calibration = Util.setAndGetNumber("FWD", "Calibration Value", 10) / 2; //Image is half normal
-    	center = Util.setAndGetNumber("CAM", "Cross Y", 135);
+    	calibration = Util.setAndGetNumber("FWD", "Calibration Value", 10);
+    	center = Util.setAndGetNumber("CAM", "Cross Y", 135) / 2; //Image is half normal
     	if(cam != null) {
     		cam.controllerable(false);
     		cam.switchCam(Cam.FRONT_PROCESSED);

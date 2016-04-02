@@ -80,8 +80,14 @@ public class SubsystemDrive extends Subsystem implements Loggable {
 		double[] tank = Controller.DRIVE_AXIS();
 		tankdrive(tank[0],tank[1]);
 		if(Robot.isRumbleEnabled()) {
-			joy.setRumble(RumbleType.kLeftRumble, (System.currentTimeMillis() < timeStartRumble + Constants.RUMBLE_TIME_MS ? 1.0f : 0.0f));
-			joy.setRumble(RumbleType.kRightRumble, (System.currentTimeMillis() < timeStartRumble + Constants.RUMBLE_TIME_MS ? 1.0f : 0.0f));
+			if (System.currentTimeMillis() < timeStartRumble + Constants.RUMBLE_TIME_MS) {
+				joy.setRumble(RumbleType.kLeftRumble, 1.0f);
+				joy.setRumble(RumbleType.kRightRumble, 1.0f);
+				Robot.blingSubsystem.flash();
+			} else {
+				joy.setRumble(RumbleType.kLeftRumble, 0.0f);
+				joy.setRumble(RumbleType.kRightRumble, 0.0f);
+			}
 		}
 	}
 	
